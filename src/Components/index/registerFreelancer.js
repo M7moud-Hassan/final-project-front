@@ -11,7 +11,6 @@ class RegisterFreelancer extends Component{
     render(){
         return(
             <div>
-              
   <nav class="navbar navbar-expand-lg navbar-light bg-white">
     <div class="container">
       <a class="navbar-brand" href="#"><img src="logo/upwork.svg" alt="Logo"></img></a>
