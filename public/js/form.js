@@ -14,11 +14,11 @@ emailInput.addEventListener('input', function() {
   emailFeedback.innerText = emailInput.validationMessage;
   
   if (emailInput.validity.valid) {
-    emailFeedback.style.display = "block!impotant";
-    emailFeedback.style.display = "none";
-  } else {  
-    emailFeedback.style.display = "none";
-    emailFeedback.style.display = "block";
+    emailFeedback.classList.remove('d-block');
+    emailFeedback.classList.add('d-none');
+  } else {
+    emailFeedback.classList.remove('d-none');
+    emailFeedback.classList.add('d-block');
   }
 });
 
