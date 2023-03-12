@@ -1,4 +1,3 @@
-
 const emailInput = document.querySelector('#email');
 const emailFeedback = document.querySelector('#email-feedback');
 
