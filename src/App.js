@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 // import logo from './logo.svg';
 
 import Home from "./Components/Home";
+import Footer from "./Components/Footer";
 
 class App extends Component{
     constructor(){
@@ -24,7 +25,7 @@ class App extends Component{
                             <Route path='/home' element={<Home/>}/>
                             {/* <Route path='/*' element={<Error/>}/> */}
                         </Routes>
-                    {/* <Footer/>  */}
+                    <Footer/> 
                 </BrowserRouter>
             )
         }
