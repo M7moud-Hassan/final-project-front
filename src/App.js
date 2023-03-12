@@ -1,13 +1,13 @@
 import logo from './logo.svg';
 import './App.css';
 
-import  RegisterFreelancer  from './components/index'
 import { BrowserRouter } from "react-router-dom";
+import Home from './Components/Home';
 
 function App() {
   return (
     <div>
-      <RegisterFreelancer/>
+      <Home/>
     </div> 
   )
 }
