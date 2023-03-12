@@ -47,14 +47,14 @@ body {
     width: 100%;
   }
   .container{
-    margin: 5px;
+    
     width: 100%;
    
   }
  
   .container .row .col{
     background-color: #e8eaec;
-    margin: 5px;
+    
     height: 100px;
   }
   .container .row .col:hover{
@@ -80,4 +80,7 @@ body {
   }
 .card img{
   height: 100%;
+}
+.myContainer{
+  margin: 5px;
 }

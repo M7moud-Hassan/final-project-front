@@ -74,30 +74,30 @@ class Part1Home extends Component{
 
                 <div class="container px-4 py-4">
                 <div class="row">
-                <div class="col mx-1 "> <div>Development&It</div>
+                <div  class="col mx-1 m-2"> <div>Development&It</div>
         <div><span class="fa fa-star checked "></span><span class="text-muted">4.85/8  &nbsp;&nbsp;  &nbsp; &nbsp;1853skills</span></div>
         </div>
-        <div class="col mx-1 "><div>Design & Creative</div>  
+        <div class="col mx-1 m-2"><div>Design & Creative</div>  
         <div><span class="fa fa-star checked "></span><span class="text-muted">4.91/5  &nbsp;&nbsp; &nbsp; &nbsp;968skills</span></div>
       </div>
-      <div class="col mx-1 "><div >Sales & Marketing</div> 
+      <div class="col mx-1 m-2"><div >Sales & Marketing</div> 
         <div><span class="fa fa-star checked "></span><span class="text-muted">4.77/5 &nbsp; &nbsp; &nbsp; &nbsp;392skills</span></div>
       </div>
-      <div class="col mx-1 "><div >Writing & Translation</div> 
+      <div class="col mx-1 m-2"><div >Writing & Translation</div> 
         <div><span class="fa fa-star checked "></span><span class="text-muted">4.92/5&nbsp;&nbsp; &nbsp; &nbsp;505skills</span></div>
       </div>
                 </div>
                 <div class="row">
-                <div class="col mx-1 "><div class="content"> Admin &Customer Support</div>
+                <div class="col mx-1 m-2"><div class="content"> Admin &Customer Support</div>
       <div><span class="fa fa-star checked "></span><span class="text-muted">4.77/5 &nbsp;&nbsp; &nbsp; &nbsp;508skills</span></div>
     </div>
-    <div class="col mx-1 "> <div class="content">Finance & Accounting</div> 
+    <div class="col mx-1 m-2"> <div class="content">Finance & Accounting</div> 
       <div><span class="fa fa-star checked "></span><span class="text-muted">4.79/5&nbsp;&nbsp; &nbsp; &nbsp;214skills</span></div>
     </div>
-    <div class="col mx-1 "><div class="content">  Engineering & Architecture</div>
+    <div class="col mx-1 m-2"><div class="content">  Engineering & Architecture</div>
       <div><span class="fa fa-star checked "></span><span class="text-muted">4.85/5&nbsp;&nbsp; &nbsp; &nbsp;650skills</span></div>
     </div>
-    <div class="col mx-1 "><div class="content">Legal</div>
+    <div class="col mx-1 m-2"><div class="content">Legal</div>
       <div><span class="fa fa-star checked "></span><span class="text-muted">4.85/5&nbsp; &nbsp;&nbsp; &nbsp;133skills</span></div>
     </div>
                 </div>
