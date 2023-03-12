@@ -56,7 +56,7 @@ let Home = () => {
 
         </div>
             {/* section 2 */}
-        <div className="row mt-5 cardHome2">
+        <div className="row mt-5 cardHome2" >
             <div className="containerCardHome2 m-5">
                 <h5 className="card-title">Card titleFor clients</h5>
                 <h1 className="card-title" >Find talent</h1>
