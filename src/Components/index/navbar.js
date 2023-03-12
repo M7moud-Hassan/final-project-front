@@ -1,30 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Bootstrap 5 CSS -->
-    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css'>
-    <!-- Bootstrap 5 JS -->
-    <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js'></script>
-    <!-- Font Awesome CSS -->
-    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css'>
-    <!-- Google Fonts -->
-    <link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700&display=swap'>
-    <!-- Additional CSS (Optional) -->
-    <link rel="stylesheet" href="navbar.css">
-    <title>Document</title>
-    <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>    
-</head>
-<body>
-    <nav class="navbar sticky-top navbar-expand-lg navbar-light navbar-light ">
+import React, { Component } from 'react';
+
+class NavBar extends Component{
+    constructor(){
+      super();
+
+
+    }
+
+    render(){
+        return(
+            <div>
+                <nav class="navbar sticky-top navbar-expand-lg navbar-light navbar-light ">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">project logo</a>
           <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-content">
-            <span class="navbar-toggler-icon"></span>
             <div class="hamburger-toggle">
               <div class="hamburger">
                 <span></span>
@@ -35,9 +24,7 @@
           </button>
           <div class="collapse navbar-collapse" id="navbar-content">
             <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
-              <!-- <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
-              </li> -->
+            
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">Find Work</a>
                 <ul class="dropdown-menu shadow">
@@ -72,7 +59,7 @@
                       <li><a class="dropdown-item" href=""> Third level 5</a></li>
                     </ul>
                   </li>
-                  <li><hr class="dropdown-divider"></li>
+                  <li><hr class="dropdown-divider"/></li>
                   <li><a class="dropdown-item" href="#">Something else here</a></li>
                 </ul>
               </li>
@@ -94,6 +81,7 @@
                         <div class="col-12 col-sm-4 col-md-3 py-4">
                           <h5>Card Title</h5>
                           <div class="card">
+                      <img src="img/banner-image.jpg" class="img-fluid" alt="image"/>
                       <div class="card-body">
                         <p class="card-text">Description goes here...</p>
                       </div>
@@ -119,11 +107,12 @@
               <li class="nav-item">
                 <a class="nav-link" href="#">Enterprise</a>
               </li>
+             
             </ul>
             <form class="d-flex ms-auto">
                 <div class="input-group">
-                    <!-- <input class="form-control border-0 mr-2" type="search" placeholder="Search" aria-label="Search"> -->
-                    <div class="wrapper d-lg-block d-sm-none d-md-none ">
+                    
+                    <div class="wrapper ">
                         <div class="search_box">
                             <div class="dropdown">
                                 <div class="default_option">All</div>  
@@ -134,7 +123,7 @@
                                 </ul>
                             </div>
                             <div class="search_field">
-                              <input type="text" class="input" placeholder="Search">
+                              <input type="text" class="input" placeholder="Search"/>
                               <i class="fas fa-search"></i>
                           </div>
                         </div>
@@ -146,7 +135,7 @@
           </div>
         </div>
       </nav>
-      <div class="subnav d-none d-lg-block d-sm-none">
+      <div class="subnav">
         <ul>
           <li><a href="#">first</a></li>
           <li><a href="#">sec</a></li>
@@ -155,8 +144,9 @@
           <li><a href="#">fifth</a></li>
         </ul>
       </div>
+            </div>
+        )
+    }
+}
 
-      <script src="navbar.js"></script>
-      </body>
-
-    </html>
+export default NavBar;
