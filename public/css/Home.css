@@ -62,6 +62,8 @@
     border-radius: 10px;
   }
   .section2Card3{
+    padding-right: 0em;
+    padding-left: 0em;
     background-color: #bc511b;
     border-radius: 10px;
   }
@@ -79,4 +81,11 @@
   }
   .section4-2>div>div>div>p{
     font-size: 1vw;
+  }
+  .cardHome2{
+    background-image: url('../images/11.jpg');
+  }
+  .section4{
+    padding-right: 0em;
+    padding-left: 0em;
   }
