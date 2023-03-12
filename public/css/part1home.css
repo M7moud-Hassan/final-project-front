@@ -2,7 +2,6 @@ body {
     margin: 0;
     font-family: var(--bs-font-sans-serif);
     font-size: 1.3rem;
-    font-weight: 400;
     line-height: 1.5;
     color: #212529;
     background-color: #fff;
@@ -78,9 +77,6 @@ body {
 }
   .work{
     color: #40a800;
-  }
-  .btn{
-    background-color: #40a800;
   }
 .card img{
   height: 100%;
