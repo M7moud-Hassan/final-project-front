@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import NavBar from './index/navbar';
+import Part1Home from './index/part1_home';
 
 
 class Home extends Component{
@@ -13,6 +14,7 @@ class Home extends Component{
         return(
             <div>
                 <NavBar/>
+                <Part1Home/>
             </div>
         )
     }
