@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import NavBar from './index/navbar';
 
 
 class Home extends Component{
@@ -11,8 +12,9 @@ class Home extends Component{
     render(){
         return(
             <div>
-                
+                <NavBar/>
             </div>
         )
     }
 }
+export default Home;
