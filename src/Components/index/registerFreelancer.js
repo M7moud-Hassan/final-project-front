@@ -100,14 +100,9 @@ class RegisterFreelancer extends Component{
                 <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Sign up to find work you love</h3>
 
                 <div className="my-3">
-                  <div>
-                    <button className="btn border border-secondary btn-block rounded-pill m-3  w-100"><i className="fa-brands fa-apple"></i> Countinue with Apple</button>
-  
-                  </div>
+
                   <div>
                     <button className="btn btn-primary btn-block rounded-pill m-3 w-100">Countinue with Google</button>
-
-
                   </div>
                 </div>
                 <hr></hr>

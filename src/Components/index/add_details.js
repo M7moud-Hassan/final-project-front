@@ -3,11 +3,6 @@ import axios from "axios";
 import { useParams } from 'react-router-dom';
 
 class AddDetails extends Component{
-    componentDidMount() {
-    let { uid } = useParams();
-    let { token } = useParams();
-    this.fetchData(uid , token);
-}
     constructor(){
 
       super();
@@ -16,7 +11,6 @@ class AddDetails extends Component{
         jobtitle:""
       }
     }
-   
    saveData(){
       if(this.state.i==0){
         // svae joptitle

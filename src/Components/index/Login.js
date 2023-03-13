@@ -48,7 +48,7 @@ function Login(){
                                                         <div className="form-outline position-relative">
                                                             <input type="password" name="password" id="password"
                                                                 placeholder="Password(8 or more characters)"
-                                                                 pattern="(?=.*\d)(?=.*[a-zA-Z]).{8,}" required
+                                                                //  pattern="(?=.*\d)(?=.*[a-zA-Z]).{8,}" required
                                                                 value={password}
                                                                 className="form-control  rounded-pill" 
                                                                 onChange={(e)=> setPassword(e.target.value)}/>
