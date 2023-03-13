@@ -1,8 +1,7 @@
-
 const emailInput = document.querySelector('#email');
 const emailFeedback = document.querySelector('#email-feedback');
 
-emailInput.addEventListener('input', function() {
+emailInput.addEventListener('input', function(event) {
   if (emailInput.validity.valueMissing) {
     emailInput.setCustomValidity('Email is required');
   } else if (emailInput.validity.typeMismatch) {
