@@ -19,6 +19,7 @@ let Login = () => {
           </div>
         </div>
       </nav>
+
         <div className="container">
             <section className="vh-100 gradient-custom">
                 <div className="container py-5 h-100">
@@ -91,6 +92,7 @@ let Login = () => {
             </section>
 
         </div>
+
         </div>
     )
 }
