@@ -141,7 +141,7 @@ nav{
     from {transform: scale(0)}
     to {transform: scale(1)}
   }
-  .mt-100{margin-top: 100px}body{background: #00B4DB;background: -webkit-linear-gradient(to right, #0083B0, #00B4DB);background: linear-gradient(to right, #0083B0, #00B4DB);color: #514B64;min-height: 100vh}
+  .mt-100{margin-top: 100px}
   .card-registration .select-input.form-control[readonly]:not([disabled]) {
     font-size: 1rem;
     line-height: 2.15;
