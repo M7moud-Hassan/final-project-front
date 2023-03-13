@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 
 function Login(){
-    
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -31,7 +31,7 @@ function Login(){
                                                     <div className="col-md-12 mb-4">
                                                         <div className="form-outline position-relative">
                                                             <input type="email" id="email" placeholder="Email (forexample@example.com)" required
-                                                                // pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}"
+                                                                pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}"
                                                                 className="form-control  rounded-pill" 
                                                                 value={email}
                                                                 onChange={(e)=> setEmail(e.target.value)}/>
@@ -48,7 +48,7 @@ function Login(){
                                                         <div className="form-outline position-relative">
                                                             <input type="password" name="password" id="password"
                                                                 placeholder="Password(8 or more characters)"
-                                                                //  pattern="(?=.*\d)(?=.*[a-zA-Z]).{8,}" required
+                                                                 pattern="(?=.*\d)(?=.*[a-zA-Z]).{8,}" required
                                                                 value={password}
                                                                 className="form-control  rounded-pill" 
                                                                 onChange={(e)=> setPassword(e.target.value)}/>

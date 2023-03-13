@@ -1,18 +1,25 @@
 import React, { Component } from 'react';
 import axios from "axios";
+import { useParams } from 'react-router-dom';
 
 class AddDetails extends Component{
+    componentDidMount() {
+    let { uid } = useParams();
+    let { token } = useParams();
+    this.fetchData(uid , token);
+}
     constructor(){
+
       super();
       this.state={
         i:0,
         jobtitle:""
       }
     }
-
+   
    saveData(){
       if(this.state.i==0){
-        //svae joptitle
+        // svae joptitle
        axios
         .post("http://127.0.0.1:8000/auth/jobTitle/", {
             "id":1,

@@ -14,12 +14,11 @@ function App() {
       <Route path="/" element={<Home/>}/>
       <Route path="/login" element={<Login/>}/>
       <Route path='/activate_freelancer/:uid/:token' element={<ActivateFreeLancer/>}/>
-      <Route path='/addDetails' element={<AddDetails/>}/>
+      <Route path='/addDetails/:uid/:token' element={<AddDetails/>}/>
       <Route path='/registration_fresslancer' element={<RegisterFreelancer/>}/>
       </Routes>
       </BrowserRouter>
   )
 }
-
 
 export default App;
