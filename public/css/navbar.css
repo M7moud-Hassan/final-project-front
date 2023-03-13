@@ -1,6 +1,4 @@
-button{
-    border-radius: 50%;
-}
+
 .btn-primary{
   background-color: #14a800;
 }
@@ -40,6 +38,7 @@ button{
   text-transform: uppercase;
   padding: 13px auto;
   font-size: 3vb;
+
 }
 
 .wrapper .search_box .dropdown ul{
@@ -100,12 +99,6 @@ button{
   cursor: pointer;
   color:#737373;
 }
-.container-fluid a:first-child{
-  color: #14a800;
-}
-.container-fluid a:first-child:hover{
-  color: #14a800;
-}
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   color: #9fa3b1;
 }
@@ -132,5 +125,18 @@ button{
 .navbar{
   border-bottom: 1px solid rgb(177, 177, 177) ;
   background-color: white;
+}
+
+.welcome-user{
+  width: 80%;
+  position: absolute; 
+  /* color: white; */ 
+  top:50%; 
+  left:50%; 
+  transform: translate(-50%,-50%); 
+  text-align:center;
+}
+.welcome-user h1{
+  font-size: 65px;
 }
 

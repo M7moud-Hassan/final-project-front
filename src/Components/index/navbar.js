@@ -1,4 +1,7 @@
+import { NavLink } from 'react-router-dom';
 import React, { Component } from 'react';
+
+
 
 class NavBar extends Component{
     constructor(){
@@ -13,6 +16,10 @@ class NavBar extends Component{
                 <nav class="navbar sticky-top navbar-expand-lg navbar-light navbar-light ">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">project logo</a>
+          <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-content"></button>
+            <span class="navbar-toggler-icon"></span>
+       
+          <a class="navbar-brand" href="#">project logo</a>
           <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-content">
             <div class="hamburger-toggle">
               <div class="hamburger">
@@ -24,7 +31,6 @@ class NavBar extends Component{
           </button>
           <div class="collapse navbar-collapse" id="navbar-content">
             <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
-            
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">Find Work</a>
                 <ul class="dropdown-menu shadow">
@@ -81,7 +87,8 @@ class NavBar extends Component{
                         <div class="col-12 col-sm-4 col-md-3 py-4">
                           <h5>Card Title</h5>
                           <div class="card">
-                      <img src="img/banner-image.jpg" class="img-fluid" alt="image"/>
+
+                      {/* <img src="img/banner-image.jpg" class="img-fluid" alt="image"/> */}
                       <div class="card-body">
                         <p class="card-text">Description goes here...</p>
                       </div>
@@ -107,6 +114,7 @@ class NavBar extends Component{
               <li class="nav-item">
                 <a class="nav-link" href="#">Enterprise</a>
               </li>
+
              
             </ul>
             <form class="d-flex ms-auto">
@@ -128,13 +136,16 @@ class NavBar extends Component{
                           </div>
                         </div>
                     </div>
-                    <button class="btn border-0 rounded" type="submit">Log In</button>
+
+                    <NavLink className={'btn border-0 rounded'} to={"/login"}>Log In</NavLink>
                     <button class="btn btn-primary border-0 rounded" type="submit">Sign Up</button>
                 </div>
             </form>
           </div>
+          
         </div>
       </nav>
+
       <div class="subnav">
         <ul>
           <li><a href="#">first</a></li>
@@ -144,9 +155,9 @@ class NavBar extends Component{
           <li><a href="#">fifth</a></li>
         </ul>
       </div>
+      
             </div>
         )
     }
 }
-
 export default NavBar;
