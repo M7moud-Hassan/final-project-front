@@ -4,23 +4,41 @@ import axios from 'axios';
 
 
 class AddDetails extends Component{
-    constructor(){
-      super();
-      
-
-
-
+  constructor(){
+    super();
+    this.state={
+      i:0,
+      jobtitle:""
     }
+    this.handleJopTitleChange = this.handleJopTitleChange.bind(this);
+  }
+  handleJopTitleChange(event) {
+    this.setState({ jobtitle: event.target.value });
+  }
+
+
+  saveData(){
+    if(this.state.i==0){
+      
+     axios
+      .post("http://127.0.0.1:8000/auth/jobTitle/", {
+          "id":1,
+          "jobtitle":this.state.jobtitle
+      })
+      this.state.i += 1;
+    }
+  }
 
     render(){
         return(
             <div>
                 
-  <nav className="navbar navbar-expand-lg navbar-light bg-white">
-    <div className="container">
-      <a className="navbar-brand" href="#"><img src="images/upwork.svg" alt="Logo"/></a>
-      <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span className="navbar-toggler-icon"></span>
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-white">
+    <div class="container">
+      <a class="navbar-brand" href="#"><img src="" alt="Logo"/></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
       </button>
       <div className="collapse navbar-collapse" id="navbarNav">
        
@@ -41,29 +59,34 @@ class AddDetails extends Component{
     <h1 className="text-success">Get now,add a title to tell the world whate you do</h1>
 
     <label className="text-success" htmlFor="joptitle">your professional role</label>
-    <input type="text" className="form-control" id="joptitle"/>
+    <input type="text" className="form-control" id="joptitle" value={this.state.jobtitle} onChange={this.handleJopTitleChange}/>
    </section>
 
-   <section className="mysection">
-    <h1 className="text-success">if you have relevant work  experience ,add it here</h1>
-    <div id="cxcontent" className="row">
-      <div className="experience col-3"  onclick="openExperinces(event)">
+   <section class="mysection">
+    <h1 class="text-success">if you have relevant work  experience ,add it here</h1>
+    <div className='row'>
+    <div id="openExper" class="experience col-3">
     
       </div>
-
+    <div id="cxcontent" class="row col-9">
+      
+    </div>
     </div>
     <input  type='checkbox' onchange='onchangeCheckedNone(this.checked);'/>
         <label className="messageCheckbox" htmlFor="is_work">not have experiences</label>
    </section>
 
 
-   <section className="mysection">
-    <h1 className="text-success">if you have relevant Educations ,add it here</h1>
-    <div id="edcontent" className="row">
-      <div className="experience col-3"  onclick="openEducation(event)">
+
+   <section class="mysection">
+    <h1 class="text-success">if you have relevant Educations ,add it here</h1>
+    <div className='row'>
+    <div id="openEducat" class="experience col-3">
     
       </div>
+    <div id="edcontent" class="row col-9">
 
+    </div>
     </div>
     <input  type='checkbox' onchange='onchangeCheckedNone(this.checked);'/>
         <label className="messageCheckbox" htmlFor="is_work">not have Educations</label>
@@ -125,12 +148,13 @@ class AddDetails extends Component{
          </div>
   </div>
    </section>
-   <div className="position-absolute bottom-0 text-center w-100" >
-    <div  className="w-100" id="svg_wrap"></div>
-   <div className="container">
-    <div className="button" id="prev">&larr; Previous</div>
-   <div className="button" id="next">Next &rarr;</div>
-   <input className="button" id="submit" type="submit" value="Agree and send application"/>
+
+   <div class="position-absolute bottom-0 text-center w-100" >
+    <div  class="w-100" id="svg_wrap"></div>
+   <div class="container">
+    <div class="button" id="prev">&larr; Previous</div>
+   <div class="button" id="next" onClick={this.saveData}>Next &rarr;</div>
+   <input class="button" id="submit" type="submit" value="Save Data"/>
    </div>
    </div>
   </div>
@@ -151,9 +175,10 @@ class AddDetails extends Component{
         <label htmlFor="email" className="form-label">location:</label>
         <input type="email" className="form-control" id="location" placeholder="Enter location" name="location"/>
       </div>
-      <div className="form-check">
-        <input className='messageCheckbox' type='checkbox' onchange='onchangeChecked(this.checked);'/>
-        <label className="messageCheckbox" htmlFor="is_work">
+
+      <div class="form-check">
+        <input id='checkbox_iswork' class='messageCheckbox' type='checkbox'/>
+        <label class="messageCheckbox" for="is_work">
           is current work in company
         </label>
       </div>
@@ -171,7 +196,8 @@ class AddDetails extends Component{
         <label htmlFor="description" className="form-label">Example textarea</label>
         <textarea className="form-control" id="description" rows="3"></textarea>
       </div>
-      <button className="btn btn-primary w-100" onclick="addExpirence()">Submit</button>
+
+      <button class="btn btn-primary w-100" id="addExpirence">Submit</button>
     </div>
   </div>
 
@@ -205,7 +231,8 @@ class AddDetails extends Component{
         <label htmlFor="description" className="form-label">Example textarea</label>
         <textarea className="form-control" id="description2" rows="3"></textarea>
       </div>
-      <button className="btn btn-primary w-100" onclick="addEducation()">Submit</button>
+
+      <button class="btn btn-primary w-100"  id='addEducation'>Submit</button>
     </div>
   </div>
             </div>
