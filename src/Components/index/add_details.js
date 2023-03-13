@@ -1,11 +1,25 @@
 import React, { Component } from 'react';
-
+import axios from "axios";
 
 class AddDetails extends Component{
     constructor(){
       super();
+      this.state={
+        i:0,
+        jobtitle:""
+      }
+    }
 
-
+   saveData(){
+      if(this.state.i==0){
+        //svae joptitle
+       axios
+        .post("http://127.0.0.1:8000/auth/jobTitle/", {
+            "id":1,
+            "jobtitle":this.state.jobtitle
+        })
+      }
+      this.setState({i:this.state.i++})
     }
  
     render(){
@@ -37,7 +51,7 @@ class AddDetails extends Component{
     <h1 class="text-success">Get now,add a title to tell the world whate you do</h1>
 
     <label class="text-success" for="joptitle">your professional role</label>
-    <input type="email" class="form-control" id="joptitle"/>
+    <input type="email" class="form-control" id="jobtitle"/>
    </section>
    <section class="mysection">
     <h1 class="text-success">if you have relevant work  experience ,add it here</h1>
@@ -126,7 +140,12 @@ class AddDetails extends Component{
     <div  class="w-100" id="svg_wrap"></div>
    <div class="container">
     <div class="button" id="prev">&larr; Previous</div>
-   <div class="button" id="next">Next &rarr;</div>
+   <div class="button" id="next" onchange={
+    ()=>{
+      console.log("send data");
+      this.saveData()
+    }
+   }>Next &rarr;</div>
    
    <input class="button" id="submit" type="submit" value="Save Data"/>
    </div>
