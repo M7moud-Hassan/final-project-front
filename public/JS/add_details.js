@@ -1,66 +1,72 @@
-var logIn = document.getElementById('logIn');
-var education = document.getElementById('education');
-function openExperinces(event){
-  event.preventDefault();
-  logIn.style.display='block';
- 
-}
-function openEducation(event){
-  event.preventDefault();
-  education.style.display='block';
- 
-}
-window.onclick = function(event) {
-  if (event.target == logIn|| event.target == education) {
-    logIn.style.display = "none";
-    education.style.display = "none";
-  }
-}
 
-cxcontent=document.getElementById('cxcontent');
-edcontent=document.getElementById('edcontent');
-var is_work=false;
-var not_have_experinces=false;
-function onchangeChecked(val){
-is_work=val;
-}
-function onchangeCheckedNone(val){
-  not_have_experinces=val;
-  }
 
-function addExpirence(){
- 
-  logIn.style.display = "none";
-  
-  var title=document.getElementById('title').value;
-  var company=document.getElementById("company").value;
-  var location=document.getElementById("location").value;
- 
- 
-  var start_date=document.getElementById('start_date').value;
-  var end_date=document.getElementById('end_date').value;
-  var description=document.getElementById('description').value;
-  cxcontent.innerHTML+='<div class="col-3 ml-4 experience_x pt-4"><p>'+title+'-'+company+'-'+location+'-'+is_work+'-'+start_date+'-'+end_date+'-'+description+'</p></div>';
-}
 
-function addEducation(){
- 
-  education.style.display = "none";
-  
-  var school=document.getElementById('school').value;
-  var degree=document.getElementById("degree").value;
-  var study=document.getElementById("study").value;
- 
- 
-  var from_year=document.getElementById('from_year').value;
-  var to_year=document.getElementById('to_year').value;
-  var description2=document.getElementById('description2').value;
-  edcontent.innerHTML+='<div class="col-3 ml-4 experience_x pt-4"><p>'+school+'-'+degree+'-'+study+'-'+from_year+'-'+to_year+'-'+description2+'</p></div>';
-}
+
 $( document ).ready(function() {
     var base_color = "rgb(230,230,230)";
     var active_color = "rgb(237, 40, 70)";
 
+    var logIn = document.getElementById('logIn');
+    var education = document.getElementById('education');
+    
+    var openExper=document.getElementById("openExper");
+    openExper.addEventListener("click", function(){
+
+      event.preventDefault();
+  logIn.style.display='block';
+    }); 
+
+document.getElementById("openEducat").addEventListener("click", function(){
+  event.preventDefault();
+  education.style.display='block';
+});
+
+    window.onclick = function(event) {
+      if (event.target == logIn|| event.target == education) {
+        logIn.style.display = "none";
+        education.style.display = "none";
+      }
+    }
+    
+    cxcontent=document.getElementById('cxcontent');
+    edcontent=document.getElementById('edcontent');
+    var is_work=false;
+    var not_have_experinces=false;
+   document.getElementById('checkbox_iswork').addEventListener('change',function(){
+    is_work=this.checked;
+   });
+    function onchangeCheckedNone(val){
+      not_have_experinces=val;
+      }
+      addExpirence=document.getElementById("addExpirence");
+      addExpirence.addEventListener("click", function(){
+        logIn.style.display = "none";
+      
+        var title=document.getElementById('title').value;
+        var company=document.getElementById("company").value;
+        var location=document.getElementById("location").value;
+       
+       
+        var start_date=document.getElementById('start_date').value;
+        var end_date=document.getElementById('end_date').value;
+        var description=document.getElementById('description').value;
+        cxcontent.innerHTML+='<div class="col-3 ml-4 experience_x pt-4"><p>'+title+'-'+company+'-'+location+'-'+is_work+'-'+start_date+'-'+end_date+'-'+description+'</p></div>';
+  
+      });
+    document.getElementById('addEducation').addEventListener('click',function(){
+      education.style.display = "none";
+      
+      var school=document.getElementById('school').value;
+      var degree=document.getElementById("degree").value;
+      var study=document.getElementById("study").value;
+     
+     
+      var from_year=document.getElementById('from_year').value;
+      var to_year=document.getElementById('to_year').value;
+      var description2=document.getElementById('description2').value;
+      edcontent.innerHTML+='<div class="col-3 ml-4 experience_x pt-4"><p>'+school+'-'+degree+'-'+study+'-'+from_year+'-'+to_year+'-'+description2+'</p></div>';
+
+    });
 
 
     var child = 1;

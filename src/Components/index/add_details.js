@@ -14,7 +14,7 @@ class AddDetails extends Component{
                 
   <nav class="navbar navbar-expand-lg navbar-light bg-white">
     <div class="container">
-      <a class="navbar-brand" href="#"><img src="images/upwork.svg" alt="Logo"/></a>
+      <a class="navbar-brand" href="#"><img src="" alt="Logo"/></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -41,11 +41,13 @@ class AddDetails extends Component{
    </section>
    <section class="mysection">
     <h1 class="text-success">if you have relevant work  experience ,add it here</h1>
-    <div id="cxcontent" class="row">
-      <div class="experience col-3"  onclick="openExperinces(event)">
+    <div className='row'>
+    <div id="openExper" class="experience col-3">
     
       </div>
-
+    <div id="cxcontent" class="row col-9">
+      
+    </div>
     </div>
     <input  type='checkbox' onchange='onchangeCheckedNone(this.checked);'/>
         <label class="messageCheckbox" for="is_work">not have experiences</label>
@@ -54,11 +56,13 @@ class AddDetails extends Component{
 
    <section class="mysection">
     <h1 class="text-success">if you have relevant Educations ,add it here</h1>
-    <div id="edcontent" class="row">
-      <div class="experience col-3"  onclick="openEducation(event)">
+    <div className='row'>
+    <div id="openEducat" class="experience col-3">
     
       </div>
+    <div id="edcontent" class="row col-9">
 
+    </div>
     </div>
     <input  type='checkbox' onchange='onchangeCheckedNone(this.checked);'/>
         <label class="messageCheckbox" for="is_work">not have Educations</label>
@@ -123,7 +127,7 @@ class AddDetails extends Component{
    <div class="container">
     <div class="button" id="prev">&larr; Previous</div>
    <div class="button" id="next">Next &rarr;</div>
-   <input class="button" id="submit" type="submit" value="Agree and send application"/>
+   <input class="button" id="submit" type="submit" value="Save Data"/>
    </div>
    </div>
   </div>
@@ -145,7 +149,7 @@ class AddDetails extends Component{
         <input type="email" class="form-control" id="location" placeholder="Enter location" name="location"/>
       </div>
       <div class="form-check">
-        <input class='messageCheckbox' type='checkbox' onchange='onchangeChecked(this.checked);'/>
+        <input id='checkbox_iswork' class='messageCheckbox' type='checkbox'/>
         <label class="messageCheckbox" for="is_work">
           is current work in company
         </label>
@@ -164,7 +168,7 @@ class AddDetails extends Component{
         <label for="description" class="form-label">Example textarea</label>
         <textarea class="form-control" id="description" rows="3"></textarea>
       </div>
-      <button class="btn btn-primary w-100" onclick="addExpirence()">Submit</button>
+      <button class="btn btn-primary w-100" id="addExpirence">Submit</button>
     </div>
   </div>
 
@@ -198,7 +202,7 @@ class AddDetails extends Component{
         <label for="description" class="form-label">Example textarea</label>
         <textarea class="form-control" id="description2" rows="3"></textarea>
       </div>
-      <button class="btn btn-primary w-100" onclick="addEducation()">Submit</button>
+      <button class="btn btn-primary w-100"  id='addEducation'>Submit</button>
     </div>
   </div>
             </div>
