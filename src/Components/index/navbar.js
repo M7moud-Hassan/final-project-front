@@ -1,10 +1,20 @@
 import React, { Component } from 'react';
+<<<<<<< HEAD
 
 
 class Navbar extends Component{
     constructor(){
       super();
 
+=======
+import { NavLink } from 'react-router-dom';
+
+class NavBar extends Component{
+    constructor(){
+      super();
+
+
+>>>>>>> 5541ff5b871329ebbda812027027c6dbb20b3d73
     }
 
     render(){
@@ -12,9 +22,15 @@ class Navbar extends Component{
             <div>
                 <nav class="navbar sticky-top navbar-expand-lg navbar-light navbar-light ">
         <div class="container-fluid">
+<<<<<<< HEAD
           <a class="navbar-brand" href="#">project logo</a>
           <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-content">
             <span class="navbar-toggler-icon"></span>
+=======
+       
+          <a class="navbar-brand" href="#">project logo</a>
+          <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-content">
+>>>>>>> 5541ff5b871329ebbda812027027c6dbb20b3d73
             <div class="hamburger-toggle">
               <div class="hamburger">
                 <span></span>
@@ -25,7 +41,11 @@ class Navbar extends Component{
           </button>
           <div class="collapse navbar-collapse" id="navbar-content">
             <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
+<<<<<<< HEAD
              
+=======
+            
+>>>>>>> 5541ff5b871329ebbda812027027c6dbb20b3d73
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">Find Work</a>
                 <ul class="dropdown-menu shadow">
@@ -82,6 +102,10 @@ class Navbar extends Component{
                         <div class="col-12 col-sm-4 col-md-3 py-4">
                           <h5>Card Title</h5>
                           <div class="card">
+<<<<<<< HEAD
+=======
+                      <img src="img/banner-image.jpg" class="img-fluid" alt="image"/>
+>>>>>>> 5541ff5b871329ebbda812027027c6dbb20b3d73
                       <div class="card-body">
                         <p class="card-text">Description goes here...</p>
                       </div>
@@ -107,10 +131,19 @@ class Navbar extends Component{
               <li class="nav-item">
                 <a class="nav-link" href="#">Enterprise</a>
               </li>
+<<<<<<< HEAD
             </ul>
             <form class="d-flex ms-auto">
                 <div class="input-group">
                     <div class="wrapper d-lg-block d-sm-none d-md-none ">
+=======
+             
+            </ul>
+            <form class="d-flex ms-auto">
+                <div class="input-group">
+                    
+                    <div class="wrapper ">
+>>>>>>> 5541ff5b871329ebbda812027027c6dbb20b3d73
                         <div class="search_box">
                             <div class="dropdown">
                                 <div class="default_option">All</div>  
@@ -126,14 +159,22 @@ class Navbar extends Component{
                           </div>
                         </div>
                     </div>
+<<<<<<< HEAD
                     <button class="btn border-0 rounded" type="submit">Log In</button>
+=======
+                    <NavLink className={'btn border-0 rounded'} to={"/login"}>Log In</NavLink>
+>>>>>>> 5541ff5b871329ebbda812027027c6dbb20b3d73
                     <button class="btn btn-primary border-0 rounded" type="submit">Sign Up</button>
                 </div>
             </form>
           </div>
         </div>
       </nav>
+<<<<<<< HEAD
       <div class="subnav d-none d-lg-block d-sm-none">
+=======
+      <div class="subnav">
+>>>>>>> 5541ff5b871329ebbda812027027c6dbb20b3d73
         <ul>
           <li><a href="#">first</a></li>
           <li><a href="#">sec</a></li>
@@ -142,6 +183,7 @@ class Navbar extends Component{
           <li><a href="#">fifth</a></li>
         </ul>
       </div>
+<<<<<<< HEAD
 
 
             </div>
@@ -149,3 +191,11 @@ class Navbar extends Component{
         }
     }
 export default Navbar;
+=======
+            </div>
+        )
+    }
+}
+
+export default NavBar;
+>>>>>>> 5541ff5b871329ebbda812027027c6dbb20b3d73
