@@ -1,17 +1,15 @@
-<<<<<<< HEAD
-import logo from './logo.svg';
-import './App.css';
+// <<<<<<< HEAD
 import  Navbar  from './Components/index/navbar'
 import { BrowserRouter } from "react-router-dom";
 
-function App() {
-  return (
-    <div>
-      <Navbar/>
-    </div> 
-=======
-
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+// function App() {
+//   return (
+//     <div>
+//       <Navbar/>
+//     </div> 
+// // =======
+//   )}
+import { Route, Routes } from 'react-router-dom';
 import Home from './Components/home_page';
 import ActivateFreeLancer from './Components/index/activate';
 import AddDetails from './Components/index/add_details';
@@ -28,7 +26,7 @@ function App() {
       <Route path='/addDetails' element={<AddDetails/>}/>
       </Routes>
       </BrowserRouter>
->>>>>>> 5541ff5b871329ebbda812027027c6dbb20b3d73
+// >>>>>>> 5541ff5b871329ebbda812027027c6dbb20b3d73
   )
 }
 

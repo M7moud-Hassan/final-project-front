@@ -18,17 +18,11 @@ class RegisterFreelancer extends Component{
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-<<<<<<< HEAD
-      <div class="collapse navbar-collapse" id="navbarNav">
-        
-        <div class="navbar-nav ms-auto">
-          <div class="text-center">
-=======
+
       <div className="collapse navbar-collapse" id="navbarNav">
        
         <div className="navbar-nav ms-auto">
           <div className="text-center">
->>>>>>> 5541ff5b871329ebbda812027027c6dbb20b3d73
             Here to hire talent? 
             <a href="#" className="text-center text-success mt-3"> Join as a Client</a>
           </div>
