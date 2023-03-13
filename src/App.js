@@ -16,7 +16,7 @@ function App() {
       <Route path="/" element={<Home/>}/>
       <Route path="/login" element={<Login/>}/>
       <Route path='/activate_freelancer/:uid/:token' element={<ActivateFreeLancer/>}/>
-      <Route path='/addDetails' element={<AddDetails/>}/>
+      <Route path='/addDetails/:uid/:token' element={<AddDetails/>}/>
       <Route path='/registration_fresslancer' element={<RegisterFreelancer/>}/>
       <Route path='/choose_account' element={<Nxsignup/>}/>
       <Route path='/registration_user' element={<RegisterFreelancer/>}/>
@@ -25,6 +25,5 @@ function App() {
       </BrowserRouter>
   )
 }
-
 
 export default App;
