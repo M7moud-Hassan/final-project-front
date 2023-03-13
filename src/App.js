@@ -1,6 +1,6 @@
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Home from './Components/home';
+import Home from './Components/Home';
 import ActivateFreeLancer from './Components/index/activate';
 import Login from './Components/index/Login';
 
