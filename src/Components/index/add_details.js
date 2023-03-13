@@ -7,7 +7,7 @@ class AddDetails extends Component{
 
 
     }
-
+ 
     render(){
         return(
             <div>
@@ -127,6 +127,7 @@ class AddDetails extends Component{
    <div class="container">
     <div class="button" id="prev">&larr; Previous</div>
    <div class="button" id="next">Next &rarr;</div>
+   
    <input class="button" id="submit" type="submit" value="Save Data"/>
    </div>
    </div>
