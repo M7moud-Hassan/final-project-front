@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 
-class RegisterFreelancer extends Component{
+class RegisterUser extends Component{
   constructor(props) {
     super(props);
     this.state = {
@@ -45,12 +45,12 @@ class RegisterFreelancer extends Component{
     event.preventDefault();
     const { firstName, lastName, email, password, phone } = this.state;
   
-    axios.post('http://127.0.0.1:8000/auth/signup_freelancer/', {
-      first_name: firstName,
-      last_name: lastName,
+    axios.post('http://127.0.0.1:8000/auth/register/', {
+      fname: firstName,
+      lname: lastName,
       email: email,
       password: password,
-      phone_number: phone
+      phone: phone
     })
     .then((response) => {
       console.log(response);
@@ -77,8 +77,8 @@ class RegisterFreelancer extends Component{
        
         <div className="navbar-nav ms-auto">
           <div className="text-center">
-            Here to hire talent? 
-            <a href="#" className="text-center text-success mt-3"> Join as a Client</a>
+          Looking for work?
+            <a href="#" className="text-center text-success mt-3"> Applay as Talent</a>
           </div>
       </div>
       
@@ -96,7 +96,7 @@ class RegisterFreelancer extends Component{
           <div className="col-12 col-lg-9 col-xl-7">
             <div className="card shadow-2-strong card-registration my-5" id='register_form_card'>
               <div className="card-body p-4 p-md-5">
-                <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Sign up to find work you love</h3>
+                <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Sign up to hire talent</h3>
 
                 <div className="my-3">
                   <div>
@@ -138,7 +138,7 @@ class RegisterFreelancer extends Component{
                   <div className="row">
                     <div className="col-md-12 mb-4">
                       <div className="form-outline position-relative">
-                        <input type="email" id="email" placeholder="Email (forexample@example.com)" required
+                        <input type="email" id="email" placeholder="Work email adress" required
                         pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}"
                           className="form-control  rounded-pill" value={this.state.email}onChange={this.handleEmailChange}/>
                         <div className="invalid-feedback"
@@ -231,4 +231,4 @@ class RegisterFreelancer extends Component{
 
 
 }
-export default RegisterFreelancer;
+export default RegisterUser;
