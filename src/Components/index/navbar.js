@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
 
 class NavBar extends Component{
     constructor(){
@@ -12,6 +13,7 @@ class NavBar extends Component{
             <div>
                 <nav class="navbar sticky-top navbar-expand-lg navbar-light navbar-light ">
         <div class="container-fluid">
+       
           <a class="navbar-brand" href="#">project logo</a>
           <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-content">
             <div class="hamburger-toggle">
@@ -128,7 +130,7 @@ class NavBar extends Component{
                           </div>
                         </div>
                     </div>
-                    <button class="btn border-0 rounded" type="submit">Log In</button>
+                    <NavLink className={'btn border-0 rounded'} to={"/login"}>Log In</NavLink>
                     <button class="btn btn-primary border-0 rounded" type="submit">Sign Up</button>
                 </div>
             </form>
