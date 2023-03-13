@@ -19,7 +19,7 @@ class RegisterFreelancer extends Component{
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
-       
+        
         <div class="navbar-nav ms-auto">
           <div class="text-center">
             Here to hire talent? 

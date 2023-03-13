@@ -1,12 +1,12 @@
 import logo from './logo.svg';
 import './App.css';
-import  RegisterFreelancer  from './Components/index/registerFreelancer'
+import  Navbar  from './Components/index/navbar'
 import { BrowserRouter } from "react-router-dom";
 
 function App() {
   return (
     <div>
-      <RegisterFreelancer/>
+      <Navbar/>
     </div> 
   )
 }
