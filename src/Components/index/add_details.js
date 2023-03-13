@@ -8,10 +8,12 @@ class AddDetails extends Component{
     super();
     this.state={
       i:0,
-      jobtitle:""
+      jobtitle:''
     }
     this.handleJopTitleChange = this.handleJopTitleChange.bind(this);
+    this.saveData = this.saveData.bind(this);
   }
+  
   handleJopTitleChange(event) {
     this.setState({ jobtitle: event.target.value });
   }
@@ -22,9 +24,15 @@ class AddDetails extends Component{
       
      axios
       .post("http://127.0.0.1:8000/auth/jobTitle/", {
-          "id":1,
-          "jobtitle":this.state.jobtitle
+          id:1,
+          job_title:this.state.jobtitle
       })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
       this.state.i += 1;
     }
   }
