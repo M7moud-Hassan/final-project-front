@@ -30,7 +30,7 @@ let Type_new_password = () => {
               <div className="col-12 col-lg-9 col-xl-7">
                 <div className="card shadow-2-strong card-registration my-5">
                   <div className="card-body p-4 p-md-5 shadowBorder">
-                    <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Enter your new password</h3>
+                    <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Enter your new password </h3>
                     <div className="my-3 ">
 
                       <form className="needs-validation" novalidate>
