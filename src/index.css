@@ -80,3 +80,57 @@ color: rgb(108, 180, 177);
 .section4-2>div>div>div>p{
   font-size: 1vw;
 }
+.slots{
+  border-radius: 20px;
+}
+#logo{
+  width: 150px;
+}
+.dropFont{
+  font-size: 1vw;
+  font-weight: 600;
+  color: black;
+}
+.copyRight{
+  font-size: 1.3vw;
+}
+#footer{
+  background-color: rgb(1, 46, 1);
+}
+.iconz{
+  border-radius: 50%;
+}
+.footerHr{
+  text-align: center;
+  margin-left: 10%;
+  height: 2px;
+  width: 80%;
+  background-color: white;
+  margin-bottom: 3%;
+}
+.reTypeEmail{
+  background-color: rgb(255, 255, 255);
+  margin-top: 5%;
+  height: 40vw;
+}
+.parentDivTypeEmail{
+  display: flex;
+  justify-content: center;
+}
+.shadowBorder{
+  box-shadow: 1px 1px 10px 1px #888888;
+  border-radius: 20px;
+}
+.fontEdits{
+  font-size: 1vw;
+}
+.fontEditsHalf{
+  font-size: 1.5vw;
+}
+.detailsContainer{
+  background-color: rgb(255, 255, 255);
+  border-radius: 20px;
+}
+.bgColor{
+  background-color: rgb(226, 225, 225);
+}
