@@ -2,7 +2,6 @@ body {
     margin: 0;
     font-family: var(--bs-font-sans-serif);
     font-size: 1.3rem;
-    font-weight: 400;
     line-height: 1.5;
     color: #212529;
     background-color: #fff;
@@ -48,14 +47,14 @@ body {
     width: 100%;
   }
   .container{
-    margin: 5px;
+    
     width: 100%;
    
   }
  
   .container .row .col{
     background-color: #e8eaec;
-    margin: 5px;
+    
     height: 100px;
   }
   .container .row .col:hover{
@@ -79,9 +78,9 @@ body {
   .work{
     color: #40a800;
   }
-  .btn{
-    background-color: #40a800;
-  }
 .card img{
   height: 100%;
+}
+.myContainer{
+  margin: 5px;
 }

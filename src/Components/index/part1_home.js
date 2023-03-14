@@ -1,34 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-   <link rel="stylesheet" href="css/style.css">
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-   <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
-   
-</head>
-<body>
-<div class="air3-grid-container">
+import { Component } from "react";
 
- 
-  <!-- landing -->
-  <section class="pt-5 pb-5 shadow-sm">
+class Part1Home extends Component{
+    constructor(){
+        super();
+    }
+
+    render(){
+        return (
+            <div>
+                <div class="air3-grid-container">
+                <section class="pt-5 pb-5 shadow-sm">
     <div class="container">
       <div class="row">
-        <!--ADD CLASSES HERE d-flex align-items-stretch-->
+       
         <div class="col-lg-4 mb-3 d-flex align-items-stretch">
           <div class="card">
-            <img src="https://res.cloudinary.com/upwork-cloud-acquisition-prod/image/upload/c_scale,h_334/brontes/how-to-hire/work-with-best.png" srcset="https://res.cloudinary.com/upwork-cloud-acquisition-prod/image/upload/c_scale,h_334/brontes/how-to-hire/work-with-best.png 1x, https://res.cloudinary.com/upwork-cloud-acquisition-prod/image/upload/c_scale,h_334,dpr_2.0/brontes/how-to-hire/work-with-best.png 2x" alt="Work with the best" width="100%" height="auto" class="d-none d-md-block">
+            <img src="https://res.cloudinary.com/upwork-cloud-acquisition-prod/image/upload/c_scale,h_334/brontes/how-to-hire/work-with-best.png" srcset="https://res.cloudinary.com/upwork-cloud-acquisition-prod/image/upload/c_scale,h_334/brontes/how-to-hire/work-with-best.png 1x, https://res.cloudinary.com/upwork-cloud-acquisition-prod/image/upload/c_scale,h_334,dpr_2.0/brontes/how-to-hire/work-with-best.png 2x" alt="Work with the best" width="100%" height="auto" class="d-none d-md-block"/>
             
           </div>
         </div>
-        <!--ADD CLASSES HERE d-flex align-items-stretch-->
         <div class="col-lg-7 mb-3 d-flex align-items-stretch border-white">
           <div class="card">
             <h2>Up your work game, it’s free.</h2> 
@@ -71,53 +61,51 @@
             </div>
           </div>
         </div>
-        <!--ADD CLASSES HERE d-flex align-items-stretch-->
         
       </div>
     </div>
   </section>
-      
-  
-    <div class="browse-talent-categories mb-10">
-      <br>
+  <div class="browse-talent-categories mb-10">
+      <br/>
      <p>Browse talent by category  </p>
      <div class="text-muted">Looking for work?<a href="#" >Browse jobs</a> </div>
     </div>
-  </div>
-  
-  <div class="container px-4 py-4">
-    <div class="row" >
-        <div class="col mx-1 "> <div>Development&It</div>
-        <div><span class="fa fa-star checked "></span></span><span class="text-muted">4.85/8  &nbsp;&nbsp;  &nbsp; &nbsp;1853skills</span></div>
+                </div>
+
+                <div class="container px-4 py-4">
+                <div class="row">
+                <div  class="col mx-1 m-2"> <div>Development&It</div>
+        <div><span class="fa fa-star checked "></span><span class="text-muted">4.85/8  &nbsp;&nbsp;  &nbsp; &nbsp;1853skills</span></div>
         </div>
-        <div class="col mx-1 "><div class=>Design & Creative</div>  
-        <div><span class="fa fa-star checked "></span></span><span class="text-muted">4.91/5  &nbsp;&nbsp; &nbsp; &nbsp;968skills</span></div>
+        <div class="col mx-1 m-2"><div>Design & Creative</div>  
+        <div><span class="fa fa-star checked "></span><span class="text-muted">4.91/5  &nbsp;&nbsp; &nbsp; &nbsp;968skills</span></div>
       </div>
-        <div class="col mx-1 "><div >Sales & Marketing</div> 
+      <div class="col mx-1 m-2"><div >Sales & Marketing</div> 
         <div><span class="fa fa-star checked "></span><span class="text-muted">4.77/5 &nbsp; &nbsp; &nbsp; &nbsp;392skills</span></div>
       </div>
-        <div class="col mx-1 "><div >Writing & Translation</div> 
-        <div><span class="fa fa-star checked "></span></span><span class="text-muted">4.92/5&nbsp;&nbsp; &nbsp; &nbsp;505skills</span></div>
+      <div class="col mx-1 m-2"><div >Writing & Translation</div> 
+        <div><span class="fa fa-star checked "></span><span class="text-muted">4.92/5&nbsp;&nbsp; &nbsp; &nbsp;505skills</span></div>
       </div>
-       
-        
+                </div>
+                <div class="row">
+                <div class="col mx-1 m-2"><div class="content"> Admin &Customer Support</div>
+      <div><span class="fa fa-star checked "></span><span class="text-muted">4.77/5 &nbsp;&nbsp; &nbsp; &nbsp;508skills</span></div>
     </div>
-    <div class="row">
-      <div class="col mx-1 "><div class="content"> Admin &Customer Support</div>
-      <div><span class="fa fa-star checked "></span></span><span class="text-muted">4.77/5 &nbsp;&nbsp; &nbsp; &nbsp;508skills</span></div>
+    <div class="col mx-1 m-2"> <div class="content">Finance & Accounting</div> 
+      <div><span class="fa fa-star checked "></span><span class="text-muted">4.79/5&nbsp;&nbsp; &nbsp; &nbsp;214skills</span></div>
     </div>
-      <div class="col mx-1 "> <div class="content">Finance & Accounting</div> 
-      <div><span class="fa fa-star checked "></span></span><span class="text-muted">4.79/5&nbsp;&nbsp; &nbsp; &nbsp;214skills</span></div>
+    <div class="col mx-1 m-2"><div class="content">  Engineering & Architecture</div>
+      <div><span class="fa fa-star checked "></span><span class="text-muted">4.85/5&nbsp;&nbsp; &nbsp; &nbsp;650skills</span></div>
     </div>
-      <div class="col mx-1 "><div class="content">  Engineering & Architecture</div>
-      <div><span class="fa fa-star checked "></span></span><span class="text-muted">4.85/5&nbsp;&nbsp; &nbsp; &nbsp;650skills</span></div>
+    <div class="col mx-1 m-2"><div class="content">Legal</div>
+      <div><span class="fa fa-star checked "></span><span class="text-muted">4.85/5&nbsp; &nbsp;&nbsp; &nbsp;133skills</span></div>
     </div>
-      <div class="col mx-1 "><div class="content">Legal</div>
-      <div><span class="fa fa-star checked "></span></span><span class="text-muted">4.85/5&nbsp; &nbsp;&nbsp; &nbsp;133skills</span></div>
-    </div>
-      
-      
-  </div>
-</div>
-</body>
-</html>
+                </div>
+                </div>
+            </div>
+        )
+    }
+
+}
+
+export default Part1Home;
