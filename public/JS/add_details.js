@@ -50,7 +50,7 @@ document.getElementById("openEducat").addEventListener("click", function(){
         var start_date=document.getElementById('start_date').value;
         var end_date=document.getElementById('end_date').value;
         var description=document.getElementById('description').value;
-        cxcontent.innerHTML+='<div class="col-3 ml-4 experience_x pt-4"><p>'+title+'-'+company+'-'+location+'-'+is_work+'-'+start_date+'-'+end_date+'-'+description+'</p></div>';
+        cxcontent.innerHTML+='<div class="col-3 ml-4 experience_x pt-4"><p class="my_exp">'+title+'#'+company+'#'+location+'#'+is_work+'#'+start_date+'#'+end_date+'#'+description+'</p></div>';
   
       });
     document.getElementById('addEducation').addEventListener('click',function(){

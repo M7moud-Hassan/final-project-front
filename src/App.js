@@ -11,12 +11,13 @@ import TypeEmail from './Components/index/type_email';
 
 function App() {
   return (
+    ///activate_freelancer/AAA/GVFVKDCKCFKVKCFKVKKVKCFKCFVKBVKCFVKVKVG
       <BrowserRouter>
       <Routes>
       <Route path="/" element={<Home/>}/>
       <Route path="/login" element={<Login/>}/>
-      <Route path='/activate_freelancer/:uid/:token' element={<ActivateFreeLancer/>}/>
-      <Route path='/addDetails/:uid/:token' element={<AddDetails/>}/>
+      <Route path='/activate_free/:uid/:token' element={<ActivateFreeLancer/>}/>
+      <Route path='/addDetails/' element={<AddDetails/>}/>
       <Route path='/registration_fresslancer' element={<RegisterFreelancer/>}/>
       <Route path='/choose_account' element={<Nxsignup/>}/>
       <Route path='/registration_user' element={<RegisterFreelancer/>}/>

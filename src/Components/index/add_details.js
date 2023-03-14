@@ -3,30 +3,39 @@ import axios from "axios";
 import { useParams } from 'react-router-dom';
 
 class AddDetails extends Component{
-    componentDidMount() {
-    let { uid } = useParams();
-    let { token } = useParams();
-    this.fetchData(uid , token);
-}
+  
     constructor(){
-
       super();
+      this.expierces='['
       this.state={
-        i:0,
-        jobtitle:""
+        i:0,  
+        no_expiernce:false,
+        title:'',
+        company:'',
+        location:'',
+        is_work:false,
+        start_date:'',
+        end_date:'',
+        description:'',
       }
     }
-   
+    add_experiences(){
+           this.expierces+='{"title":"'+this.state.title+'",'+'"company":"'+this.state.company+'",'+'"location":"'+this.state.location+'","is_work":'+this.state.is_work+',"start_date":"'+this.state.start_date+'","end_date":"'+this.state.end_date+'","description":"'+this.state.description+'","id":1},';
+    }
    saveData(){
-      if(this.state.i==0){
-        // svae joptitle
-       axios
-        .post("http://127.0.0.1:8000/auth/jobTitle/", {
-            "id":1,
-            "jobtitle":this.state.jobtitle
-        })
+    console.log(this.state.i);
+      if(this.state.i==1){
+        if(!this.state.no_expiernce){
+         var data=this.expierces.substring(0,this.expierces.length-1);
+         data+=']';
+
+
+         //send data to api
+          console.log(data);
+          axios.post("dkdjf",data)
+        }
       }
-      this.setState({i:this.state.i++})
+      this.setState({i:this.state.i+1})
     }
  
     render(){
@@ -70,7 +79,13 @@ class AddDetails extends Component{
       
     </div>
     </div>
-    <input  type='checkbox' onchange='onchangeCheckedNone(this.checked);'/>
+    <input  type='checkbox' onClick={
+      ()=>{
+        this.setState({
+          no_expiernce:!this.state.no_expiernce
+        });
+      }
+    }/>
         <label class="messageCheckbox" for="is_work">not have experiences</label>
    </section>
 
@@ -147,9 +162,8 @@ class AddDetails extends Component{
     <div  class="w-100" id="svg_wrap"></div>
    <div class="container">
     <div class="button" id="prev">&larr; Previous</div>
-   <div class="button" id="next" onchange={
+   <div class="button" id="next" onClick={
     ()=>{
-      console.log("send data");
       this.saveData()
     }
    }>Next &rarr;</div>
@@ -165,18 +179,31 @@ class AddDetails extends Component{
     <div class=" formx form-content animate">
       <div class="mb-3 mt-3">
         <label for="email" class="form-label">Title:</label>
-        <input type="email" class="form-control" id="title" placeholder="Enter Title" name="Title"/>
+        <input type='text' class="form-control" id="title" placeholder="Enter Title" name="Title"onChange={(e)=>{
+                        this.setState({title:e.target.value})
+                    }}/>
       </div>
       <div class="mb-3 mt-3">
         <label for="email" class="form-label">company:</label>
-        <input type="email" class="form-control" id="company" placeholder="Enter company" name="company"/>
+        <input type="email" class="form-control" id="company" placeholder="Enter company" name="company"onChange={(e)=>{
+                        this.setState({company:e.target.value})
+                    }}/>
       </div>
       <div class="mb-3 mt-3">
         <label for="email" class="form-label">location:</label>
-        <input type="email" class="form-control" id="location" placeholder="Enter location" name="location"/>
+        <input type="email" class="form-control" id="location" placeholder="Enter location" name="location"
+       onChange={(e)=>{
+        this.setState({location:e.target.value})
+    }}/>
       </div>
       <div class="form-check">
-        <input id='checkbox_iswork' class='messageCheckbox' type='checkbox'/>
+        <input id='checkbox_iswork' class='messageCheckbox' type='checkbox' onClick={
+          ()=>{
+            this.setState({
+             is_work:!this.state.is_work
+            })
+          }
+        }/>
         <label class="messageCheckbox" for="is_work">
           is current work in company
         </label>
@@ -184,18 +211,29 @@ class AddDetails extends Component{
       <div class="container row">
        <div class="col-6">
         <label for="start_date">Start</label>
-        <input id="start_date" class="form-control" type="date" />
+        <input id="start_date" class="form-control" type="date"   onChange={(e)=>{
+        this.setState({start_date:e.target.value})
+    }} />
        </div>
        <div class="col-6">
         <label for="end_date">End</label>
-        <input id="end_date" class="form-control" type="date" />
+        <input id="end_date" class="form-control" type="date"  
+         onChange={(e)=>{
+          this.setState({end_date:e.target.value})
+      }}/>
        </div>
       </div>
       <div class="mb-3">
         <label for="description" class="form-label">Example textarea</label>
-        <textarea class="form-control" id="description" rows="3"></textarea>
+        <textarea class="form-control" id="description" rows="3"   onChange={(e)=>{
+        this.setState({description:e.target.value})
+    }}></textarea>
       </div>
-      <button class="btn btn-primary w-100" id="addExpirence">Submit</button>
+      <button class="btn btn-primary w-100" id="addExpirence"  onClick={
+        ()=>{
+          this.add_experiences()
+        }
+      }>Submit</button>
     </div>
   </div>
 
