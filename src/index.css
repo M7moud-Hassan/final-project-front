@@ -87,7 +87,8 @@ color: rgb(108, 180, 177);
   width: 150px;
 }
 .dropFont{
-  font-size: 1.5vw;
+  font-size: 1vw;
+  font-weight: 600;
   color: black;
 }
 .copyRight{
@@ -119,4 +120,17 @@ color: rgb(108, 180, 177);
 .shadowBorder{
   box-shadow: 1px 1px 10px 1px #888888;
   border-radius: 20px;
+}
+.fontEdits{
+  font-size: 1vw;
+}
+.fontEditsHalf{
+  font-size: 1.5vw;
+}
+.detailsContainer{
+  background-color: rgb(255, 255, 255);
+  border-radius: 20px;
+}
+.bgColor{
+  background-color: rgb(226, 225, 225);
 }

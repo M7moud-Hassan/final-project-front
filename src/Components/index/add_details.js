@@ -25,68 +25,111 @@ class AddDetails extends Component {
 
   render() {
     return (
-      <div>
+      <div className='bgColor'>
 
-        <nav class="navbar navbar-expand-lg navbar-light bg-white">
-          <div class="container">
-            <a class="navbar-brand" href="#"><img src="" alt="Logo" /></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
+        <nav className="navbar navbar-expand-lg bg-body-tertiary ">
+
+          <div className='container-fluid'>
+            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+              <span className="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-
-              <div class="navbar-nav ms-auto">
-                <div class="text-center">
-                  Here to hire talent?
-                  <a href="#" class="text-center text-success mt-3"> Join as a Client</a>
-                </div>
+            <img id='logo' className='ms-5' src='\images\upwork.png' />
+            <div className="collapse navbar-collapse" id="navbarScroll">
+              <div className='d-flex'>
+                <ul className='mt-3'>
+                  <li className="nav-item dropdown dropFont">
+                    <a className="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Empty slot
+                    </a>
+                    <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                      <a className="dropdown-item" href="#">Action</a>
+                      <a className="dropdown-item" href="#">Another action</a>
+                      <a className="dropdown-item" href="#">Something else here</a>
+                    </div>
+                  </li>
+                </ul>
+                <ul className='mt-3'>
+                  <li className="nav-item dropdown dropFont">
+                    <a className="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Empty slot
+                    </a>
+                    <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                      <a className="dropdown-item" href="#">Action</a>
+                      <a className="dropdown-item" href="#">Another action</a>
+                      <a className="dropdown-item" href="#">Something else here</a>
+                    </div>
+                  </li>
+                </ul>
+                <ul className='mt-3'>
+                  <li className="nav-item dropdown dropFont">
+                    <a className="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Empty slot
+                    </a>
+                    <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                      <a className="dropdown-item" href="#">Action</a>
+                      <a className="dropdown-item" href="#">Another action</a>
+                      <a className="dropdown-item" href="#">Something else here</a>
+                    </div>
+                  </li>
+                </ul>
               </div>
+              <div className='w-100' >
+                <form className="d-flex">
+                  <div className="input-group ms-5 w-100">
+                    <div className="search_box d-flex w-50">
+                      <input className="form-control me-2 w-100 " type="search" placeholder="Search" aria-label="Search" />
+                      <button className="btn btn-outline-success" type="submit">Search</button>
+                    </div>
 
+                    <button className="btn btn-primary border-0 rounded ms-3" type="submit">Sign Up</button>
+                  </div>
 
+                </form>
+              </div>
             </div>
           </div>
         </nav>
 
-        <div>
-          <section class="mysection">
-            <h1 class="text-success">Get now,add a title to tell the world whate you do</h1>
+        <div className='detailsContainer container'>
+          <section className="mysection container ">
+            <h1 className="text-success fontEditsHalf">Get now,add a title to tell the world whate you do</h1>
 
-            <label class="text-success" for="joptitle">your professional role</label>
-            <input type="email" class="form-control" id="jobtitle" />
+            <label className="text-success" for="joptitle">your professional role</label>
+            <input type="email" className="form-control" id="jobtitle" />
           </section>
-          <section class="mysection">
-            <h1 class="text-success">if you have relevant work  experience ,add it here</h1>
+          <section className="mysection container">
+            <h1 className="text-success">if you have relevant work  experience ,add it here</h1>
             <div className='row'>
-              <div id="openExper" class="experience col-3">
+              <div id="openExper" className="experience col-3">
 
               </div>
-              <div id="cxcontent" class="row col-9">
+              <div id="cxcontent" className="row col-9">
 
               </div>
             </div>
             <input type='checkbox' onchange='onchangeCheckedNone(this.checked);' />
-            <label class="messageCheckbox" for="is_work">not have experiences</label>
+            <label className="messageCheckbox" for="is_work">not have experiences</label>
           </section>
 
 
-          <section class="mysection">
-            <h1 class="text-success">if you have relevant Educations ,add it here</h1>
+          <section className="mysection container">
+            <h1 className="text-success">if you have relevant Educations ,add it here</h1>
             <div className='row'>
-              <div id="openEducat" class="experience col-3">
+              <div id="openEducat" className="experience col-3">
 
               </div>
-              <div id="edcontent" class="row col-9">
+              <div id="edcontent" className="row col-9">
 
               </div>
             </div>
             <input type='checkbox' onchange='onchangeCheckedNone(this.checked);' />
-            <label class="messageCheckbox" for="is_work">not have Educations</label>
+            <label className="messageCheckbox" for="is_work">not have Educations</label>
           </section>
 
-          <section class="mysection">
-            <h1 class="text-success">if you have relevant SKills ,add it here</h1>
-            <div class="row d-flex justify-content-center mt-100">
-              <div class="col-md-6"> <select id="choices-multiple-remove-button" placeholder="Select upto 5 tags" multiple>
+          <section className="mysection container">
+            <h1 className="text-success">if you have relevant SKills ,add it here</h1>
+            <div className="row d-flex justify-content-center mt-100">
+              <div className="col-md-6"> <select id="choices-multiple-remove-button" placeholder="Select upto 5 tags" multiple>
                 <option value="HTML">HTML</option>
                 <option value="Jquery">Jquery</option>
                 <option value="CSS">CSS</option>
@@ -103,22 +146,22 @@ class AddDetails extends Component {
               </select> </div>
             </div>
           </section>
-          <section class="mysection">
-            <div class="container">
+          <section className="mysection container">
+            <div className="container">
               <h2>The word about your self</h2>
               <form action="/action_page.php">
-                <div class="mb-3 mt-3">
+                <div className="mb-3 mt-3">
                   <label for="comment">your overview:</label>
-                  <textarea class="form-control" rows="5" id="comment" name="text"></textarea>
+                  <textarea className="form-control" rows="5" id="comment" name="text"></textarea>
                 </div>
               </form>
             </div>
           </section>
 
-          <section class="mysection">
-            <h1 class="text-success">if you have relevant Services ,add it here</h1>
-            <div class="row d-flex justify-content-center mt-100">
-              <div class="col-md-6">
+          <section className="mysection container">
+            <h1 className="text-success">if you have relevant Services ,add it here</h1>
+            <div className="row d-flex justify-content-center mt-100">
+              <div className="col-md-6">
                 <select id="choices-multiple-remove-button" placeholder="Select upto 5 tags" multiple>
                   <option value="HTML">HTML</option>
                   <option value="Jquery">Jquery</option>
@@ -137,94 +180,95 @@ class AddDetails extends Component {
               </div>
             </div>
           </section>
-          <div class="position-absolute bottom-0 text-center w-100" >
-            <div class="w-100" id="svg_wrap"></div>
-            <div class="container">
-              <div class="button" id="prev">&larr; Previous</div>
-              <div class="button" id="next" onchange={
+          <div className="position-absolute bottom-0 text-center w-100 " >
+            <div className="w-100" id="svg_wrap"></div>
+            <div className="container">
+              <div className="button" id="prev">&larr; Previous</div>
+              <div className="button" id="next" onchange={
                 () => {
                   console.log("send data");
                   this.saveData()
                 }
               }>Next &rarr;</div>
 
-              <input class="button" id="submit" type="submit" value="Save Data" />
+              <input className="button" id="submit" type="submit" value="Save Data" />
             </div>
           </div>
-        </div>
+        
 
 
 
-        <div id="logIn" class="dialog">
-          <div class=" formx form-content animate">
-            <div class="mb-3 mt-3">
-              <label for="email" class="form-label">Title:</label>
-              <input type="email" class="form-control" id="title" placeholder="Enter Title" name="Title" />
+        <div id="logIn" className="dialog container">
+          <div className=" formx form-content animate">
+            <div className="mb-3 mt-3">
+              <label for="email" className="form-label">Title:</label>
+              <input type="email" className="form-control" id="title" placeholder="Enter Title" name="Title" />
             </div>
-            <div class="mb-3 mt-3">
-              <label for="email" class="form-label">company:</label>
-              <input type="email" class="form-control" id="company" placeholder="Enter company" name="company" />
+            <div className="mb-3 mt-3">
+              <label for="email" className="form-label">company:</label>
+              <input type="email" className="form-control" id="company" placeholder="Enter company" name="company" />
             </div>
-            <div class="mb-3 mt-3">
-              <label for="email" class="form-label">location:</label>
-              <input type="email" class="form-control" id="location" placeholder="Enter location" name="location" />
+            <div className="mb-3 mt-3">
+              <label for="email" className="form-label">location:</label>
+              <input type="email" className="form-control" id="location" placeholder="Enter location" name="location" />
             </div>
-            <div class="form-check">
-              <input id='checkbox_iswork' class='messageCheckbox' type='checkbox' />
-              <label class="messageCheckbox" for="is_work">
+            <div className="form-check">
+              <input id='checkbox_iswork' className='messageCheckbox' type='checkbox' />
+              <label className="messageCheckbox" for="is_work">
                 is current work in company
               </label>
             </div>
-            <div class="container row">
-              <div class="col-6">
+            <div className="container row">
+              <div className="col-6">
                 <label for="start_date">Start</label>
-                <input id="start_date" class="form-control" type="date" />
+                <input id="start_date" className="form-control" type="date" />
               </div>
-              <div class="col-6">
+              <div className="col-6">
                 <label for="end_date">End</label>
-                <input id="end_date" class="form-control" type="date" />
+                <input id="end_date" className="form-control" type="date" />
               </div>
             </div>
-            <div class="mb-3">
-              <label for="description" class="form-label">Example textarea</label>
-              <textarea class="form-control" id="description" rows="3"></textarea>
+            <div className="mb-3">
+              <label for="description" className="form-label">Example textarea</label>
+              <textarea className="form-control" id="description" rows="3"></textarea>
             </div>
-            <button class="btn btn-primary w-100" id="addExpirence">Submit</button>
+            <button className="btn btn-primary w-100" id="addExpirence">Submit</button>
           </div>
         </div>
 
 
-        <div id="education" class="dialog">
-          <div class=" formx form-content animate">
-            <div class="mb-3 mt-3">
-              <label for="school" class="form-label">school:</label>
-              <input type="text" class="form-control" id="school" placeholder="Enter school" name="school" />
+        <div id="education" className="dialog container">
+          <div className=" formx form-content animate">
+            <div className="mb-3 mt-3">
+              <label for="school" className="form-label">school:</label>
+              <input type="text" className="form-control" id="school" placeholder="Enter school" name="school" />
             </div>
-            <div class="mb-3 mt-3">
-              <label for="degree" class="form-label">degree:</label>
-              <input type="text" class="form-control" id="degree" placeholder="Enter degree" name="degree" />
+            <div className="mb-3 mt-3">
+              <label for="degree" className="form-label">degree:</label>
+              <input type="text" className="form-control" id="degree" placeholder="Enter degree" name="degree" />
             </div>
-            <div class="mb-3 mt-3">
-              <label for="study" class="form-label">study:</label>
-              <input type="text" class="form-control" id="study" placeholder="Enter study" name="study" />
+            <div className="mb-3 mt-3">
+              <label for="study" className="form-label">study:</label>
+              <input type="text" className="form-control" id="study" placeholder="Enter study" name="study" />
             </div>
 
-            <div class="container row">
-              <div class="col-6">
+            <div className="container row">
+              <div className="col-6">
                 <label for="from year">from year</label>
-                <input type="number" id="from_year" class="form-control" />
+                <input type="number" id="from_year" className="form-control" />
               </div>
-              <div class="col-6">
+              <div className="col-6">
                 <label for="to year">to year</label>
-                <input type="number" id="to_year" class="form-control" />
+                <input type="number" id="to_year" className="form-control" />
               </div>
             </div>
-            <div class="mb-3">
-              <label for="description" class="form-label">Example textarea</label>
-              <textarea class="form-control" id="description2" rows="3"></textarea>
+            <div className="mb-3">
+              <label for="description" className="form-label">Example textarea</label>
+              <textarea className="form-control" id="description2" rows="3"></textarea>
             </div>
-            <button class="btn btn-primary w-100" id='addEducation'>Submit</button>
+            <button className="btn btn-primary w-100" id='addEducation'>Submit</button>
           </div>
+        </div>
         </div>
       </div>
     )

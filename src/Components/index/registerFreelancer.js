@@ -175,9 +175,9 @@ class RegisterFreelancer extends Component{
                     </div>
                   </div>
 
-                  <div className="form-check mt-2">
+                  <div className="form-check mt-4">
                     <input className="form-check-input" type="checkbox" id="send_emails" name="send_emails"></input>
-                    <label className="form-check-label" htmlFor="send_emails">
+                    <label className="form-check-label fontEdits" htmlFor="send_emails">
                       Send me helpful emails to find rewarding work and job leads
                     </label>
                   </div>
@@ -186,12 +186,12 @@ class RegisterFreelancer extends Component{
                     <div className="col-md-12 mb-4">
                       <div className="form-outline position-relative">
                     <input className="form-check-input" type="checkbox" id="agree_terms" name="agree_terms" required></input>
-                    <label className="form-check-label" htmlFor="agree_terms">
+                    <label className="form-check-label fontEdits" htmlFor="agree_terms">
                       Yes, I understand and agree to the Upwork Terms of Service, including the <a href="#" className="text-success">User
                         Agreement</a> and <a href="#" className="text-success">Privacy Policy</a>
                     </label>
                     <div className="invalid-feedback text-danger" id="email-feedback">
-                      Please accept the Upwork Terms of Service before continuing
+                      Please accept the Upwork Terms of Service before continue
                     </div>
                   </div>
                    </div>
