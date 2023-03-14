@@ -1,29 +1,36 @@
-import React, { Component } from 'react';
 import { useEffect, useState } from "react";
-import { NavLink } from 'react-router-dom';
-import AddDetails from './add_details';
 import { useParams } from 'react-router-dom'
 import axios from "axios";
 
 let ActivateFreeLancer =()=>
     {
-        const {uid, token} = useParams();
-        let [userId, userName]=useState({});
-        useEffect(()=>{
-        var result=    axios
-        .post("http://127.0.0.1:8000/auth/activate_freelancer/", {
+       const {uid, token} = useParams();
+        useEffect(async()=>{
+            console.log(uid);
+            console.log(token);
+        var result=  await  axios
+        .post("http://127.0.0.1:8000/auth/activate_free/", {
             "uid":uid,
             "token":token
-        })
-        result.then((value)=>{
-          console.log("skjjdcjdjjdfcdndjnc");
-        })
-        },[])
+        });
+        var data= result.data;
+        if(data=='ok'){
+         window.location="/addDetails/"
+        }
+        },[]);
+        
+     let rendercontent = ()=>{
+     return (<div id="demo-content">
+     <div id="loader-wrapper">
+         <div id="loader"></div>
+     </div>
+
+ </div>)}
+
         return (
-            <div className="">
-                {uid}
-                {token}
-            </div>
+           <div>
+{rendercontent()}
+           </div>
         )
     }
 export default ActivateFreeLancer;

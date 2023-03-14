@@ -108,8 +108,9 @@ class AddDetails extends Component {
 
                 </div>
               </div>
-              <input type='checkbox' onchange='onchangeCheckedNone(this.checked);' />
-              <label className="messageCheckbox" for="is_work">not have experiences</label>
+              
+              <label className="messageCheckbox fontEditsHalf text-dark mt-3" for="is_work">not have experiences</label>
+              <input type='checkbox'className='ms-3' onchange='onchangeCheckedNone(this.checked);' />
             </section>
 
 
@@ -123,8 +124,9 @@ class AddDetails extends Component {
 
                 </div>
               </div>
-              <input type='checkbox' onchange='onchangeCheckedNone(this.checked);' />
-              <label className="messageCheckbox " for="is_work">not have Educations</label>
+             
+              <label className="messageCheckbox fontEditsHalf text-dark mt-3" for="is_work">not have Educations</label>
+              <input type='checkbox' className='ms-3' onchange='onchangeCheckedNone(this.checked);' />
             </section>
 
             <section className="mysection container">
@@ -217,7 +219,7 @@ class AddDetails extends Component {
                 </div>
                 <div className="form-check">
                   
-                  <label className="messageCheckbox fontEditsHalf text-success mt-3" for="is_work">
+                  <label className="messageCheckbox fontEditsHalf text-dark mt-3" for="is_work">
                     is current work in company
                   </label>
                   <input id='checkbox_iswork' className='messageCheckbox ms-3' type='checkbox' />
