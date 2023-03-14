@@ -13,8 +13,9 @@
 >>>>>>> 3c149bee1ab07ec6194464b7ad54b61e89a135d5
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.43.5",
     "react-router-dom": "^6.9.0",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
