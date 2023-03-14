@@ -194,7 +194,7 @@ class AddDetails extends Component {
                   }
                 }>Next &rarr;</div>
 
-                <input className="button" id="submit" type="submit" value="Save Data" />
+                <input className="button btn btn-success" id="submit" type="submit" value="Save Data" />
               </div>
             </div>
 
@@ -204,38 +204,41 @@ class AddDetails extends Component {
             <div id="logIn" className="dialog container">
               <div className=" formx form-content animate">
                 <div className="mb-3 mt-3">
-                  <label for="email" className="form-label">Title:</label>
+                  <label for="email" className="form-label fontEditsHalf text-success">Title:</label>
                   <input type="email" className="form-control" id="title" placeholder="Enter Title" name="Title" />
                 </div>
                 <div className="mb-3 mt-3">
-                  <label for="email" className="form-label">company:</label>
+                  <label for="email" className="form-label fontEditsHalf text-success">company:</label>
                   <input type="email" className="form-control" id="company" placeholder="Enter company" name="company" />
                 </div>
                 <div className="mb-3 mt-3">
-                  <label for="email" className="form-label">location:</label>
+                  <label for="email" className="form-label fontEditsHalf text-success">location:</label>
                   <input type="email" className="form-control" id="location" placeholder="Enter location" name="location" />
                 </div>
                 <div className="form-check">
-                  <input id='checkbox_iswork' className='messageCheckbox' type='checkbox' />
-                  <label className="messageCheckbox" for="is_work">
+                  
+                  <label className="messageCheckbox fontEditsHalf text-success mt-3" for="is_work">
                     is current work in company
                   </label>
+                  <input id='checkbox_iswork' className='messageCheckbox ms-3' type='checkbox' />
                 </div>
                 <div className="container row">
                   <div className="col-md-6">
-                    <label for="start_date">Start</label>
+                    <label for="start_date" className=' fontEditsHalf text-success mt-3'>Start</label>
                     <input id="start_date" className="form-control" type="date" />
                   </div>
                   <div className="col-md-6">
-                    <label for="end_date">End</label>
+                    <label for="end_date" className='fontEditsHalf text-success mt-3'>End</label>
                     <input id="end_date" className="form-control" type="date" />
                   </div>
                 </div>
-                <div className="mb-3">
-                  <label for="description" className="form-label">Example textarea</label>
+                <div className="mb-3 ">
+                  <label for="description" className="form-label fontEditsHalf text-success mt-3">Example textarea</label>
                   <textarea className="form-control" id="description" rows="3"></textarea>
                 </div>
-                <button className="btn btn-primary w-100" id="addExpirence">Submit</button>
+                <div className='text-center'>
+                <button className="btn btn-success w-25 mt-3" id="addExpirence">Submit</button>
+                </div>
               </div>
             </div>
 
@@ -243,33 +246,35 @@ class AddDetails extends Component {
             <div id="education" className="dialog container">
               <div className=" formx form-content animate">
                 <div className="mb-3 mt-3">
-                  <label for="school" className="form-label">school:</label>
+                  <label for="school" className="form-label fontEditsHalf text-success mt-3">school:</label>
                   <input type="text" className="form-control" id="school" placeholder="Enter school" name="school" />
                 </div>
                 <div className="mb-3 mt-3">
-                  <label for="degree" className="form-label">degree:</label>
+                  <label for="degree" className="form-label fontEditsHalf text-success mt-3">degree:</label>
                   <input type="text" className="form-control" id="degree" placeholder="Enter degree" name="degree" />
                 </div>
                 <div className="mb-3 mt-3">
-                  <label for="study" className="form-label">study:</label>
+                  <label for="study" className="form-label fontEditsHalf text-success mt-3">study:</label>
                   <input type="text" className="form-control" id="study" placeholder="Enter study" name="study" />
                 </div>
 
                 <div className="container row">
                   <div className="col-md-6">
-                    <label for="from year">from year</label>
+                    <label for="from year " className='fontEditsHalf text-success mt-3'>from year</label>
                     <input type="number" id="from_year" className="form-control" />
                   </div>
                   <div className="col-md-6">
-                    <label for="to year">to year</label>
+                    <label for="to year " className='fontEditsHalf text-success mt-3'>to year</label>
                     <input type="number" id="to_year" className="form-control" />
                   </div>
                 </div>
                 <div className="mb-3">
-                  <label for="description" className="form-label">Example textarea</label>
+                  <label for="description" className="form-label fontEditsHalf text-success mt-3">Example textarea</label>
                   <textarea className="form-control" id="description2" rows="3"></textarea>
                 </div>
-                <button className="btn btn-primary w-100" id='addEducation'>Submit</button>
+                <div className='text-center'>
+                <button className="btn btn-success w-25 mt-3 mb-5" id="addExpirence">Submit</button>
+                </div>
               </div>
             </div>
           </div>
