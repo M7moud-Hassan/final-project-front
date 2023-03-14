@@ -1,15 +1,5 @@
-// <<<<<<< HEAD
-import  Navbar  from './Components/index/navbar'
-import { BrowserRouter } from "react-router-dom";
 
-// function App() {
-//   return (
-//     <div>
-//       <Navbar/>
-//     </div> 
-// // =======
-//   )}
-import { Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './Components/home_page';
 import AddDetails from './Components/index/add_details';
 import Login from './Components/index/Login';
@@ -33,7 +23,6 @@ function App() {
       <Route path='/type_new_password' element={<Type_new_password/>}/>
       </Routes>
       </BrowserRouter>
-// >>>>>>> 5541ff5b871329ebbda812027027c6dbb20b3d73
   )
 }
 
