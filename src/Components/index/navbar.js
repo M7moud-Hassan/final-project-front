@@ -3,12 +3,12 @@ import React, { Component } from 'react';
 
 
 
-class NavBar extends Component{
-    constructor(){
-      super();
+class NavBar extends Component {
+  constructor() {
+    super();
 
 
-    }
+  }
 
     render(){
         return(
@@ -155,9 +155,9 @@ class NavBar extends Component{
           <li><a href="#">fifth</a></li>
         </ul>
       </div>
+      </div>
       
-            </div>
-        )
-    }
+    )
+  }
 }
 export default NavBar;
