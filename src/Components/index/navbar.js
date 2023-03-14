@@ -3,12 +3,12 @@ import React, { Component } from 'react';
 
 
 
-class NavBar extends Component{
-    constructor(){
-      super();
+class NavBar extends Component {
+  constructor() {
+    super();
 
 
-    }
+  }
 
     render(){
         return(
@@ -144,20 +144,19 @@ class NavBar extends Component{
           </div>
           
         </div>
-      </nav>
-
-      <div class="subnav">
-        <ul>
-          <li><a href="#">first</a></li>
-          <li><a href="#">sec</a></li>
-          <li><a href="#">Third</a></li>
-          <li><a href="#">fourth</a></li>
-          <li><a href="#">fifth</a></li>
-        </ul>
+      </nav>   
+        {/* <div className="subnav">
+          <ul>
+            <li><a href="#">Empty slot</a></li>
+            <li><a href="#">Empty slot</a></li>
+            <li><a href="#">Empty slot</a></li>
+            <li><a href="#">Empty slot</a></li>
+            <li><a href="#">Empty slot</a></li>
+          </ul>
+        </div> */}
       </div>
       
-            </div>
-        )
-    }
+    )
+  }
 }
 export default NavBar;
