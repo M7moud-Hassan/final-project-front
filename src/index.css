@@ -107,3 +107,16 @@ color: rgb(108, 180, 177);
   background-color: white;
   margin-bottom: 3%;
 }
+.reTypeEmail{
+  background-color: rgb(255, 255, 255);
+  margin-top: 5%;
+  height: 40vw;
+}
+.parentDivTypeEmail{
+  display: flex;
+  justify-content: center;
+}
+.shadowBorder{
+  box-shadow: 1px 1px 10px 1px #888888;
+  border-radius: 20px;
+}

@@ -7,7 +7,7 @@ import Login from './Components/index/Login';
 import Nxsignup from './Components/index/Nxsignup';
 import RegisterFreelancer from './Components/index/registerFreelancer';
 import TypeEmail from './Components/index/type_email';
-
+import Type_new_password from './Components/index/type_new_password';
 
 function App() {
   return (
@@ -21,6 +21,8 @@ function App() {
       <Route path='/choose_account' element={<Nxsignup/>}/>
       <Route path='/registration_user' element={<RegisterFreelancer/>}/>
       <Route path='/type_email' element={<TypeEmail/>}/>
+      <Route path='/type_new_password' element={<Type_new_password/>}/>
+
       </Routes>
       </BrowserRouter>
   )
