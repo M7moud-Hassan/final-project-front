@@ -1,83 +1,48 @@
 import { useState } from "react";
 import axios from "axios";
+import { NavLink } from "react-router-dom";
 
 function Login(){
-
+    localStorage.removeItem('id')
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [msg,setMess]=useState('');
+    const [typeErro,SetTypeError]=useState('');
 
 
     let loginCheck=(e)=>{
-
+        
+      
         e.preventDefault();
         axios.post('http://localhost:8000/auth/login/',{email: email,password: password,}) 
-        .then ((res)=> {console.log(res)})
+        .then ((res)=> {
+           console.log(res.data.ress);
+            if(res.data.ress=='ok'){
+                localStorage.setItem("id", res.data.id);
+                localStorage.setItem("userName", res.data.name);
+                window.location='/profileUser/'
+            }else if(res.data.ress=='not active'){
+                SetTypeError('alert alert-danger')
+                setMess('user not active')
+               // self.setMess('user not active')
+                //mesg error
+            }else if(res.data.ress=='password worng'){
+               SetTypeError('alert alert-danger')
+                setMess('password wrong')
+            }else if(res.data.ress=='not complete') {
+                localStorage.setItem("id", res.data.id);
+                localStorage.setItem("userName", res.data.name);
+                window.location='/addDetails/'
+            }
+        })
         .catch ((err)=> {console.log(err)});
     }
+    console.log(msg);
         return (
             <div>
-                        <nav className="navbar navbar-expand-lg bg-body-tertiary ">
-
-<div className='container-fluid'>
-    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
-<span className="navbar-toggler-icon"></span>
-    </button>
-<img id='logo' className='ms-5' src='\images\upwork.png' />
-<div class="collapse navbar-collapse" id="navbarScroll">
-<div className='d-flex'>
-<ul className='mt-3'>
-  <li className="nav-item dropdown dropFont">
-    <a className="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Empty slot
-    </a>
-    <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-      <a className="dropdown-item" href="#">Action</a>
-      <a className="dropdown-item" href="#">Another action</a>
-      <a className="dropdown-item" href="#">Something else here</a>
-    </div>
-  </li>
-</ul>
-<ul className='mt-3'>
-  <li className="nav-item dropdown dropFont">
-    <a className="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Empty slot
-    </a>
-    <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-      <a className="dropdown-item" href="#">Action</a>
-      <a className="dropdown-item" href="#">Another action</a>
-      <a className="dropdown-item" href="#">Something else here</a>
-    </div>
-  </li>
-</ul>
-<ul className='mt-3'>
-  <li className="nav-item dropdown dropFont">
-    <a className="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Empty slot
-    </a>
-    <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-      <a className="dropdown-item" href="#">Action</a>
-      <a className="dropdown-item" href="#">Another action</a>
-      <a className="dropdown-item" href="#">Something else here</a>
-    </div>
-  </li>
-</ul>
-</div>
-<div className='w-100' >
-<form className="d-flex">
-  <div className="input-group ms-5 w-100">
-    <div className="search_box d-flex w-50">
-      <input className="form-control me-2 w-100 " type="search" placeholder="Search" aria-label="Search" />
-      <button className="btn btn-outline-success " type="submit">Search</button>
-    </div>
-
-    <button className="btn btn-primary border-0 rounded ms-3" type="submit">Sign Up</button>
-  </div>
-  
-</form>
-</div>
-</div>
-</div>
-</nav>
+            <div class={typeErro}>
+              {msg}
+              </div>
             <div className="container">
                 <section className="vh-100 gradient-custom">
                     <div className="container py-5 h-100">
@@ -136,7 +101,7 @@ function Login(){
                                                 <div className="like-hr"></div>
                                             </div>
                                             <div>
-                                                <button className="btn btn-primary btn-block rounded-pill w-100">Countinue with Google</button>
+                                                <NavLink className="btn btn-primary btn-block rounded-pill w-100" to={'/rest_password'}>Forget Password</NavLink>
                                             </div>
                                             <div className="container d-flex hrContain mt-4">
                                                 <div className="like-hr"></div>
@@ -144,7 +109,7 @@ function Login(){
                                                 <div className="like-hr"></div>
                                             </div>
                                             <div>
-                                                <button className="btn btn-light btn-block rounded-pill w-100 border border-success">Sign Up</button>
+                                                <NavLink className="btn btn-light btn-block rounded-pill w-100 border border-success" to={"/choose_account"}>Sign Up</NavLink>
                                             </div>
                                         </div>
                                     </div>

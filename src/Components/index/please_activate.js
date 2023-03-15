@@ -1,6 +1,8 @@
-import axios from 'axios';
+import { useParams } from "react-router-dom"
+
 
 let Check_email = () => {
+    let {email}=useParams()
     return (
         <div>
             <nav className="navbar navbar-expand-lg bg-body-tertiary ">
@@ -73,7 +75,7 @@ let Check_email = () => {
               <div className="col-12 col-lg-9 col-xl-7">
                 <div className="card shadow-2-strong card-registration my-5">
                   <div className="card-body p-4 p-md-5 shadowBorder">
-                    <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Please Check and confirm your Email ...</h3>
+                    <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Please Check and confirm your Email  {email}</h3>
                     <div className="my-3 ">
 
                     </div>

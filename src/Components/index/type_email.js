@@ -1,9 +1,27 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import axios from "axios";
 
 let TypeEmail = () => {
+  let [email,setEmail]=useState('')
+  const [msg,setMess]=useState('');
+  const [typeErro,SetTypeError]=useState('');
+let check_email=()=>{
+ if(email!=''){
+  axios.post('http://localhost:8000/auth/email_reset_password/',
+  {email:email}) 
+  .then ((res)=> {
+    if(res.data=='ok'){
+      window.location='/please_activate/'+email
+    }else{
+      SetTypeError('alert alert-danger')
+      setMess('Email not coorect')
+    }
+  }).catch((error)=>console.log(error))
+ }
+}
     return (
       <div>
+         
         <nav class="navbar navbar-expand-lg navbar-light bg-white">
           <div class="container">
             <a class="navbar-brand" href="#"><img src="images/upwork.svg" alt="Logo" /></a>
@@ -11,19 +29,20 @@ let TypeEmail = () => {
               <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-
               <div class="navbar-nav ms-auto">
                 <div class="text-center">
                   Here to hire talent?
                   <a href="#" class="text-center text-success mt-3"> Join as a Client</a>
                 </div>
               </div>
-
-
             </div>
           </div>
         </nav>
+
         <div className="container ">
+        <div class={typeErro}>
+              {msg}
+              </div>
           <section className="vh-100 gradient-custom">
             <div className="container py-5 h-100">
               <div className="row justify-content-center align-items-center h-100">
@@ -42,7 +61,7 @@ let TypeEmail = () => {
                                   pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}"
                                   className="form-control  rounded-pill"
                                   // value={email}
-                                  // onChange={(e) => setEmail(e.target.value)} 
+                                  onChange={(e) => setEmail(e.target.value)} 
                                   />
                                 <div className="invalid-feedback"
                                   id="email-feedback">
@@ -55,7 +74,11 @@ let TypeEmail = () => {
 
 
                           <div>
-                            <input className="btn btn-success btn-block rounded-pill  w-100" type="submit" value="Update E-mail" />
+                            <input className="btn btn-success btn-block rounded-pill  w-100"  value="Reset"  onClick={
+                              ()=>{
+                                check_email()
+                              }
+                            }/>
                           </div>
 
                         </form>
