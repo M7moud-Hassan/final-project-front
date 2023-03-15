@@ -1,49 +1,24 @@
 import React, { Component } from 'react';
+import { ReactSession }  from 'react-client-session';
 import axios from 'axios';
 import '../js/jquery.js'
 import '../css/add_details.css'
 import '../js/add_details.js'
-import { element } from 'prop-types';
 
 
 
 class AddDetails extends Component {
   constructor() {
     super();
+  
     this.expierces = '['
     this.educations = '['
 
     this.state = {
       // jobtitle
-      optionsSkills:[
-        {
-            "id": 1,
-            "name": "ddhhdjhd"
-        },
-        {
-            "id": 2,
-            "name": "dkdyyhdxhdxh"
-        }
-    ],
+      optionsSkills: JSON.parse(localStorage.getItem('skills')),
       optionsServices:
-        [
-          {
-              "id": 1,
-              "name": "djhdhd",
-              "category_service": 1
-          },
-          {
-              "id": 2,
-              "name": "ckxhggxhx",
-              "category_service": 1
-          },
-          {
-              "id": 3,
-              "name": "dhsdhhd",
-              "category_service": 1
-          }
-      ]
-      ,
+      JSON.parse(localStorage.getItem('services')),
       i: 0,
       jobtitle: '',
       // expierces
@@ -69,21 +44,54 @@ class AddDetails extends Component {
       city:'',
       state:'',
       postal_code:'',
-
+      yourSkills:[],
+      yourServices:[],
+     
 
     }
     this.handleJopTitleChange = this.handleJopTitleChange.bind(this);
-    this.saveData = this.saveData.bind(this);
+   this.saveData = this.saveData.bind(this);
   }
 
+
+  
+
+   mySkill= ({optionsSkills})=>{
+      
+    return optionsSkills.map((element)=>
+        
+   {
+     return ( <option value={element.id}>{element.name}</option>)
+   }
+        
+     )
+    
+   
+ }
+
+ myServces=({optionsServices})=>{
+      
+  return optionsServices.map((element)=>
+      
+ {
+   return ( <option value={element.id}>{element.name}</option>)
+ }
+      
+   )
+  
+ 
+}
+
   add_experiences() {
-    this.expierces += '{"title":"' + this.state.title + '",' + '"company":"' + this.state.company + '",' + '"location":"' + this.state.location + '","is_current_work_in_company":' + this.state.is_work + ',"start_date":"' + this.state.start_date + '","end_date":"' + this.state.end_date + '","description":"' + this.state.description + '","relate_id":1},';
+  
+    this.expierces += '{"title":"' + this.state.title + '",' + '"company":"' + this.state.company + '",' + '"location":"' + this.state.location + '","is_current_work_in_company":' + this.state.is_work + ',"start_date":"' + this.state.start_date + '","end_date":"' + this.state.end_date + '","description":"' + this.state.description + '","relate_id":'+  localStorage.getItem("id")+'},';
   }
 
   add_educations() {
-    this.educations += '{"school":"' + this.state.school + '",' + '"degree":"' + this.state.degree + '",' + '"study":"' + this.state.study + '","from_year":' + this.state.from_year + ',"to_year":"' + this.state.to_year + '","description":"' + this.state.edu_description + '","freelancer_register_id":1},';
+    this.educations += '{"school":"' + this.state.school + '",' + '"degree":"' + this.state.degree + '",' + '"study":"' + this.state.study + '","from_year":' + this.state.from_year + ',"to_year":"' + this.state.to_year + '","description":"' + this.state.edu_description + '","freelancer_register_id":'+  localStorage.getItem("id")+'},';
   }
 
+  
   handleJopTitleChange(event) {
     this.setState({ jobtitle: event.target.value });
   }
@@ -92,151 +100,113 @@ class AddDetails extends Component {
 
 
   saveData() {
-    if (this.state.i == 0) {
+    if(this.state.city!='' && this.state.postal_code!='' && this.state.state!=''&&this.state.street_address!=''){
+    console.log(this.state.jobtitle);
+    var data = this.expierces.substring(0, this.expierces.length - 1);
+    data += ']';
+    console.log("expirences",data);
+    var data2 = this.educations.substring(0, this.educations.length - 1);
+    data2 += ']';
+    console.log("education",data2);
 
-      axios
+
+    axios
         .post("http://127.0.0.1:8000/auth/jobTitle/", {
-          id: 1,
-          job_title: this.state.jobtitle
+          id:   localStorage.getItem("id"),
+          jobtitle: this.state.jobtitle
         })
         .then((response) => {
-          console.log(response);
+          console.log(response.data);
         })
         .catch((error) => {
-          console.log(error);
+          console.log('error add jobtitle');
         });
-      this.state.i += 1;
-    }
-
-   
-
-    else if (this.state.i == 1) {
-      if (this.state.i == 1) {
-        if (!this.state.no_expiernce) {
-          var data = this.expierces.substring(0, this.expierces.length - 1);
-          data += ']';
-
-
-          //send data to api
-          console.log(data);
-          axios
+  
+      axios
             .post("http://127.0.0.1:8000/auth/addExperience/",
               data
-
             )
             .then((response) => {
               console.log(response.data);
             })
             .catch((error) => {
-              console.log(error);
+              console.log('error add expirences');
             });
-        }
-      }
-      this.setState({ i: this.state.i + 1 })
-
-
-    }
-
-    else if (this.state.i == 2) {
-      if (this.state.i == 2) {
-        if (!this.state.no_education) {
-
-          var data = this.educations.substring(0, this.educations.length - 1);
-          data += ']';
-
-
-          //send data to api
-          console.log(data);
-          axios
-            .post("http://127.0.0.1:8000/auth/save_education/",
-              data
-
-            )
-            .then((response) => {
-              console.log(response.data);
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-
-        }
-        this.setState({ i: this.state.i + 1 })
-
-      }
-    }
-    else if (this.state.i == 3) {
-     
-
-      // axios
-      //   .post("http://127.0.0.1:8000/auth/save_overview/", {
-      //     id: 1,
-      //     overview: this.state.overview
-      //   })
-      //   .then((response) => {
-      //     console.log(response);
-      //   })
-      //   .catch((error) => {
-      //     console.log(error);
-      //   });
-      this.state.i += 1;
-    }
-
-
-    else if (this.state.i == 4) {
-     
-      axios
-        .post("http://127.0.0.1:8000/auth/save_overview/", {
-          id: 1,
-          overview: this.state.overview
-        })
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-      this.state.i += 1;
-    }
-
-    else if (this.state.i == 5) {
-     
-      // axios
-      //   .post("http://127.0.0.1:8000/auth/save_overview/", {
-      //     id: 1,
-      //     overview: this.state.overview
-      //   })
-      //   .then((response) => {
-      //     console.log(response);
-      //   })
-      //   .catch((error) => {
-      //     console.log(error);
-      //   });
-      this.state.i += 1;
-    }
-
-    else if (this.state.i == 6) {
-     
-     
-      axios
-        .post("http://127.0.0.1:8000/auth/addAdress/", {
-          id: 1,
-          street_address:this.state.street_address,
-          city:this.state.city,
-          state:this.state.state,
-          postal_code:this.state.postal_code
-        })
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
       
-    }
+    axios.post("http://127.0.0.1:8000/auth/save_education/",
+              data2
+
+            )
+            .then((response) => {
+              console.log(response.data);
+            })
+            .catch((error) => {
+              console.log('error add aducations');
+            });
+
+            axios
+            .post("http://127.0.0.1:8000/auth/save_overview/", {
+              id:   localStorage.getItem("id"),
+              overview: this.state.overview
+            })
+            .then((response) => {
+              console.log(response.data);
+            })
+            .catch((error) => {
+              console.log('error add overview');
+            });
+        
+      axios
+            .post("http://127.0.0.1:8000/auth/addAdress/", {
+              id:   localStorage.getItem("id"),
+              street_address:this.state.street_address,
+              city:this.state.city,
+              state:this.state.state,
+              postal_code:this.state.postal_code
+            })
+            .then((response) => {
+              console.log(response.data);
+            })
+            .catch((error) => {
+              console.log('error add address');
+            });
+
+      
+      
+      axios
+          .post("http://127.0.0.1:8000/auth/addSkills/", {
+            id:   localStorage.getItem("id"),
+            skills:this.state.yourSkills
+            })
+            .then((response) => {
+              console.log(response.data);
+            })
+            .catch((error) => {
+              console.log('error add addSkills');
+            });
+
+      
+            axios
+            .post("http://127.0.0.1:8000/auth/addService/", {
+              id:   localStorage.getItem("id"),
+              services:this.state.yourServices
+              })
+              .then((response) => {
+               window.location='/login/'
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+            }
   }
 
 
   render() {
+    if(  localStorage.getItem("id")==undefined){
+      return <div>
+        Eroor
+      </div>
+    }
     return (
       <div>
 
@@ -280,7 +250,7 @@ class AddDetails extends Component {
 
               </div>
             </div>
-            <input type='checkbox' onchange='onchangeCheckedNone(this.checked);' onClick={
+            <input type='checkbox' id='skipExpirences' onClick={
               () => {
                 this.setState({
                   no_expiernce: !this.state.no_expiernce
@@ -302,7 +272,7 @@ class AddDetails extends Component {
 
               </div>
             </div>
-            <input type='checkbox' onchange='onchangeCheckedNone(this.checked);' onClick={
+            <input type='checkbox' id='skipeducations' onClick={
               () => {
                 this.setState({
                   no_education: !this.state.no_education
@@ -315,14 +285,21 @@ class AddDetails extends Component {
           <section className="mysection">
             <h1 className="text-success">if you have relevant SKills ,add it here</h1>
             <div className="row d-flex justify-content-center mt-100">
-              <div className="col-md-6"> <select id="choices-multiple-remove-button" placeholder="Select upto 5 tags" multiple>
-                {
-                  this.state.optionsSkills.map(element=>{
-                    <option value={element.id}>{element.name}</option>
-                  })
+            <div class="col-md-6"> <select id="choices-multiple-remove-button" placeholder="Select upto 5 tags"  onChange={
+              (e)=>{
+                var list=[]
+                for(var i=0;i<e.target.children.length;i++){
+                  list.push(e.target.children[i].value)
                 }
-               
-              </select> </div>
+                
+                this.setState({yourSkills:list})
+              
+              }
+            } multiple>
+           {
+            this.mySkill(this.state)
+           }
+        </select> </div>
             </div>
           </section>
 
@@ -333,7 +310,7 @@ class AddDetails extends Component {
               <form action="/action_page.php">
                 <div className="mb-3 mt-3">
                   <label htmlFor="comment">your overview:</label>
-                  <textarea className="form-control" rows="5" id="comment" name="text" onChange={(e) => {
+                  <textarea className="form-control" rows="5"  id="overview" name="text" onChange={(e) => {
                 this.setState({ overview: e.target.value })
               }}></textarea>
                 </div>
@@ -345,11 +322,19 @@ class AddDetails extends Component {
             <h1 className="text-success">if you have relevant Services ,add it here</h1>
             <div className="row d-flex justify-content-center mt-100">
               <div className="col-md-6">
-                <select id="choices-multiple-remove-button" placeholder="Select upto 5 tags" multiple>
+                <select id="choices-multiple-remove-button" placeholder="Select upto 5 tags" onChange={
+              (e)=>{
+                var list=[]
+                for(var i=0;i<e.target.children.length;i++){
+                  list.push(e.target.children[i].value)
+                }
+                
+                this.setState({yourServices:list})
+              
+              }
+            } multiple>
                 {
-                  this.state.optionsServices.map(element=>{
-                    <option value={element.id}>{element.name}</option>
-                  })
+                  this.myServces(this.state)
                 }
                 </select>
               </div>
@@ -388,7 +373,7 @@ class AddDetails extends Component {
             <div class="w-100" id="svg_wrap"></div>
             <div class="container">
               <div class="button" id="prev">&larr; Previous</div>
-              <div class="button" id="next" onClick={this.saveData}>Next &rarr;</div>
+              <div class="button" id="next" >Next &rarr;</div>
               <input class="button" id="submit" type="submit" value="Save Data" onClick={this.saveData}/>
             </div>
           </div>
