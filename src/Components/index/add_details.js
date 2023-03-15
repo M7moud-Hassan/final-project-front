@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
-import { ReactSession }  from 'react-client-session';
+
+
 import axios from 'axios';
 import '../js/jquery.js'
 import '../css/add_details.css'
 import '../js/add_details.js'
+
+
+
 
 
 
