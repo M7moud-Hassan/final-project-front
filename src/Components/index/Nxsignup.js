@@ -1,4 +1,8 @@
+import { useEffect } from "react"
+
 let Nxsignup = () => {
+    
+    var useraccount=0
     return (
         <div>
             <nav class="navbar navbar-expand-lg navbar-light bg-white">
@@ -28,19 +32,39 @@ let Nxsignup = () => {
                         <div class="col-ml-8">
                             <form method="post" id="form">
                                 <section class="btn-group" id="inputsection">
-                                    <input type="radio" name="btnradio" class="btn-check" id="gfg1"/>
+                                    <input type="radio" name="btnradio" class="btn-check" id="gfg1" onClick={
+                                        ()=>{
+                                            useraccount=1
+                                        }
+                                    }/>
                                     <label class="btn btn-outline-success" for="gfg1">
                                         I’m a client, hiring for a project
                                     </label>
                                     <div class="br"></div>
-                                    <input type="radio" name="btnradio" class="btn-check" id="gfg3"/>
+                                    <input type="radio" name="btnradio" class="btn-check" id="gfg3" onClick={
+                                       ()=>{
+                                        useraccount=2
+                                       }
+                                    }/>
                                     <label class="btn btn-outline-success" for="gfg3">
                                         I’m a freelancer, looking for work
                                     </label>
                                     <div class="br"></div>
                                 </section>
-                                <button type="button" class="btn btn-success">Creat Account</button>
-                                <p>Already have an account?<a href=""> Log In</a></p>
+                                <button type="button" class="btn btn-success" onClick={
+                                    ()=>{
+                                        if(useraccount==1){
+                                            window.location='/registeruser'
+                                        }else if (useraccount==2){
+                                            window.location='/registration_freelancer'
+                                        }
+                                    }
+                                }>Creat Account</button>
+                                <p>Already have an account?<a onClick={
+                                    ()=>{
+                                        window.location='/login/'
+                                    }
+                                }> Log In</a></p>
                             </form>
                         </div>
                     </div>
