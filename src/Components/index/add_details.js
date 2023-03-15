@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from "axios";
 import { useParams } from 'react-router-dom';
 
+
 class AddDetails extends Component {
   constructor() {
 
@@ -83,6 +84,7 @@ class AddDetails extends Component {
 
                     <button className="btn btn-primary border-0 rounded ms-3" type="submit">Sign Up</button>
                   </div>
+
 
                 </form>
               </div>
