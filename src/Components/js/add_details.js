@@ -1,6 +1,16 @@
+import { Choices } from './choices';
 
 
 
+var script = document.createElement('script');
+script.src = 'https://code.jquery.com/jquery-3.6.3.min.js'; // Check https://jquery.com/ for the current version
+document.getElementsByTagName('head')[0].appendChild(script);
+
+
+
+var script = document.createElement('script');
+script.src = 'https://code.jquery.com/jquery-3.6.1.min.js';
+document.getElementsByTagName('head')[0].appendChild(script);
 
 $( document ).ready(function() {
     var base_color = "rgb(230,230,230)";
@@ -10,13 +20,13 @@ $( document ).ready(function() {
     var education = document.getElementById('education');
     
     var openExper=document.getElementById("openExper");
-    openExper.addEventListener("click", function(){
+    openExper.addEventListener("click", function(event){
 
       event.preventDefault();
   logIn.style.display='block';
     }); 
 
-document.getElementById("openEducat").addEventListener("click", function(){
+document.getElementById("openEducat").addEventListener("click", function(event){
   event.preventDefault();
   education.style.display='block';
 });
@@ -28,8 +38,8 @@ document.getElementById("openEducat").addEventListener("click", function(){
       }
     }
     
-    cxcontent=document.getElementById('cxcontent');
-    edcontent=document.getElementById('edcontent');
+    var cxcontent=document.getElementById('cxcontent');
+    var edcontent=document.getElementById('edcontent');
     var is_work=false;
     var not_have_experinces=false;
    document.getElementById('checkbox_iswork').addEventListener('change',function(){
@@ -38,7 +48,7 @@ document.getElementById("openEducat").addEventListener("click", function(){
     function onchangeCheckedNone(val){
       not_have_experinces=val;
       }
-      addExpirence=document.getElementById("addExpirence");
+      var addExpirence=document.getElementById("addExpirence");
       addExpirence.addEventListener("click", function(){
         logIn.style.display = "none";
       
@@ -90,7 +100,7 @@ document.getElementById("openEducat").addEventListener("click", function(){
       return el;
     }
 
-    for (i = 0; i < length; i++) {
+    for (var i = 0; i < length; i++) {
       var positionX = 12 + i * 200;
       var rect = makeSVG("rect", { x: positionX, y: 9, width: 200, height: 6 });
       document.getElementById("svg_form_time").appendChild(rect);
@@ -247,4 +257,3 @@ document.getElementById("openEducat").addEventListener("click", function(){
       removeItemButton: true,
     }); 
     });
-   
