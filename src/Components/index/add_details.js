@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-
 import axios from 'axios';
-import '../js/jquery.js'
 import '../css/add_details.css'
-// import '../js/add_details.js'
+import '../js/add_details.js'
+
 
 
 class AddDetails extends Component {
