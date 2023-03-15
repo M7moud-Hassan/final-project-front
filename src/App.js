@@ -21,6 +21,7 @@ function App() {
       <Route path='/registeruser' element={<RegisterUser/>}/>
       <Route path='/type_email' element={<TypeEmail/>}/>
       <Route path='/type_new_password' element={<Type_new_password/>}/>
+      
       </Routes>
       </BrowserRouter>
   )

@@ -4,7 +4,7 @@ let Footer = () => {
         <footer className="text-center text-lg-start text-white rounded " id="footer">
             <div className="container p-4 pb-0 mt-5">
                 <section className="">
-                    <div className="row">
+                    <div className="row text-center">
                         <div className="col-lg-3 col-md-6 mb-5 mb-md-0">
                             <h5 className="text-uppercase">For Clients</h5>
 

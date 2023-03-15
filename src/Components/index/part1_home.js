@@ -74,31 +74,31 @@ class Part1Home extends Component {
 
         <div className="container px-4 py-4">
           <div className="row text-center ">
-            <div className="col mx-1 m-3 ms-3 slots col-lg-2 col-md-6 col-sm-12"> <div className="mt-2">Development&It</div>
-              <span className="fa fa-star checked"></span><span className="text-muted ms-3">4.85/5 </span><span className="ms-3 text-muted ">1853skills</span>
+            <div className="col mx-1 m-3 ms-3 slots col-lg-2 col-md-6 col-sm-12"> <div className="mt-2 ">Development&It</div>
+              <span className="fa fa-star checked"></span><span className="text-muted fixedSmallFont ms-3 fixedSmallFont">4.85/5 </span><span className="ms-3 text-muted fixedSmallFont">1853skills</span>
             </div>
             <div className="col mx-1 m-3 ms-3  slots col-lg-3 col-md-5 col-sm-12"><div className="mt-2">Design & Creative</div>
-              <span className="fa fa-star checked "></span><span className="text-muted">4.91/5 </span> <span className="ms-3 text-muted ">968skills</span>
+              <span className="fa fa-star checked "></span><span className="text-muted fixedSmallFont">4.91/5 </span> <span className="ms-3 text-muted fixedSmallFont ">968skills</span>
             </div>
             <div className="col mx-1 m-3 ms-3  slots col-lg-3 col-md-6 col-sm-12"><div className="mt-2">Sales & Marketing</div>
-              <span className="fa fa-star checked "></span><span className="text-muted">4.77/5 </span> <span className="ms-3 text-muted ">392skills</span>
+              <span className="fa fa-star checked "></span><span className="text-muted fixedSmallFont">4.77/5 </span> <span className="ms-3 text-muted fixedSmallFont ">392skills</span>
             </div>
             <div className="col mx-1 m-3 ms-3  slots col-lg-3 col-md-5 col-sm-12"><div className="mt-2">Writing & Translation</div>
-              <span className="fa fa-star checked "></span><span className="text-muted">4.92/5</span> <span className="ms-3 text-muted ">505skills</span>
+              <span className="fa fa-star checked "></span><span className="text-muted fixedSmallFont">4.92/5</span> <span className="ms-3 text-muted fixedSmallFont ">505skills</span>
             </div>
           </div>
           <div className="row text-center">
             <div className="col mx-1 m-3 ms-3  slots col-lg-3 col-md-6 col-sm-12"><div className="content mt-2"> Admin &Customer Support</div>
-              <span className="fa fa-star checked "></span><span className="text-muted">4.77/5 </span> <span className="ms-3 text-muted ">508skills</span>
+              <span className="fa fa-star checked "></span><span className="text-muted fixedSmallFont">4.77/5 </span> <span className="ms-3 text-muted fixedSmallFont ">508skills</span>
             </div>
             <div className="col mx-1 m-3 ms-3  slots col-lg-3 col-md-5 col-sm-12"> <div className="content mt-2">Finance & Accounting</div>
-              <span className="fa fa-star checked "></span><span className="text-muted">4.79/5</span> <span className="ms-3 text-muted ">214skills</span>
+              <span className="fa fa-star checked "></span><span className="text-muted fixedSmallFont">4.79/5</span> <span className="ms-3 text-muted fixedSmallFont ">214skills</span>
             </div>
             <div className="col mx-1 m-3 ms-3  slots col-lg-3 col-md-6 col-sm-12"><div className="content mt-2">  Engineering & Architecture</div>
-              <span className="fa fa-star checked "></span><span className="text-muted">4.85/5</span> <span className="ms-3 text-muted ">650skills</span>
+              <span className="fa fa-star checked "></span><span className="text-muted fixedSmallFont">4.85/5</span> <span className="ms-3 text-muted fixedSmallFont ">650skills</span>
             </div>
             <div className="col mx-1 m-3 ms-3  slots col-lg-2 col-md-5 col-sm-12"><div className="content mt-2">Legal</div>
-              <span className="fa fa-star checked "></span><span className="text-muted">4.85/5</span> <span className="ms-3 text-muted ">133skills</span>
+              <span className="fa fa-star checked "></span><span className="text-muted fixedSmallFont">4.85/5</span> <span className="ms-3 text-muted fixedSmallFont ">133skills</span>
           </div>
         </div>
       </div>

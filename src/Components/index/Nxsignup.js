@@ -28,19 +28,19 @@ let Nxsignup = () => {
                         <div class="col-ml-8">
                             <form method="post" id="form">
                                 <section class="btn-group" id="inputsection">
-                                    <input type="radio" name="btnradio" class="btn-check" id="gfg1"/>
+                                    <input type="radio" name="btnradio" className="btn-check " id="gfg1"/>
                                     <label class="btn btn-outline-success" for="gfg1">
                                         I’m a client, hiring for a project
                                     </label>
                                     <div class="br"></div>
                                     <input type="radio" name="btnradio" class="btn-check" id="gfg3"/>
-                                    <label class="btn btn-outline-success" for="gfg3">
+                                    <label className="btn btn-outline-success" for="gfg3">
                                         I’m a freelancer, looking for work
                                     </label>
                                     <div class="br"></div>
                                 </section>
-                                <button type="button" class="btn btn-success">Creat Account</button>
-                                <p>Already have an account?<a href=""> Log In</a></p>
+                                <button type="button" class="btn btn-success">Create Account</button>
+                                <p className="mt-3">Already have an account?<a href=""> Log In</a></p>
                             </form>
                         </div>
                     </div>
