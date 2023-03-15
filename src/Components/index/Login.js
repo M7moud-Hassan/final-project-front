@@ -1,20 +1,48 @@
 import { useState } from "react";
 import axios from "axios";
+import { NavLink } from "react-router-dom";
 
 function Login(){
-
+    localStorage.removeItem('id')
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [msg,setMess]=useState('');
+    const [typeErro,SetTypeError]=useState('');
 
 
     let loginCheck=(e)=>{
-
+        
+      
         e.preventDefault();
         axios.post('http://localhost:8000/auth/login/',{email: email,password: password,}) 
-        .then ((res)=> {console.log(res)})
+        .then ((res)=> {
+           console.log(res.data.ress);
+            if(res.data.ress=='ok'){
+                localStorage.setItem("id", res.data.id);
+                localStorage.setItem("userName", res.data.name);
+                window.location='/profileUser/'
+            }else if(res.data.ress=='not active'){
+                SetTypeError('alert alert-danger')
+                setMess('user not active')
+               // self.setMess('user not active')
+                //mesg error
+            }else if(res.data.ress=='password worng'){
+               SetTypeError('alert alert-danger')
+                setMess('password wrong')
+            }else if(res.data.ress=='not complete') {
+                localStorage.setItem("id", res.data.id);
+                localStorage.setItem("userName", res.data.name);
+                window.location='/addDetails/'
+            }
+        })
         .catch ((err)=> {console.log(err)});
     }
+    console.log(msg);
         return (
+            <div>
+            <div class={typeErro}>
+              {msg}
+              </div>
             <div className="container">
                 <section className="vh-100 gradient-custom">
                     <div className="container py-5 h-100">
@@ -73,7 +101,7 @@ function Login(){
                                                 <div className="like-hr"></div>
                                             </div>
                                             <div>
-                                                <button className="btn btn-primary btn-block rounded-pill w-100">Countinue with Google</button>
+                                                <NavLink className="btn btn-primary btn-block rounded-pill w-100" to={'/rest_password'}>Forget Password</NavLink>
                                             </div>
                                             <div className="container d-flex hrContain mt-4">
                                                 <div className="like-hr"></div>
@@ -81,7 +109,7 @@ function Login(){
                                                 <div className="like-hr"></div>
                                             </div>
                                             <div>
-                                                <button className="btn btn-light btn-block rounded-pill w-100 border border-success">Sign Up</button>
+                                                <NavLink className="btn btn-light btn-block rounded-pill w-100 border border-success" to={"/choose_account"}>Sign Up</NavLink>
                                             </div>
                                         </div>
                                     </div>
@@ -91,6 +119,7 @@ function Login(){
                     </div>
                 </section>
 
+        </div>
         </div>
     )
 

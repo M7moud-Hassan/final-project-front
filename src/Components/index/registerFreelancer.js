@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { NavLink } from 'react-router-dom';
 
 
 class RegisterFreelancer extends Component{
@@ -11,7 +12,8 @@ class RegisterFreelancer extends Component{
       email: '',
       password: '',
       phone: '',
-     
+      email_exists:false
+    
     };
     this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
     this.handleLastNameChange = this.handleLastNameChange.bind(this);
@@ -20,6 +22,16 @@ class RegisterFreelancer extends Component{
     this.handlePhoneChange = this.handlePhoneChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     
+  }
+  errorEmai(){
+    if(this.state.email_exists){
+    return (
+      <div>
+        <p style={{color: "red"}}>Email exists</p>
+      </div>
+    );
+    }
+    return (<p></p>)
   }
   handleFirstNameChange(event) {
     this.setState({ firstName: event.target.value });
@@ -43,6 +55,8 @@ class RegisterFreelancer extends Component{
 
   handleSubmit = (event) => {
     event.preventDefault();
+    if(!this.state.email_exists){
+  
     const { firstName, lastName, email, password, phone } = this.state;
   
     axios.post('http://127.0.0.1:8000/auth/signup_freelancer/', {
@@ -53,11 +67,14 @@ class RegisterFreelancer extends Component{
       phone_number: phone
     })
     .then((response) => {
-      console.log(response);
+      if(response.data.email){
+        window.location='/please_activate/'+response.data.email
+       }
     })
     .catch((error) => {
       console.log(error);
     });
+    }
   };
 
 
@@ -136,7 +153,19 @@ class RegisterFreelancer extends Component{
                       <div className="form-outline position-relative">
                         <input type="email" id="email" placeholder="Email (forexample@example.com)" required
                         pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}"
-                          className="form-control  rounded-pill" value={this.state.email}onChange={this.handleEmailChange}/>
+                          className="form-control  rounded-pill" value={this.state.email}onChange={this.handleEmailChange} onBlur={
+                            ()=>{
+                             axios.post('http://127.0.0.1:8000/auth/check_email/',{"email":this.state.email}).then((response)=>{
+                              if(response.data=='ok')
+                              {
+                                this.setState({email_exists:true})
+                              }else{
+                                this.setState({email_exists:false})
+                              }
+                             })
+                            }
+                          }/>
+                          {this.errorEmai()}
                         <div className="invalid-feedback"
                              id="email-feedback">
                              Email is required
@@ -204,7 +233,8 @@ class RegisterFreelancer extends Component{
 
                   <div className="text-center">
                     Already have an account?
-                    <a href="#" className="text-center text-success mt-3"> Login</a>
+                    <NavLink to={'/login'} className="text-center text-success mt-3"> Login</NavLink>
+                 
                   </div>
                 </form>
               </div>

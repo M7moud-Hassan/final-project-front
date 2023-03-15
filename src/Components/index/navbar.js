@@ -65,7 +65,7 @@ class NavBar extends Component {
                 <button className="btn btn-outline-success" type="submit">Search</button>
               </div>
               <NavLink className={'btn border-0 rounded ms-5' } to={"/login"}>Log In</NavLink>
-              <button className="btn btn-primary border-0 rounded" type="submit">Sign Up</button>
+              <NavLink className="btn btn-primary border-0 rounded"  to={"/choose_account"}>Sign Up</NavLink>
             </div>
             
           </form>
