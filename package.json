@@ -11,9 +11,10 @@
     "jquery": "^3.6.4",
     "jQuery": "^1.7.4",
     "react": "^18.2.0",
+    "react-client-session": "^0.0.8",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.9.0",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
