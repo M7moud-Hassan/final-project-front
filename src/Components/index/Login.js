@@ -1,5 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
+import { ReactSession } from 'react-client-session';
+import { NavLink } from "react-router-dom";
 
 function Login(){
 
@@ -11,7 +13,21 @@ function Login(){
 
         e.preventDefault();
         axios.post('http://localhost:8000/auth/login/',{email: email,password: password,}) 
-        .then ((res)=> {console.log(res)})
+        .then ((res)=> {
+            console.log(res.data.ress);
+            if(res.data.ress=='ok'){
+                ReactSession.setStoreType("localStorage");
+                ReactSession.set("uid", res.data.id);
+                ReactSession.set("userName", res.data.name);
+                window.location='/profileUser/'
+            }else if(res.data.ress=='not active'){
+                //mesg error
+            }else if(res.data.ress=='password worog'){
+                //error mesg
+            }else {
+                //error not found
+            }
+        })
         .catch ((err)=> {console.log(err)});
     }
         return (
@@ -81,7 +97,7 @@ function Login(){
                                                 <div className="like-hr"></div>
                                             </div>
                                             <div>
-                                                <button className="btn btn-light btn-block rounded-pill w-100 border border-success">Sign Up</button>
+                                                <NavLink className="btn btn-light btn-block rounded-pill w-100 border border-success" to={"/choose_account"}>Sign Up</NavLink>
                                             </div>
                                         </div>
                                     </div>

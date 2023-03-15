@@ -2,20 +2,21 @@ import { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom'
 import axios from "axios";
 import '../css/load.css'
-let ActivateFreeLancer =()=>
+
+let ActivateUser =()=>
     {
        const {uid, token} = useParams();
         useEffect(async()=>{
             console.log(uid);
             console.log(token);
         var result=  await  axios
-        .post("http://127.0.0.1:8000/auth/activate_free/", {
+        .post("http://localhost:8000/auth/activate_user_email/", {
             "uid":uid,
             "token":token
         });
         var data= result.data;
         if(data=='ok'){
-         window.location="/addDetails/"
+         window.location="/login/"
         }
         },[]);
         
@@ -33,5 +34,4 @@ let ActivateFreeLancer =()=>
            </div>
         )
     }
-export default ActivateFreeLancer;
-
+export default ActivateUser;
