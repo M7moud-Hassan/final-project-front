@@ -1,3 +1,5 @@
+<<<<<<< HEAD:public/index.css
+=======
 .card-registration .select-input.form-control[readonly]:not([disabled]) {
   font-size: 1rem;
   line-height: 2.15;
@@ -59,3 +61,4 @@ body {
 .hrContain{
 
 }
+>>>>>>> 2da3b3f29806167ae66e644d66d3b5e5fbdcf08a:public/css/login.css
