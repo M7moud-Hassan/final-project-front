@@ -1,9 +1,33 @@
-import React, { Component } from 'react';
+import axios from 'axios';
+import React, { Component, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 
 let Type_new_password = () => {
+  let {uid,type} = useParams();
+  let [password,setPassword]=useState('')
+  let [confirmPassword,SetConfirmPassword]=useState('')
+  const [msg,setMess]=useState('');
+  const [typeErro,SetTypeError]=useState('');
+  let sendData=()=>{
+    if(password!=''){
+      if(password==confirmPassword){
+        axios.post('http://localhost:8000/auth/set_password/',
+        {id: uid,password: password,type:type}) 
+        .then ((res)=> {
+          if(res.data=='ok'){
+            window.location='/login/'
+          }
+        }).catch((error)=>console.log(error))
+      }else{
+        SetTypeError('alert alert-danger')
+        setMess('Check your confirm password')
+      }
+    }
+  }
   return (
     <div>
+      
       <nav class="navbar navbar-expand-lg navbar-light bg-white">
         <div class="container">
           <a class="navbar-brand" href="#"><img src="images/upwork.svg" alt="Logo" /></a>
@@ -18,12 +42,14 @@ let Type_new_password = () => {
                 <a href="#" class="text-center text-success mt-3"> Join as a Client</a>
               </div>
             </div>
-
-
           </div>
         </div>
       </nav>
+      <div class={typeErro}>
+              {msg}
+              </div>
       <div className="container ">
+
         <section className="vh-100 gradient-custom">
           <div className="container py-5 h-100">
             <div className="row justify-content-center align-items-center h-100">
@@ -43,7 +69,7 @@ let Type_new_password = () => {
                                 pattern="(?=.*\d)(?=.*[a-zA-Z]).{8,}" required
                                 // value={password}
                                 className="form-control  rounded-pill"
-                              // onChange={(e)=> setPassword(e.target.value)}
+                              onChange={(e)=> setPassword(e.target.value)}
                               />
                               <div className="invalid-feedback" id="password-feedback">
                                 Password must be at least 8 characters long and contain at least one letter and one digit
@@ -56,7 +82,7 @@ let Type_new_password = () => {
                                 pattern="(?=.*\d)(?=.*[a-zA-Z]).{8,}" required
                                 // value={password}
                                 className="form-control  rounded-pill mt-4"
-                              // onChange={(e)=> setPassword(e.target.value)}
+                              onChange={(e)=> SetConfirmPassword(e.target.value)}
                               />
                               <div className="invalid-feedback" id="password-feedback">
                                 Password must be at least 8 characters long and contain at least one letter and one digit
@@ -71,7 +97,11 @@ let Type_new_password = () => {
 
 
                         <div>
-                          <input className="btn btn-success btn-block rounded-pill  w-100" type="submit" value="Update Password" />
+                          <input className="btn btn-success btn-block rounded-pill  w-100"  onClick={
+                            ()=>{
+                              sendData()
+                            }
+                          } value="Update Password" />
                         </div>
 
                       </form>

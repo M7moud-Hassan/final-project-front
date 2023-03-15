@@ -87,7 +87,7 @@ color: rgb(108, 180, 177);
   width: 150px;
 }
 .dropFont{
-  font-size: 1vw;
+  font-size: 15px;
   font-weight: 600;
   color: black;
 }
@@ -133,4 +133,7 @@ color: rgb(108, 180, 177);
 }
 .bgColor{
   background-color: rgb(226, 225, 225);
+}
+.secondContainer{
+  margin-left: 5%;
 }

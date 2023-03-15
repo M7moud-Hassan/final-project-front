@@ -1,4 +1,7 @@
+import { useEffect } from "react"
+
 let Nxsignup = () => {
+    
     var useraccount=0
     return (
         <div>
