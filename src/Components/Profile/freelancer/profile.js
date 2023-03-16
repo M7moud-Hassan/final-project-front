@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 
-import '../css/profile.css';
+import '../../css/profile.css';
 import NavBar from './navbar';
 import Footer from './Footer';
 
