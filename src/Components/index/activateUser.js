@@ -1,28 +1,22 @@
 import { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom'
 import axios from "axios";
-import '../css/load.css'
-let ActivateFreeLancer =()=>
+
+let ActivateUser =()=>
     {
        const {uid, token} = useParams();
-        useEffect(async()=>{ 
+        useEffect(async()=>{
+            console.log(uid);
+            console.log(token);
         var result=  await  axios
-        .post("http://127.0.0.1:8000/auth/activate_free/", {
+        .post("http://127.0.0.1:8000/auth/activateuser/", {
             "uid":uid,
             "token":token
         });
-        var sskills= await  axios.get("http://127.0.0.1:8000/auth/get_skills/");
-        localStorage.setItem('skills',JSON.stringify(sskills.data))
-
-        var services= await  axios.get("http://127.0.0.1:8000/auth/get_Services/");
-        localStorage.setItem('services',JSON.stringify(services.data))
         var data= result.data;
-        console.log("data",data);
-        if(data.res=='ok'){
-            localStorage.setItem("id",data.id)
+        if(data=='ok'){
          window.location="/addDetails/"
         }
-      
         },[]);
         
      let rendercontent = ()=>{
@@ -39,5 +33,4 @@ let ActivateFreeLancer =()=>
            </div>
         )
     }
-export default ActivateFreeLancer;
-
+export default ActivateUser;
