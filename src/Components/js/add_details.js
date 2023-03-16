@@ -9,10 +9,6 @@ document.getElementsByTagName('head')[0].appendChild(script);
 import  './choices';
 
 
-var script = document.createElement('script');
-script.src = 'https://code.jquery.com/jquery-3.6.1.min.js';
-document.getElementsByTagName('head')[0].appendChild(script);
-
 $( document ).ready(function() {
     var base_color = "rgb(230,230,230)";
     var active_color = "rgb(237, 40, 70)";
@@ -51,7 +47,8 @@ document.getElementById("openEducat").addEventListener("click", function(event){
       }
       var addExpirence=document.getElementById("addExpirence");
       addExpirence.addEventListener("click", function(){
-        logIn.style.display = "none";
+  
+       
       
         var title=document.getElementById('title').value;
         var company=document.getElementById("company").value;
@@ -61,11 +58,13 @@ document.getElementById("openEducat").addEventListener("click", function(event){
         var start_date=document.getElementById('start_date').value;
         var end_date=document.getElementById('end_date').value;
         var description=document.getElementById('description').value;
-        cxcontent.innerHTML+='<div class="col-3 ml-4 experience_x pt-4"><p id="pExperinces">'+title+'-'+company+'-'+location+'-'+is_work+'-'+start_date+'-'+end_date+'-'+description+'</p></div>';
-  
+        if(title!=''&&company!=''&&location!=''&&start_date!=''&&end_date!=''&&description){
+        logIn.style.display = "none";
+        cxcontent.innerHTML+='<div id="pExperinces" class=" col-3 card text-white bg-success mb-3 contentMa" style="max-width: 18rem;"><div class="card-header">'+title+'</div><div class="card-body"><h5 class="card-title">'+company+'</h5><p class="card-text">'+location+'</p><p class="card-text">description</p></div></div>';
+        }
       });
     document.getElementById('addEducation').addEventListener('click',function(){
-      education.style.display = "none";
+     
       
       var school=document.getElementById('school').value;
       var degree=document.getElementById("degree").value;
@@ -75,8 +74,10 @@ document.getElementById("openEducat").addEventListener("click", function(event){
       var from_year=document.getElementById('from_year').value;
       var to_year=document.getElementById('to_year').value;
       var description2=document.getElementById('description2').value;
-      edcontent.innerHTML+='<div class="col-3 ml-4 experience_x pt-4"><p id="peducation">'+school+'-'+degree+'-'+study+'-'+from_year+'-'+to_year+'-'+description2+'</p></div>';
-
+      if(school!=''&&degree&&study&&from_year&&to_year&&description2){
+      education.style.display = "none";
+      edcontent.innerHTML+='<div id="peducation" class=" col-3 card text-white bg-success mb-3 contentMa" style="max-width: 18rem;"><div class="card-header">'+school+'</div><div class="card-body"><h5 class="card-title">'+degree+'</h5><p class="card-text">'+study+'</p><p class="card-text">description</p></div></div>';
+    }
     });
 
 
