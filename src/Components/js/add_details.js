@@ -1,10 +1,9 @@
 
-
-
 import  './choices';
 var script = document.createElement('script');
 script.src = 'https://code.jquery.com/jquery-3.6.3.min.js';
 document.getElementsByTagName('head')[0].appendChild(script);
+
 
 
 
@@ -17,11 +16,16 @@ $( document ).ready(function() {
     var education = document.getElementById('education');
     
     var openExper=document.getElementById("openExper");
+
+
     openExper.addEventListener("click", function(event){
+
 
       event.preventDefault();
   logIn.style.display='block';
     }); 
+
+
 
 document.getElementById("openEducat").addEventListener("click", function(event){
   event.preventDefault();
@@ -35,8 +39,10 @@ document.getElementById("openEducat").addEventListener("click", function(event){
       }
     }
     
+
     var cxcontent=document.getElementById('cxcontent');
     var edcontent=document.getElementById('edcontent');
+
     var is_work=false;
     var not_have_experinces=false;
    document.getElementById('checkbox_iswork').addEventListener('change',function(){
@@ -102,7 +108,9 @@ document.getElementById("openEducat").addEventListener("click", function(event){
       return el;
     }
 
+
     for (var i = 0; i < length; i++) {
+
       var positionX = 12 + i * 200;
       var rect = makeSVG("rect", { x: positionX, y: 9, width: 200, height: 6 });
       document.getElementById("svg_form_time").appendChild(rect);
@@ -258,4 +266,6 @@ document.getElementById("openEducat").addEventListener("click", function(event){
     var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
       removeItemButton: true,
     }); 
+
     });
+
