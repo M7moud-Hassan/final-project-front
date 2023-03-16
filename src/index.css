@@ -152,6 +152,7 @@ color: rgb(108, 180, 177);
   border-radius: 10px;
   color: white;
   padding-bottom: 30%;
+  border: 1px groove rgb(187, 187, 187);
 }
 .pCards1{
   background-color: rgb(52, 52, 204);
@@ -197,4 +198,29 @@ color: rgb(108, 180, 177);
   padding-top: 0;
   padding-right: 0;
   padding-bottom: 0;
+}
+
+.signUpbtn{
+  margin-left: 60%;
+}
+
+.profileCards2{
+  border-radius: 10px;
+  color: white;
+  background-color: #e9e7e7;
+  border: 1px groove rgb(187, 187, 187);
+  margin-bottom: 3%;
+}
+
+.profileCards3{
+  border-radius: 10px;
+  color: white;
+  padding-bottom: 3%; 
+  border: 1px groove rgb(187, 187, 187);
+}
+.pCards3{
+  background-color:rgb(0, 83, 83);
+}
+.pCards4{
+  background-color:rgb(229, 230, 230);
 }
