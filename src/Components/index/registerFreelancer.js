@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { NavLink } from 'react-router-dom';
 
 
 class RegisterFreelancer extends Component{
@@ -11,7 +12,8 @@ class RegisterFreelancer extends Component{
       email: '',
       password: '',
       phone: '',
-     
+      email_exists:false
+    
     };
     this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
     this.handleLastNameChange = this.handleLastNameChange.bind(this);
@@ -20,6 +22,16 @@ class RegisterFreelancer extends Component{
     this.handlePhoneChange = this.handlePhoneChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     
+  }
+  errorEmai(){
+    if(this.state.email_exists){
+    return (
+      <div>
+        <p style={{color: "red"}}>Email exists</p>
+      </div>
+    );
+    }
+    return (<p></p>)
   }
   handleFirstNameChange(event) {
     this.setState({ firstName: event.target.value });
@@ -43,6 +55,8 @@ class RegisterFreelancer extends Component{
 
   handleSubmit = (event) => {
     event.preventDefault();
+    if(!this.state.email_exists){
+  
     const { firstName, lastName, email, password, phone } = this.state;
   
     axios.post('http://127.0.0.1:8000/auth/signup_freelancer/', {
@@ -53,11 +67,14 @@ class RegisterFreelancer extends Component{
       phone_number: phone
     })
     .then((response) => {
-      console.log(response);
+      if(response.data.email){
+        window.location='/please_activate/'+response.data.email
+       }
     })
     .catch((error) => {
       console.log(error);
     });
+    }
   };
 
 
@@ -67,12 +84,12 @@ class RegisterFreelancer extends Component{
         return(
             <div>
 
-  <nav class="navbar navbar-expand-lg navbar-light bg-white">
-    <div class="container">
-      <a class="navbar-brand" href="#"><img src="logo/upwork.svg" alt="Logo"></img></a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-
+              
+  <nav className="navbar navbar-expand-lg navbar-light bg-white">
+    <div className="container">
+      <a className="navbar-brand" href="#"><img src="images/upwork.svg" alt="Logo"></img></a>
+      <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span className="navbar-toggler-icon"></span>
       </button>
       <div className="collapse navbar-collapse" id="navbarNav">
        
@@ -100,14 +117,9 @@ class RegisterFreelancer extends Component{
                 <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Sign up to find work you love</h3>
 
                 <div className="my-3">
-                  <div>
-                    <button className="btn border border-secondary btn-block rounded-pill m-3  w-100"><i className="fa-brands fa-apple"></i> Countinue with Apple</button>
-  
-                  </div>
+
                   <div>
                     <button className="btn btn-primary btn-block rounded-pill m-3 w-100">Countinue with Google</button>
-
-
                   </div>
                 </div>
                 <hr></hr>
@@ -141,7 +153,19 @@ class RegisterFreelancer extends Component{
                       <div className="form-outline position-relative">
                         <input type="email" id="email" placeholder="Email (forexample@example.com)" required
                         pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}"
-                          className="form-control  rounded-pill" value={this.state.email}onChange={this.handleEmailChange}/>
+                          className="form-control  rounded-pill" value={this.state.email}onChange={this.handleEmailChange} onBlur={
+                            ()=>{
+                             axios.post('http://127.0.0.1:8000/auth/check_email/',{"email":this.state.email}).then((response)=>{
+                              if(response.data=='ok')
+                              {
+                                this.setState({email_exists:true})
+                              }else{
+                                this.setState({email_exists:false})
+                              }
+                             })
+                            }
+                          }/>
+                          {this.errorEmai()}
                         <div className="invalid-feedback"
                              id="email-feedback">
                              Email is required
@@ -180,9 +204,9 @@ class RegisterFreelancer extends Component{
                     </div>
                   </div>
 
-                  <div className="form-check mt-2">
+                  <div className="form-check mt-4">
                     <input className="form-check-input" type="checkbox" id="send_emails" name="send_emails"></input>
-                    <label className="form-check-label" htmlFor="send_emails">
+                    <label className="form-check-label fontEdits" htmlFor="send_emails">
                       Send me helpful emails to find rewarding work and job leads
                     </label>
                   </div>
@@ -191,12 +215,12 @@ class RegisterFreelancer extends Component{
                     <div className="col-md-12 mb-4">
                       <div className="form-outline position-relative">
                     <input className="form-check-input" type="checkbox" id="agree_terms" name="agree_terms" required></input>
-                    <label className="form-check-label" htmlFor="agree_terms">
+                    <label className="form-check-label fontEdits" htmlFor="agree_terms">
                       Yes, I understand and agree to the Upwork Terms of Service, including the <a href="#" className="text-success">User
                         Agreement</a> and <a href="#" className="text-success">Privacy Policy</a>
                     </label>
                     <div className="invalid-feedback text-danger" id="email-feedback">
-                      Please accept the Upwork Terms of Service before continuing
+                      Please accept the Upwork Terms of Service before continue
                     </div>
                   </div>
                    </div>
@@ -209,7 +233,8 @@ class RegisterFreelancer extends Component{
 
                   <div className="text-center">
                     Already have an account?
-                    <a href="#" className="text-center text-success mt-3"> Login</a>
+                    <NavLink to={'/login'} className="text-center text-success mt-3"> Login</NavLink>
+                 
                   </div>
                 </form>
               </div>
@@ -219,8 +244,6 @@ class RegisterFreelancer extends Component{
       </div>
     </section>
   </div>
-                
-
 
             </div>
 
