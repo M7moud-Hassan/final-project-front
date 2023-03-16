@@ -13,13 +13,13 @@ class Part1Home extends Component {
             <div className="container">
               <div className="row">
 
-                <div className="col-lg-5 mb-3 d-flex ">
+                <div className="col-lg-5 mb-3 d-flex p-0 ">
                   <div className="card">
                     <img src=".\images\globe@1x.jpg" />
 
                   </div>
                 </div>
-                <div className="col-lg-7 mb-3 d-flex">
+                <div className="col-lg-7 mb-3 d-flex p-0">
                   <div className="card w-100">
                     <h2 className="mt-3 ms-5">Up your work game, it’s free.</h2>
                     <div className="card-body d-flex flex-column">
