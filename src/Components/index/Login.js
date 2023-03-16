@@ -20,7 +20,7 @@ function Login(){
             if(res.data.ress=='ok'){
                 localStorage.setItem("id", res.data.id);
                 localStorage.setItem("userName", res.data.name);
-                window.location='/profileUser/'
+                window.location='/profile_free/'
             }else if(res.data.ress=='not active'){
                 SetTypeError('alert alert-danger')
                 setMess('user not active')
