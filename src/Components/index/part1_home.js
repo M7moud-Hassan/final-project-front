@@ -21,7 +21,7 @@ class Part1Home extends Component {
                 </div>
                 <div className="col-lg-7 mb-3 d-flex p-0">
                   <div className="card w-100">
-                    <h2 className="mt-3 ms-5">Up your work game, it’s free.</h2>
+                    <h2 className="mt-5 ms-5">Up your work game, it’s free.</h2>
                     <div className="card-body d-flex flex-column">
                       <i className="bi bi-receipt"></i>
                       <div className="card-title">
@@ -54,7 +54,7 @@ class Part1Home extends Component {
                         <div className="air3-icon md" data-v-a5b8af64=""><svg xmlns="http://www.w3.org/2000/svg" fill="none" aria-hidden="true" viewBox="0 0 24 24" role="img"><path vector-effect="non-scaling-stroke" stroke="var(--icon-color, #001e00)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20.015 16.114l-7.039 4.578a1.908 1.908 0 01-2.079 0l-7.039-4.578A1.908 1.908 0 013 14.512V4.907A1.907 1.907 0 014.907 3h14.059a1.908 1.908 0 011.907 1.907v9.605a1.908 1.908 0 01-.858 1.602z" clip-rule="evenodd"></path><path vector-effect="non-scaling-stroke" stroke="var(--icon-color, #001e00)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11.939 5.33l1.392 3.596 3.854.21-2.995 2.441.992 3.73-3.243-2.1-3.243 2.1 1.002-3.73-3.005-2.442 3.863-.21 1.383-3.595z" clip-rule="evenodd"></path></svg></div>
                         Work with the best—without breaking the bank.</div>
                       <p className="card-text mb-4 fixedSmallFont ms-4">Upwork makes it affordable to up your work and take advantage of low transaction rates.</p>
-                      <div className="d-flex mt-2 ms-5">
+                      <div className="d-flex mt-5 ms-5">
                         <button className="btn btn-success btn-pill w-md-25 w-sm-50 rounded-pill">Sign Up for free</button>
                         <button className="btn btn-light border-success ms-md-3 w-md-25 w-sm-50 ms-3 rounded-pill btnFont">Learn how to hire</button>
                       </div>
