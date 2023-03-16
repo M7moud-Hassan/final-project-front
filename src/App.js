@@ -14,6 +14,7 @@ import Check_email from './Components/index/please_activate';
 import './Components/js/jquery'
 
 
+
 function App() {
   return (
       <BrowserRouter>
