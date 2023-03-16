@@ -66,6 +66,7 @@ h1 {
     width: 25px;
     background-color: #eee;
     border-radius: 50%;
+    
 }
 
 .Labels:hover input ~.Checks {

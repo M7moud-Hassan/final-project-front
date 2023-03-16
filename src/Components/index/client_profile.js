@@ -90,12 +90,9 @@ let ClientProfile = () => {
                         <div className='col-md-3 col-sm-6 col-12 mt-3'>
 
                             <div className='profileCards container pCards2'>
-                                <div className='mt-3 p-3' >
-                                <h3>Guided tour</h3>
-
-                                </div>
-                                <div className='w-75 p-3'>
-                                    Use your workspace to manage dragt hob postsm action items, and comleted work.
+ 
+                                <div className='w-75 p-3 mt-3 pCardsTwo'>
+                                    <i class="fa-solid fa-circle-plus"></i>
                                 </div>
                             </div>
                         </div>

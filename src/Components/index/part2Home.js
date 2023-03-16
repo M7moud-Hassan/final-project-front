@@ -6,15 +6,15 @@ let Part2Home = () => {
                 <div className="row g-0">
                     <div className="col-md-8" >
                         <div className="card-body cardHome1">
-                            <h5 className="card-title">Enterprise Suite</h5>
+                            <h5 className="card-title text-light">Enterprise Suite</h5>
                             <h1 className="card-title">This is how</h1>
                             <h1 className="card-title forCardHome1">good companies</h1>
                             <h1 className="card-title forCardHome1">find good company.</h1>
-                            <p className="card-text">Access the top 1% of talent on
+                            <p className="card-text text-light">Access the top 1% of talent on
                                 Upwork, and a full suite of hybrid workforce management tools. This is how innovation
                                 works now.</p>
-                            <ul >
-                                <li>
+                            <ul className="text-light">
+                                <li >
                                     <svg  xmlns="http://www.w3.org/2000/svg" width="16"
                                         height="16" fill="currentColor" className="bi bi-wrench" viewBox="0 0 16 16">
                                         <path

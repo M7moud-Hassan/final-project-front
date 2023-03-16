@@ -157,6 +157,23 @@ color: rgb(108, 180, 177);
   background-color: rgb(52, 52, 204);
 }
 .pCards2{
-  background-color: rgb(202, 202, 202);
+  background-color: rgb(233, 233, 233);
   color: black;
+
+}
+.pCardsTwo{
+  
+  margin-left: 36%;
+  font-size: 40px;
+}
+.logos{
+  width: 150px;
+  
+}
+.NavError{
+  border: 20px 20px 20px 20px;
+}
+.errorContainer{
+  text-align: center;
+  margin-top: 5%;
 }
