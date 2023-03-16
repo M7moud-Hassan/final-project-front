@@ -60,14 +60,17 @@ class NavBar extends Component {
               <div className='w-100' >
                 <form className="d-flex">
                   <div className="input-group ms-5 w-100 d-flex justify-content-between">
-                    <div className="search_box d-flex w-50 mt-2" style={{ height: '40px'}}>
+                    <div className="search_box d-flex w-50 mt-2" style={{ height: '40px' }}>
                       <input className="form-control me-2 w-100  " type="search" placeholder="Search" aria-label="Search" />
                       <button className="btn btn-outline-success " type="submit">Search</button>
                     </div>
                     <div className='d-flex justify-content-center align-items-center'>
-                    <i class="fa-solid fa-question btn btn-lg" style={{ width: '80px'}}></i>
-                    <i class="fa-solid fa-bell btn btn-lg" style={{ width: '80px'}}></i>
-                    <img src="\images\me.png" alt="User" className="rounded-circle btn border-0 ms-4" style={{ width: '70px'}} />
+                      <i class="fa-solid fa-question btn btn-lg" style={{ width: '80px' }}></i>
+                      <div class="notification-container">
+                        <i class="fa-solid fa-bell btn btn-lg" style={{ width: '80px' }}></i>
+                        <span class="notification-badge">3</span>
+                      </div>
+                      <img src="\images\me.png" alt="User" className="rounded-circle btn border-0 ms-4" style={{ width: '70px' }} />
 
 
                     </div>

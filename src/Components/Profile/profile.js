@@ -32,7 +32,7 @@ class Profile extends Component{
             <div class="row">
 
                 <div class="col-md-3">
-                    <img src="https://via.placeholder.com/150" class="img-fluid rounded-circle mb-3"
+                    <img src="\images\me.png" class="img-fluid rounded-circle mb-3"
                         alt="Profile Picture"/>
                         
                 </div>
