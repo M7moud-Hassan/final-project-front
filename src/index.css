@@ -44,9 +44,11 @@ li{
 color: rgb(108, 180, 177);
 }
 .cardHome2{
-  height: 30vw;
+  height: 40vw;
   border-radius: 20px;
-  background-image: url('../public/images/11.jpg');
+  background-image: url('../public/images/background.png');
+  margin: 0;
+  padding: 0;
   /* background-repeat: no-repeat; */
   background-size: cover;
   color: white;
@@ -136,4 +138,9 @@ color: rgb(108, 180, 177);
 }
 .secondContainer{
   margin-left: 5%;
+}
+.fontEditsBig{
+  font-size: 3.5vw;
+  font-weight: 600;
+  font-family: sans-serif;
 }

@@ -57,27 +57,26 @@ let Part2Home = () => {
         </div>
             {/* section 2 */}
         <div className="row mt-5 cardHome2" >
-            <div className="containerCardHome2 m-5">
-                <h5 className="card-title">Card titleFor clients</h5>
-                <h1 className="card-title" >Find talent</h1>
-                <h1 className="card-title" >your way</h1>
-                <p className="card-text">Work with the largest network of independent</p>
-                <p className="card-text">professionals and get things done—from quick</p>
-                <p className="card-text">turnarounds to big transformations.</p>
-
-                <div className="row mt-5 container me-5">
-                    <div className="col-md-4">
-                        <button className="btn btn-success btn-rounded green mt-md-2 mt-sm-3">
+            <div className="containerCardHome2 m-lg-5 m-md-4 m-sm-3 m-xs-1">
+                <p className="text-light fontEditsHalf ">For clients</p>
+                <p className="text-light fontEditsBig" >Find talent</p>
+                <p className="text-light fontEditsBig" >Your Way</p>
+                <p className="text-light fontEditsHalf">Work with the largest network of independent  </p>
+                <p className="text-light fontEditsHalf">professionals and get things done—from quick</p>
+                <p className="text-light fontEditsHalf">turnarounds to big transformations.</p>
+                <div className="row me-5 mt-5 ">
+                    <div className="col-4">
+                        <button className="btn btn-success btn-rounded green fontEditsHalf">
                             Post a job and hire a pro   
                         </button>
                     </div>
-                    <div className="col-md-4">
-                        <button className="btn btn-success btn-rounded green mt-md-2 mt-sm-3">
+                    <div className="col-4">
+                        <button className="btn btn-success btn-rounded green fontEditsHalf">
                              Browes and by ajobes   
                         </button>
                     </div>
-                    <div className="col-md-4">
-                        <button className="btn btn-success btn-rounded green mt-md-2 mt-sm-3">
+                    <div className="col-4">
+                        <button className="btn btn-success btn-rounded green fontEditsHalf">
                             Leat us helpe you find the right talent 
                         </button>
                     </div>
