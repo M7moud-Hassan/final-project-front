@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
-import Footer from '../index/Footer';
-import NavBar from '../index/navbar';
+
+
 import '../css/profile.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import NavBar from './navbar';
+import Footer from './Footer';
+
+
+
+
 
 
 
@@ -17,8 +22,10 @@ class Profile extends Component{
     render(){
        return( 
        <div>
-            <NavBar/>
+       
+           
             <div>
+            <NavBar/>
                 
     <div class="container-border my-4">
         <div class="container my-5">
