@@ -40,9 +40,10 @@ function Login(){
     console.log(msg);
         return (
             <div>
-            <div class={typeErro}>
+                <div className="text-center">
+            <div className={typeErro}>
               {msg}
-              </div>
+              </div></div>
             <div className="container">
                 <section className="vh-100 gradient-custom">
                     <div className="container py-5 h-100">
