@@ -74,15 +74,7 @@ class NavBar extends Component {
           </div>
         </nav>
         
-        {/* <div className="subnav">
-          <ul>
-            <li><a href="#">Empty slot</a></li>
-            <li><a href="#">Empty slot</a></li>
-            <li><a href="#">Empty slot</a></li>
-            <li><a href="#">Empty slot</a></li>
-            <li><a href="#">Empty slot</a></li>
-          </ul>
-        </div> */}
+        
       </div>
       
     )
