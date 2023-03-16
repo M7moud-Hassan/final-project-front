@@ -144,3 +144,6 @@ color: rgb(108, 180, 177);
   font-weight: 600;
   font-family: sans-serif;
 }
+.fixedFonts{
+  font-size: 18px;
+}
