@@ -3,7 +3,6 @@ import axios from "axios";
 import { NavLink } from "react-router-dom";
 
 function Login() {
-    localStorage.removeItem('id')
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [msg, setMess] = useState('');
@@ -30,9 +29,19 @@ function Login() {
                     SetTypeError('alert alert-danger')
                     setMess('password wrong')
                 } else if (res.data.ress == 'not complete') {
+                  
                     localStorage.setItem("id", res.data.id);
                     localStorage.setItem("userName", res.data.name);
-                    window.location = '/addDetails/'
+                     axios.get("http://127.0.0.1:8000/auth/get_skills/").then(sskills=>{
+                        localStorage.setItem('skills',JSON.stringify(sskills.data))
+                     })
+            
+                    axios.get("http://127.0.0.1:8000/auth/get_Services/").then(services=>{
+                        localStorage.setItem('services',JSON.stringify(services.data))
+                       
+                        window.location = '/addDetails/'
+                    })
+                  
                 }
             })
             .catch((err) => { console.log(err) });
@@ -48,7 +57,11 @@ function Login() {
                     </div>
                     <div className="col-6" ></div>
                     <div className="input-group ms-5  col-3 ">
-                        <NavLink className="btn btn-success border-0 rounded text-light" to={"/choose_account"}>Sign Up</NavLink>
+                        <a className="btn btn-success border-0 rounded text-light" onClick={
+                            ()=>{
+                                window.location='/choose_account'
+                            }
+                        }>Sign Up</a>
                     </div>
 
                 </div>

@@ -11,6 +11,7 @@ class AddDetails extends Component {
   
     this.expierces = '['
     this.educations = '['
+  
 
     this.state = {
       // jobtitle
@@ -44,8 +45,11 @@ class AddDetails extends Component {
       postal_code:'',
       yourSkills:[],
       yourServices:[],
-      fieldthis:''
-     
+      fieldthis:'',
+      start_date_error:'',
+      error:'',
+      currentFile:process.env.PUBLIC_URL+ "/images/person.png",
+      image:''
 
     }
     this.handleJopTitleChange = this.handleJopTitleChange.bind(this);
@@ -91,6 +95,8 @@ class AddDetails extends Component {
       is_work:false,
       start_date:'',
       end_date:'',
+      start_date_error:'',
+      error:'',
       description:''
     })
   }
@@ -107,6 +113,7 @@ class AddDetails extends Component {
     from_year:'',
     to_year:'',
     edu_description:'',
+   
   })
 }
   }
@@ -120,7 +127,7 @@ class AddDetails extends Component {
 
 
   saveData() {
-    if(this.state.city!='' && this.state.postal_code!='' && this.state.state!=''&&this.state.street_address!=''){
+    if(this.state.city!='' && this.state.postal_code!='' && this.state.state!=''&&this.state.street_address!='' &&this.state.image){
     console.log(this.state.jobtitle);
     var data = this.expierces.substring(0, this.expierces.length - 1);
     data += ']';
@@ -128,7 +135,6 @@ class AddDetails extends Component {
     var data2 = this.educations.substring(0, this.educations.length - 1);
     data2 += ']';
     console.log("education",data2);
-
 
     axios
         .post("http://127.0.0.1:8000/auth/jobTitle/", {
@@ -141,7 +147,7 @@ class AddDetails extends Component {
         .catch((error) => {
           console.log('error add jobtitle');
         });
-  
+        if(!this.state.no_expiernce){
       axios
             .post("http://127.0.0.1:8000/auth/addExperience/",
               data
@@ -152,7 +158,8 @@ class AddDetails extends Component {
             .catch((error) => {
               console.log('error add expirences');
             });
-      
+          }
+      if(!this.state.no_education){
     axios.post("http://127.0.0.1:8000/auth/save_education/",
               data2
 
@@ -163,6 +170,7 @@ class AddDetails extends Component {
             .catch((error) => {
               console.log('error add aducations');
             });
+          }
 
             axios
             .post("http://127.0.0.1:8000/auth/save_overview/", {
@@ -182,7 +190,8 @@ class AddDetails extends Component {
               street_address:this.state.street_address,
               city:this.state.city,
               state:this.state.state,
-              postal_code:this.state.postal_code
+              postal_code:this.state.postal_code,
+              image:this.state.image
             })
             .then((response) => {
               console.log(response.data);
@@ -212,6 +221,7 @@ class AddDetails extends Component {
               services:this.state.yourServices
               })
               .then((response) => {
+                localStorage.clear()
                window.location='/login/'
               })
               .catch((error) => {
@@ -222,7 +232,16 @@ class AddDetails extends Component {
 
 
   render() {
-    if(  localStorage.getItem("id")==undefined){
+    const mystyle={
+      width: '50%',
+      height: '100%',
+      margin: 'auto',
+      backgroundImage:`url(${this.state.currentFile})`,
+      backgroundPosition: 'center', /* Center the image */
+      backgroundRepeat: 'no-repeat', /* Do not repeat the image */
+      backgroundSize: 'contain',
+    }
+    if(localStorage.getItem("id")==undefined){
      window.location="/Error"
     }
     return (
@@ -364,10 +383,38 @@ class AddDetails extends Component {
               </div>
             </div>
           </section>
+
           <section className="mysection">
-          <div className="row d-flex justify-content-center mt-60">
           <h3  className="text-success">add your address details</h3>
-            <div className='col-3'>
+          <div className="row d-flex justify-content-center mt-60">
+        
+          <div className='col-1'>
+           </div>
+            <div className='col-4'>
+            <div style={mystyle}></div>
+<div class="input-group mt-2 w-80">
+    <input type="file" class="form-control btn btn-primary w-80 " style={
+     {
+      width:'80%'
+     }
+    } onChange={
+      (e)=>{
+        var file = e.target.files[0]
+        
+    let reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onload = () => {
+     
+        this.setState({currentFile:reader.result,
+        image:file});
+    };
+    reader.onerror = function (error) {
+      console.log('Error: ', error);
+    }
+        
+      }
+    }/>
+</div>
             </div>
             <div className='col-6'>
             <div class="container">
@@ -403,7 +450,7 @@ class AddDetails extends Component {
           
             </div>
           
-            <div className='col-3'>
+            <div className='col-1'>
            </div>
            
            </div>
@@ -465,15 +512,58 @@ class AddDetails extends Component {
             <div className="container row">
               <div className="col-6">
                 <label htmlFor="start_date">Start</label>
-                <input id="start_date" value={this.state.start_date} className="form-control" type="date" onChange={(e) => {
-                  this.setState({ start_date: e.target.value })
+                <input id="start_date" value={this.state.start_date} className={"form-control "+this.state.error} type="date" onChange={(e) => {
+               var today = new Date();              
+               var mydate=new Date(e.target.value+" 0:00:00");
+               
+                 
+                 if(today>mydate)
+                 {
+                    this.setState({start_date:e.target.value})
+                    this.setState({start_date_error:''})
+                    this.setState({error:''})
+                 }
+                 else
+                 {
+                  this.setState({start_date_error:"invalid data start"})
+                  
+                  this.setState({error:'is-invalid'})
+                 }
+                
                 }} required/>
+                <div className='text-danger'>
+                 {this.state.start_date_error}
+                </div>
               </div>
               <div className="col-6">
                 <label htmlFor="end_date">End</label>
-                <input id="end_date" value={this.state.end_date} className="form-control" type="date" onChange={(e) => {
-                  this.setState({ end_date: e.target.value })
-                }} required/>
+                <input id="end_date" value={this.state.end_date} className={"form-control "+this.state.error_end} type="date" onChange={(e) => {
+                  var today = new Date(this.state.start_date+" 0:00:00");              
+                  var mydate=new Date(e.target.value+" 0:00:00");
+                  
+                    if(this.state.start_date){
+                    if(today>mydate)
+                    {
+                      this.setState({end_date_error:"invalid end date"})
+                      this.setState({error_end:'is-invalid'})
+                    }
+                    else
+                    {
+                   
+
+                     this.setState({end_date:e.target.value})
+                     this.setState({end_date_error:''})
+                     this.setState({error_end:''})
+                    }}
+                    else{
+                      this.setState({end_date_error:"enter start date first"})
+                      this.setState({error_end:'is-invalid'})
+                    }
+                   
+                   }} required/>
+                     <div className='text-danger'>
+                 {this.state.end_date_error}
+                </div>
               </div>
             </div>
             <div className="mb-3">

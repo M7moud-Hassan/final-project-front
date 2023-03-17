@@ -84,7 +84,7 @@ nav{
 }
 
 .mysection {
-  height: 90%;
+  height: 100%;
   width: 100%;
   background:white;
   background:rgba(255,255,255,0.9);
@@ -219,4 +219,13 @@ nav{
 }
 .contentMa{
   margin-left: 10px;
+}
+.imagePreview {
+  width: 50%;
+  height: 100%;
+  margin: auto;
+  background-image: url('../images/person.png');
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: contain;
 }
