@@ -57,19 +57,20 @@ function Login(){
                                             <form className="needs-validation" novalidate onSubmit={loginCheck}>
 
                                                 <div className="row">
-                                                    <div className="col-md-12 mb-4">
-                                                        <div className="form-outline position-relative">
-                                                            <input type="email" id="email" placeholder="Email (forexample@example.com)" required
-                                                                pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}"
-                                                                className="form-control  rounded-pill" 
-                                                                value={email}
-                                                                onChange={(e)=> setEmail(e.target.value)}/>
-                                                            <div className="invalid-feedback"
-                                                                id="email-feedback">
-                                                                Email is required
-                                                            </div>
+                                                <div className="col-md-12 mb-4">
+                                                <div className="form-outline position-relative">
+                                                        <input type="email" class="form-control" id="validationCustom03"  placeholder="Email (forexample@example.com)"
+                                                          pattern="+[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}"
+                                                          className="form-control  rounded-pill" 
+                                                          value={email}
+                                                          onChange={(e)=> setEmail(e.target.value)}
+                                                        required/>
+                                                        <div class="invalid-feedback">
+                                                        Please provide a valid city.
                                                         </div>
                                                     </div>
+                                                    </div>
+                                                    
                                                 </div>
 
                                                 <div className="row">
@@ -80,12 +81,9 @@ function Login(){
                                                                 //  pattern="(?=.*\d)(?=.*[a-zA-Z]).{8,}" required
                                                                 value={password}
                                                                 className="form-control  rounded-pill" 
-                                                                onChange={(e)=> setPassword(e.target.value)}/>
+                                                                onChange={(e)=> setPassword(e.target.value)} required/>
                                                             <div className="invalid-feedback" id="password-feedback">
                                                                 Password must be at least 8 characters long and contain at least one letter and one digit
-                                                            </div>
-                                                            <div className="invalid-feedback" id="password-required-feedback">
-                                                                Please enter a password
                                                             </div>
                                                         </div>
                                                     </div>

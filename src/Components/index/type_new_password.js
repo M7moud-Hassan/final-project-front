@@ -4,25 +4,20 @@ import { useParams } from 'react-router-dom';
 
 
 let Type_new_password = () => {
-  let {uid,type} = useParams();
   let [password,setPassword]=useState('')
-  let [confirmPassword,SetConfirmPassword]=useState('')
-  const [msg,setMess]=useState('');
-  const [typeErro,SetTypeError]=useState('');
   let sendData=()=>{
-    if(password!=''){
-      if(password==confirmPassword){
+    console.log(password);
+    console.log(localStorage.getItem("uid"));
+    if(password!=''){   
         axios.post('http://localhost:8000/auth/set_password/',
-        {id: uid,password: password,type:type}) 
+        {id:  localStorage.getItem("uid"),password: password,type: localStorage.getItem("type")}) 
         .then ((res)=> {
           if(res.data=='ok'){
+            localStorage.clear()
             window.location='/login/'
           }
         }).catch((error)=>console.log(error))
-      }else{
-        SetTypeError('alert alert-danger')
-        setMess('Check your confirm password')
-      }
+      
     }
   }
   return (
@@ -45,9 +40,6 @@ let Type_new_password = () => {
           </div>
         </div>
       </nav>
-      <div class={typeErro}>
-              {msg}
-              </div>
       <div className="container ">
 
         <section className="vh-100 gradient-custom">
@@ -59,7 +51,13 @@ let Type_new_password = () => {
                     <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Enter your new password </h3>
                     <div className="my-3 ">
 
-                      <form className="needs-validation" novalidate>
+                      <form className="needs-validation" onSubmit={
+                            (event)=>{
+                              console.log("gkgkgkkgkg");
+                              event.preventDefault()
+                              sendData()
+                            }
+                          } novalidate>
 
                         <div className="row">
                           <div className="col-md-12 mb-4">
@@ -82,14 +80,12 @@ let Type_new_password = () => {
                                 pattern="(?=.*\d)(?=.*[a-zA-Z]).{8,}" required
                                 // value={password}
                                 className="form-control  rounded-pill mt-4"
-                              onChange={(e)=> SetConfirmPassword(e.target.value)}
+                              
                               />
-                              <div className="invalid-feedback" id="password-feedback">
-                                Password must be at least 8 characters long and contain at least one letter and one digit
+                              <div className="invalid-feedback">
+                                not match
                               </div>
-                              <div className="invalid-feedback" id="password-required-feedback">
-                                Please enter a password
-                              </div>
+                              
                             </div>
                           </div>
                         </div>
@@ -97,11 +93,7 @@ let Type_new_password = () => {
 
 
                         <div>
-                          <input className="btn btn-success btn-block rounded-pill  w-100"  onClick={
-                            ()=>{
-                              sendData()
-                            }
-                          } value="Update Password" />
+                          <input className="btn btn-success btn-block rounded-pill  w-100" type="submit"   value="Update Password" />
                         </div>
 
                       </form>

@@ -44,6 +44,7 @@ class AddDetails extends Component {
       postal_code:'',
       yourSkills:[],
       yourServices:[],
+      fieldthis:''
      
 
     }
@@ -258,6 +259,7 @@ class AddDetails extends Component {
               <div className='col-4'>
               <label className="text-success" htmlFor="joptitle">your professional role</label>
             <input type="text" className="form-control" id="joptitle" value={this.state.jobtitle} onChange={this.handleJopTitleChange} />
+           
               </div>
             </div>
           </section>
@@ -273,7 +275,7 @@ class AddDetails extends Component {
               </div>
             </div>
             <br/>
-            <input type='checkbox' id='skipExpirences' onClick={
+            <input type='checkbox' className="form-check-input" id='skipExpirences' onClick={
               () => {
                 this.setState({
                   no_expiernce: !this.state.no_expiernce
@@ -296,14 +298,14 @@ class AddDetails extends Component {
               </div>
             </div>
             <br/>
-            <input type='checkbox' id='skipeducations' onClick={
+            <input type='checkbox' className="form-check-input" id='skipeducations' onClick={
               () => {
                 this.setState({
                   no_education: !this.state.no_education
                 });
               }
             } />
-            <label className="messageCheckbox" htmlFor="is_work">not have Educations</label>
+           <label  class="messageCheckbox form-check-label"  htmlFor="is_work">not have Educations</label>
           </section>
 
           <section className="mysection">
@@ -331,12 +333,12 @@ class AddDetails extends Component {
           <section className="mysection">
             <div className="container">
             <h3 class="text-success">The word about your self</h3>
-              <form action="/action_page.php">
+              <form class="row g-3 needs-validation" novalidate>
                 <div className="mb-3 mt-3">
                   <label htmlFor="comment">your overview:</label>
                   <textarea className="form-control" rows="5"  id="overview" name="text" onChange={(e) => {
                 this.setState({ overview: e.target.value })
-              }}></textarea>
+              }}required></textarea>
                 </div>
               </form>
             </div>
@@ -371,36 +373,41 @@ class AddDetails extends Component {
             </div>
             <div className='col-6'>
             <div class="container">
+           
               <div class="row">
                 <div class="col-5">
-                  <input type="text" class="form-control" placeholder="Enter street address" name="street_address" onChange={(e) => {
+                  <input id="asd1" type="text" class="form-control" placeholder="Enter street address" name="street_address" onChange={(e) => {
                 this.setState({ street_address: e.target.value })
-              }} />
+              }} required />
                 </div>
                 <div className='col-2'></div>
                 <div class="col-5">
-                  <input type="text" class="form-control" placeholder="Enter city" name="city"  onChange={(e) =>{
+                  <input id='asd2' type="text" class="form-control" placeholder="Enter city" name="city"  onChange={(e) =>{
                     this.setState({city:e.target.value})
-                  }} />
+                  }} required/>
                 </div>
               </div>
               <div class="row mt-4">
                 <div class="col-5">
-                  <input type="text" class="form-control" placeholder="Enter state" name="state"  onChange={(e) =>{
+                  <input id='asd3' type="text" class="form-control" placeholder="Enter state" name="state"  onChange={(e) =>{
                     this.setState({state:e.target.value})
-                  }} />
+                  }} required />
                 </div>
                 <div className='col-2'></div>
                 <div class="col-5 ml-4">
-                  <input type="text" class="form-control" placeholder="Enter postal code" name="postal_code"  onChange={(e) =>{
+                  <input id='asd4' type="text" class="form-control" placeholder="Enter postal code" name="postal_code"  onChange={(e) =>{
                     this.setState({postal_code:e.target.value})
-                  }}/>
+                  }}  required/>
                 </div>
               </div>
+             
             </div>
+          
             </div>
+          
             <div className='col-3'>
            </div>
+           
            </div>
           </section>
 
@@ -416,25 +423,33 @@ class AddDetails extends Component {
 
 
 
-        <div id="logIn" className="dialog">
-          <div className=" formx form-content animate">
+      
+        <form id="logIn" class="needs-validation dialog"  onSubmit={
+         
+            (event) => {
+              event.preventDefault()
+              this.add_experiences()
+            }
+          
+        }novalidate>
+        <div className=" formx form-content animate">
             <div className="mb-3 mt-3">
               <label htmlFor="email" className="form-label">Title:</label>
               <input type="text" value={this.state.title} className="form-control" id="title" placeholder="Enter Title" name="Title" onChange={(e) => {
                 this.setState({ title: e.target.value })
-              }} />
+              }} required/>
             </div>
             <div className="mb-3 mt-3">
               <label htmlFor="email" className="form-label">company:</label>
               <input type="text"  value={this.state.company} className="form-control" id="company" placeholder="Enter company" name="company" onChange={(e) => {
                 this.setState({ company: e.target.value })
-              }} />
+              }} required/>
             </div>
             <div className="mb-3 mt-3">
               <label htmlFor="email" className="form-label">location:</label>
               <input type="text" value={this.state.location} className="form-control" id="location" placeholder="Enter location" name="location" onChange={(e) => {
                 this.setState({ location: e.target.value })
-              }} />
+              }} required/>
             </div>
 
             <div class="form-check">
@@ -454,50 +469,57 @@ class AddDetails extends Component {
                 <label htmlFor="start_date">Start</label>
                 <input id="start_date" value={this.state.start_date} className="form-control" type="date" onChange={(e) => {
                   this.setState({ start_date: e.target.value })
-                }} />
+                }} required/>
               </div>
               <div className="col-6">
                 <label htmlFor="end_date">End</label>
                 <input id="end_date" value={this.state.end_date} className="form-control" type="date" onChange={(e) => {
                   this.setState({ end_date: e.target.value })
-                }} />
+                }} required/>
               </div>
             </div>
             <div className="mb-3">
               <label htmlFor="description" className="form-label">Example textarea</label>
               <textarea className="form-control" value={this.state.description} id="description" rows="3" onChange={(e) => {
                 this.setState({ description: e.target.value })
-              }}></textarea>
+              }}required></textarea>
+      
             </div>
 
-            <button class="btn btn-success w-100" id="addExpirence" onClick={
-              () => {
-                this.add_experiences()
-              }
-            }>Submit</button>
+            <button class="btn btn-success w-100" id="addExpirence" type='submit' >Submit</button>
           </div>
-        </div>
+        </form>
+       
 
 
-        <div id="education" className="dialog">
+       
+
+        <form id="education"  class="needs-validation dialog"  onSubmit={
+         
+         (event) => {
+           event.preventDefault()
+           this.add_educations()
+         }
+       
+     }novalidate>
           <div className=" formx form-content animate">
             <div className="mb-3 mt-3">
               <label htmlFor="school" className="form-label">school:</label>
               <input type="text" value={this.state.school} className="form-control" id="school" placeholder="Enter school" name="school" onChange={(e) => {
                 this.setState({ school: e.target.value })
-              }} />
+              }} required/>
             </div>
             <div className="mb-3 mt-3">
               <label htmlFor="degree" className="form-label">degree:</label>
               <input type="text" value={this.state.degree} className="form-control" id="degree" placeholder="Enter degree" name="degree" onChange={(e) => {
                 this.setState({ degree: e.target.value })
-              }} />
+              }} required/>
             </div>
             <div className="mb-3 mt-3">
               <label htmlFor="study" className="form-label">study:</label>
               <input type="text" value={this.state.study} className="form-control" id="study" placeholder="Enter study" name="study" onChange={(e) => {
                 this.setState({ study: e.target.value })
-              }} />
+              }} required/>
             </div>
 
             <div className="container row">
@@ -505,29 +527,26 @@ class AddDetails extends Component {
                 <label htmlFor="from year">from year</label>
                 <input type="number" value={this.state.from_year} id="from_year" className="form-control" onChange={(e) => {
                   this.setState({ from_year: e.target.value })
-                }} />
+                }}required />
               </div>
               <div className="col-6">
                 <label htmlFor="to year">to year</label>
                 <input type="number" value={this.state.to_year} id="to_year" className="form-control" onChange={(e) => {
                   this.setState({ to_year: e.target.value })
-                }} />
+                }} required/>
               </div>
             </div>
             <div className="mb-3">
               <label htmlFor="description" className="form-label">Example textarea</label>
               <textarea value={this.state.edu_description} className="form-control" id="description2" rows="3" onChange={(e) => {
                 this.setState({ edu_description: e.target.value })
-              }}></textarea>
+              }}required></textarea>
             </div>
 
-            <button class="btn btn-success w-100" id='addEducation' onClick={
-              () => {
-                this.add_educations()
-              }
-            }>Submit</button>
+            <button class="btn btn-success w-100" id='addEducation' type='submit'>Submit</button>
           </div>
-        </div>
+          </form>
+        
       </div>
     )
   }

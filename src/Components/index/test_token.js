@@ -14,7 +14,9 @@ let TestToken =()=>
             "token":token
         });
         if(result.data.id){
-           window.location='/rest_password_verfy/'+result.data.id+'/'+type
+            localStorage.setItem("uid",result.data.id)
+            localStorage.setItem("type",type)
+           window.location='/rest_password_verfy/'
         }
            }else{
             var result=  await  axios
@@ -22,9 +24,7 @@ let TestToken =()=>
             "uid":uid,
             "token":token
         });
-        if(result.data.id){
-           window.location='/rest_password_verfy/'+result.data.id+'/'+type
-        }
+       
            }
       
         },[]);

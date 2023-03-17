@@ -34,7 +34,7 @@ function App() {
       <Route path='/activate_user/:uid/:token' element={<ActivateUser/>}/>
       <Route path='/activate_free/:uid/:token' element={<ActivateFreeLancer/>}/>
       <Route path='/rest_password' element={<TypeEmail/>}/>
-      <Route path='/rest_password_verfy/:uid/:type' element={<Type_new_password/>}/>
+      <Route path='/rest_password_verfy' element={<Type_new_password/>}/>
       <Route path='/test_token/:uid/:token/:type' element={<TestToken/>}/>
       <Route path="/profile_free" element={<ProfileFreeLancer/>}/>
       </Routes>

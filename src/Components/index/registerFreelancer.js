@@ -97,7 +97,11 @@ class RegisterFreelancer extends Component{
           <div className="text-center">
             Here to hire talent? 
             <a href="#" className="text-center text-success mt-3"> </a>
-            <NavLink className={'text-center text-success mt-3 fontEditsHalf' } to={"/registeruser"}>Join as a Client</NavLink>
+            <NavLink className={'text-center text-success mt-3 fontEditsHalf' }onClick={
+              ()=>{
+                window.location='/registeruser/'
+              }
+            }>Join as a Client</NavLink>
           </div>
       </div>
       

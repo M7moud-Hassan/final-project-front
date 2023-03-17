@@ -94,7 +94,11 @@ class RegisterUser extends Component {
               <div className="navbar-nav ms-auto">
                 <div className="text-center fontEditsHalf">
                   Looking for work?
-                  <NavLink className={'text-center text-success mt-3 fontEditsHalf' } to={"/registration_freelancer"}>Applay as Talent</NavLink>
+                  <NavLink className={'text-center text-success mt-3 fontEditsHalf' } onClick={
+                    ()=>{
+                      window.location='/registration_freelancer/'
+                    }
+                  }>Applay as Talent</NavLink>
                 </div>
               </div>
 
