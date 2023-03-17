@@ -80,7 +80,7 @@ document.getElementById("openEducat").addEventListener("click", function(event){
       var from_year=document.getElementById('from_year').value;
       var to_year=document.getElementById('to_year').value;
       var description2=document.getElementById('description2').value;
-      if(school!=''&&degree&&study&&from_year&&to_year&&description2){
+      if(school!=''&&degree&&study&&from_year&&to_year&&description2&&to_year>from_year&&to_year>1990){
       education.style.display = "none";
       edcontent.innerHTML+='<div id="peducation" class=" col-3 card text-white bg-success mb-3 contentMa" style="max-width: 18rem;"><div class="card-header">'+school+'</div><div class="card-body"><h5 class="card-title">'+degree+'</h5><p class="card-text">'+study+'</p><p class="card-text">description</p></div></div>';
     }

@@ -49,7 +49,11 @@ class AddDetails extends Component {
       start_date_error:'',
       error:'',
       currentFile:process.env.PUBLIC_URL+ "/images/person.png",
-      image:''
+      image:'',
+      error_number:'',
+      error_number_to:'',
+      error_tag:'',
+      error_tag_to:''
 
     }
     this.handleJopTitleChange = this.handleJopTitleChange.bind(this);
@@ -183,7 +187,7 @@ class AddDetails extends Component {
             .catch((error) => {
               console.log('error add overview');
             });
-        
+        console.log("images",this.state.image);
       axios
             .post("http://127.0.0.1:8000/auth/addAdress/", {
               id:   localStorage.getItem("id"),
@@ -192,7 +196,11 @@ class AddDetails extends Component {
               state:this.state.state,
               postal_code:this.state.postal_code,
               image:this.state.image
-            })
+            },{
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+})
             .then((response) => {
               console.log(response.data);
             })
@@ -222,6 +230,7 @@ class AddDetails extends Component {
               })
               .then((response) => {
                 localStorage.clear()
+                
                window.location='/login/'
               })
               .catch((error) => {
@@ -585,8 +594,11 @@ class AddDetails extends Component {
         <form id="education"  class="needs-validation dialog"  onSubmit={
          
          (event) => {
-           event.preventDefault()
-           this.add_educations()
+          event.preventDefault()
+          if(!this.state.error_tag_to){
+           
+            this.add_educations()
+          }
          }
        
      }novalidate>
@@ -613,16 +625,54 @@ class AddDetails extends Component {
             <div className="container row">
               <div className="col-6">
                 <label htmlFor="from year">from year</label>
-                <input type="number" value={this.state.from_year} id="from_year" className="form-control" onChange={(e) => {
+                <input type="number" min="1990" max="2023" pattern='[0-9]{4}' onBlur={
+                  (e)=>{
+                    if(e.target.value<1990&&e.target.value>2023){
+                      this.setState({error_number:"not valid year",
+                    error_tag:"is-invalid"})
+                    
+                    }else{
+                      this.setState({error_number:"",
+                      error_tag:""})
+                    }
+                  }
+                } value={this.state.from_year} id="from_year" className={"form-control "+this.state.error_tag } onChange={(e) => {
                   this.setState({ from_year: e.target.value })
                 }}required />
+                 <div className='text-danger'>
+                  {this.state.error_number}
+                </div>
               </div>
               <div className="col-6">
                 <label htmlFor="to year">to year</label>
-                <input type="number" value={this.state.to_year} id="to_year" className="form-control" onChange={(e) => {
+                <input type="number"  min="1990" max="2023" onBlur={
+                  (e)=>{
+                    if(e.target.value<1990&&e.target.value>2023){
+                      this.setState({error_number_to:"not valid year"})
+                      this.setState({ error_tag_to:"is-invalid"})
+                    }else{
+                     if(!this.state.from_year)
+                     {
+                      this.setState({error_number_to:"input from year first"})
+                      this.setState({ error_tag_to:"is-invalid"})
+                     }else if (e.target.value<this.state.from_year)
+                     {
+                      this.setState({error_number_to:"invalid year"})
+                      this.setState({ error_tag_to:"is-invalid"})
+                     }else{
+                      this.setState({error_number_to:"",
+                      error_tag_to:""})
+                     }
+                    }
+                  }
+                } pattern='[0-9]{4}' value={this.state.to_year} id="to_year" className={"form-control "+this.state.error_tag_to} onChange={(e) => {
                   this.setState({ to_year: e.target.value })
                 }} required/>
+                <div className='text-danger'>
+                  {this.state.error_number_to}
+                </div>
               </div>
+
             </div>
             <div className="mb-3">
               <label htmlFor="description" className="form-label">Example textarea</label>
