@@ -99,7 +99,7 @@ class RegisterFreelancer extends Component{
             <a href="#" className="text-center text-success mt-3"> </a>
             <NavLink className={'text-center text-success mt-3 fontEditsHalf' }onClick={
               ()=>{
-                window.location='/registeruser/'
+                window.location='/registeruser'
               }
             }>Join as a Client</NavLink>
           </div>

@@ -96,7 +96,7 @@ class RegisterUser extends Component {
                   Looking for work?
                   <NavLink className={'text-center text-success mt-3 fontEditsHalf' } onClick={
                     ()=>{
-                      window.location='/registration_freelancer/'
+                      window.location='/registration_freelancer'
                     }
                   }>Applay as Talent</NavLink>
                 </div>

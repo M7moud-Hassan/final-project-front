@@ -2,48 +2,61 @@ import { useState } from "react";
 import axios from "axios";
 import { NavLink } from "react-router-dom";
 
-function Login(){
+function Login() {
     localStorage.removeItem('id')
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [msg,setMess]=useState('');
-    const [typeErro,SetTypeError]=useState('');
+    const [msg, setMess] = useState('');
+    const [typeErro, SetTypeError] = useState('');
 
 
-    let loginCheck=(e)=>{
-        
-      
+    let loginCheck = (e) => {
+
+
         e.preventDefault();
-        axios.post('http://localhost:8000/auth/login/',{email: email,password: password,}) 
-        .then ((res)=> {
-           console.log(res.data.ress);
-            if(res.data.ress=='ok'){
-                localStorage.setItem("id", res.data.id);
-                localStorage.setItem("userName", res.data.name);
-                window.location='/profile_free/'
-            }else if(res.data.ress=='not active'){
-                SetTypeError('alert alert-danger')
-                setMess('user not active')
-               // self.setMess('user not active')
-                //mesg error
-            }else if(res.data.ress=='password worng'){
-               SetTypeError('alert alert-danger')
-                setMess('password wrong')
-            }else if(res.data.ress=='not complete') {
-                localStorage.setItem("id", res.data.id);
-                localStorage.setItem("userName", res.data.name);
-                window.location='/addDetails/'
-            }
-        })
-        .catch ((err)=> {console.log(err)});
+        axios.post('http://localhost:8000/auth/login/', { email: email, password: password, })
+            .then((res) => {
+                console.log(res.data.ress);
+                if (res.data.ress == 'ok') {
+                    localStorage.setItem("id", res.data.id);
+                    localStorage.setItem("userName", res.data.name);
+                    window.location = '/profile_free/'
+                } else if (res.data.ress == 'not active') {
+                    SetTypeError('alert alert-danger')
+                    setMess('user not active')
+                    // self.setMess('user not active')
+                    //mesg error
+                } else if (res.data.ress == 'password worng') {
+                    SetTypeError('alert alert-danger')
+                    setMess('password wrong')
+                } else if (res.data.ress == 'not complete') {
+                    localStorage.setItem("id", res.data.id);
+                    localStorage.setItem("userName", res.data.name);
+                    window.location = '/addDetails/'
+                }
+            })
+            .catch((err) => { console.log(err) });
     }
     console.log(msg);
-        return (
-            <div>
-                <div className="text-center">
-            <div className={typeErro}>
-              {msg}
-              </div></div>
+    return (
+        <div>
+            <nav className="navbar navbar-expand-lg bg-body-tertiary ">
+
+                <div className='container d-flex text-center'>
+                    <div className="col-3">
+                    <NavLink to={'/'}><img id='logo' className='ms-5' src='\images\upwork.png' /></NavLink>
+                    </div>
+                    <div className="col-6" ></div>
+                    <div className="input-group ms-5  col-3 ">
+                        <NavLink className="btn btn-success border-0 rounded text-light" to={"/choose_account"}>Sign Up</NavLink>
+                    </div>
+
+                </div>
+            </nav>
+            <div className="text-center">
+                <div className={typeErro}>
+                    {msg}
+                </div></div>
             <div className="container">
                 <section className="vh-100 gradient-custom">
                     <div className="container py-5 h-100">
@@ -66,7 +79,8 @@ function Login(){
                                                           onChange={(e)=> setEmail(e.target.value)}
                                                         required/>
                                                         <div class="invalid-feedback">
-                                                        Please provide a valid city.
+                                                        Email is required
+
                                                         </div>
                                                     </div>
                                                     </div>
@@ -94,7 +108,7 @@ function Login(){
                                                 </div>
 
                                             </form>
-                                            <div className="container d-flex hrContain mt-4">   
+                                            <div className="container d-flex hrContain mt-4">
                                                 <div className="like-hr"></div>
                                                 <p>or</p>
                                                 <div className="like-hr"></div>
@@ -118,7 +132,7 @@ function Login(){
                     </div>
                 </section>
 
-        </div>
+            </div>
         </div>
     )
 

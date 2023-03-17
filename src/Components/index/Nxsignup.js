@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-
+import { NavLink } from "react-router-dom"
 let Nxsignup = () => {
 
     var useraccount = 0
@@ -7,7 +7,7 @@ let Nxsignup = () => {
         <div>
             <nav className="navbar navbar-expand-lg navbar-light bg-white">
                 <div className="container">
-                    <a className="navbar-brand" href="#"><img src="images/upwork.svg" alt="Logo" /></a>
+                <NavLink to={'/'}><img className='logos' src='./images/upwork.png' /> </NavLink>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
@@ -15,10 +15,10 @@ let Nxsignup = () => {
                     <div className="collapse navbar-collapse" id="navbarNav">
 
                         <div className="navbar-nav ms-auto">
-                            <div className="text-center">
+                            {/* <div className="text-center">
                                 Here to hire talent?
-                                <a href="#" className="text-center text-success mt-3"> Join as a Client</a>
-                            </div>
+                                <NavLink to={'/registerUser'} className="text-center text-success mt-3"> Join as a Client</NavLink>
+                            </div> */}
                         </div>
                     </div>
                 </div>

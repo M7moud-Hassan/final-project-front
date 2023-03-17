@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import '../css/add_details.css'
 import '../js/add_details.js'
-
+import { NavLink } from 'react-router-dom';
 
 
 class AddDetails extends Component {
@@ -223,9 +223,7 @@ class AddDetails extends Component {
 
   render() {
     if(  localStorage.getItem("id")==undefined){
-      return <div>
-        Eroor
-      </div>
+     window.location="/Error"
     }
     return (
       <div>

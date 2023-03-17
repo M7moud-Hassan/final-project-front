@@ -16,7 +16,7 @@ let TestToken =()=>
         if(result.data.id){
             localStorage.setItem("uid",result.data.id)
             localStorage.setItem("type",type)
-           window.location='/rest_password_verfy/'
+           window.location='/rest_password_verfy'
         }
            }else{
             var result=  await  axios

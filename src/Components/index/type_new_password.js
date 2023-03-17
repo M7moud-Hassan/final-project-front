@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { Component, useState } from 'react';
 import { useParams } from 'react-router-dom';
-
+import { NavLink } from 'react-router-dom';
 
 let Type_new_password = () => {
   let [password,setPassword]=useState('')
@@ -20,12 +20,17 @@ let Type_new_password = () => {
       
     }
   }
+  console.log(localStorage.getItem("uid"));
+  if(!localStorage.getItem("uid"))
+  {
+    window.location="/Error"
+  }else
   return (
     <div>
       
       <nav class="navbar navbar-expand-lg navbar-light bg-white">
         <div class="container">
-          <a class="navbar-brand" href="#"><img src="images/upwork.svg" alt="Logo" /></a>
+          <a class="navbar-brand" href="http://127.0.0.1:3000"><img src="images/upwork.svg" alt="Logo" /></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
