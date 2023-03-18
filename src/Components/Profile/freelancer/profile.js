@@ -10,7 +10,7 @@ class Profile extends Component {
     constructor() {
         super();
         this.state = {
-            data:false,
+            data: false,
             loading: true,
             error: null
 
@@ -22,9 +22,9 @@ class Profile extends Component {
     componentDidMount() {
         const userId = "4"
         axios.post(`http://127.0.0.1:8000/profile/get_details_free/`,
-        {
-            "id":userId
-        })
+            {
+                "id": userId
+            })
             .then(response => {
                 this.setState({ data: response.data, loading: false });
             })
@@ -56,7 +56,7 @@ class Profile extends Component {
                             <div className="row">
 
                                 <div className="col-md-3">
-                                    <img src={"data:image/*;base64,"+this.state.data.image} className="img-fluid rounded-circle mb-3"
+                                    <img src={"data:image/*;base64," + this.state.data.image} className="img-fluid rounded-circle mb-3"
                                         alt="Profile Picture" />
 
                                 </div>
@@ -83,14 +83,18 @@ class Profile extends Component {
                                                 <div>
                                                     <button type="button"
                                                         className="btn btn-outline-primary btn-sm rounded-pill me-2"><i
-                                                            className="fa-solid fa-pen"></i></button>                                </div>
+                                                            className="fa-solid fa-pen"></i></button>
+                                                </div>
                                             </div>
                                             <ul className="list-unstyled">
                                                 {this.state.data.educations.map((education, index) => (
-                                                    <li key={index}>
-                                                        <p>{education.school}</p>
-                                                        <p>{education.from_year}</p>
-                                                    </li>
+                                                    <div className='container-border my-1'>
+                                                        <li key={index}>
+                                                            <h5>{education.school}</h5>
+                                                            <p>{education.from_year}</p>
+                                                        </li>
+                                                    </div>
+
                                                 ))}
                                             </ul>
                                         </div>
@@ -176,11 +180,11 @@ class Profile extends Component {
                                         </div>
 
                                         <div className="row">
-                                            <div className="col-md-6">
-                                                <ul className="list-unstyled">
+                                            <div className="col-md-12">
+                                                <ul className="list-inline">
                                                     {this.state.data.skills.map((skill, index) => (
-                                                        <li key={index}>
-                                                            <p>{skill}</p>
+                                                        <li className='list-inline-item' key={index}>
+                                                            <span class="badge rounded-pill bg-primary fs-6">{skill}</span>
                                                         </li>
                                                     ))}
                                                 </ul>
@@ -203,11 +207,11 @@ class Profile extends Component {
                                         </div>
 
                                         <div className="row">
-                                            <div className="col-md-6">
-                                                <ul className="list-unstyled">
+                                            <div className="col-md-12">
+                                                <ul className="list-inline">
                                                     {this.state.data.services.map((service, index) => (
-                                                        <li key={index}>
-                                                            <p>{service}</p>
+                                                        <li className='list-inline-item' key={index}>
+                                                            <span class="badge rounded-pill bg-primary fs-6">{service}</span>
                                                         </li>
                                                     ))}
                                                 </ul>
@@ -215,7 +219,7 @@ class Profile extends Component {
                                         </div>
 
                                     </div>
-                                    <hr/>
+                                    <hr />
                                     <div>
                                         <div className="d-flex justify-content-between align-items-center">
                                             <h2>My Work Experience</h2>
@@ -228,10 +232,11 @@ class Profile extends Component {
                                         <ul className="list-unstyled">
                                             {this.state.data.experiecnces.map((experiecnce, index) => (
                                                 <li key={index}>
+
                                                     <div className="position-relative container-border my-4">
 
                                                         <div className="d-flex justify-content-between align-items-center">
-                                                            <h4 className="mb-3">{experiecnce.title}</h4>
+                                                            <h3 className="mb-3">{experiecnce.title}</h3>
                                                             <div>
                                                                 <button type="button"
                                                                     className="btn btn-outline-primary btn-sm rounded-pill me-2"><i
@@ -240,7 +245,7 @@ class Profile extends Component {
                                                                     className="fa-solid fa-trash-can"></i></button>
                                                             </div>
                                                         </div>
-                                                        <p className="text-muted">{experiecnce.company}</p>
+                                                        <h4 assName="text-muted">{experiecnce.company}</h4>
                                                         <p>{experiecnce.description}</p>
                                                     </div>
                                                 </li>
@@ -268,9 +273,9 @@ class Profile extends Component {
                                     className="fa-solid fa-plus"></i></button>
                             </div>
                         </div>
-                        <hr />
+                        
 
-                        <hr />
+                        
                         <div className="position-relative container-border my-4">
                             <div className="d-flex justify-content-between align-items-center">
                                 <h4 className="mb-3">Title</h4>
@@ -284,7 +289,7 @@ class Profile extends Component {
                             <p className="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis felis vitae augue finibus
                             </p>
                         </div>
-                        <hr />
+                       
                         <div className="position-relative container-border my-4">
                             <div className="d-flex justify-content-between align-items-center">
                                 <h4 className="mb-3">Title</h4>
@@ -308,9 +313,9 @@ class Profile extends Component {
                                     className="fa-solid fa-plus"></i></button>
                             </div>
                         </div>
-                        <hr />
+                     
 
-                        <hr />
+                       
                         <div className="position-relative container-border my-4">
                             <div className="d-flex justify-content-between align-items-center">
                                 <h4 className="mb-3">Title</h4>
@@ -324,7 +329,7 @@ class Profile extends Component {
                             <p className="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis felis vitae augue finibus
                             </p>
                         </div>
-                        <hr />
+                      
                         <div className="position-relative container-border my-4">
                             <div className="d-flex justify-content-between align-items-center">
                                 <h4 className="mb-3">Title</h4>
