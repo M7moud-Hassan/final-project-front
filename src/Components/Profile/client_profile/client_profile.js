@@ -1,33 +1,43 @@
 import React, { Component, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+// import { NavLink } from 'react-router-dom';
 import axios from 'axios';
 import { useState } from 'react';
 // import { useEffect } from 'react';
+import '../../../index.css'
 
 
-let ClientProfile = () => {
+const ClientProfile = () => {
 
     const [id, setId] = useState('');
     const [data, setData] = useState('');
-  
+
     useEffect(() => {
-      axios.post(`http://127.0.0.1:8000/profile/clientDetails/`, {id})
-        .then(res => {
-          setData(res.data);
-        })
-        .catch(err => {
-          console.log(err.message);
-        });
+        axios.post(`http://127.0.0.1:8000/profile/clientDetails/`, { id: localStorage.getItem('uid') })
+            .then(res => {
+                setData(res.data);
+                console.log(res.data);
+            })
+            .catch(err => {
+                console.log(err.message);
+            });
     }, [id]);
-  
+
 
     return (
-        <div>
+        <div><div className='row'>
+            <div className=' col-sm-3 buttonSetting text-center'>
+                <img className='littleSymbolImage' src="./images/default.png" />
+                <h4 className='mt-3'>{data.name}</h4>
+                <hr />
+                <a href='#'><h5>Settings</h5></a>
+                <a href='#'><h5 className='pb-4'>Logout</h5></a>
+            </div></div>
             <div className='container'>
                 <div className='mt-md-5 mt-xs-3 mt-1'>
-                    <h1 className='text-dark'>Hi , {data.Fname} </h1>
+                    <h1 className='text-dark'>Hi , {data.name} </h1>
                     <h3 className='text-dark'>Your workspace</h3>
                 </div>
+
                 {/* section 1 */}
                 <div className='mt-5'>
                     <div className='row'>
@@ -119,7 +129,7 @@ let ClientProfile = () => {
                                     <h3>Guided tour</h3>
                                 </div>
                                 <div className='w-75 p-3'>
-                                    Book a consultation with an expert to review your project's budget, timeline , and scope one-on-one 
+                                    Book a consultation with an expert to review your project's budget, timeline , and scope one-on-one
                                 </div>
                                 <button className='rounded-pill btn btn-success text-center mt-5'>
                                     Learn more
@@ -133,7 +143,7 @@ let ClientProfile = () => {
                                 <div className='mt-3 p-3'>
                                     <h4 className='text-dark'>Development & IT</h4>
                                 </div>
-                                <img className='w-75' src='./images/Develope.avif'/>
+                                <img className='w-75' src='..\..\images\Develope.avif' />
                             </div>
                         </div>
                         <div className='col-md-3 col-sm-6 col-12 mt-3'>
@@ -142,7 +152,7 @@ let ClientProfile = () => {
                                 <div className='mt-3'>
                                     <h4 className='p-3 text-dark'>Marketing</h4>
                                 </div>
-                                <img className='w-75' src='./images/marketing.png'/>
+                                <img className='w-75' src='./images/marketing.png' />
                             </div>
                         </div>
                         <div className='col-md-3 col-sm-6 col-12 mt-3 text-center'>
@@ -151,23 +161,23 @@ let ClientProfile = () => {
                                 <div className='mt-3 text-dark'>
                                     <h4 className='p-3'>Design</h4>
                                 </div>
-                                <img className='w-75' src='./images/Design.avif'/>
+                                <img className='w-75' src='./images/Design.avif' />
                             </div>
                         </div>
                     </div>
                 </div>
-                    {/* section 4 */}
-                    <div className='profileCards3 container pCards4 text-dark'>
-                                <div className='mt-3 p-3'>
-                                    <h3>Get Started</h3>
-                                </div>
-                                <div className='w-75 p-3 h2'>
-                                    Get started and connect with talent to get work done
-                                </div>
-                                <button className='rounded-pill btn btn-success text-center mt-5 ms-5'>
-                                    go to article
-                                </button>
-                            </div>
+                {/* section 4 */}
+                <div className='profileCards3 container pCards4 text-dark'>
+                    <div className='mt-3 p-3'>
+                        <h3>Get Started</h3>
+                    </div>
+                    <div className='w-75 p-3 h2'>
+                        Get started and connect with talent to get work done
+                    </div>
+                    <button className='rounded-pill btn btn-success text-center mt-5 ms-5'>
+                        go to article
+                    </button>
+                </div>
                 {/* section 5 */}
                 <div className='mt-md-5 mt-xs-3 mt-1'>
                     <h1 className='text-dark'>Complete these steps to stand out and hire fast </h1>
@@ -182,7 +192,7 @@ let ClientProfile = () => {
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div className='col-md-4 col-12 mt-3'>
                             <div className='profileCards2 container pCards2 text-dark' >
                                 <div className='mt-3 p-3'><h4 className='text-secondary'>Payments </h4></div>
@@ -199,8 +209,8 @@ let ClientProfile = () => {
                                 </div>
                             </div>
                         </div>
-                        </div>
                     </div>
+                </div>
 
             </div>
         </div>
