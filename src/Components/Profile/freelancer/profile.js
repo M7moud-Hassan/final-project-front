@@ -6,19 +6,11 @@ import NavBar from './navbar';
 import Footer from './Footer';
 import axios from 'axios';
 
-
-
-
-
-
-
-
-
 class Profile extends Component {
     constructor() {
         super();
         this.state = {
-            data: {},
+            data:false,
             loading: true,
             error: null
 
@@ -28,7 +20,11 @@ class Profile extends Component {
 
 
     componentDidMount() {
-        axios.get('https://api.example.com/data')
+        const userId = "4"
+        axios.post(`http://127.0.0.1:8000/profile/get_details_free/`,
+        {
+            "id":userId
+        })
             .then(response => {
                 this.setState({ data: response.data, loading: false });
             })
@@ -39,7 +35,7 @@ class Profile extends Component {
 
     render() {
 
-        const { data, loading, error } = this.state;
+        var { data, loading, error } = this.state;
 
         if (loading) {
             return <p>Loading...</p>;
@@ -60,14 +56,14 @@ class Profile extends Component {
                             <div className="row">
 
                                 <div className="col-md-3">
-                                    <img src="\images\me.png" className="img-fluid rounded-circle mb-3"
+                                    <img src={"data:image/*;base64,"+this.state.data.image} className="img-fluid rounded-circle mb-3"
                                         alt="Profile Picture" />
 
                                 </div>
                                 <div className="col-md-9">
                                     <h4>{this.state.data.name}</h4>
 
-                                    <p className="text-muted">{data.adress}</p>
+                                    <p className="text-muted">{this.state.data.address}</p>
                                     <p>{this.state.data.jobtitle}</p>
 
                                 </div>
@@ -93,7 +89,7 @@ class Profile extends Component {
                                                 {this.state.data.educations.map((education, index) => (
                                                     <li key={index}>
                                                         <p>{education.school}</p>
-                                                        <p>{education.degreer}</p>
+                                                        <p>{education.from_year}</p>
                                                     </li>
                                                 ))}
                                             </ul>
@@ -114,10 +110,8 @@ class Profile extends Component {
 
 
                                         <div>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis felis vitae augue finibus
-                                                luctus. Fusce nec tortor sed nisl aliquam blandit. Nulla lobortis leo nunc, sit amet vulputate
-                                                ipsum viverra sed. Fusce sollicitudin velit at lectus bibendum commodo. Fusce tempor tellus eu
-                                                vestibulum commodo. Proin vel elit elit.
+                                            <p>
+                                                {this.state.data.overView}
                                             </p>
 
 
@@ -184,18 +178,44 @@ class Profile extends Component {
                                         <div className="row">
                                             <div className="col-md-6">
                                                 <ul className="list-unstyled">
-                                                    <li>HTML</li>
-                                                    <li>CSS</li>
-                                                    <li>JavaScript</li>
-                                                    <li>React</li>
-                                                    <li>Node.js</li>
-                                                    <li>Bootstrap</li>
+                                                    {this.state.data.skills.map((skill, index) => (
+                                                        <li key={index}>
+                                                            <p>{skill}</p>
+                                                        </li>
+                                                    ))}
                                                 </ul>
                                             </div>
                                         </div>
 
                                     </div>
                                     <hr />
+                                    <div className="row">
+
+
+                                        <div className="d-flex justify-content-between align-items-center mb-2">
+                                            <h2 className="mb-0">My Services</h2>
+                                            <div>
+                                                <button type="button" className="btn btn-outline-success btn-sm rounded-pill me-2"><i
+                                                    className="fa-solid fa-plus"></i></button>
+                                                <button type="button" className="btn btn-outline-primary btn-sm rounded-pill me-2"><i
+                                                    className="fa-solid fa-pen"></i></button>
+                                            </div>
+                                        </div>
+
+                                        <div className="row">
+                                            <div className="col-md-6">
+                                                <ul className="list-unstyled">
+                                                    {this.state.data.services.map((service, index) => (
+                                                        <li key={index}>
+                                                            <p>{service}</p>
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <hr/>
                                     <div>
                                         <div className="d-flex justify-content-between align-items-center">
                                             <h2>My Work Experience</h2>
@@ -206,45 +226,30 @@ class Profile extends Component {
 
                                         </div>
                                         <ul className="list-unstyled">
-                                            <li>
-                                                <div className="position-relative container-border my-4">
+                                            {this.state.data.experiecnces.map((experiecnce, index) => (
+                                                <li key={index}>
+                                                    <div className="position-relative container-border my-4">
 
-                                                    <div className="d-flex justify-content-between align-items-center">
-                                                        <h4 className="mb-3">Title</h4>
-                                                        <div>
-                                                            <button type="button"
-                                                                className="btn btn-outline-primary btn-sm rounded-pill me-2"><i
-                                                                    className="fa-solid fa-pen"></i></button>
-                                                            <button type="button" className="btn btn-outline-danger rounded-pill btn-sm"><i
-                                                                className="fa-solid fa-trash-can"></i></button>
+                                                        <div className="d-flex justify-content-between align-items-center">
+                                                            <h4 className="mb-3">{experiecnce.title}</h4>
+                                                            <div>
+                                                                <button type="button"
+                                                                    className="btn btn-outline-primary btn-sm rounded-pill me-2"><i
+                                                                        className="fa-solid fa-pen"></i></button>
+                                                                <button type="button" className="btn btn-outline-danger rounded-pill btn-sm"><i
+                                                                    className="fa-solid fa-trash-can"></i></button>
+                                                            </div>
                                                         </div>
+                                                        <p className="text-muted">{experiecnce.company}</p>
+                                                        <p>{experiecnce.description}</p>
                                                     </div>
-                                                    <p className="text-muted">ABC Company</p>
-                                                    <p>Developed and maintained the company's website using HTML, CSS, and JavaScript.
-                                                        Worked on
-                                                        improving website performance and user experience.</p>
-                                                </div>
-                                            </li>
-                                            <hr />
-                                            <li>
-                                                <div className="position-relative container-border my-4">
+                                                </li>
 
-                                                    <div className="d-flex justify-content-between align-items-center">
-                                                        <h4 className="mb-3">Title</h4>
-                                                        <div>
-                                                            <button type="button"
-                                                                className="btn btn-outline-primary btn-sm rounded-pill me-2"><i
-                                                                    className="fa-solid fa-pen"></i></button>
-                                                            <button type="button" className="btn btn-outline-danger rounded-pill btn-sm"><i
-                                                                className="fa-solid fa-trash-can"></i></button>
-                                                        </div>
-                                                    </div>
-                                                    <p className="text-muted">ABC Company</p>
-                                                    <p>Developed and maintained the company's website using HTML, CSS, and JavaScript.
-                                                        Worked on
-                                                        improving website performance and user experience.</p>
-                                                </div>
-                                            </li>
+                                            )
+
+                                            )}
+
+
                                         </ul>
                                     </div>
 
