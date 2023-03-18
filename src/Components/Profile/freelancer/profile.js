@@ -20,7 +20,7 @@ class Profile extends Component {
 
 
     componentDidMount() {
-        const userId = "4"
+        const userId = 1
         axios.post(`http://127.0.0.1:8000/profile/get_details_free/`,
             {
                 "id": userId
@@ -64,7 +64,11 @@ class Profile extends Component {
                                     <h4>{this.state.data.name}</h4>
 
                                     <p className="text-muted">{this.state.data.address}</p>
-                                    <p>{this.state.data.jobtitle}</p>
+                                    <p>{this.state.data.jobtitle} &nbsp;&nbsp;&nbsp;
+                                    <button type="button"
+                                                        className="btn btn-outline-primary btn-sm rounded-pill me-2"><i
+                                                            className="fa-solid fa-pen"></i></button>
+                                    </p>
 
                                 </div>
 
