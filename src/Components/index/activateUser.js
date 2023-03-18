@@ -15,7 +15,7 @@ let ActivateUser =()=>
         });
         var data= result.data;
         if(data=='ok'){
-         window.location="/addDetails/"
+         window.location="/addDetails"
         }
         },[]);
         

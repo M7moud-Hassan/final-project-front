@@ -224,3 +224,35 @@ color: rgb(108, 180, 177);
 .pCards4{
   background-color:rgb(229, 230, 230);
 }
+.settingBody{
+  border :1px groove rgb(189, 189, 189);
+  border-radius: 20px;
+  text-align: center;
+}
+ol.ordered{
+  list-style-type:upper-alpha;
+}
+.settingImage{
+  text-align: center;
+  width: 150px;
+  border-radius: 50%;
+}
+.buttonSetting{
+  z-index: 99;
+  /* display: none; */
+  position: fixed;
+  right: 0;
+  background-color: white;
+  border-radius: 20px;
+  border: 1px groove lightgray;
+}
+.symbolImage{
+  text-align: center;
+  width: 150px;
+  border-radius: 50%;
+}
+.littleSymbolImage{
+  text-align: center;
+  width: 100px;
+  border-radius: 50%;
+}
