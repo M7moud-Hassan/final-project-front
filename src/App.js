@@ -43,7 +43,7 @@ function App() {
       <Route path='/test_token/:uid/:token/:type' element={<TestToken/>}/>
       <Route path='/clientprofile' element={<ProfileClient/>}/>
       <Route path="/profile_free" element={<ProfileFreeLancer/>}/>
-      <Route Path='/clientsettings' element={<ClientProfile/>}/>
+      <Route path='/clientsettings' element={<ClientProfile/>}/>
       <Route path='*' element={<Error/>} />
       </Routes>
       </BrowserRouter>

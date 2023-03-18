@@ -23,10 +23,10 @@ function Login() {
                     localStorage.setItem("userName", res.data.name);
                     localStorage.setItem("type", res.data.type);
                     if(res.data.type=='free'){
-                    window.location = '/profile_free/'
+                    window.location = '/profile_free'
                     }else if(res.data.type=='client')
                     {
-                        window.location = '/clientprofile/'
+                        window.location = '/clientprofile'
                     }
                 } else if (res.data.ress == 'not active') {
                     SetTypeError('alert alert-danger')
@@ -45,7 +45,7 @@ function Login() {
                     axios.get("http://127.0.0.1:8000/auth/get_Services/").then(services=>{
                         localStorage.setItem('services',JSON.stringify(services.data))
                        
-                        window.location = '/addDetails/'
+                        window.location = '/addDetails'
                     })
                   
                 }else if(res.data.ress=="not found"){

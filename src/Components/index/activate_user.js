@@ -24,10 +24,10 @@ let ActivateUser =()=>
      let rendercontent = ()=>{
         var type= localStorage.getItem("type");
         if(type=='free'){
-        window.location = '/profile_free/'
+        window.location = '/profile_free'
         }else if(type=='client')
         {
-            window.location = '/clientprofile/'
+            window.location = '/clientprofile'
         }else{
      return (<div id="demo-content">
      <div id="loader-wrapper">
