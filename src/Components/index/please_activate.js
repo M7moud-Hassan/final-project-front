@@ -2,7 +2,15 @@ import { useParams } from "react-router-dom"
 import { NavLink } from "react-router-dom"
 
 let Check_email = () => {
+  
     let {email}=useParams()
+    var type= localStorage.getItem("type");
+  if(type=='free'){
+  window.location = '/profile_free/'
+  }else if(type=='client')
+  {
+      window.location = '/clientprofile/'
+  }else{
     return (
         <div>
 
@@ -26,6 +34,7 @@ let Check_email = () => {
         </div>
       </div>
     )
+  }
 }
 export default Check_email
 

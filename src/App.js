@@ -34,8 +34,6 @@ function App() {
       <Route path='/choose_account' element={<Nxsignup/>}/>
       <Route path='/registeruser' element={<RegisterUser/>}/>
       <Route path='/please_activate/:email' element={<Check_email/>}/>
-      <Route path='/type_email' element={<TypeEmail/>}/>
-      <Route path='/type_new_password' element={<Type_new_password/>}/>
       <Route path='/activate_user/:uid/:token' element={<ActivateUser/>}/>
       <Route path='/activate_free/:uid/:token' element={<ActivateFreeLancer/>}/>
       <Route path='/rest_password' element={<TypeEmail/>}/>

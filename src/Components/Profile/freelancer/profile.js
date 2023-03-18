@@ -5,6 +5,7 @@ import '../../css/profile.css';
 import NavBar from './navbar';
 import Footer from './Footer';
 import axios from 'axios';
+import Error from '../../index/error';
 
 class Profile extends Component {
     constructor() {
@@ -38,11 +39,16 @@ class Profile extends Component {
         var { data, loading, error } = this.state;
 
         if (loading) {
-            return <p>Loading...</p>;
+            return (<div id="demo-content">
+            <div id="loader-wrapper">
+                <div id="loader"></div>
+            </div>
+       
+        </div>)
         }
 
         if (error) {
-            return <p>{error}</p>;
+            return <Error/>
         }
         return (
             <div>

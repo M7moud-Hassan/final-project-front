@@ -1,8 +1,15 @@
 import { useEffect } from "react"
 import { NavLink } from "react-router-dom"
 let Nxsignup = () => {
-
+   
     var useraccount = 0
+    var type= localStorage.getItem("type");
+    if(type=='free'){
+    window.location = '/profile_free/'
+    }else if(type=='client')
+    {
+        window.location = '/clientprofile/'
+    }else{
     return (
         <div>
             <nav className="navbar navbar-expand-lg navbar-light bg-white">
@@ -86,5 +93,6 @@ let Nxsignup = () => {
         </div>
 
     )
+                            }
 }
 export default Nxsignup;

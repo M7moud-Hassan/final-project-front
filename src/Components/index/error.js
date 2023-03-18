@@ -6,12 +6,12 @@ let Error = () => {
     return (
         <div>
             <nav className='container '>
-            <NavLink to={'/'}><img className='logos' src='./images/upwork.png' /> </NavLink>
+            <NavLink to={'/'}><img className='logos' src='../images/upwork.png' /> </NavLink>
             </nav>
             <div className='container-fluid border-bottom border-success'></div>
             
             <div className='container errorContainer'>
-                <img src='./images/Error.png'/>
+                <img src='../images/Error.png'/>
                 <div className='mt-5 text-success h1' >Looking for something?</div>
                 <p className='mt-5'>We can’t find this page, but we can help you find new opportunities. Here are some places to start:</p>
                 

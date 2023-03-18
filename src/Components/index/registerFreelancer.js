@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 class RegisterFreelancer extends Component{
   constructor(props) {
     super(props);
+   
     this.state = {
       firstName: '',
       lastName: '',
@@ -81,6 +82,13 @@ class RegisterFreelancer extends Component{
 
 
     render(){
+      var type= localStorage.getItem("type");
+      if(type=='free'){
+      window.location = '/profile_free/'
+      }else if(type=='client')
+      {
+          window.location = '/clientprofile/'
+      }else{
         return(
             <div>
 
@@ -254,7 +262,7 @@ class RegisterFreelancer extends Component{
             </div>
 
 
-        )
+        )}
     }
 
 

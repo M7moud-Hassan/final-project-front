@@ -3,6 +3,7 @@ import axios from "axios";
 import { NavLink } from "react-router-dom";
 
 function Login() {
+   
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [msg, setMess] = useState('');
@@ -10,16 +11,23 @@ function Login() {
 
 
     let loginCheck = (e) => {
-
+        SetTypeError('')
+        setMess('')
 
         e.preventDefault();
         axios.post('http://localhost:8000/auth/login/', { email: email, password: password, })
             .then((res) => {
                 console.log(res.data.ress);
                 if (res.data.ress == 'ok') {
-                    localStorage.setItem("id", res.data.id);
+                    localStorage.setItem("uid", res.data.id);
                     localStorage.setItem("userName", res.data.name);
+                    localStorage.setItem("type", res.data.type);
+                    if(res.data.type=='free'){
                     window.location = '/profile_free/'
+                    }else if(res.data.type=='client')
+                    {
+                        window.location = '/clientprofile/'
+                    }
                 } else if (res.data.ress == 'not active') {
                     SetTypeError('alert alert-danger')
                     setMess('user not active')
@@ -29,9 +37,7 @@ function Login() {
                     SetTypeError('alert alert-danger')
                     setMess('password wrong')
                 } else if (res.data.ress == 'not complete') {
-                  
                     localStorage.setItem("id", res.data.id);
-                    localStorage.setItem("userName", res.data.name);
                      axios.get("http://127.0.0.1:8000/auth/get_skills/").then(sskills=>{
                         localStorage.setItem('skills',JSON.stringify(sskills.data))
                      })
@@ -42,18 +48,32 @@ function Login() {
                         window.location = '/addDetails/'
                     })
                   
+                }else if(res.data.ress=="not found"){
+                    SetTypeError('alert alert-danger')
+                    setMess('this email not register')
                 }
             })
             .catch((err) => { console.log(err) });
     }
     console.log(msg);
+    var type= localStorage.getItem("type");
+    if(type=='free'){
+    window.location = '/profile_free/'
+    }else if(type=='client')
+    {
+        window.location = '/clientprofile/'
+    }else{
     return (
         <div>
             <nav className="navbar navbar-expand-lg bg-body-tertiary ">
 
                 <div className='container d-flex text-center'>
                     <div className="col-3">
-                    <NavLink to={'/'}><img id='logo' className='ms-5' src='\images\upwork.png' /></NavLink>
+                    <NavLink onClick={
+                        ()=>{
+                            window.location='/'
+                        }
+                    }><img id='logo' className='ms-5' src='\images\upwork.png' /></NavLink>
                     </div>
                     <div className="col-6" ></div>
                     <div className="input-group ms-5  col-3 ">
@@ -148,6 +168,7 @@ function Login() {
             </div>
         </div>
     )
+                    }
 
 }
 export default Login;

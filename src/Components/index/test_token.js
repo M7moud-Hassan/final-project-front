@@ -4,6 +4,7 @@ import axios from "axios";
 import '../css/load.css'
 let TestToken =()=>
     {
+       
         const {uid, token,type} = useParams();
         useEffect(async()=>{ 
            if(type=='free')
@@ -14,8 +15,8 @@ let TestToken =()=>
             "token":token
         });
         if(result.data.id){
-            localStorage.setItem("uid",result.data.id)
-            localStorage.setItem("type",type)
+            localStorage.setItem("uid_ser",result.data.id)
+            localStorage.setItem("type_ser",type)
            window.location='/rest_password_verfy'
         }
            }else{
@@ -30,12 +31,19 @@ let TestToken =()=>
         },[]);
         
      let rendercontent = ()=>{
+        var typee= localStorage.getItem("type");
+        if(typee=='free'){
+        window.location = '/profile_free/'
+        }else if(typee=='client')
+        {
+            window.location = '/clientprofile/'
+        }else{
      return (<div id="demo-content">
      <div id="loader-wrapper">
          <div id="loader"></div>
      </div>
 
- </div>)}
+ </div>)}}
 
         return (
            <div>

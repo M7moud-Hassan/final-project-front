@@ -8,7 +8,7 @@ import { NavLink } from 'react-router-dom';
 class AddDetails extends Component {
   constructor() {
     super();
-  
+    
     this.expierces = '['
     this.educations = '['
   
@@ -256,6 +256,13 @@ class AddDetails extends Component {
     if(localStorage.getItem("id")==undefined){
      window.location="/Error"
     }
+    var type= localStorage.getItem("type");
+        if(type=='free'){
+        window.location = '/profile_free/'
+        }else if(type=='client')
+        {
+            window.location = '/clientprofile/'
+        }else{
     return (
       <div>
 
@@ -690,6 +697,7 @@ class AddDetails extends Component {
         
       </div>
     )
+            }
   }
 }
 export default AddDetails;
