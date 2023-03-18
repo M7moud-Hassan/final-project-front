@@ -7,11 +7,17 @@ import Part2Home from './index/part2Home';
 class Home extends Component{
     constructor(){
       super();
-
-
+    
     }
 
     render(){
+      var type= localStorage.getItem("type");
+      if(type=='free'){
+      window.location = '/profile_free/'
+      }else if(type=='client')
+      {
+          window.location = '/clientprofile/'
+      }else{
        return( <div>
             <NavBar/>
             <Part1Home/>
@@ -19,6 +25,7 @@ class Home extends Component{
             <Footer/>
         </div>
        )
+      }
     }
 }
 

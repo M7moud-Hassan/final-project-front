@@ -5,8 +5,10 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 
 class RegisterUser extends Component {
+  
   constructor(props) {
     super(props);
+   
     this.state = {
       firstName: '',
       lastName: '',
@@ -80,12 +82,23 @@ class RegisterUser extends Component {
 
 
   render() {
+    var type= localStorage.getItem("type");
+    if(type=='free'){
+    window.location = '/profile_free/'
+    }else if(type=='client')
+    {
+        window.location = '/clientprofile/'
+    }else{
     return (
       <div>
 
         <nav className="navbar navbar-expand-lg navbar-light bg-white">
           <div className="container">
-            <a className="navbar-brand" href="#"><img src="images/upwork.svg" alt="Logo"></img></a>
+          <NavLink onClick={
+                        ()=>{
+                            window.location='/'
+                        }
+                    }><img id='logo' className='ms-5' src='\images\upwork.png' /></NavLink>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon"></span>
             </button>
@@ -254,6 +267,7 @@ class RegisterUser extends Component {
 
 
     )
+    }
   }
 
 

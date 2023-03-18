@@ -4,6 +4,7 @@ import axios from "axios";
 import '../css/load.css'
 let ActivateFreeLancer =()=>
     {
+       
        const {uid, token} = useParams();
         useEffect(async()=>{ 
         var result=  await  axios
@@ -26,12 +27,19 @@ let ActivateFreeLancer =()=>
         },[]);
         
      let rendercontent = ()=>{
+        var type= localStorage.getItem("type");
+        if(type=='free'){
+        window.location = '/profile_free/'
+        }else if(type=='client')
+        {
+            window.location = '/clientprofile/'
+        }else{
      return (<div id="demo-content">
      <div id="loader-wrapper">
          <div id="loader"></div>
      </div>
 
- </div>)}
+ </div>)}}
 
         return (
            <div>

@@ -2,6 +2,7 @@ import React, { Component, useState } from 'react';
 import axios from "axios";
 
 let TypeEmail = () => {
+ 
   let [email,setEmail]=useState('')
   const [msg,setMess]=useState('');
   const [typeErro,SetTypeError]=useState('');
@@ -19,6 +20,13 @@ let check_email=()=>{
   }).catch((error)=>console.log(error))
  }
 }
+var type= localStorage.getItem("type");
+if(type=='free'){
+window.location = '/profile_free/'
+}else if(type=='client')
+{
+    window.location = '/clientprofile/'
+}else{
     return (
       <div>
          
@@ -79,6 +87,7 @@ let check_email=()=>{
       </div>
 
     )
+                      }
   }
 
 export default TypeEmail;

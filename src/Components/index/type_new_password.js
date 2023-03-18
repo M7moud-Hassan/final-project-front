@@ -4,13 +4,14 @@ import { useParams } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 
 let Type_new_password = () => {
+ 
   let [password,setPassword]=useState('')
   let sendData=()=>{
     console.log(password);
-    console.log(localStorage.getItem("uid"));
+    console.log(localStorage.getItem("uid_ser"));
     if(password!=''){   
         axios.post('http://localhost:8000/auth/set_password/',
-        {id:  localStorage.getItem("uid"),password: password,type: localStorage.getItem("type")}) 
+        {id:  localStorage.getItem("uid_ser"),password: password,type: localStorage.getItem("type_ser")}) 
         .then ((res)=> {
           if(res.data=='ok'){
             localStorage.clear()
@@ -20,11 +21,17 @@ let Type_new_password = () => {
       
     }
   }
-  console.log(localStorage.getItem("uid"));
-  if(!localStorage.getItem("uid"))
+  if(!localStorage.getItem("uid_ser"))
   {
     window.location="/Error"
-  }else
+  }else{
+  var type= localStorage.getItem("type");
+  if(type=='free'){
+  window.location = '/profile_free/'
+  }else if(type=='client')
+  {
+      window.location = '/clientprofile/'
+  }else{
   return (
     <div>
       
@@ -113,6 +120,7 @@ let Type_new_password = () => {
       </div>
     </div>
   )
+                        }}
 }
 
 export default Type_new_password;
