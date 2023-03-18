@@ -40,8 +40,11 @@ class Profile extends Component{
                     <h4>John Doe</h4>
                     <h6 class="text"></h6>
                     <p class="text-muted">sohag,girga</p>
-                    <p>Front end developer</p>
-
+                    <p>Front end developer &nbsp;&nbsp;&nbsp;&nbsp;
+                        <button type="button"
+                                        class="btn btn-outline-primary btn-sm rounded-pill me-2"><i
+                                            class="fa-solid fa-pen"></i></button>
+                    </p>
                 </div>
 
 

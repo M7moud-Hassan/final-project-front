@@ -19,6 +19,7 @@ import '@fortawesome/fontawesome-free/js/all.min.js';
 import ProfileFreeLancer from './Components/profile_free';
 import ClientProfile from './Components/Profile/client_profile/client_profile';
 import Error from './Components/index/error';
+import ProfileClient from './Components/profile_client';
 
 
 
@@ -40,7 +41,7 @@ function App() {
       <Route path='/rest_password' element={<TypeEmail/>}/>
       <Route path='/rest_password_verfy' element={<Type_new_password/>}/>
       <Route path='/test_token/:uid/:token/:type' element={<TestToken/>}/>
-      <Route path='/clientprofile' element={<ClientProfile/>}/>
+      <Route path='/clientprofile' element={<ProfileClient/>}/>
       <Route path="/profile_free" element={<ProfileFreeLancer/>}/>
       <Route path='/*' element={<Error/>} />
       </Routes>
