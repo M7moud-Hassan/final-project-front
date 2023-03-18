@@ -130,7 +130,7 @@ class AddDetails extends Component {
   
 
 
-  saveData() {
+  async saveData() {
     if(this.state.city!='' && this.state.postal_code!='' && this.state.state!=''&&this.state.street_address!='' &&this.state.image){
     console.log(this.state.jobtitle);
     var data = this.expierces.substring(0, this.expierces.length - 1);
@@ -140,102 +140,105 @@ class AddDetails extends Component {
     data2 += ']';
     console.log("education",data2);
 
-    axios
+    await axios
         .post("http://127.0.0.1:8000/auth/jobTitle/", {
           id:   localStorage.getItem("id"),
           jobtitle: this.state.jobtitle
-        })
-        .then((response) => {
+        });
+        /*.then((response) => {
           console.log(response.data);
         })
         .catch((error) => {
           console.log('error add jobtitle');
-        });
+        });*/
         if(!this.state.no_expiernce){
-      axios
+     await axios
             .post("http://127.0.0.1:8000/auth/addExperience/",
               data
-            )
-            .then((response) => {
+            );
+           /* .then((response) => {
               console.log(response.data);
             })
             .catch((error) => {
               console.log('error add expirences');
-            });
+            });*/
           }
       if(!this.state.no_education){
-    axios.post("http://127.0.0.1:8000/auth/save_education/",
+  await  axios.post("http://127.0.0.1:8000/auth/save_education/",
               data2
 
             )
-            .then((response) => {
+           /* .then((response) => {
               console.log(response.data);
             })
             .catch((error) => {
               console.log('error add aducations');
-            });
+            });*/
           }
 
-            axios
+           await axios
             .post("http://127.0.0.1:8000/auth/save_overview/", {
               id:   localStorage.getItem("id"),
               overview: this.state.overview
             })
+            /*
             .then((response) => {
               console.log(response.data);
             })
             .catch((error) => {
               console.log('error add overview');
-            });
-        console.log("images",this.state.image);
-      axios
-            .post("http://127.0.0.1:8000/auth/addAdress/", {
-              id:   localStorage.getItem("id"),
-              street_address:this.state.street_address,
-              city:this.state.city,
-              state:this.state.state,
-              postal_code:this.state.postal_code,
-              image:this.state.image
-            },{
-    headers: {
-      'Content-Type': 'multipart/form-data'
-    }
-})
-            .then((response) => {
+            });*/
+       // console.log("images",this.state.image);
+  
+   /*         .then((response) => {
               console.log(response.data);
             })
             .catch((error) => {
               console.log('error add address');
             });
-
-      
-      
-      axios
+            */
+    await  axios
           .post("http://127.0.0.1:8000/auth/addSkills/", {
             id:   localStorage.getItem("id"),
             skills:this.state.yourSkills
             })
-            .then((response) => {
+         /*   .then((response) => {
               console.log(response.data);
             })
             .catch((error) => {
               console.log('error add addSkills');
-            });
+            });*/
 
       
-            axios
+        await  axios
             .post("http://127.0.0.1:8000/auth/addService/", {
               id:   localStorage.getItem("id"),
               services:this.state.yourServices
-              })
-              .then((response) => {
+              });
+
+              await axios
+              .post("http://127.0.0.1:8000/auth/addAdress/", {
+                id:   localStorage.getItem("id"),
+                street_address:this.state.street_address,
+                city:this.state.city,
+                state:this.state.state,
+                postal_code:this.state.postal_code,
+                image:this.state.image
+              },{
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+  });
+                localStorage.clear()
+                window.location='/login/'
+             /* .then((response) => {
                 localStorage.clear()
                 
                window.location='/login/'
               })
               .catch((error) => {
                 console.log(error);
-              });
+              });*/
             }
   }
 
