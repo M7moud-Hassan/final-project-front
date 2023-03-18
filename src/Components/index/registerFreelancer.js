@@ -95,7 +95,11 @@ class RegisterFreelancer extends Component{
               
   <nav className="navbar navbar-expand-lg navbar-light bg-white">
     <div className="container">
-      <a className="navbar-brand" href="#"><img src="images/upwork.svg" alt="Logo"></img></a>
+      <a className="navbar-brand" onClick={
+        ()=>{
+          window.location='/'
+        }
+      }><img src="images/upwork.svg" alt="Logo"></img></a>
       <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon"></span>
       </button>
