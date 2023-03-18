@@ -2,11 +2,11 @@ import { useParams } from "react-router-dom"
 import { NavLink } from "react-router-dom"
 
 let Check_email = () => {
-    let {email}=useParams()
-    return (
-        <div>
+  let { email } = useParams()
+  return (
+    <div>
 
-            <div className="container ">
+      <div className="container ">
         <section className="vh-100 gradient-custom">
           <div className="container py-5 h-100">
             <div className="row justify-content-center align-items-center h-100">
@@ -15,7 +15,7 @@ let Check_email = () => {
                   <div className="card-body p-4 p-md-5 shadowBorder">
                     <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Please Check and confirm your Email  {email}</h3>
                     <div className="my-3 ">
-
+                    
                     </div>
                   </div>
                 </div>
@@ -23,9 +23,9 @@ let Check_email = () => {
             </div>
           </div>
         </section>
-        </div>
       </div>
-    )
+    </div>
+  )
 }
 export default Check_email
 
