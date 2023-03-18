@@ -80,7 +80,7 @@ document.getElementById("openEducat").addEventListener("click", function(event){
       var from_year=document.getElementById('from_year').value;
       var to_year=document.getElementById('to_year').value;
       var description2=document.getElementById('description2').value;
-      if(school!=''&&degree&&study&&from_year&&to_year&&description2){
+      if(school!=''&&degree&&study&&from_year&&to_year&&description2&&to_year>from_year&&to_year>1990){
       education.style.display = "none";
       edcontent.innerHTML+='<div id="peducation" class=" col-3 card text-white bg-success mb-3 contentMa" style="max-width: 18rem;"><div class="card-header">'+school+'</div><div class="card-body"><h5 class="card-title">'+degree+'</h5><p class="card-text">'+study+'</p><p class="card-text">description</p></div></div>';
     }
@@ -146,6 +146,7 @@ document.getElementById("openEducat").addEventListener("click", function(event){
       if (id == "next") {
         if(child==1){
           if($('#joptitle').val()!==''){
+            $("#joptitle").removeClass("is-invalid");
         $("#prev").removeClass("disabled");
         if (child >= length) {
           $(this).addClass("disabled");
@@ -154,10 +155,14 @@ document.getElementById("openEducat").addEventListener("click", function(event){
         if (child <= length) {
           child++;
         }
+      }else{
+        $("#joptitle").addClass("is-invalid");
+       
       }
     }else if (child==2){
       
       if($("#skipExpirences").is(":checked")){
+        $("#skipExpirences").removeClass("is-invalid");
         $("#prev").removeClass("disabled");
         if (child >= length) {
           $(this).addClass("disabled");
@@ -175,11 +180,14 @@ document.getElementById("openEducat").addEventListener("click", function(event){
         if (child <= length) {
           child++;
         }
+      }else{
+        $("#skipExpirences").addClass("is-invalid");
       }
       
     }else if(child==3){
       
       if($("#skipeducations").is(":checked")){
+        $("#skipeducations").removeClass("is-invalid");
         $("#prev").removeClass("disabled");
         if (child >= length) {
           $(this).addClass("disabled");
@@ -197,6 +205,8 @@ document.getElementById("openEducat").addEventListener("click", function(event){
         if (child <= length) {
           child++;
         }
+      }else{
+        $("#skipeducations").addClass("is-invalid");
       }
     }else if(child==4)
     {
@@ -231,10 +241,15 @@ document.getElementById("openEducat").addEventListener("click", function(event){
         if (child >= length) {
           $(this).addClass("disabled");
           $('#submit').removeClass("disabled");
+          $( "#addressDetails" ).submit(function( event ) {
+            event.preventDefault();
+          });
         }
         if (child <= length) {
           child++;
         }
+      }else{
+        $("#overview").addClass("is-invalid");
       }
     }
       } else if (id == "prev") {
@@ -247,6 +262,30 @@ document.getElementById("openEducat").addEventListener("click", function(event){
           child--;
         }
       }
+      $('#submit').click(function(){
+       if($('#asd1').val()==''){
+        $('#asd1').addClass('is-invalid');
+       }else{
+        $('#asd1').removeClass('is-invalid');
+       }
+       if($('#asd2').val()==''){
+        $('#asd2').addClass('is-invalid');
+       }else{
+        $('#asd2').removeClass('is-invalid');
+       }
+
+       if($('#asd3').val()==''){
+        $('#asd3').addClass('is-invalid');
+       }else{
+        $('#asd3').removeClass('is-invalid');
+       }
+
+       if($('#asd4').val()==''){
+        $('#asd4').addClass('is-invalid');
+       }else{
+        $('#asd4').removeClass('is-invalid');
+       }
+      })
       var circle_child = child + 1;
       $("#svg_form_time rect:nth-of-type(n + " + child + ")").css(
         "fill",

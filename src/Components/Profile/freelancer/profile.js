@@ -51,6 +51,7 @@ class Profile extends Component {
         return (
             <div>
 
+
                 <div>
                     <NavBar />
 

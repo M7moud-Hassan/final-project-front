@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import '../css/add_details.css'
 import '../js/add_details.js'
-
+import { NavLink } from 'react-router-dom';
 
 
 class AddDetails extends Component {
@@ -11,6 +11,7 @@ class AddDetails extends Component {
   
     this.expierces = '['
     this.educations = '['
+  
 
     this.state = {
       // jobtitle
@@ -44,7 +45,15 @@ class AddDetails extends Component {
       postal_code:'',
       yourSkills:[],
       yourServices:[],
-     
+      fieldthis:'',
+      start_date_error:'',
+      error:'',
+      currentFile:process.env.PUBLIC_URL+ "/images/person.png",
+      image:'',
+      error_number:'',
+      error_number_to:'',
+      error_tag:'',
+      error_tag_to:''
 
     }
     this.handleJopTitleChange = this.handleJopTitleChange.bind(this);
@@ -90,6 +99,8 @@ class AddDetails extends Component {
       is_work:false,
       start_date:'',
       end_date:'',
+      start_date_error:'',
+      error:'',
       description:''
     })
   }
@@ -106,6 +117,7 @@ class AddDetails extends Component {
     from_year:'',
     to_year:'',
     edu_description:'',
+   
   })
 }
   }
@@ -119,7 +131,7 @@ class AddDetails extends Component {
 
 
   saveData() {
-    if(this.state.city!='' && this.state.postal_code!='' && this.state.state!=''&&this.state.street_address!=''){
+    if(this.state.city!='' && this.state.postal_code!='' && this.state.state!=''&&this.state.street_address!='' &&this.state.image){
     console.log(this.state.jobtitle);
     var data = this.expierces.substring(0, this.expierces.length - 1);
     data += ']';
@@ -127,7 +139,6 @@ class AddDetails extends Component {
     var data2 = this.educations.substring(0, this.educations.length - 1);
     data2 += ']';
     console.log("education",data2);
-
 
     axios
         .post("http://127.0.0.1:8000/auth/jobTitle/", {
@@ -140,7 +151,7 @@ class AddDetails extends Component {
         .catch((error) => {
           console.log('error add jobtitle');
         });
-  
+        if(!this.state.no_expiernce){
       axios
             .post("http://127.0.0.1:8000/auth/addExperience/",
               data
@@ -151,7 +162,8 @@ class AddDetails extends Component {
             .catch((error) => {
               console.log('error add expirences');
             });
-      
+          }
+      if(!this.state.no_education){
     axios.post("http://127.0.0.1:8000/auth/save_education/",
               data2
 
@@ -162,6 +174,7 @@ class AddDetails extends Component {
             .catch((error) => {
               console.log('error add aducations');
             });
+          }
 
             axios
             .post("http://127.0.0.1:8000/auth/save_overview/", {
@@ -174,15 +187,20 @@ class AddDetails extends Component {
             .catch((error) => {
               console.log('error add overview');
             });
-        
+        console.log("images",this.state.image);
       axios
             .post("http://127.0.0.1:8000/auth/addAdress/", {
               id:   localStorage.getItem("id"),
               street_address:this.state.street_address,
               city:this.state.city,
               state:this.state.state,
-              postal_code:this.state.postal_code
-            })
+              postal_code:this.state.postal_code,
+              image:this.state.image
+            },{
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+})
             .then((response) => {
               console.log(response.data);
             })
@@ -211,6 +229,8 @@ class AddDetails extends Component {
               services:this.state.yourServices
               })
               .then((response) => {
+                localStorage.clear()
+                
                window.location='/login/'
               })
               .catch((error) => {
@@ -221,10 +241,17 @@ class AddDetails extends Component {
 
 
   render() {
-    if(  localStorage.getItem("id")==undefined){
-      return <div>
-        Eroor
-      </div>
+    const mystyle={
+      width: '50%',
+      height: '100%',
+      margin: 'auto',
+      backgroundImage:`url(${this.state.currentFile})`,
+      backgroundPosition: 'center', /* Center the image */
+      backgroundRepeat: 'no-repeat', /* Do not repeat the image */
+      backgroundSize: 'contain',
+    }
+    if(localStorage.getItem("id")==undefined){
+     window.location="/Error"
     }
     return (
       <div>
@@ -258,6 +285,7 @@ class AddDetails extends Component {
               <div className='col-4'>
               <label className="text-success" htmlFor="joptitle">your professional role</label>
             <input type="text" className="form-control" id="joptitle" value={this.state.jobtitle} onChange={this.handleJopTitleChange} />
+           
               </div>
             </div>
           </section>
@@ -273,7 +301,7 @@ class AddDetails extends Component {
               </div>
             </div>
             <br/>
-            <input type='checkbox' id='skipExpirences' onClick={
+            <input type='checkbox' className="form-check-input" id='skipExpirences' onClick={
               () => {
                 this.setState({
                   no_expiernce: !this.state.no_expiernce
@@ -296,14 +324,14 @@ class AddDetails extends Component {
               </div>
             </div>
             <br/>
-            <input type='checkbox' id='skipeducations' onClick={
+            <input type='checkbox' className="form-check-input" id='skipeducations' onClick={
               () => {
                 this.setState({
                   no_education: !this.state.no_education
                 });
               }
             } />
-            <label className="messageCheckbox" htmlFor="is_work">not have Educations</label>
+           <label  class="messageCheckbox form-check-label"  htmlFor="is_work">not have Educations</label>
           </section>
 
           <section className="mysection">
@@ -331,12 +359,12 @@ class AddDetails extends Component {
           <section className="mysection">
             <div className="container">
             <h3 class="text-success">The word about your self</h3>
-              <form action="/action_page.php">
+              <form class="row g-3 needs-validation" novalidate>
                 <div className="mb-3 mt-3">
                   <label htmlFor="comment">your overview:</label>
                   <textarea className="form-control" rows="5"  id="overview" name="text" onChange={(e) => {
                 this.setState({ overview: e.target.value })
-              }}></textarea>
+              }}required></textarea>
                 </div>
               </form>
             </div>
@@ -364,43 +392,76 @@ class AddDetails extends Component {
               </div>
             </div>
           </section>
+
           <section className="mysection">
-          <div className="row d-flex justify-content-center mt-60">
           <h3  className="text-success">add your address details</h3>
-            <div className='col-3'>
+          <div className="row d-flex justify-content-center mt-60">
+        
+          <div className='col-1'>
+           </div>
+            <div className='col-4'>
+            <div style={mystyle}></div>
+<div class="input-group mt-2 w-80">
+    <input type="file" class="form-control btn btn-primary w-80 " style={
+     {
+      width:'80%'
+     }
+    } onChange={
+      (e)=>{
+        var file = e.target.files[0]
+        
+    let reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onload = () => {
+     
+        this.setState({currentFile:reader.result,
+        image:file});
+    };
+    reader.onerror = function (error) {
+      console.log('Error: ', error);
+    }
+        
+      }
+    }/>
+</div>
             </div>
             <div className='col-6'>
             <div class="container">
+           
               <div class="row">
                 <div class="col-5">
-                  <input type="text" class="form-control" placeholder="Enter street address" name="street_address" onChange={(e) => {
+                  <input id="asd1" type="text" class="form-control" placeholder="Enter street address" name="street_address" onChange={(e) => {
                 this.setState({ street_address: e.target.value })
-              }} />
+              }} required />
                 </div>
                 <div className='col-2'></div>
                 <div class="col-5">
-                  <input type="text" class="form-control" placeholder="Enter city" name="city"  onChange={(e) =>{
+                  <input id='asd2' type="text" class="form-control" placeholder="Enter city" name="city"  onChange={(e) =>{
                     this.setState({city:e.target.value})
-                  }} />
+                  }} required/>
                 </div>
               </div>
               <div class="row mt-4">
                 <div class="col-5">
-                  <input type="text" class="form-control" placeholder="Enter state" name="state"  onChange={(e) =>{
+                  <input id='asd3' type="text" class="form-control" placeholder="Enter state" name="state"  onChange={(e) =>{
                     this.setState({state:e.target.value})
-                  }} />
+                  }} required />
                 </div>
                 <div className='col-2'></div>
                 <div class="col-5 ml-4">
-                  <input type="text" class="form-control" placeholder="Enter postal code" name="postal_code"  onChange={(e) =>{
+                  <input id='asd4' type="text" class="form-control" placeholder="Enter postal code" name="postal_code"  onChange={(e) =>{
                     this.setState({postal_code:e.target.value})
-                  }}/>
+                  }}  required/>
                 </div>
               </div>
+             
             </div>
+          
             </div>
-            <div className='col-3'>
+          
+            <div className='col-1'>
            </div>
+           
            </div>
           </section>
 
@@ -416,25 +477,33 @@ class AddDetails extends Component {
 
 
 
-        <div id="logIn" className="dialog">
-          <div className=" formx form-content animate">
+      
+        <form id="logIn" class="needs-validation dialog"  onSubmit={
+         
+            (event) => {
+              event.preventDefault()
+              this.add_experiences()
+            }
+          
+        }novalidate>
+        <div className=" formx form-content animate">
             <div className="mb-3 mt-3">
               <label htmlFor="email" className="form-label">Title:</label>
               <input type="text" value={this.state.title} className="form-control" id="title" placeholder="Enter Title" name="Title" onChange={(e) => {
                 this.setState({ title: e.target.value })
-              }} />
+              }} required/>
             </div>
             <div className="mb-3 mt-3">
               <label htmlFor="email" className="form-label">company:</label>
               <input type="text"  value={this.state.company} className="form-control" id="company" placeholder="Enter company" name="company" onChange={(e) => {
                 this.setState({ company: e.target.value })
-              }} />
+              }} required/>
             </div>
             <div className="mb-3 mt-3">
               <label htmlFor="email" className="form-label">location:</label>
               <input type="text" value={this.state.location} className="form-control" id="location" placeholder="Enter location" name="location" onChange={(e) => {
                 this.setState({ location: e.target.value })
-              }} />
+              }} required/>
             </div>
 
             <div class="form-check">
@@ -452,82 +521,170 @@ class AddDetails extends Component {
             <div className="container row">
               <div className="col-6">
                 <label htmlFor="start_date">Start</label>
-                <input id="start_date" value={this.state.start_date} className="form-control" type="date" onChange={(e) => {
-                  this.setState({ start_date: e.target.value })
-                }} />
+                <input id="start_date" value={this.state.start_date} className={"form-control "+this.state.error} type="date" onChange={(e) => {
+               var today = new Date();              
+               var mydate=new Date(e.target.value+" 0:00:00");
+               
+                 
+                 if(today>mydate)
+                 {
+                    this.setState({start_date:e.target.value})
+                    this.setState({start_date_error:''})
+                    this.setState({error:''})
+                 }
+                 else
+                 {
+                  this.setState({start_date_error:"invalid data start"})
+                  
+                  this.setState({error:'is-invalid'})
+                 }
+                
+                }} required/>
+                <div className='text-danger'>
+                 {this.state.start_date_error}
+                </div>
               </div>
               <div className="col-6">
                 <label htmlFor="end_date">End</label>
-                <input id="end_date" value={this.state.end_date} className="form-control" type="date" onChange={(e) => {
-                  this.setState({ end_date: e.target.value })
-                }} />
+                <input id="end_date" value={this.state.end_date} className={"form-control "+this.state.error_end} type="date" onChange={(e) => {
+                  var today = new Date(this.state.start_date+" 0:00:00");              
+                  var mydate=new Date(e.target.value+" 0:00:00");
+                  
+                    if(this.state.start_date){
+                    if(today>mydate)
+                    {
+                      this.setState({end_date_error:"invalid end date"})
+                      this.setState({error_end:'is-invalid'})
+                    }
+                    else
+                    {
+                   
+
+                     this.setState({end_date:e.target.value})
+                     this.setState({end_date_error:''})
+                     this.setState({error_end:''})
+                    }}
+                    else{
+                      this.setState({end_date_error:"enter start date first"})
+                      this.setState({error_end:'is-invalid'})
+                    }
+                   
+                   }} required/>
+                     <div className='text-danger'>
+                 {this.state.end_date_error}
+                </div>
               </div>
             </div>
             <div className="mb-3">
               <label htmlFor="description" className="form-label">Example textarea</label>
               <textarea className="form-control" value={this.state.description} id="description" rows="3" onChange={(e) => {
                 this.setState({ description: e.target.value })
-              }}></textarea>
+              }}required></textarea>
+      
             </div>
 
-            <button class="btn btn-success w-100" id="addExpirence" onClick={
-              () => {
-                this.add_experiences()
-              }
-            }>Submit</button>
+            <button class="btn btn-success w-100" id="addExpirence" type='submit' >Submit</button>
           </div>
-        </div>
+        </form>
+       
 
 
-        <div id="education" className="dialog">
+       
+
+        <form id="education"  class="needs-validation dialog"  onSubmit={
+         
+         (event) => {
+          event.preventDefault()
+          if(!this.state.error_tag_to){
+           
+            this.add_educations()
+          }
+         }
+       
+     }novalidate>
           <div className=" formx form-content animate">
             <div className="mb-3 mt-3">
               <label htmlFor="school" className="form-label">school:</label>
               <input type="text" value={this.state.school} className="form-control" id="school" placeholder="Enter school" name="school" onChange={(e) => {
                 this.setState({ school: e.target.value })
-              }} />
+              }} required/>
             </div>
             <div className="mb-3 mt-3">
               <label htmlFor="degree" className="form-label">degree:</label>
               <input type="text" value={this.state.degree} className="form-control" id="degree" placeholder="Enter degree" name="degree" onChange={(e) => {
                 this.setState({ degree: e.target.value })
-              }} />
+              }} required/>
             </div>
             <div className="mb-3 mt-3">
               <label htmlFor="study" className="form-label">study:</label>
               <input type="text" value={this.state.study} className="form-control" id="study" placeholder="Enter study" name="study" onChange={(e) => {
                 this.setState({ study: e.target.value })
-              }} />
+              }} required/>
             </div>
 
             <div className="container row">
               <div className="col-6">
                 <label htmlFor="from year">from year</label>
-                <input type="number" value={this.state.from_year} id="from_year" className="form-control" onChange={(e) => {
+                <input type="number" min="1990" max="2023" pattern='[0-9]{4}' onBlur={
+                  (e)=>{
+                    if(e.target.value<1990&&e.target.value>2023){
+                      this.setState({error_number:"not valid year",
+                    error_tag:"is-invalid"})
+                    
+                    }else{
+                      this.setState({error_number:"",
+                      error_tag:""})
+                    }
+                  }
+                } value={this.state.from_year} id="from_year" className={"form-control "+this.state.error_tag } onChange={(e) => {
                   this.setState({ from_year: e.target.value })
-                }} />
+                }}required />
+                 <div className='text-danger'>
+                  {this.state.error_number}
+                </div>
               </div>
               <div className="col-6">
                 <label htmlFor="to year">to year</label>
-                <input type="number" value={this.state.to_year} id="to_year" className="form-control" onChange={(e) => {
+                <input type="number"  min="1990" max="2023" onBlur={
+                  (e)=>{
+                    if(e.target.value<1990&&e.target.value>2023){
+                      this.setState({error_number_to:"not valid year"})
+                      this.setState({ error_tag_to:"is-invalid"})
+                    }else{
+                     if(!this.state.from_year)
+                     {
+                      this.setState({error_number_to:"input from year first"})
+                      this.setState({ error_tag_to:"is-invalid"})
+                     }else if (e.target.value<this.state.from_year)
+                     {
+                      this.setState({error_number_to:"invalid year"})
+                      this.setState({ error_tag_to:"is-invalid"})
+                     }else{
+                      this.setState({error_number_to:"",
+                      error_tag_to:""})
+                     }
+                    }
+                  }
+                } pattern='[0-9]{4}' value={this.state.to_year} id="to_year" className={"form-control "+this.state.error_tag_to} onChange={(e) => {
                   this.setState({ to_year: e.target.value })
-                }} />
+                }} required/>
+                <div className='text-danger'>
+                  {this.state.error_number_to}
+                </div>
               </div>
+
             </div>
             <div className="mb-3">
               <label htmlFor="description" className="form-label">Example textarea</label>
               <textarea value={this.state.edu_description} className="form-control" id="description2" rows="3" onChange={(e) => {
                 this.setState({ edu_description: e.target.value })
-              }}></textarea>
+              }}required></textarea>
             </div>
 
-            <button class="btn btn-success w-100" id='addEducation' onClick={
-              () => {
-                this.add_educations()
-              }
-            }>Submit</button>
+            <button class="btn btn-success w-100" id='addEducation' type='submit'>Submit</button>
           </div>
-        </div>
+          </form>
+        
       </div>
     )
   }

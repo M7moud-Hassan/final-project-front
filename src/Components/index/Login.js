@@ -2,47 +2,74 @@ import { useState } from "react";
 import axios from "axios";
 import { NavLink } from "react-router-dom";
 
-function Login(){
-    localStorage.removeItem('id')
+function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [msg,setMess]=useState('');
-    const [typeErro,SetTypeError]=useState('');
+    const [msg, setMess] = useState('');
+    const [typeErro, SetTypeError] = useState('');
 
 
-    let loginCheck=(e)=>{
-        
-      
+    let loginCheck = (e) => {
+
+
         e.preventDefault();
-        axios.post('http://localhost:8000/auth/login/',{email: email,password: password,}) 
-        .then ((res)=> {
-           console.log(res.data.ress);
-            if(res.data.ress=='ok'){
-                localStorage.setItem("id", res.data.id);
-                localStorage.setItem("userName", res.data.name);
-                window.location='/profileUser/'
-            }else if(res.data.ress=='not active'){
-                SetTypeError('alert alert-danger')
-                setMess('user not active')
-               // self.setMess('user not active')
-                //mesg error
-            }else if(res.data.ress=='password worng'){
-               SetTypeError('alert alert-danger')
-                setMess('password wrong')
-            }else if(res.data.ress=='not complete') {
-                localStorage.setItem("id", res.data.id);
-                localStorage.setItem("userName", res.data.name);
-                window.location='/addDetails/'
-            }
-        })
-        .catch ((err)=> {console.log(err)});
+        axios.post('http://localhost:8000/auth/login/', { email: email, password: password, })
+            .then((res) => {
+                console.log(res.data.ress);
+                if (res.data.ress == 'ok') {
+                    localStorage.setItem("id", res.data.id);
+                    localStorage.setItem("userName", res.data.name);
+                    window.location = '/profile_free/'
+                } else if (res.data.ress == 'not active') {
+                    SetTypeError('alert alert-danger')
+                    setMess('user not active')
+                    // self.setMess('user not active')
+                    //mesg error
+                } else if (res.data.ress == 'password worng') {
+                    SetTypeError('alert alert-danger')
+                    setMess('password wrong')
+                } else if (res.data.ress == 'not complete') {
+                  
+                    localStorage.setItem("id", res.data.id);
+                    localStorage.setItem("userName", res.data.name);
+                     axios.get("http://127.0.0.1:8000/auth/get_skills/").then(sskills=>{
+                        localStorage.setItem('skills',JSON.stringify(sskills.data))
+                     })
+            
+                    axios.get("http://127.0.0.1:8000/auth/get_Services/").then(services=>{
+                        localStorage.setItem('services',JSON.stringify(services.data))
+                       
+                        window.location = '/addDetails/'
+                    })
+                  
+                }
+            })
+            .catch((err) => { console.log(err) });
     }
     console.log(msg);
-        return (
-            <div>
-            <div class={typeErro}>
-              {msg}
-              </div>
+    return (
+        <div>
+            <nav className="navbar navbar-expand-lg bg-body-tertiary ">
+
+                <div className='container d-flex text-center'>
+                    <div className="col-3">
+                    <NavLink to={'/'}><img id='logo' className='ms-5' src='\images\upwork.png' /></NavLink>
+                    </div>
+                    <div className="col-6" ></div>
+                    <div className="input-group ms-5  col-3 ">
+                        <a className="btn btn-success border-0 rounded text-light" onClick={
+                            ()=>{
+                                window.location='/choose_account'
+                            }
+                        }>Sign Up</a>
+                    </div>
+
+                </div>
+            </nav>
+            <div className="text-center">
+                <div className={typeErro}>
+                    {msg}
+                </div></div>
             <div className="container">
                 <section className="vh-100 gradient-custom">
                     <div className="container py-5 h-100">
@@ -56,19 +83,21 @@ function Login(){
                                             <form className="needs-validation" novalidate onSubmit={loginCheck}>
 
                                                 <div className="row">
-                                                    <div className="col-md-12 mb-4">
-                                                        <div className="form-outline position-relative">
-                                                            <input type="email" id="email" placeholder="Email (forexample@example.com)" required
-                                                                pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}"
-                                                                className="form-control  rounded-pill" 
-                                                                value={email}
-                                                                onChange={(e)=> setEmail(e.target.value)}/>
-                                                            <div className="invalid-feedback"
-                                                                id="email-feedback">
-                                                                Email is required
-                                                            </div>
+                                                <div className="col-md-12 mb-4">
+                                                <div className="form-outline position-relative">
+                                                        <input type="email" class="form-control" id="validationCustom03"  placeholder="Email (forexample@example.com)"
+                                                          pattern="+[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}"
+                                                          className="form-control  rounded-pill" 
+                                                          value={email}
+                                                          onChange={(e)=> setEmail(e.target.value)}
+                                                        required/>
+                                                        <div class="invalid-feedback">
+                                                        Email is required
+
                                                         </div>
                                                     </div>
+                                                    </div>
+                                                    
                                                 </div>
 
                                                 <div className="row">
@@ -79,12 +108,9 @@ function Login(){
                                                                 //  pattern="(?=.*\d)(?=.*[a-zA-Z]).{8,}" required
                                                                 value={password}
                                                                 className="form-control  rounded-pill" 
-                                                                onChange={(e)=> setPassword(e.target.value)}/>
+                                                                onChange={(e)=> setPassword(e.target.value)} required/>
                                                             <div className="invalid-feedback" id="password-feedback">
                                                                 Password must be at least 8 characters long and contain at least one letter and one digit
-                                                            </div>
-                                                            <div className="invalid-feedback" id="password-required-feedback">
-                                                                Please enter a password
                                                             </div>
                                                         </div>
                                                     </div>
@@ -95,7 +121,7 @@ function Login(){
                                                 </div>
 
                                             </form>
-                                            <div className="container d-flex hrContain mt-4">   
+                                            <div className="container d-flex hrContain mt-4">
                                                 <div className="like-hr"></div>
                                                 <p>or</p>
                                                 <div className="like-hr"></div>
@@ -119,7 +145,7 @@ function Login(){
                     </div>
                 </section>
 
-        </div>
+            </div>
         </div>
     )
 

@@ -22,23 +22,6 @@ let check_email=()=>{
     return (
       <div>
          
-        <nav class="navbar navbar-expand-lg navbar-light bg-white">
-          <div class="container">
-            <a class="navbar-brand" href="#"><img src="images/upwork.svg" alt="Logo" /></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-              <div class="navbar-nav ms-auto">
-                <div class="text-center">
-                  Here to hire talent?
-                  <a href="#" class="text-center text-success mt-3"> Join as a Client</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </nav>
-
         <div className="container ">
         <div class={typeErro}>
               {msg}
@@ -52,21 +35,27 @@ let check_email=()=>{
                       <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Re enter your E-mail</h3>
                       <div className="my-3 ">
 
-                        <form className="needs-validation" novalidate>
+                        <form className="needs-validation" onSubmit={
+                          (event)=>{
+                            event.preventDefault()
+                            check_email()
+                          }
+                        } novalidate>
 
                           <div className="row">
                             <div className="col-md-12 mb-4">
                               <div className="form-outline position-relative">
-                                <input type="email" id="email" placeholder="Email (forexample@example.com)" required
+                                <input type="email" id="email" placeholder="Email (forexample@example.com)"
                                   pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}"
                                   className="form-control  rounded-pill"
                                   // value={email}
                                   onChange={(e) => setEmail(e.target.value)} 
-                                  />
-                                <div className="invalid-feedback"
-                                  id="email-feedback">
-                                  Email is required
-                                </div>
+                                   required/>
+                                <div className="invalid-feedback text-center"
+                             id="email-feedback text-center">
+                             Email is required
+                          
+                        </div>
                               </div>
                             </div>
                           </div>
@@ -74,11 +63,7 @@ let check_email=()=>{
 
 
                           <div>
-                            <input className="btn btn-success btn-block rounded-pill  w-100"  value="Reset"  onClick={
-                              ()=>{
-                                check_email()
-                              }
-                            }/>
+                            <input className="btn btn-success btn-block rounded-pill  w-100"  type="submit" value="Reset"/>
                           </div>
 
                         </form>
