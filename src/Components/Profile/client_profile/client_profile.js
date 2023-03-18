@@ -1,13 +1,31 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
+import axios from 'axios';
+import { useState } from 'react';
+// import { useEffect } from 'react';
 
 
 let ClientProfile = () => {
+
+    const [id, setId] = useState('');
+    const [data, setData] = useState('');
+  
+    useEffect(() => {
+      axios.post(`http://127.0.0.1:8000/profile/clientDetails/`, {id})
+        .then(res => {
+          setData(res.data);
+        })
+        .catch(err => {
+          console.log(err.message);
+        });
+    }, [id]);
+  
+
     return (
         <div>
             <div className='container'>
                 <div className='mt-md-5 mt-xs-3 mt-1'>
-                    <h1 className='text-dark'>Hi , User </h1>
+                    <h1 className='text-dark'>Hi , {data.Fname} </h1>
                     <h3 className='text-dark'>Your workspace</h3>
                 </div>
                 {/* section 1 */}
