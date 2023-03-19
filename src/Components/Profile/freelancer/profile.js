@@ -8,17 +8,27 @@ import axios from 'axios';
 import Error from '../../index/error';
 import '../../css/models.css'
 import '../../js/models.js'
+import Select from 'react-select'
+import makeAnimated from 'react-select/animated';
 
 class Profile extends Component {
     constructor() {
         super();
+        const animatedComponents = makeAnimated();
         this.state = {
             data: false,
             loading: true,
             error: null,
             jobtitle2:'',
             overview:'',
-
+            optionsSkills:[],
+            defaultSkills:[],
+            typeErro:'',
+            msg:'',
+            optionsServices:[],
+            defaultServices:[],
+            typeErroServices:'',
+            msgServices:''
         }
 
     }
@@ -30,14 +40,52 @@ class Profile extends Component {
                 "id": localStorage.getItem('uid')
             })
             .then(response => {
+            
                 this.setState({ data: response.data, loading: false });
                
                 this.setState({jobtitle2:this.state.data.jobtitle})
+
+                axios.get("http://127.0.0.1:8000/auth/get_skills/").then(response=>{
+                    var optionslist=[]
+                    var defaultList=[]
+                   
+                    response.data.forEach(element => {
+                     optionslist.push(  { value: element.id, label: element.name })
+                     if(this.state.data.skills.includes(element.name)){
+                         defaultList.push(  { value: element.id, label: element.name })
+                     }
+                    });
+                    this.setState({optionsSkills:optionslist})
+                    this.setState({defaultSkills:defaultList})
+                    console.log("default",defaultList);
+                   
+                 })
+                 .catch(error => {
+                    console.log(error);
+                 });
+                 axios.get('http://127.0.0.1:8000/auth/get_Services/').then(response=>{
+                    var optionslist=[]
+                    var defaultList=[]
+                   
+                    response.data.forEach(element => {
+                     optionslist.push(  { value: element.id, label: element.name })
+                     if(this.state.data.services.includes(element.name)){
+                         defaultList.push(  { value: element.id, label: element.name })
+                     }
+                    });
+                    this.setState({optionsServices:optionslist})
+                    this.setState({defaultServices:defaultList})
+                   
+                 })
+                 .catch(error => {
+                    console.log(error);
+                 });
                 
             })
             .catch(error => {
                 this.setState({ error: error.message, loading: false });
             });
+           
     }
 
     render() {
@@ -60,8 +108,8 @@ class Profile extends Component {
         }
         return (
             <div>
-
-
+   
+  
                 <div>
                     <NavBar />
 
@@ -282,9 +330,13 @@ class Profile extends Component {
                                         <div className="d-flex justify-content-between align-items-center mb-2">
                                             <h2 className="mb-0">My Skills</h2>
                                             <div>
-                                                <button type="button" className="btn btn-outline-success btn-sm rounded-pill me-2"><i
-                                                    className="fa-solid fa-plus"></i></button>
-                                                <button type="button" className="btn btn-outline-primary btn-sm rounded-pill me-2"><i
+                                                
+                                                <button type="button" className="btn btn-outline-primary btn-sm rounded-pill me-2" onClick={
+                                                    ()=>{
+                                                       
+                                                        document.getElementById('id03').style.display='block'
+                                                    }
+                                                }><i
                                                     className="fa-solid fa-pen"></i></button>
                                             </div>
                                         </div>
@@ -309,9 +361,13 @@ class Profile extends Component {
                                         <div className="d-flex justify-content-between align-items-center mb-2">
                                             <h2 className="mb-0">My Services</h2>
                                             <div>
-                                                <button type="button" className="btn btn-outline-success btn-sm rounded-pill me-2"><i
-                                                    className="fa-solid fa-plus"></i></button>
-                                                <button type="button" className="btn btn-outline-primary btn-sm rounded-pill me-2"><i
+                                                
+                                                <button type="button" className="btn btn-outline-primary btn-sm rounded-pill me-2" onClick={
+                                                    ()=>{
+                                                       
+                                                        document.getElementById('id04').style.display='block'
+                                                    }
+                                                }><i
                                                     className="fa-solid fa-pen"></i></button>
                                             </div>
                                         </div>
@@ -507,6 +563,185 @@ class Profile extends Component {
                   
           })
          
+        }
+      }>Save</button>
+      
+    </div>
+  </form>
+</div>
+<div id="id03" class="mamodal rounded  ">
+  
+  <form class="mamodal-content maanimate rounded" onSubmit={
+    (e)=>{
+        e.preventDefault()
+    }
+  }>
+    <div class="maimgcontainer">
+      <span onClick={
+        ()=>{
+            document.getElementById('id03').style.display='none'
+        }
+      } class="close" title="Close Modal">&times;</span>
+      
+    </div>
+    
+    <div class="container myconatiner pt-4">
+        <h3 class="text-left ml-4">Edit your title </h3>
+        <div class="container myconatiner">
+            <h4>Your title</h4>
+            <p>Enter a single sentence description of your professional skills/experience (e.g. Expert Web Designer with Ajax experience) </p>
+        </div>
+      {   this.state.defaultSkills.length>0?(
+        <Select
+        closeMenuOnSelect={false}
+        components={this.animatedComponents}
+       defaultValue={this.state.defaultSkills}
+       isMulti
+       name="colors"
+       options={this.state.optionsSkills}
+       className="basic-multi-select"
+       classNamePrefix="select"
+       onChange={
+        (e)=>{
+           this.setState({defaultSkills:e})
+        }
+       }
+     />
+      ):(<div></div>)
+  }
+       
+    </div>
+
+    <div class="container myconatiner rounded mt-4">
+    <div className="text-center">
+                <div className={this.state.typeErro}>
+                    {this.state.msg}
+                </div></div>
+      <button type="button" onClick={
+        ()=>{
+            document.getElementById('id03').style.display='none'
+        }
+      } class="macancelbtnC btn btn-link">Cancel</button>
+      <button type="button" class="macancelbtn" onClick={
+        ()=>{
+            if(this.state.defaultSkills.length>4){
+            this.setState(prevState => {
+                this.setState({typeErro:''})
+                this.setState({msg:''})
+                const { data } = prevState;
+               var list=[]
+                this.state.defaultSkills.forEach(element=>{
+                    list.push(element.label)
+                   
+                })
+                         data.skills = list;
+                          return { data };
+              },
+                       () => {
+    
+                        axios.post('http://127.0.0.1:8000/profile/updateSkills/',{
+                            id:localStorage.getItem("uid"),
+                            skills:this.state.defaultSkills
+                        }).then(response=>{
+                            document.getElementById('id03').style.display='none'
+                        })
+                      
+              })
+             
+            }else{
+                this.setState({typeErro:'alert alert-danger'})
+                this.setState({msg:'select at least 5'})
+            }
+        }
+      }>Save</button>
+      
+    </div>
+  </form>
+</div>
+
+<div id="id04" class="mamodal rounded  ">
+  
+  <form class="mamodal-content maanimate rounded" onSubmit={
+    (e)=>{
+        e.preventDefault()
+    }
+  }>
+    <div class="maimgcontainer">
+      <span onClick={
+        ()=>{
+            document.getElementById('id04').style.display='none'
+        }
+      } class="close" title="Close Modal">&times;</span>
+      
+    </div>
+    
+    <div class="container myconatiner pt-4">
+        <h3 class="text-left ml-4">Edit your title </h3>
+        <div class="container myconatiner">
+            <h4>Your title</h4>
+            <p>Enter a single sentence description of your professional skills/experience (e.g. Expert Web Designer with Ajax experience) </p>
+        </div>
+      {   this.state.defaultServices.length>0?(
+        <Select
+        closeMenuOnSelect={false}
+        components={this.animatedComponents}
+       defaultValue={this.state.defaultServices}
+       isMulti
+       name="colors"
+       options={this.state.optionsServices}
+       className="basic-multi-select"
+       classNamePrefix="select"
+       onChange={
+        (e)=>{
+           this.setState({defaultServices:e})
+        }
+       }
+     />
+      ):(<div></div>)
+  }
+       
+    </div>
+
+    <div class="container myconatiner rounded mt-4">
+    <div className="text-center">
+                <div className={this.state.typeErroServices}>
+                    {this.state.msgServices}
+                </div></div>
+      <button type="button" onClick={
+        ()=>{
+            document.getElementById('id03').style.display='none'
+        }
+      } class="macancelbtnC btn btn-link">Cancel</button>
+      <button type="button" class="macancelbtn" onClick={
+        ()=>{
+            if(this.state.defaultServices.length>4){
+            this.setState(prevState => {
+                this.setState({typeErroServices:''})
+                this.setState({msgServices:''})
+                const { data } = prevState;
+               var list=[]
+                this.state.defaultServices.forEach(element=>{
+                    list.push(element.label)
+                   
+                })
+                         data.services = list;
+                          return { data };
+              },
+                       () => {
+    
+                        axios.post('http://127.0.0.1:8000/profile/updateservices/',{
+                            id:localStorage.getItem("uid"),
+                            services:this.state.defaultServices
+                        }).then(response=>{
+                            document.getElementById('id04').style.display='none'
+                        })
+                      
+              })
+             
+            }else{
+                this.setState({typeErroServices:'alert alert-danger'})
+                this.setState({msgServices:'select at least 5'})
+            }
         }
       }>Save</button>
       
