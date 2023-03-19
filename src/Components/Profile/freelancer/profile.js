@@ -213,11 +213,7 @@ class Profile extends Component {
             return <Error />
         }
         return (
-            <div onClick={
-                ()=>{
-                   document.getElementById('id05').style.display='none'
-                }
-            }>
+            <div>
    
   
                 <div>
@@ -500,7 +496,7 @@ class Profile extends Component {
                                         <div className="d-flex justify-content-between align-items-center">
                                             <h2>My Work Experience</h2>
                                             <div>
-                                                <button type="button" className="btn btn-outline-primary rounded-pill btn-sm me-2 " onClick={
+                                                <button id="con" type="button" className="btn btn-outline-primary rounded-pill btn-sm me-2 " onClick={
                                                     ()=>{
                                                         document.getElementById('id05').style.display='block'
                                                     }
@@ -917,7 +913,17 @@ class Profile extends Component {
          }
        
      }novalidate>
+       
      <div className=" formx form-content animate">
+     <div class="maimgcontainer">
+      <span class="close" onClick={
+        ()=>{
+           
+            document.getElementById('id05').style.display='none'
+        }
+      }>&times;</span>
+      
+    </div> 
          <div className="mb-3 mt-3">
            <label htmlFor="email" className="form-label">Title:</label>
            <input type="text" value={this.state.title} className="form-control" id="title" placeholder="Enter Title" name="Title" onChange={(e) => {
