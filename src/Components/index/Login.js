@@ -26,7 +26,7 @@ function Login() {
                     window.location = '/profile_free/'
                     }else if(res.data.type=='client')
                     {
-                        window.location = '/clientprofile/'
+                        window.location = '/clientprofile'
                     }
                 } else if (res.data.ress == 'not active') {
                     SetTypeError('alert alert-danger')
@@ -61,7 +61,7 @@ function Login() {
     window.location = '/profile_free/'
     }else if(type=='client')
     {
-        window.location = '/clientprofile/'
+        window.location = '/clientprofile'
     }else{
     return (
         <div>

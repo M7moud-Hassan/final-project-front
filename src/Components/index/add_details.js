@@ -258,10 +258,10 @@ class AddDetails extends Component {
     }
     var type= localStorage.getItem("type");
         if(type=='free'){
-        window.location = '/profile_free/'
+        window.location = '/profile_free'
         }else if(type=='client')
         {
-            window.location = '/clientprofile/'
+            window.location = '/clientprofile'
         }else{
     return (
       <div>

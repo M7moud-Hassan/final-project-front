@@ -1,5 +1,5 @@
 import React, { Component, useEffect } from 'react';
-// import { NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import axios from 'axios';
 import { useState } from 'react';
 // import { useEffect } from 'react';
@@ -29,8 +29,8 @@ const ClientProfile = () => {
                 <img className='littleSymbolImage' src="./images/default.png" />
                 <h4 className='mt-3'>{data.name}</h4>
                 <hr />
-                <a href='#'><h5>Settings</h5></a>
-                <a href='#'><h5 className='pb-4'>Logout</h5></a>
+                <NavLink to={'/clientsettings'}><h5>Settings</h5></NavLink>
+                <NavLink to={'/'}><h5 className='pb-4'>Logout</h5></NavLink>
             </div></div>
             <div className='container'>
                 <div className='mt-md-5 mt-xs-3 mt-1'>

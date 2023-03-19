@@ -21,7 +21,7 @@ import ProfileFreeLancer from './Components/profile_free';
 import Error from './Components/index/error';
 import ProfileClient from './Components/profile_client';
 import ClientSettings1 from './Components/Profile/client_profile/client_settings1';
-import ClientProfile from './Components/Profile/client_profile/client_profile';
+
 
 
 
@@ -42,8 +42,8 @@ function App() {
       <Route path='/rest_password_verfy' element={<Type_new_password/>}/>
       <Route path='/test_token/:uid/:token/:type' element={<TestToken/>}/>
       <Route path='/clientprofile' element={<ProfileClient/>}/>
-      <Route path="/profile_free" element={<ProfileFreeLancer/>}/>
-      <Route Path='/clientsettings' element={<ClientProfile/>}/>
+      <Route path='/profile_free' element={<ProfileFreeLancer/>}/>
+      <Route path='/clientsettings' element={<ClientSettings1/>}/>
       <Route path='*' element={<Error/>} />
       </Routes>
       </BrowserRouter>
