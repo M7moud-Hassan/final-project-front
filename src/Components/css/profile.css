@@ -30,3 +30,8 @@ body {
     padding: 5px;
     font-size: 10px;
   }
+
+  hr {
+    border: 2px solid green;
+    border-radius: 5px;
+  }
