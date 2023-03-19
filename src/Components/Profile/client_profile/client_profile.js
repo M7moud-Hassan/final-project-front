@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from 'react';
+import React, { Component, useEffect, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import axios from 'axios';
 import { useState } from 'react';
@@ -10,7 +10,20 @@ const ClientProfile = () => {
 
     const [id, setId] = useState('');
     const [data, setData] = useState('');
+    const setting = useRef('');
 
+    useEffect(() => {
+        setting.current.focus();
+      }, []);
+    
+    function settingS() {
+        const DoM = setting.current;
+            DoM.style.display = 'block'
+      }
+    function XsettingS() {
+        const DoM = setting.current;
+            DoM.style.display = 'none'
+      }
     useEffect(() => {
         axios.post(`http://127.0.0.1:8000/profile/clientDetails/`, { id: localStorage.getItem('uid') })
             .then(res => {
@@ -25,7 +38,7 @@ const ClientProfile = () => {
 
     return (
         <div><div className='row'>
-            <div className=' col-sm-3 buttonSetting text-center'>
+            <div className=' col-sm-3 buttonSetting text-center' ref={setting}>
                 <img className='littleSymbolImage' src="./images/default.png" />
                 <h4 className='mt-3'>{data.name}</h4>
                 <hr />
