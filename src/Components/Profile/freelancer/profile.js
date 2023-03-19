@@ -6,17 +6,24 @@ import NavBar from './navbar';
 import Footer from './Footer';
 import axios from 'axios';
 import Error from '../../index/error';
-import '../../css/models.css';
-import '../../js/models.js';
+
+
+
+import '../../css/models.css'
+import '../../js/models.js'
+import Select from 'react-select'
+import makeAnimated from 'react-select/animated';
 
 
 class Profile extends Component {
     constructor() {
         super();
+        const animatedComponents = makeAnimated();
         this.state = {
             data: false,
             loading: true,
             error: null,
+
             jobtitle2: '',
             overview: '',
             // education
@@ -26,15 +33,45 @@ class Profile extends Component {
             from_year: '',
             to_year: '',
             edu_description: '',
-            error_number:'',
-            error_number_to:'',
-            error_tag:'',
-            error_tag_to:'',
+            error_number: '',
+            error_number_to: '',
+            error_tag: '',
+            error_tag_to: '',
+
+
+
+
+            optionsSkills: [],
+            defaultSkills: [],
+            typeErro: '',
+            msg: '',
+            optionsServices: [],
+            defaultServices: [],
+            typeErroServices: '',
+            msgServices: '',
+            title: '',
+            company: '',
+            location: '',
+            is_work: false,
+            start_date: '',
+            end_date: '',
+            description: '',
+            start_date_error: '',
+            start_date_error_: '',
+            error_end: '',
+            end_date_error: '',
+            id_exp_update: '',
 
         }
 
     }
-
+    removeItemOnce(arr, value) {
+        var index = arr.indexOf(value);
+        if (index > -1) {
+            arr.splice(index, 1);
+        }
+        return arr;
+    }
 
     componentDidMount() {
         axios.post(`http://127.0.0.1:8000/profile/get_details_free/`,
@@ -42,14 +79,146 @@ class Profile extends Component {
                 "id": localStorage.getItem('uid')
             })
             .then(response => {
+
                 this.setState({ data: response.data, loading: false });
 
+
                 this.setState({ jobtitle2: this.state.data.jobtitle })
+
+                axios.get("http://127.0.0.1:8000/auth/get_skills/").then(response => {
+                    var optionslist = []
+                    var defaultList = []
+
+                    response.data.forEach(element => {
+                        optionslist.push({ value: element.id, label: element.name })
+                        if (this.state.data.skills.includes(element.name)) {
+                            defaultList.push({ value: element.id, label: element.name })
+                        }
+                    });
+                    this.setState({ optionsSkills: optionslist })
+                    this.setState({ defaultSkills: defaultList })
+                    console.log("default", defaultList);
+
+                })
+                    .catch(error => {
+                        console.log(error);
+                    });
+                axios.get('http://127.0.0.1:8000/auth/get_Services/').then(response => {
+                    var optionslist = []
+                    var defaultList = []
+
+                    response.data.forEach(element => {
+                        optionslist.push({ value: element.id, label: element.name })
+                        if (this.state.data.services.includes(element.name)) {
+                            defaultList.push({ value: element.id, label: element.name })
+                        }
+                    });
+                    this.setState({ optionsServices: optionslist })
+                    this.setState({ defaultServices: defaultList })
+
+                })
+                    .catch(error => {
+                        console.log(error);
+                    });
+
 
             })
             .catch(error => {
                 this.setState({ error: error.message, loading: false });
             });
+
+    }
+    update_experiences() {
+        if (this.state.title && this.state.company && this.state.location && this.state.description && this.state.start_date && this.state.end_date) {
+            console.log('gkgkgkkgkgkkgk');
+            var expierces = {
+                "title": this.state.title,
+                "company": this.state.company,
+                "location": this.state.location,
+                "is_current_work_in_company": this.state.is_work,
+                "start_date": this.state.start_date,
+                "end_date": this.state.end_date,
+                "description": this.state.description,
+                "id": this.state.id_exp_update.id,
+                "relate_id": localStorage.getItem("uid")
+            };
+            axios.post("http://127.0.0.1:8000/profile/delete_experience/", {
+                exp_id: this.state.id_exp_update.id,
+                id: localStorage.getItem("uid")
+            }).then(respons => {
+                this.setState(prevState => {
+                    const { data } = prevState;
+                    data.experiecnces = this.removeItemOnce(data.experiecnces, this.state.id_exp_update)
+                    return { data };
+                },
+                    () => {
+                        this.setState({ id_exp_update: '' })
+                        this.setState({
+                            title: '',
+                            company: '',
+                            location: '',
+                            is_work: false,
+                            start_date: '',
+                            end_date: '',
+                            start_date_error: '',
+                            error: '',
+                            description: ''
+                        })
+
+                    })
+                axios.post("http://127.0.0.1:8000/auth/addExperience/", [expierces]).then(respons => {
+                    this.setState(prevState => {
+                        const { data } = prevState;
+                        data.experiecnces.push(respons.data);
+                        return { data };
+                    },
+                        () => {
+
+                        })
+                })
+            })
+        }
+    }
+    add_experiences() {
+        if (this.state.title && this.state.company && this.state.location && this.state.description && this.state.start_date && this.state.end_date) {
+            var expierces = {
+                "title": this.state.title,
+                "company": this.state.company,
+                "location": this.state.location,
+                "is_current_work_in_company": this.state.is_work,
+                "start_date": this.state.start_date,
+                "end_date": this.state.end_date,
+                "description": this.state.description,
+                "relate_id": localStorage.getItem("uid")
+            };
+
+
+            axios.post("http://127.0.0.1:8000/auth/addExperience/", [expierces]).then(respons => {
+                console.log(respons.data);
+                this.setState(prevState => {
+                    const { data } = prevState;
+                    data.experiecnces.push(respons.data);
+                    return { data };
+                },
+                    () => {
+
+                    })
+            })
+
+
+
+            this.setState({
+                title: '',
+                company: '',
+                location: '',
+                is_work: false,
+                start_date: '',
+                end_date: '',
+                start_date_error: '',
+                error: '',
+                description: ''
+            })
+        }
     }
 
     render() {
@@ -177,7 +346,7 @@ class Profile extends Component {
                                                     <button type="button"
                                                         className="btn btn-outline-success btn-sm rounded-pill me-2" onClick={
                                                             () => {
-                                                               
+
                                                                 document.getElementById('id11').style.display = 'block'
                                                             }
                                                         }><i
@@ -307,9 +476,13 @@ class Profile extends Component {
                                         <div className="d-flex justify-content-between align-items-center mb-2">
                                             <h2 className="mb-0">My Skills</h2>
                                             <div>
-                                                <button type="button" className="btn btn-outline-success btn-sm rounded-pill me-2"><i
-                                                    className="fa-solid fa-plus"></i></button>
-                                                <button type="button" className="btn btn-outline-primary btn-sm rounded-pill me-2"><i
+
+                                                <button type="button" className="btn btn-outline-primary btn-sm rounded-pill me-2" onClick={
+                                                    () => {
+
+                                                        document.getElementById('id03').style.display = 'block'
+                                                    }
+                                                }><i
                                                     className="fa-solid fa-pen"></i></button>
                                             </div>
                                         </div>
@@ -334,9 +507,13 @@ class Profile extends Component {
                                         <div className="d-flex justify-content-between align-items-center mb-2">
                                             <h2 className="mb-0">My Services</h2>
                                             <div>
-                                                <button type="button" className="btn btn-outline-success btn-sm rounded-pill me-2"><i
-                                                    className="fa-solid fa-plus"></i></button>
-                                                <button type="button" className="btn btn-outline-primary btn-sm rounded-pill me-2"><i
+
+                                                <button type="button" className="btn btn-outline-primary btn-sm rounded-pill me-2" onClick={
+                                                    () => {
+
+                                                        document.getElementById('id04').style.display = 'block'
+                                                    }
+                                                }><i
                                                     className="fa-solid fa-pen"></i></button>
                                             </div>
                                         </div>
@@ -359,7 +536,11 @@ class Profile extends Component {
                                         <div className="d-flex justify-content-between align-items-center">
                                             <h2>My Work Experience</h2>
                                             <div>
-                                                <button type="button" className="btn btn-outline-primary rounded-pill btn-sm me-2 "><i
+                                                <button id="con" type="button" className="btn btn-outline-primary rounded-pill btn-sm me-2 " onClick={
+                                                    () => {
+                                                        document.getElementById('id05').style.display = 'block'
+                                                    }
+                                                }><i
                                                     className="fa-solid fa-pen"></i></button>
                                             </div>
 
@@ -374,10 +555,48 @@ class Profile extends Component {
                                                             <h3 className="mb-3">{experiecnce.title}</h3>
                                                             <div>
                                                                 <button type="button"
-                                                                    className="btn btn-outline-primary btn-sm rounded-pill me-2"><i
-                                                                        className="fa-solid fa-pen"></i></button>
-                                                                <button type="button" className="btn btn-outline-danger rounded-pill btn-sm"><i
-                                                                    className="fa-solid fa-trash-can"></i></button>
+                                                                    className="btn btn-outline-primary btn-sm rounded-pill me-2" onClick={
+                                                                        () => {
+                                                                            axios.post('http://127.0.0.1:8000/profile/getExperience/', {
+                                                                                id: experiecnce.id
+                                                                            }).then(response => {
+
+                                                                                console.log(response.data.exp.title)
+                                                                                this.setState({
+                                                                                    title: response.data.exp.title,
+                                                                                    company: response.data.exp.company,
+                                                                                    location: response.data.exp.location,
+                                                                                    is_work: response.data.exp.is_current_work_in_company,
+                                                                                    start_date: response.data.exp.start_date,
+                                                                                    end_date: response.data.exp.end_date,
+                                                                                    description: response.data.exp.description,
+                                                                                    id_exp_update: experiecnce
+                                                                                })
+                                                                                document.getElementById('id05').style.display = 'block'
+                                                                            })
+                                                                        }
+                                                                    }><i
+                                                                        className="fa-solid fa-pen" ></i></button>
+                                                                <button type="button" className="btn btn-outline-danger rounded-pill btn-sm" onClick={
+                                                                    () => {
+                                                                        axios.post('http://127.0.0.1:8000/profile/delete_experience/', {
+                                                                            exp_id: experiecnce.id,
+                                                                            id: localStorage.getItem("uid")
+                                                                        }).then(response => {
+
+                                                                            this.setState(prevState => {
+                                                                                const { data } = prevState;
+                                                                                data.experiecnces = this.removeItemOnce(data.experiecnces, experiecnce)
+                                                                                return { data };
+                                                                            },
+                                                                                () => {
+
+                                                                                })
+
+                                                                        })
+                                                                    }
+                                                                }><i
+                                                                    className="fa-solid fa-trash-can" ></i></button>
                                                             </div>
                                                         </div>
                                                         <p assName="text-muted">{experiecnce.company}</p>
@@ -482,6 +701,7 @@ class Profile extends Component {
                                 }
                             } class="close" title="Close Modal">&times;</span>
                         </div>
+
 
                         <div class="container myconatiner">
                             <h3 class="text-left ml-4">Overview </h3>
@@ -631,51 +851,356 @@ class Profile extends Component {
                             </div>
 
                             <button class="btn btn-success w-100" id='addEducation' type='submit'
-                            onClick={() => {
-                                this.setState(prevState => {
+                                onClick={() => {
+                                    this.setState(prevState => {
 
-                                   
 
-                                    const { data } = prevState;
-                                    data.educations.push({
 
-                                        school:this.state.school,
-                                        degree:this.state.degree,
-                                        study:this.state.study,
-                                        from_year:this.state.from_year,
-                                        to_year:this.state.to_year,
-                                        edu_description:this.state.edu_description,
-                                       
+                                        const { data } = prevState;
+                                        data.educations.push({
 
-                                    })
-                                    return { data };
-                                },
-                                    () => {
-                                       
+                                            school: this.state.school,
+                                            degree: this.state.degree,
+                                            study: this.state.study,
+                                            from_year: this.state.from_year,
+                                            to_year: this.state.to_year,
+                                            edu_description: this.state.edu_description,
 
-                                        axios.post("http://127.0.0.1:8000/auth/save_education/", {
-                                            id: localStorage.getItem("uid"),
-                                            school: this.state.data.overView,
-                                            degree: this.state.data.degree,
-                                            study: this.state.data.study,
-                                            from_year: this.state.data.from_year,
-                                            to_year: this.state.data.to_year,
-                                            edu_description:this.state.edu_description,
-                                            
-                                        }).then(respons => {
-                                            document.getElementById('id11').style.display = 'none'
+
+                                        })
+                                        return { data };
+                                    },
+                                        () => {
+
+
+                                            axios.post("http://127.0.0.1:8000/auth/save_education/", {
+                                                id: localStorage.getItem("uid"),
+                                                school: this.state.data.overView,
+                                                degree: this.state.data.degree,
+                                                study: this.state.data.study,
+                                                from_year: this.state.data.from_year,
+                                                to_year: this.state.data.to_year,
+                                                edu_description: this.state.edu_description,
+
+                                            }).then(respons => {
+                                                document.getElementById('id11').style.display = 'none'
+                                            })
+
                                         })
 
-                                    })
-
-                            }
-                            }
+                                }
+                                }
                             >Submit</button>
                         </div>
                     </form>
 
 
                 </div>
+
+                <div id="id03" class="mamodal rounded  ">
+
+                    <form class="mamodal-content maanimate rounded" onSubmit={
+                        (e) => {
+                            e.preventDefault()
+                        }
+                    }>
+                        <div class="maimgcontainer">
+                            <span onClick={
+                                () => {
+                                    document.getElementById('id03').style.display = 'none'
+                                }
+                            } class="close" title="Close Modal">&times;</span>
+
+                        </div>
+
+                        <div class="container myconatiner pt-4">
+                            <h3 class="text-left ml-4">Edit your title </h3>
+                            <div class="container myconatiner">
+                                <h4>Your title</h4>
+                                <p>Enter a single sentence description of your professional skills/experience (e.g. Expert Web Designer with Ajax experience) </p>
+                            </div>
+                            {this.state.defaultSkills.length > 0 ? (
+                                <Select
+                                    closeMenuOnSelect={false}
+                                    components={this.animatedComponents}
+                                    defaultValue={this.state.defaultSkills}
+                                    isMulti
+                                    name="colors"
+                                    options={this.state.optionsSkills}
+                                    className="basic-multi-select"
+                                    classNamePrefix="select"
+                                    onChange={
+                                        (e) => {
+                                            this.setState({ defaultSkills: e })
+                                        }
+                                    }
+                                />
+                            ) : (<div></div>)
+                            }
+
+                        </div>
+
+                        <div class="container myconatiner rounded mt-4">
+                            <div className="text-center">
+                                <div className={this.state.typeErro}>
+                                    {this.state.msg}
+                                </div></div>
+                            <button type="button" onClick={
+                                () => {
+                                    document.getElementById('id03').style.display = 'none'
+                                }
+                            } class="macancelbtnC btn btn-link">Cancel</button>
+                            <button type="button" class="macancelbtn" onClick={
+                                () => {
+                                    if (this.state.defaultSkills.length > 4) {
+                                        this.setState(prevState => {
+                                            this.setState({ typeErro: '' })
+                                            this.setState({ msg: '' })
+                                            const { data } = prevState;
+                                            var list = []
+                                            this.state.defaultSkills.forEach(element => {
+                                                list.push(element.label)
+
+                                            })
+                                            data.skills = list;
+                                            return { data };
+                                        },
+                                            () => {
+
+                                                axios.post('http://127.0.0.1:8000/profile/updateSkills/', {
+                                                    id: localStorage.getItem("uid"),
+                                                    skills: this.state.defaultSkills
+                                                }).then(response => {
+                                                    document.getElementById('id03').style.display = 'none'
+                                                })
+
+                                            })
+
+                                    } else {
+                                        this.setState({ typeErro: 'alert alert-danger' })
+                                        this.setState({ msg: 'select at least 5' })
+                                    }
+                                }
+                            }>Save</button>
+
+                        </div>
+                    </form>
+                </div>
+
+                <div id="id04" class="mamodal rounded  ">
+
+                    <form class="mamodal-content maanimate rounded" onSubmit={
+                        (e) => {
+                            e.preventDefault()
+                        }
+                    }>
+                        <div class="maimgcontainer">
+                            <span onClick={
+                                () => {
+                                    document.getElementById('id04').style.display = 'none'
+                                }
+                            } class="close" title="Close Modal">&times;</span>
+
+                        </div>
+
+                        <div class="container myconatiner pt-4">
+                            <h3 class="text-left ml-4">Edit your title </h3>
+                            <div class="container myconatiner">
+                                <h4>Your title</h4>
+                                <p>Enter a single sentence description of your professional skills/experience (e.g. Expert Web Designer with Ajax experience) </p>
+                            </div>
+                            {this.state.defaultServices.length > 0 ? (
+                                <Select
+                                    closeMenuOnSelect={false}
+                                    components={this.animatedComponents}
+                                    defaultValue={this.state.defaultServices}
+                                    isMulti
+                                    name="colors"
+                                    options={this.state.optionsServices}
+                                    className="basic-multi-select"
+                                    classNamePrefix="select"
+                                    onChange={
+                                        (e) => {
+                                            this.setState({ defaultServices: e })
+                                        }
+                                    }
+                                />
+                            ) : (<div></div>)
+                            }
+
+                        </div>
+
+                        <div class="container myconatiner rounded mt-4">
+                            <div className="text-center">
+                                <div className={this.state.typeErroServices}>
+                                    {this.state.msgServices}
+                                </div></div>
+                            <button type="button" onClick={
+                                () => {
+                                    document.getElementById('id03').style.display = 'none'
+                                }
+                            } class="macancelbtnC btn btn-link">Cancel</button>
+                            <button type="button" class="macancelbtn" onClick={
+                                () => {
+                                    if (this.state.defaultServices.length > 4) {
+                                        this.setState(prevState => {
+                                            this.setState({ typeErroServices: '' })
+                                            this.setState({ msgServices: '' })
+                                            const { data } = prevState;
+                                            var list = []
+                                            this.state.defaultServices.forEach(element => {
+                                                list.push(element.label)
+
+                                            })
+                                            data.services = list;
+                                            return { data };
+                                        },
+                                            () => {
+
+                                                axios.post('http://127.0.0.1:8000/profile/updateservices/', {
+                                                    id: localStorage.getItem("uid"),
+                                                    services: this.state.defaultServices
+                                                }).then(response => {
+                                                    document.getElementById('id04').style.display = 'none'
+                                                })
+
+                                            })
+
+                                    } else {
+                                        this.setState({ typeErroServices: 'alert alert-danger' })
+                                        this.setState({ msgServices: 'select at least 5' })
+                                    }
+                                }
+                            }>Save</button>
+
+                        </div>
+                    </form>
+                </div>
+
+                <form id="id05" class="needs-validation mamodal" onSubmit={
+
+                    (event) => {
+                        event.preventDefault()
+                        if (!this.state.error_end && !this.state.start_date_error) {
+                            if (this.state.id_exp_update) {
+                                this.update_experiences()
+                                document.getElementById('id05').style.display = 'none'
+                            } else {
+                                this.add_experiences()
+                                document.getElementById('id05').style.display = 'none'
+                            }
+                        }
+                    }
+
+                } novalidate>
+
+                    <div className=" formx form-content animate">
+                        <div class="maimgcontainer">
+                            <span class="close" onClick={
+                                () => {
+
+                                    document.getElementById('id05').style.display = 'none'
+                                }
+                            }>&times;</span>
+
+                        </div>
+                        <div className="mb-3 mt-3">
+                            <label htmlFor="email" className="form-label">Title:</label>
+                            <input type="text" value={this.state.title} className="form-control" id="title" placeholder="Enter Title" name="Title" onChange={(e) => {
+                                this.setState({ title: e.target.value })
+                            }} required />
+                        </div>
+                        <div className="mb-3 mt-3">
+                            <label htmlFor="email" className="form-label">company:</label>
+                            <input type="text" value={this.state.company} className="form-control" id="company" placeholder="Enter company" name="company" onChange={(e) => {
+                                this.setState({ company: e.target.value })
+                            }} required />
+                        </div>
+                        <div className="mb-3 mt-3">
+                            <label htmlFor="email" className="form-label">location:</label>
+                            <input type="text" value={this.state.location} className="form-control" id="location" placeholder="Enter location" name="location" onChange={(e) => {
+                                this.setState({ location: e.target.value })
+                            }} required />
+                        </div>
+
+                        <div class="form-check">
+                            <input id='checkbox_iswork' value={this.state.is_work} class='messageCheckbox' type='checkbox' onClick={
+                                () => {
+                                    this.setState({
+                                        is_work: !this.state.is_work
+                                    })
+                                }
+                            } />
+                            <label class="messageCheckbox" for="is_work">
+                                is current work in company
+                            </label>
+                        </div>
+                        <div className="container row">
+                            <div className="col-6">
+                                <label htmlFor="start_date">Start</label>
+                                <input id="start_date" value={this.state.start_date} className={"form-control " + this.state.start_date_error_} type="date" onChange={(e) => {
+                                    var today = new Date();
+                                    var mydate = new Date(e.target.value + " 0:00:00");
+
+
+                                    if (today > mydate) {
+                                        this.setState({ start_date: e.target.value })
+                                        this.setState({ start_date_error: '' })
+                                        this.setState({ start_date_error_: '' })
+                                    }
+                                    else {
+                                        this.setState({ start_date_error: "invalid data start" })
+
+                                        this.setState({ start_date_error_: 'is-invalid' })
+                                    }
+
+                                }} required />
+                                <div className='text-danger'>
+                                    {this.state.start_date_error}
+                                </div>
+                            </div>
+                            <div className="col-6">
+                                <label htmlFor="end_date">End</label>
+                                <input id="end_date" value={this.state.end_date} className={"form-control " + this.state.error_end} type="date" onChange={(e) => {
+                                    var today = new Date(this.state.start_date + " 0:00:00");
+                                    var mydate = new Date(e.target.value + " 0:00:00");
+
+                                    if (this.state.start_date) {
+                                        if (today > mydate) {
+                                            this.setState({ end_date_error: "invalid end date" })
+                                            this.setState({ error_end: 'is-invalid' })
+                                        }
+                                        else {
+
+
+                                            this.setState({ end_date: e.target.value })
+                                            this.setState({ end_date_error: '' })
+                                            this.setState({ error_end: '' })
+                                        }
+                                    }
+                                    else {
+                                        this.setState({ end_date_error: "enter start date first" })
+                                        this.setState({ error_end: 'is-invalid' })
+                                    }
+
+                                }} required />
+                                <div className='text-danger'>
+                                    {this.state.end_date_error}
+                                </div>
+                            </div>
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="description" className="form-label">Example textarea</label>
+                            <textarea className="form-control" value={this.state.description} id="description" rows="3" onChange={(e) => {
+                                this.setState({ description: e.target.value })
+                            }} required></textarea>
+
+                        </div>
+
+                        <button class="btn btn-success w-100" type='submit' >Submit</button>
+                    </div>
+                </form>
+
             </div>
         )
     }
