@@ -2,35 +2,43 @@ import axios from 'axios';
 import React, { Component, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
+import { NavLink } from 'react-router-dom';
 
 let Type_new_password = () => {
-  let {uid,type} = useParams();
+ 
   let [password,setPassword]=useState('')
-  let [confirmPassword,SetConfirmPassword]=useState('')
-  const [msg,setMess]=useState('');
-  const [typeErro,SetTypeError]=useState('');
   let sendData=()=>{
-    if(password!=''){
-      if(password==confirmPassword){
+    console.log(password);
+    console.log(localStorage.getItem("uid_ser"));
+    if(password!=''){   
         axios.post('http://localhost:8000/auth/set_password/',
-        {id: uid,password: password,type:type}) 
+        {id:  localStorage.getItem("uid_ser"),password: password,type: localStorage.getItem("type_ser")}) 
         .then ((res)=> {
           if(res.data=='ok'){
+            localStorage.clear()
             window.location='/login/'
           }
         }).catch((error)=>console.log(error))
-      }else{
-        SetTypeError('alert alert-danger')
-        setMess('Check your confirm password')
-      }
+      
     }
   }
+  if(!localStorage.getItem("uid_ser"))
+  {
+    window.location="/Error"
+  }else{
+  var type= localStorage.getItem("type");
+  if(type=='free'){
+  window.location = '/profile_free'
+  }else if(type=='client')
+  {
+      window.location = '/clientprofile'
+  }else{
   return (
     <div>
       
       <nav class="navbar navbar-expand-lg navbar-light bg-white">
         <div class="container">
-          <a class="navbar-brand" href="#"><img src="images/upwork.svg" alt="Logo" /></a>
+          <a class="navbar-brand" href="http://127.0.0.1:3000"><img src="images/upwork.svg" alt="Logo" /></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -59,7 +67,13 @@ let Type_new_password = () => {
                     <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Enter your new password </h3>
                     <div className="my-3 ">
 
-                      <form className="needs-validation" novalidate>
+                      <form className="needs-validation" onSubmit={
+                            (event)=>{
+                              console.log("gkgkgkkgkg");
+                              event.preventDefault()
+                              sendData()
+                            }
+                          } novalidate>
 
                         <div className="row">
                           <div className="col-md-12 mb-4">
@@ -82,14 +96,13 @@ let Type_new_password = () => {
                                 pattern="(?=.*\d)(?=.*[a-zA-Z]).{8,}" required
                                 // value={password}
                                 className="form-control  rounded-pill mt-4"
-                              onChange={(e)=> SetConfirmPassword(e.target.value)}
+
+                              
                               />
-                              <div className="invalid-feedback" id="password-feedback">
-                                Password must be at least 8 characters long and contain at least one letter and one digit
+                              <div className="invalid-feedback">
+                                not match
                               </div>
-                              <div className="invalid-feedback" id="password-required-feedback">
-                                Please enter a password
-                              </div>
+                              
                             </div>
                           </div>
                         </div>
@@ -97,11 +110,8 @@ let Type_new_password = () => {
 
 
                         <div>
-                          <input className="btn btn-success btn-block rounded-pill  w-100"  onClick={
-                            ()=>{
-                              sendData()
-                            }
-                          } value="Update Password" />
+
+                          <input className="btn btn-success btn-block rounded-pill  w-100" type="submit"   value="Update Password" />
                         </div>
 
                       </form>
@@ -116,6 +126,7 @@ let Type_new_password = () => {
       </div>
     </div>
   )
+                        }}
 }
 
 export default Type_new_password;

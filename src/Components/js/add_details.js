@@ -1,4 +1,10 @@
 
+import  './choices';
+var script = document.createElement('script');
+script.src = 'https://code.jquery.com/jquery-3.6.3.min.js';
+document.getElementsByTagName('head')[0].appendChild(script);
+
+
 
 
 
@@ -10,13 +16,18 @@ $( document ).ready(function() {
     var education = document.getElementById('education');
     
     var openExper=document.getElementById("openExper");
-    openExper.addEventListener("click", function(){
+
+
+    openExper.addEventListener("click", function(event){
+
 
       event.preventDefault();
   logIn.style.display='block';
     }); 
 
-document.getElementById("openEducat").addEventListener("click", function(){
+
+
+document.getElementById("openEducat").addEventListener("click", function(event){
   event.preventDefault();
   education.style.display='block';
 });
@@ -28,8 +39,10 @@ document.getElementById("openEducat").addEventListener("click", function(){
       }
     }
     
-    cxcontent=document.getElementById('cxcontent');
-    edcontent=document.getElementById('edcontent');
+
+    var cxcontent=document.getElementById('cxcontent');
+    var edcontent=document.getElementById('edcontent');
+
     var is_work=false;
     var not_have_experinces=false;
    document.getElementById('checkbox_iswork').addEventListener('change',function(){
@@ -38,9 +51,10 @@ document.getElementById("openEducat").addEventListener("click", function(){
     function onchangeCheckedNone(val){
       not_have_experinces=val;
       }
-      addExpirence=document.getElementById("addExpirence");
+      var addExpirence=document.getElementById("addExpirence");
       addExpirence.addEventListener("click", function(){
-        logIn.style.display = "none";
+  
+       
       
         var title=document.getElementById('title').value;
         var company=document.getElementById("company").value;
@@ -50,11 +64,14 @@ document.getElementById("openEducat").addEventListener("click", function(){
         var start_date=document.getElementById('start_date').value;
         var end_date=document.getElementById('end_date').value;
         var description=document.getElementById('description').value;
-        cxcontent.innerHTML+='<div class="col-3 ml-4 experience_x pt-4"><p id="pExperinces">'+title+'-'+company+'-'+location+'-'+is_work+'-'+start_date+'-'+end_date+'-'+description+'</p></div>';
-  
+
+        if(title!=''&&company!=''&&location!=''&&start_date!=''&&end_date!=''&&description){
+        logIn.style.display = "none";
+        cxcontent.innerHTML+='<div id="pExperinces" class=" col-3 card text-white bg-success mb-3 contentMa" style="max-width: 18rem;"><div class="card-header">'+title+'</div><div class="card-body"><h5 class="card-title">'+company+'</h5><p class="card-text">'+location+'</p><p class="card-text">description</p></div></div>';
+        }
       });
     document.getElementById('addEducation').addEventListener('click',function(){
-      education.style.display = "none";
+     
       
       var school=document.getElementById('school').value;
       var degree=document.getElementById("degree").value;
@@ -64,8 +81,11 @@ document.getElementById("openEducat").addEventListener("click", function(){
       var from_year=document.getElementById('from_year').value;
       var to_year=document.getElementById('to_year').value;
       var description2=document.getElementById('description2').value;
-      edcontent.innerHTML+='<div class="col-3 ml-4 experience_x pt-4"><p id="peducation">'+school+'-'+degree+'-'+study+'-'+from_year+'-'+to_year+'-'+description2+'</p></div>';
 
+      if(school!=''&&degree&&study&&from_year&&to_year&&description2&&to_year>from_year&&to_year>1990){
+      education.style.display = "none";
+      edcontent.innerHTML+='<div id="peducation" class=" col-3 card text-white bg-success mb-3 contentMa" style="max-width: 18rem;"><div class="card-header">'+school+'</div><div class="card-body"><h5 class="card-title">'+degree+'</h5><p class="card-text">'+study+'</p><p class="card-text">description</p></div></div>';
+    }
     });
 
 
@@ -90,7 +110,9 @@ document.getElementById("openEducat").addEventListener("click", function(){
       return el;
     }
 
-    for (i = 0; i < length; i++) {
+
+    for (var i = 0; i < length; i++) {
+
       var positionX = 12 + i * 200;
       var rect = makeSVG("rect", { x: positionX, y: 9, width: 200, height: 6 });
       document.getElementById("svg_form_time").appendChild(rect);
@@ -126,6 +148,8 @@ document.getElementById("openEducat").addEventListener("click", function(){
       if (id == "next") {
         if(child==1){
           if($('#joptitle').val()!==''){
+
+            $("#joptitle").removeClass("is-invalid");
         $("#prev").removeClass("disabled");
         if (child >= length) {
           $(this).addClass("disabled");
@@ -134,10 +158,16 @@ document.getElementById("openEducat").addEventListener("click", function(){
         if (child <= length) {
           child++;
         }
+
+      }else{
+        $("#joptitle").addClass("is-invalid");
+       
       }
     }else if (child==2){
       
       if($("#skipExpirences").is(":checked")){
+
+        $("#skipExpirences").removeClass("is-invalid");
         $("#prev").removeClass("disabled");
         if (child >= length) {
           $(this).addClass("disabled");
@@ -155,11 +185,16 @@ document.getElementById("openEducat").addEventListener("click", function(){
         if (child <= length) {
           child++;
         }
+
+      }else{
+        $("#skipExpirences").addClass("is-invalid");
       }
       
     }else if(child==3){
       
       if($("#skipeducations").is(":checked")){
+
+        $("#skipeducations").removeClass("is-invalid");
         $("#prev").removeClass("disabled");
         if (child >= length) {
           $(this).addClass("disabled");
@@ -177,6 +212,9 @@ document.getElementById("openEducat").addEventListener("click", function(){
         if (child <= length) {
           child++;
         }
+
+      }else{
+        $("#skipeducations").addClass("is-invalid");
       }
     }else if(child==4)
     {
@@ -211,10 +249,17 @@ document.getElementById("openEducat").addEventListener("click", function(){
         if (child >= length) {
           $(this).addClass("disabled");
           $('#submit').removeClass("disabled");
+
+          $( "#addressDetails" ).submit(function( event ) {
+            event.preventDefault();
+          });
         }
         if (child <= length) {
           child++;
         }
+
+      }else{
+        $("#overview").addClass("is-invalid");
       }
     }
       } else if (id == "prev") {
@@ -227,6 +272,30 @@ document.getElementById("openEducat").addEventListener("click", function(){
           child--;
         }
       }
+      $('#submit').click(function(){
+       if($('#asd1').val()==''){
+        $('#asd1').addClass('is-invalid');
+       }else{
+        $('#asd1').removeClass('is-invalid');
+       }
+       if($('#asd2').val()==''){
+        $('#asd2').addClass('is-invalid');
+       }else{
+        $('#asd2').removeClass('is-invalid');
+       }
+
+       if($('#asd3').val()==''){
+        $('#asd3').addClass('is-invalid');
+       }else{
+        $('#asd3').removeClass('is-invalid');
+       }
+
+       if($('#asd4').val()==''){
+        $('#asd4').addClass('is-invalid');
+       }else{
+        $('#asd4').removeClass('is-invalid');
+       }
+      })
       var circle_child = child + 1;
       $("#svg_form_time rect:nth-of-type(n + " + child + ")").css(
         "fill",
@@ -246,5 +315,6 @@ document.getElementById("openEducat").addEventListener("click", function(){
     var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
       removeItemButton: true,
     }); 
+
     });
-   
+

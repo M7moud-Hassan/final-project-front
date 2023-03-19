@@ -67,7 +67,7 @@ nav{
 }
 
 .button {
-  background: rgb(237, 40, 70);
+  background: rgb(6, 102, 35);
   border-radius: 5px;
   padding: 15px 25px;
   display: inline-block;
@@ -84,7 +84,7 @@ nav{
 }
 
 .mysection {
-  height: 90%;
+  height: 100%;
   width: 100%;
   background:white;
   background:rgba(255,255,255,0.9);
@@ -98,7 +98,8 @@ nav{
 }
 .experience{
   border: 2px dashed gray;
-  height: 150px;
+  height: 170px;
+  margin-right: 10px;
   background-image: url('../images/add.png');
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
@@ -215,4 +216,16 @@ nav{
     100% {
         opacity: 1;
     }
+}
+.contentMa{
+  margin-left: 10px;
+}
+.imagePreview {
+  width: 50%;
+  height: 100%;
+  margin: auto;
+  background-image: url('../images/person.png');
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: contain;
 }

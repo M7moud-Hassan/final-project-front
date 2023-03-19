@@ -1,77 +1,100 @@
 import { useEffect } from "react"
 
+import { NavLink } from "react-router-dom"
 let Nxsignup = () => {
-    
-    var useraccount=0
+   
+    var useraccount = 0
+    var type= localStorage.getItem("type");
+    if(type=='free'){
+    window.location = '/profile_free'
+    }else if(type=='client')
+    {
+        window.location = '/clientprofile'
+    }else{
     return (
         <div>
-            <nav class="navbar navbar-expand-lg navbar-light bg-white">
-                <div class="container">
-                    <a class="navbar-brand" href="#"><img src="images/upwork.svg" alt="Logo" /></a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            <nav className="navbar navbar-expand-lg navbar-light bg-white">
+                <div className="container">
+                <NavLink to={'/'}><img className='logos' src='./images/upwork.png' /> </NavLink>
+                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
+                        <span className="navbar-toggler-icon"></span>
                     </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
+                    <div className="collapse navbar-collapse" id="navbarNav">
 
-                        <div class="navbar-nav ms-auto">
-                            <div class="text-center">
+                        <div className="navbar-nav ms-auto">
+                            {/* <div className="text-center">
                                 Here to hire talent?
-                                <a href="#" class="text-center text-success mt-3"> Join as a Client</a>
-                            </div>
+                                <NavLink to={'/registerUser'} className="text-center text-success mt-3"> Join as a Client</NavLink>
+                            </div> */}
                         </div>
                     </div>
                 </div>
             </nav>
-        
-        <div class="container ">
-            <div class="row" id="empety"></div>
-                <div class="row justify-content-md-center rowinthree " id="main">
-                    <h1>Join as a client or freelancer</h1>
-                    <div class="row justify-content-md-center">
-                        <div class="col-ml-8">
+
+            <div className="container ">
+                <div className="row" id="empety"></div>
+                <div className="row justify-content-md-center rowinthree w-md-75 " id="main">
+                    <h1 className="text-dark">Join as a client or freelancer</h1>
+                    <div className="row justify-content-md-center">
+                        <div className="col-ml-8">
                             <form method="post" id="form">
-                                <section class="btn-group" id="inputsection">
-                                    <input type="radio" name="btnradio" class="btn-check" id="gfg1" onClick={
-                                        ()=>{
-                                            useraccount=1
-                                        }
-                                    }/>
-                                    <label class="btn btn-outline-success" for="gfg1">
-                                        I’m a client, hiring for a project
-                                    </label>
-                                    <div class="br"></div>
-                                    <input type="radio" name="btnradio" class="btn-check" id="gfg3" onClick={
-                                       ()=>{
-                                        useraccount=2
-                                       }
-                                    }/>
-                                    <label class="btn btn-outline-success" for="gfg3">
-                                        I’m a freelancer, looking for work
-                                    </label>
-                                    <div class="br"></div>
+
+                                <section className="btn-group mb-3" id="inputsection">
+                                    <div className="row justify-content-md-center ">
+                                        <div className="col-md-5 mt-md-1 mt-3 me-md-3 border ChooseParent">
+
+                                            <label className="Labels mt-3 ms-3 " for="gfg1">
+
+                                                <input type="radio" name="btnradio" className="Labels" id="gfg1" onClick={
+                                                    () => {
+                                                        useraccount = 1
+                                                    }
+                                                } />
+                                                
+                                                <span className="Checks"></span>
+                                            </label>
+                                            <div className="mt-5 FixedFontWeight container pb-3" >I'm a client, hiring for a project</div>
+
+                                        </div>
+
+                                        <div className="col-md-5 ms-md-3 mt-md-1 mt-3 border ChooseParent">
+
+                                            <label className="Labels mt-3 ms-3" for="gfg3">
+                                                <input type="radio" name="btnradio" className="btn-check" id="gfg3" onClick={
+                                                    () => {
+                                                        useraccount = 2
+                                                    }
+                                                } />
+                                                <span className="Checks"></span>
+                                            </label>
+                                            <div className="mt-5 FixedFontWeight container pb-3" >I'm a Freelancer, Looking for work</div>
+                                        </div>
+                                    </div>
+
                                 </section>
-                                <button type="button" class="btn btn-success" onClick={
-                                    ()=>{
-                                        if(useraccount==1){
-                                            window.location='/registeruser'
-                                        }else if (useraccount==2){
-                                            window.location='/registration_freelancer'
+                                <button type="button" className="btn btn-secondary mt-5 w-100 rounded-pill" onClick={
+                                    () => {
+                                        if (useraccount == 1) {
+                                            window.location = '/registeruser'
+                                        } else if (useraccount == 2) {
+                                            window.location = '/registration_freelancer'
                                         }
                                     }
                                 }>Creat Account</button>
-                                <p>Already have an account?<a onClick={
-                                    ()=>{
-                                        window.location='/login/'
+                                <span>Already have an account?</span><span className="text-success"><a onClick={
+                                    () => {
+                                        window.location = '/login/'
                                     }
-                                }> Log In</a></p>
+                                }> Log In</a></span>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
+
     )
+                            }
 }
 export default Nxsignup;

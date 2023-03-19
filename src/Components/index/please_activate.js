@@ -1,74 +1,21 @@
 import { useParams } from "react-router-dom"
 
+import { NavLink } from "react-router-dom"
 
 let Check_email = () => {
+  
     let {email}=useParams()
+    var type= localStorage.getItem("type");
+  if(type=='free'){
+  window.location = '/profile_free'
+  }else if(type=='client')
+  {
+      window.location = '/clientprofile'
+  }else{
     return (
         <div>
-            <nav className="navbar navbar-expand-lg bg-body-tertiary ">
 
-                <div className='container-fluid'>
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
-                    <img id='logo' className='ms-5' src='\images\upwork.png' />
-                    <div class="collapse navbar-collapse" id="navbarScroll">
-                        <div className='d-flex'>
-                            <ul className='mt-3'>
-                                <li className="nav-item dropdown dropFont">
-                                    <a className="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Empty slot
-                                    </a>
-                                    <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                        <a className="dropdown-item" href="#">Action</a>
-                                        <a className="dropdown-item" href="#">Another action</a>
-                                        <a className="dropdown-item" href="#">Something else here</a>
-                                    </div>
-                                </li>
-                            </ul>
-                            <ul className='mt-3'>
-                                <li className="nav-item dropdown dropFont">
-                                    <a className="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Empty slot
-                                    </a>
-                                    <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                        <a className="dropdown-item" href="#">Action</a>
-                                        <a className="dropdown-item" href="#">Another action</a>
-                                        <a className="dropdown-item" href="#">Something else here</a>
-                                    </div>
-                                </li>
-                            </ul>
-                            <ul className='mt-3'>
-                                <li className="nav-item dropdown dropFont">
-                                    <a className="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Empty slot
-                                    </a>
-                                    <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                        <a className="dropdown-item" href="#">Action</a>
-                                        <a className="dropdown-item" href="#">Another action</a>
-                                        <a className="dropdown-item" href="#">Something else here</a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                        <div className='w-100' >
-                            <form className="d-flex">
-                                <div className="input-group ms-5 w-100">
-                                    <div className="search_box d-flex w-50">
-                                        <input className="form-control me-2 w-100 " type="search" placeholder="Search" aria-label="Search" />
-                                        <button className="btn btn-outline-success" type="submit">Search</button>
-                                    </div>
-
-                                    <button className="btn btn-primary border-0 rounded ms-3" type="submit">Sign Up</button>
-                                </div>
-
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-
-            <div className="container ">
+      <div className="container ">
         <section className="vh-100 gradient-custom">
           <div className="container py-5 h-100">
             <div className="row justify-content-center align-items-center h-100">
@@ -78,6 +25,7 @@ let Check_email = () => {
                     <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Please Check and confirm your Email  {email}</h3>
                     <div className="my-3 ">
 
+                    
                     </div>
                   </div>
                 </div>
@@ -88,6 +36,8 @@ let Check_email = () => {
         </div>
       </div>
     )
+
+  }
 }
 export default Check_email
 

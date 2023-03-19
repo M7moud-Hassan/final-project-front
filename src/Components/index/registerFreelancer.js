@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
 
+import 'bootstrap/dist/css/bootstrap.css';
 
 class RegisterFreelancer extends Component{
   constructor(props) {
     super(props);
+   
     this.state = {
       firstName: '',
       lastName: '',
@@ -81,13 +83,24 @@ class RegisterFreelancer extends Component{
 
 
     render(){
+      var type= localStorage.getItem("type");
+      if(type=='free'){
+      window.location = '/profile_free'
+      }else if(type=='client')
+      {
+          window.location = '/clientprofile'
+      }else{
         return(
             <div>
 
               
   <nav className="navbar navbar-expand-lg navbar-light bg-white">
     <div className="container">
-      <a className="navbar-brand" href="#"><img src="images/upwork.svg" alt="Logo"></img></a>
+      <a className="navbar-brand" onClick={
+        ()=>{
+          window.location='/'
+        }
+      }><img src="images/upwork.svg" alt="Logo"></img></a>
       <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon"></span>
       </button>
@@ -96,7 +109,12 @@ class RegisterFreelancer extends Component{
         <div className="navbar-nav ms-auto">
           <div className="text-center">
             Here to hire talent? 
-            <a href="#" className="text-center text-success mt-3"> Join as a Client</a>
+            <a href="#" className="text-center text-success mt-3"> </a>
+            <NavLink className={'text-center text-success mt-3 fontEditsHalf' }onClick={
+              ()=>{
+                window.location='/registeruser'
+              }
+            }>Join as a Client</NavLink>
           </div>
       </div>
       
@@ -118,11 +136,6 @@ class RegisterFreelancer extends Component{
 
                 <div className="my-3">
 
-                  <div>
-                    <button className="btn btn-primary btn-block rounded-pill m-3 w-100">Countinue with Google</button>
-                  </div>
-                </div>
-                <hr></hr>
                 <form method='post' onSubmit={this.handleSubmit} className="needs-validation" noValidate>
                  
 
@@ -131,7 +144,7 @@ class RegisterFreelancer extends Component{
                       <div className="form-outline position-relative">
                         <input type="text" id="firstName" placeholder="First Name" required
                           className="form-control  rounded-pill" value={this.state.firstName}onChange={this.handleFirstNameChange}/>
-                        <div className="invalid-feedback">
+                        <div className="invalid-feedback text-center">
                           First name is required
                         </div>
                       </div>
@@ -140,8 +153,8 @@ class RegisterFreelancer extends Component{
                     <div className="col-md-6 mb-4">
                       <div className="form-outline position-relative">
                         <input type="text" id="lastName" placeholder="Last Name" required
-                          className="form-control  rounded-pill" value={this.state.lastName}onChange={this.handleLastNameChange} />
-                        <div className="invalid-feedback">
+                          className="form-control ms-md-3 rounded-pill" value={this.state.lastName}onChange={this.handleLastNameChange} />
+                        <div className="invalid-feedback text-center">
                           Last name is required
                         </div>
                       </div>
@@ -149,7 +162,7 @@ class RegisterFreelancer extends Component{
                   </div>
 
                   <div className="row">
-                    <div className="col-md-12 mb-4">
+                    <div className="col-md-12 mb-1">
                       <div className="form-outline position-relative">
                         <input type="email" id="email" placeholder="Email (forexample@example.com)" required
                         pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}"
@@ -166,8 +179,9 @@ class RegisterFreelancer extends Component{
                             }
                           }/>
                           {this.errorEmai()}
-                        <div className="invalid-feedback"
-                             id="email-feedback">
+
+                        <div className="invalid-feedback text-center"
+                             id="email-feedback text-center">
                              Email is required
                           
                         </div>
@@ -181,10 +195,10 @@ class RegisterFreelancer extends Component{
                         <input type="password" name="password" id="password"
                           placeholder="Password(8 or more characters)" pattern="(?=.*\d)(?=.*[a-zA-Z]).{8,}" required
                           className="form-control  rounded-pill" value={this.state.password} onChange={this.handlePasswordChange} />
-                          <div className="invalid-feedback" id="password-feedback">
+                          <div className="invalid-feedback text-center" id="password-feedback">
                             Password must be at least 8 characters long and contain at least one letter and one digit
                           </div>
-                          <div className="invalid-feedback" id="password-required-feedback">
+                          <div className="invalid-feedback text-center" id="password-required-feedback">
                             Please enter a password
                           </div>
                       </div>
@@ -197,7 +211,7 @@ class RegisterFreelancer extends Component{
                     <div className="input-group position-relative">
                       <input type="text" className="form-control rounded-pill" placeholder="Phone number" id="phone"
                         name="phone" pattern="01[0-2]{1}[0-9]{8}" required value={this.state.phone} onChange={this.handlePhoneChange}></input>
-                        <div className="invalid-feedback">
+                        <div className="invalid-feedback text-center">
                           Please enter your Egyption phone like "01*********"
                         </div>
 
@@ -206,7 +220,7 @@ class RegisterFreelancer extends Component{
 
                   <div className="form-check mt-4">
                     <input className="form-check-input" type="checkbox" id="send_emails" name="send_emails"></input>
-                    <label className="form-check-label fontEdits" htmlFor="send_emails">
+                    <label className="form-check-label fixedFonts text-center " htmlFor="send_emails">
                       Send me helpful emails to find rewarding work and job leads
                     </label>
                   </div>
@@ -215,7 +229,7 @@ class RegisterFreelancer extends Component{
                     <div className="col-md-12 mb-4">
                       <div className="form-outline position-relative">
                     <input className="form-check-input" type="checkbox" id="agree_terms" name="agree_terms" required></input>
-                    <label className="form-check-label fontEdits" htmlFor="agree_terms">
+                    <label className="form-check-label fixedFonts text-center " htmlFor="agree_terms">
                       Yes, I understand and agree to the Upwork Terms of Service, including the <a href="#" className="text-success">User
                         Agreement</a> and <a href="#" className="text-success">Privacy Policy</a>
                     </label>
@@ -237,6 +251,12 @@ class RegisterFreelancer extends Component{
                  
                   </div>
                 </form>
+                <hr/>
+                <div>
+                    <button className="btn btn-primary btn-block rounded-pill m-3 w-100">Countinue with Google</button>
+                  </div>
+                </div>
+
               </div>
             </div>
           </div>
@@ -248,7 +268,7 @@ class RegisterFreelancer extends Component{
             </div>
 
 
-        )
+        )}
     }
 
 

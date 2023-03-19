@@ -6,15 +6,15 @@ let Part2Home = () => {
                 <div className="row g-0">
                     <div className="col-md-8" >
                         <div className="card-body cardHome1">
-                            <h5 className="card-title">Enterprise Suite</h5>
+                            <h5 className="card-title text-light">Enterprise Suite</h5>
                             <h1 className="card-title">This is how</h1>
                             <h1 className="card-title forCardHome1">good companies</h1>
                             <h1 className="card-title forCardHome1">find good company.</h1>
-                            <p className="card-text">Access the top 1% of talent on
+                            <p className="card-text text-light">Access the top 1% of talent on
                                 Upwork, and a full suite of hybrid workforce management tools. This is how innovation
                                 works now.</p>
-                            <ul >
-                                <li>
+                            <ul className="text-light">
+                                <li >
                                     <svg  xmlns="http://www.w3.org/2000/svg" width="16"
                                         height="16" fill="currentColor" className="bi bi-wrench" viewBox="0 0 16 16">
                                         <path
@@ -57,28 +57,26 @@ let Part2Home = () => {
         </div>
             {/* section 2 */}
         <div className="row mt-5 cardHome2" >
-            <div className="containerCardHome2 m-5">
-                <h5 className="card-title">Card titleFor clients</h5>
-                <h1 className="card-title" >Find talent</h1>
-                <h1 className="card-title" >your way</h1>
-                <p className="card-text">Work with the largest network of independent</p>
-                <p className="card-text">professionals and get things done—from quick</p>
-                <p className="card-text">turnarounds to big transformations.</p>
+            <div className="containerCardHome2 m-lg-5 m-md-4 m-sm-3 m-xs-1">
+                <p className="text-light fontEditsHalf  ">For clients</p>
+                <p className="text-light fontEditsBig mpZero" >Find talent</p>
+                <p className="text-light fontEditsBig mpZero" >Your Way</p>
+                <p className="text-light fontEditsHalf paragraphs">Work with the largest network of independent , professionals and get things done—from quick , turnarounds to big transformations.  </p>
 
-                <div className="row mt-5 container me-5">
-                    <div className="col-md-4">
-                        <button className="btn btn-success btn-rounded green mt-md-2 mt-sm-3">
-                            Post a job and hire a pro   
+                <div className="row me-md-5 me-sm-3 me-xs-1 me-0 text-center fontEdits ">
+                    <div className="col-4">
+                        <button className="btn btn-success btn-rounded green fontEdits  btnHome">
+                        <p className="fontEditsHalf mpZero text-light"> Post a job and hire a pro  </p>  
                         </button>
                     </div>
-                    <div className="col-md-4">
-                        <button className="btn btn-success btn-rounded green mt-md-2 mt-sm-3">
-                             Browes and by ajobes   
+                    <div className="col-4">
+                        <button className="btn btn-success btn-rounded green fontEdits  btnHome">
+                        <p className="fontEditsHalf mpZero text-light"> Browse and buy projects  </p>   
                         </button>
                     </div>
-                    <div className="col-md-4">
-                        <button className="btn btn-success btn-rounded green mt-md-2 mt-sm-3">
-                            Leat us helpe you find the right talent 
+                    <div className="col-4">
+                        <button className="btn btn-success btn-rounded green fontEdits btnHome">
+                        <p className="fontEditsHalf mpZero text-light"> Let us help you find the right talent  </p> 
                         </button>
                     </div>
                 </div>
@@ -87,44 +85,44 @@ let Part2Home = () => {
         </div>
             {/* section 3 */}
         <div className="row mt-3 m-auto">
-            <div className="col-md-6 section1Card3">
+            <div className="col-md-6 section1Card3 ms  ">
                 <div className="section1Card3Sec">
                 <img src="images/nasdaq-light.svg" alt=""/>
-                <p className="slider-p mt-3" >“Upwork enables us to differentiate
+                <p className="slider-p mt-3 text-light" >“Upwork enables us to differentiate
                     ourselves from our
                     competitors and produce content at a higher caliber.”</p>
-                <p><small>Josh Machiz, Chief Digital Officer</small></p>
-                <p><small>Results</small></p>
+                <p><small className="text-light">Josh Machiz, Chief Digital Officer</small></p>
+                <p><small className="text-light">Results</small></p>
                 <hr className="mb-4"  />
                 <div className="row">
                     <div className="col-5">
                         <h4>Emmy Winning</h4>
-                        <p>Facebook Watch program</p>
+                        <p className="text-light">Facebook Watch program</p>
                     </div>
                     <div className="col-5">
                         <h4>Millions</h4>
-                        <p>of impressions generated per client per IPO</p>
+                        <p className="text-light">of impressions generated per client per IPO</p>
                     </div>
                 </div>
                 </div>
             </div>
-            <div className="col-md-6 section2Card3 m-md-0  m-sm-auto">
+            <div className="col-md-6 section2Card3 m-md-0  m-sm-auto ">
                 <div className="section1Card3Sec">
                 <img src="images/microsoft-lg-light.svg" alt=""/>
-                <p className="slider-p mt-3">“One of the advantages of utilizing
+                <p className="slider-p mt-3 text-light">“One of the advantages of utilizing
                     freelancers is
                     finding talent with different skills quickly as our needs change.”</p>
-                <p><small>Carol Taylor, Director of Content Experience</small></p>
-                <p><small >Results</small></p>
+                <p><small className="text-light">Carol Taylor, Director of Content Experience</small></p>
+                <p><small  className="text-light">Results</small></p>
                 <hr className="mb-4"/>
                 <div className="row">
                     <div className="col-5">
                         <h4>50% Faster</h4>
-                        <p>launch of projects</p>
+                        <p className="text-light">launch of projects</p>
                     </div>
                     <div className="col-5">
                         <h4>10,000</h4>
-                        <p>projects completed</p>
+                        <p className="text-light">projects completed</p>
                     </div>
                 </div>
                 </div>
@@ -133,7 +131,7 @@ let Part2Home = () => {
             {/* section 4 */}
         <div className="row mt-4 section4">
             <div className="card mb-3 rounded">
-                <div className="row g-0">
+                <div className="row g-0 ">
                     <div className="col-md-6">
                         <img src=".\images\find-great-work@1x.jpg" className="img-fluid rounded-start"alt="..."/>
                     </div>
@@ -142,20 +140,20 @@ let Part2Home = () => {
                             <h5 className="card-title">For talent</h5>
                             <h1 className="card-title" >Find great</h1>
                             <h1 className="card-title">work</h1>
-                            <p className="card-text">AMeet clients you’re excited
+                            <p className="card-text text-light">AMeet clients you’re excited
                                 to
                                 work with and take
                                 your career or business to new heights.</p>
                             <hr className="mb-4 section4HR"  />
                             <div className="row m-3">
-                                <div className="col-sm-4">
-                                    <p>Find opportunities for every stage of your freelance career</p>
+                                <div className="col-sm-4 ">
+                                    <p className="text-light">Find opportunities for every stage of your freelance career</p>
                                 </div>
                                 <div className="col-sm-4">
-                                    <p>Control when, where, and how you work</p>
+                                    <p className="text-light">Control when, where, and how you work</p>
                                 </div>
                                 <div className="col-sm-4">
-                                    <p>Explore different ways to earn</p>
+                                    <p className="text-light">Explore different ways to earn</p>
                                 </div>
                             </div>
                             <button type="button" className="btn btn-outline-light btn-rounded">

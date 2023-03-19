@@ -17,7 +17,7 @@ class NavBar extends Component {
               <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
               </button>
-          <img id='logo' className='ms-5' src='\images\upwork.png' />
+              <NavLink to={'/'}><img id='logo' className='ms-5' src='\images\upwork.png' /></NavLink>
           <div class="collapse navbar-collapse" id="navbarScroll">
           <div className='d-flex'>
           <ul className='mt-3'>
@@ -65,7 +65,8 @@ class NavBar extends Component {
                 <button className="btn btn-outline-success" type="submit">Search</button>
               </div>
               <NavLink className={'btn border-0 rounded ms-5' } to={"/login"}>Log In</NavLink>
-              <NavLink className="btn btn-primary border-0 rounded"  to={"/choose_account"}>Sign Up</NavLink>
+
+              <NavLink className="btn btn-success border-0 rounded"  to={"/choose_account"}>Sign Up</NavLink>
             </div>
             
           </form>
@@ -74,15 +75,7 @@ class NavBar extends Component {
           </div>
         </nav>
         
-        {/* <div className="subnav">
-          <ul>
-            <li><a href="#">Empty slot</a></li>
-            <li><a href="#">Empty slot</a></li>
-            <li><a href="#">Empty slot</a></li>
-            <li><a href="#">Empty slot</a></li>
-            <li><a href="#">Empty slot</a></li>
-          </ul>
-        </div> */}
+        
       </div>
       
     )
