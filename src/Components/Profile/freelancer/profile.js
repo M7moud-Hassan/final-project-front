@@ -6,6 +6,8 @@ import NavBar from './navbar';
 import Footer from './Footer';
 import axios from 'axios';
 import Error from '../../index/error';
+import '../../css/models.css'
+import '../../js/models.js'
 
 class Profile extends Component {
     constructor() {
@@ -13,7 +15,9 @@ class Profile extends Component {
         this.state = {
             data: false,
             loading: true,
-            error: null
+            error: null,
+            jobtitle2:'',
+            overview:'',
 
         }
 
@@ -21,13 +25,15 @@ class Profile extends Component {
 
 
     componentDidMount() {
-      
         axios.post(`http://127.0.0.1:8000/profile/get_details_free/`,
             {
-                "id": localStorage.getItem("uid")
+                "id": localStorage.getItem('uid')
             })
             .then(response => {
                 this.setState({ data: response.data, loading: false });
+               
+                this.setState({jobtitle2:this.state.data.jobtitle})
+                
             })
             .catch(error => {
                 this.setState({ error: error.message, loading: false });
@@ -40,15 +46,17 @@ class Profile extends Component {
 
         if (loading) {
             return (<div id="demo-content">
-            <div id="loader-wrapper">
-                <div id="loader"></div>
-            </div>
-       
-        </div>)
+                <div id="loader-wrapper">
+                    <div id="loader">
+
+                    </div>
+                </div>
+
+            </div>)
         }
 
         if (error) {
-            return <Error/>
+            return <Error />
         }
         return (
             <div>
@@ -71,10 +79,74 @@ class Profile extends Component {
 
                                     <p className="text-muted">{this.state.data.address}</p>
                                     <p>{this.state.data.jobtitle} &nbsp;&nbsp;&nbsp;
-                                    <button type="button"
-                                                        className="btn btn-outline-primary btn-sm rounded-pill me-2"><i
-                                                            className="fa-solid fa-pen"></i></button>
+                                    <button type="button" className="btn btn-outline-primary btn-sm rounded-pill me-2" onClick={
+                                        ()=>{
+                                          
+                                            this.setState({jobtitle2:this.state.data.jobtitle})
+                                            document.getElementById('id01').style.display='block'
+                                        }
+                                    }><i
+                                                           className="fa-solid fa-pen"></i></button>
+
                                     </p>
+                                    <div id="id01" class="mamodal rounded">
+  
+  <form class="mamodal-content maanimate rounded">
+    <div class="maimgcontainer">
+      <span class="close" onClick={
+        ()=>{
+           
+            document.getElementById('id01').style.display='none'
+        }
+      }>&times;</span>
+      
+    </div> 
+    
+    <div class="container myconatiner pt-4">
+        <h3 class="text-left ml-4">Edit your title </h3>
+        <div class="container mycontainer">
+            <h4>Your title</h4>
+            <p>Enter a single sentence description of your professional skills/experience (e.g. Expert Web Designer with Ajax experience) </p>
+        </div>
+      
+      <input type="text" value={this.state.jobtitle2} onChange={
+        (e)=>{
+            this.setState({jobtitle2:e.target.value});
+        }
+      } class="form-control" placeholder="Enter Username" name="uname" required/>        
+    </div>
+
+    <div class="container myconatiner rounded mt-4">
+      <button type="button" onclick="document.getElementById('id01').style.display='none'" class="macancelbtnC btn btn-link" onClick={
+        ()=>{
+            document.getElementById('id01').style.display='none'
+        }
+      }>Cancel</button>
+      <button type="button" onclick="document.getElementById('id01').style.display='none'" class="macancelbtn" onClick={
+        ()=>{
+         this.setState(prevState => {
+          
+            const { data } = prevState;
+                     data.jobtitle = this.state.jobtitle2;
+                      return { data };
+          },
+                   () => {
+
+                    axios.post("http://127.0.0.1:8000/auth/jobTitle/",{
+                        id:localStorage.getItem("uid"),
+                        jobtitle:this.state.data.jobtitle
+                    }).then(respons=>{
+                        document.getElementById('id01').style.display='none'
+                    })
+                  
+          })
+         
+        }
+      }>Save</button>
+      
+    </div>
+  </form>
+</div>
 
                                 </div>
 
@@ -117,7 +189,12 @@ class Profile extends Component {
                                         <div className="d-flex justify-content-between align-items-center">
                                             <h2 className="mb-0">About Me</h2>
                                             <div>
-                                                <button type="button" className="btn btn-outline-primary rounded-pill btn-sm me-2 "><i
+                                                <button type="button" className="btn btn-outline-primary rounded-pill btn-sm me-2 " onClick={
+                                                    ()=>{
+                                                        this.setState({overview:this.state.data.overView})
+                                                        document.getElementById('id02').style.display='block'
+                                                    }
+                                                }><i
                                                     className="fa-solid fa-pen"></i></button>
                                             </div>
                                         </div>
@@ -146,30 +223,53 @@ class Profile extends Component {
                                         <div>
                                             <div className=" ">
                                                 <div className="row d-flex justify-content-around ">
-                                                    <div className="col-md-4">
-                                                        <div className="card">
-                                                            <img className="card-img-top" src="\images\me.png" alt="Card image cap" style={{ width: '150px' }} />
-                                                            <div className="card-body">
-                                                                <h5 className="card-title">Card Title 1</h5>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-4">
-                                                        <div className="card">
-                                                            <img className="card-img-top" src="\images\me.png" alt="Card image cap" style={{ width: '150px' }} />
-                                                            <div className="card-body">
-                                                                <h5 className="card-title">Card Title 3</h5>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-4">
-                                                        <div className="card">
-                                                            <img className="card-img-top" src="\images\me.png" alt="Card image cap" style={{ width: '150px' }} />
-                                                            <div className="card-body">
-                                                                <h5 className="card-title">Card Title 3</h5>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                {this.state.data.portfilos.map((portfilo, index) => (
+                                                     <div key={index} className="col-md-4">
+                                                     <div className="card">
+                                                         <img className="card-img-top" src={"data:image/*;base64," + portfilo.image} alt="Card image cap" style={{ width: '150px' }} />
+                                                         <div className="card-body">
+                                                             <h5 className="card-title">{portfilo.title}</h5>
+                                                         </div>
+                                                     </div>
+                                                 </div>
+                                                   
+                                                ))}
+                                                   
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <hr />
+
+                                    <div id='History_work'>
+                                        <div className="d-flex justify-content-between align-items-center mb-3">
+                                            <h2 className="mb-0">History work</h2>
+                                            <div>
+                                                <button type="button" className="btn btn-outline-primary rounded-pill btn-sm me-2 "><i
+                                                    className="fa-solid fa-pen"></i></button>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div className=" ">
+                                                <div className="row d-flex justify-content-around ">
+                                                {this.state.data.history_work.map((history_work1, index) => (
+                                                     <div key={index} className="col-md-4">
+                                                     <div className="card">
+                                                         <div className="card-body">
+                                                             <h5 className="card-title">{history_work1.location}</h5>
+                                                         </div>
+                                                         <div className="card-body">
+                                                             <p className="card-title">{history_work1.date}</p>
+                                                         </div>
+                                                         <div className="card-body">
+                                                             <p className="card-title">{history_work1.cost}</p>
+                                                         </div>
+                                                     </div>
+                                                 </div>
+                                                   
+                                                ))}
+                                                   
                                                 </div>
                                             </div>
                                         </div>
@@ -255,7 +355,7 @@ class Profile extends Component {
                                                                     className="fa-solid fa-trash-can"></i></button>
                                                             </div>
                                                         </div>
-                                                        <h4 assName="text-muted">{experiecnce.company}</h4>
+                                                        <p assName="text-muted">{experiecnce.company}</p>
                                                         <p>{experiecnce.description}</p>
                                                     </div>
                                                 </li>
@@ -283,81 +383,136 @@ class Profile extends Component {
                                     className="fa-solid fa-plus"></i></button>
                             </div>
                         </div>
-                        
+                        {this.state.data.certifications.map((certification ,index) => (
+                             <div key={index} className="position-relative container-border my-4">
+                             <div className="d-flex justify-content-between align-items-center">
+                                <div>
+                                <h5 className="mb-3">{certification.provider}</h5>
+                                 <p className="mb-3">{certification.certification_type.name}</p>
+                                 
+                                 </div>
+                                 <div>
+                                     <button type="button" className="btn btn-outline-primary btn-sm rounded-pill me-2"><i
+                                         className="fa-solid fa-pen"></i></button>
+                                     <button type="button" className="btn btn-outline-danger rounded-pill btn-sm"><i
+                                         className="fa-solid fa-trash-can"></i></button>
+                                 </div>
+                             </div>
+                             <p className="mb-0">{certification.description}</p>
+                         </div>
 
-                        
-                        <div className="position-relative container-border my-4">
-                            <div className="d-flex justify-content-between align-items-center">
-                                <h4 className="mb-3">Title</h4>
-                                <div>
-                                    <button type="button" className="btn btn-outline-primary btn-sm rounded-pill me-2"><i
-                                        className="fa-solid fa-pen"></i></button>
-                                    <button type="button" className="btn btn-outline-danger rounded-pill btn-sm"><i
-                                        className="fa-solid fa-trash-can"></i></button>
-                                </div>
-                            </div>
-                            <p className="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis felis vitae augue finibus
-                            </p>
-                        </div>
+                        ))}
+
+
+
                        
-                        <div className="position-relative container-border my-4">
-                            <div className="d-flex justify-content-between align-items-center">
-                                <h4 className="mb-3">Title</h4>
-                                <div>
-                                    <button type="button" className="btn btn-outline-primary btn-sm rounded-pill me-2"><i
-                                        className="fa-solid fa-pen"></i></button>
-                                    <button type="button" className="btn btn-outline-danger rounded-pill btn-sm"><i
-                                        className="fa-solid fa-trash-can"></i></button>
-                                </div>
-                            </div>
-                            <p className="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis felis vitae augue finibus
-                            </p>
-                        </div>
+
+                       
                     </div>
+
                     <div className="container-border my-4 p-4">
                         <div className="d-flex justify-content-between align-items-center">
-                            <h2 className="mb-0">Employment history</h2>
+                            <h2 className="mb-0">My Empolument History</h2>
                             <div>
 
                                 <button type="button" className="btn btn-outline-success btn-sm rounded-pill"><i
                                     className="fa-solid fa-plus"></i></button>
                             </div>
                         </div>
-                     
+                        {this.state.data.empolumentHistory.map((empolumentHistory1 ,index) => (
+                             <div key={index} className="position-relative container-border my-4">
+                             <div className="d-flex justify-content-between align-items-center">
+                                <div>
+                                 <h4 className="mb-3">{empolumentHistory1.title}</h4>
+                                 <p className="mb-3">{empolumentHistory1.location}</p>
+                                 </div>
+                                 <div>
+                                     <button type="button" className="btn btn-outline-primary btn-sm rounded-pill me-2"><i
+                                         className="fa-solid fa-pen"></i></button>
+                                     <button type="button" className="btn btn-outline-danger rounded-pill btn-sm"><i
+                                         className="fa-solid fa-trash-can"></i></button>
+                                 </div>
+                             </div>
+                             <p className="mb-0">{empolumentHistory1.description}</p>
+                         </div>
+
+                        ))}
+
+
 
                        
-                        <div className="position-relative container-border my-4">
-                            <div className="d-flex justify-content-between align-items-center">
-                                <h4 className="mb-3">Title</h4>
-                                <div>
-                                    <button type="button" className="btn btn-outline-primary btn-sm rounded-pill me-2"><i
-                                        className="fa-solid fa-pen"></i></button>
-                                    <button type="button" className="btn btn-outline-danger rounded-pill btn-sm"><i
-                                        className="fa-solid fa-trash-can"></i></button>
-                                </div>
-                            </div>
-                            <p className="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis felis vitae augue finibus
-                            </p>
-                        </div>
-                      
-                        <div className="position-relative container-border my-4">
-                            <div className="d-flex justify-content-between align-items-center">
-                                <h4 className="mb-3">Title</h4>
-                                <div>
-                                    <button type="button" className="btn btn-outline-primary btn-sm rounded-pill me-2"><i
-                                        className="fa-solid fa-pen"></i></button>
-                                    <button type="button" className="btn btn-outline-danger rounded-pill btn-sm"><i
-                                        className="fa-solid fa-trash-can"></i></button>
-                                </div>
-                            </div>
-                            <p className="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis felis vitae augue finibus
-                            </p>
-                        </div>
+
+                       
                     </div>
+
+
 
 
                 </div>
                 <Footer />
+                <div id="id02" class="mamodal rounded">
+  
+  <form class="mamodal-content maanimate rounded">
+    <div class="maimgcontainer">
+      <span onClick={
+        ()=>{
+            document.getElementById('id02').style.display='none'
+        }
+      } class="close" title="Close Modal">&times;</span>
+    </div>
+    
+    <div class="container myconatiner">
+        <h3 class="text-left ml-4">Overview </h3>
+        <div class="container mycontainer pt-4">
+            <p>Use this space to show clients you have the skills and experience they're looking for. </p>
+            <ul>
+                <li>Describe your strengths and skills</li>
+                <li>Highlight projects, accomplishments and education</li>
+                <li>Keep it short and make sure it's error-free</li>
+            </ul>
+        </div>
+      
+      <textarea className='w-100'  type="text" placeholder="Enter Username" name="uname" required rows="5" onChange={
+        (e)=>{
+          
+                    this.setState({overview:e.target.value})
+                
+        }
+      } value={this.state.overview
+      }>
+        </textarea>      
+    </div>
+
+    <div class="container myconatiner rounded">
+      <button type="button" onclick="document.getElementById('id02').style.display='none'" class="macancelbtnC btn btn-link" onClick={
+        ()=>{
+            document.getElementById('id02').style.display='none'
+        }
+      }>Cancel</button>
+      <button type="button" onclick="document.getElementById('id02').style.display='none'" class="macancelbtn" onClick={ ()=>{
+         this.setState(prevState => {
+          
+            const { data } = prevState;
+                     data.overView = this.state.overview;
+                      return { data };
+          },
+                   () => {
+
+                    axios.post("http://127.0.0.1:8000/auth/save_overview/",{
+                        id:localStorage.getItem("uid"),
+                        overview:this.state.data.overView
+                    }).then(respons=>{
+                        document.getElementById('id02').style.display='none'
+                    })
+                  
+          })
+         
+        }
+      }>Save</button>
+      
+    </div>
+  </form>
+</div>
             </div>
         )
     }

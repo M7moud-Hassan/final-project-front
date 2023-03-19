@@ -1,14 +1,51 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import axios from 'axios';
+import Error from '../../index/error';
 
 class NavBar extends Component {
   constructor() {
     super();
+    this.state = {
+      data: false,
+      loading: true,
+      error: null
+
+  }}
+  componentDidMount() {
+       
+    axios.post(`http://127.0.0.1:8000/profile/get_details_free/`,
+        {
+            "id": localStorage.getItem('uid')
+        })
+        .then(response => {
+            this.setState({ data: response.data, loading: false });
+        })
+        .catch(error => {
+            this.setState({ error: error.message, loading: false });
+        });
+}
 
 
-  }
+  
 
   render() {
+
+    var { data, loading, error } = this.state;
+
+    if (loading) {
+        return (<div id="demo-content">
+            <div id="loader-wrapper">
+                <div id="loader">
+
+                </div>
+            </div>
+
+        </div>)
+    }
+
+    if (error) {
+        return <Error />
+    }
     return (
       <div>
         <nav className="navbar navbar-expand-lg bg-body-tertiary ">
@@ -70,7 +107,7 @@ class NavBar extends Component {
                         <i class="fa-solid fa-bell btn btn-lg" style={{ width: '80px' }}></i>
                         <span class="notification-badge">3</span>
                       </div>
-                      <img src="\images\me.png" alt="User" className="rounded-circle btn border-0 ms-4" style={{ width: '70px' }} />
+                      <img src={"data:image/*;base64," + this.state.data.image} alt="User" className="rounded-circle btn border-0 ms-4" style={{ width: '70px' }} />
 
 
                     </div>
