@@ -42,8 +42,8 @@ function App() {
       <Route path='/rest_password_verfy' element={<Type_new_password/>}/>
       <Route path='/test_token/:uid/:token/:type' element={<TestToken/>}/>
       <Route path='/clientprofile' element={<ProfileClient/>}/>
-      <Route path='/profile_free' element={<ProfileFreeLancer/>}/>
-      <Route path='/clientsettings' element={<ClientSettings1/>}/>
+      <Route path="/profile_free" element={<ProfileFreeLancer/>}/>
+      <Route path='/clientsettings' element={<ClientProfile/>}/>
       <Route path='*' element={<Error/>} />
       </Routes>
       </BrowserRouter>

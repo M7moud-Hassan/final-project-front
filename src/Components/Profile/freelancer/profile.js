@@ -21,10 +21,10 @@ class Profile extends Component {
 
 
     componentDidMount() {
-        const userId = 1
+      
         axios.post(`http://127.0.0.1:8000/profile/get_details_free/`,
             {
-                "id": userId
+                "id": localStorage.getItem("uid")
             })
             .then(response => {
                 this.setState({ data: response.data, loading: false });
