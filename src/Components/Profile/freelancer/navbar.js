@@ -3,8 +3,8 @@ import axios from 'axios';
 import Error from '../../index/error';
 
 class NavBar extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       data: false,
       loading: true,
@@ -13,7 +13,7 @@ class NavBar extends Component {
   }}
   componentDidMount() {
        
-    axios.post(`http://127.0.0.1:8000/profile/get_details_free/`,
+    axios.post(this.props.url,
         {
             "id": localStorage.getItem('uid')
         })
@@ -107,9 +107,11 @@ class NavBar extends Component {
                         <i class="fa-solid fa-bell btn btn-lg" style={{ width: '80px' }}></i>
                         <span class="notification-badge">3</span>
                       </div>
-                      <img src={"data:image/*;base64," + this.state.data.image} alt="User" className="rounded-circle btn border-0 ms-4" style={{ width: '70px' }} />
-
-
+                      <img src={this.state.data.image?("data:image/*;base64," + this.state.data.image):("./images/default.png")} alt="User" className="rounded-circle btn border-0 ms-4" style={{ width: '70px' }} onClick={
+                        ()=>{
+                          this.props.openMenu()
+                        }
+                      }/>
                     </div>
                   </div>
 

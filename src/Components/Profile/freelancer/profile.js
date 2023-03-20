@@ -217,7 +217,10 @@ class Profile extends Component {
    
   
                 <div>
-                    <NavBar />
+                    <NavBar url='http://127.0.0.1:8000/profile/get_details_free/'
+                     openMenu={()=>{
+                       //open menu
+                      }}/>
 
                     <div className="container-border my-4">
                         <div className="container my-5">

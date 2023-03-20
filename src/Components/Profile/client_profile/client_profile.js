@@ -4,6 +4,8 @@ import axios from 'axios';
 import { useState } from 'react';
 // import { useEffect } from 'react';
 import '../../../index.css'
+import Error from '../../index/error';
+import NavBar from '../freelancer/navbar';
 
 
 const ClientProfile = () => {
@@ -14,7 +16,13 @@ const ClientProfile = () => {
 
 
     useEffect(() => {
-        setting.current.focus();
+        if(localStorage.getItem('uid'))
+        {
+          if(localStorage.getItem('type')=='user'){
+            setting.current.focus();
+          }
+      }
+       
       }, []);
     
     function settingS() {
@@ -35,12 +43,24 @@ const ClientProfile = () => {
                 console.log(err.message);
             });
     }, [id]);
-
+    if(localStorage.getItem('uid'))
+    {
+      if(localStorage.getItem('type')=='user'){
+      
+      
 
     return (
-        <div><div className='row'>
+        <div>
+             <NavBar 
+            url='http://127.0.0.1:8000/profile/clientDetails/'
+            openMenu={()=>{
+              console.log("skdkkdkdkk");
+              //open menu
+            }}
+            />
+            <div className='row'>
             <div className=' col-sm-3 buttonSetting text-center' ref={setting}>
-                <img className='littleSymbolImage' src="./images/default.png" />
+                <img className='littleSymbolImage' src={data.image?("data:image/*;base64," +data.image):("./images/default.png")} />
                 <h4 className='mt-3'>{data.name}</h4>
                 <hr />
                 <NavLink to={'/clientsettings'}><h5>Settings</h5></NavLink>
@@ -235,6 +255,13 @@ const ClientProfile = () => {
         </div>
 
     )
+}
+else{
+    window.location='/profile_free'
+}
+}else{
+window.location='/error'
+}
 }
 
 
