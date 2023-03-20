@@ -15,7 +15,7 @@ let ProfileClient = () => {
     </div>
     }
     else{
-        window.location='/profile_free'
+      window.location='/error'
     }
     }else{
     window.location='/error'

@@ -7,7 +7,20 @@ const PortfolioAddDetails = () => {
     const [linkVideo,SetLinkVideo]=useState('');
     const [description,setDescription]=useState('');
     const [images,setImages] =useState([]);
+    const [id,setId]=useState()
 
+    useEffect(() => {
+        if(localStorage.getItem("portfilo"))
+        {
+            var p=JSON.parse(localStorage.getItem("portfilo"));
+           
+            SetLinkVideo(p.linkvideo)
+            setDescription(p.description)
+            setId(p.id)
+
+        }
+       
+      }, []);
     return (
         <div className="container row mt-5">
             <div className="col-sm-4 ">
@@ -30,6 +43,31 @@ const PortfolioAddDetails = () => {
                 <form className=" needs-validation" novalidate onSubmit={
                 (e)=>{
                     e.preventDefault()
+                    if(localStorage.getItem("portfilo"))
+                    {
+                        axios.post('http://127.0.0.1:8000/profile/delPortFilo/',{
+                            id:id
+                        }).then(response=>{
+                            axios.post('http://localhost:8000/profile/add_portfilo/',{
+                    id:localStorage.getItem("uid"),
+                    title:title,
+                    date_time:date_time,
+                    linkVide:linkVideo,
+                    description:description,
+                    "images":images
+                 },
+                 {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                      }
+                 }).then(response=>{
+                    if(response.data=='ok'){
+                        localStorage.removeItem("portfilo")
+                      window.location='/profile_free'
+                    }
+                 })
+                        })
+                    }else{
                  axios.post('http://localhost:8000/profile/add_portfilo/',{
                     id:localStorage.getItem("uid"),
                     title:title,
@@ -48,6 +86,7 @@ const PortfolioAddDetails = () => {
                     }
                  })
                 }
+            }
             } >
                 <div className="container mt-3 settingBody ">
                     <div className="ms-4 me-4">
@@ -84,7 +123,9 @@ const PortfolioAddDetails = () => {
                         <div className="mt-3">
                             <button type="button" className="me-3 rounded-pill btn text-success border-success" onClick={
                                 ()=>{
+                                    localStorage.removeItem("portfilo")
                                     window.location='/profile_free'
+                                    
                                 }
                             }>cancel</button>
                             <button type="submit" className="ms-3 rounded-pill btn btn-success">svae data </button>

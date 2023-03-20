@@ -7,17 +7,19 @@ import Footer from './Footer';
 import axios from 'axios';
 import Error from '../../index/error';
 import '../../css/models.css'
-import '../../js/models.js'
 import Select from 'react-select'
 import makeAnimated from 'react-select/animated';
 import { useRef } from 'react';
 import { NavLink } from 'react-router-dom';
-
+import MonthPickerInput from 'react-month-picker-input'
+import 'react-month-picker-input/dist/react-month-picker-input.css';
+import './windows'
 class Profile extends Component {
+    
     constructor() {
         super();
         const animatedComponents = makeAnimated();
-
+       
         this.state = {
             isMenu: false,
             data: false,
@@ -45,7 +47,32 @@ class Profile extends Component {
             error_end: '',
             end_date_error: '',
             id_exp_update: '',
-            
+            school: '',
+            degree: '',
+            study: '',
+            from_year: '',
+            to_year: '',
+            edu_description: '',
+            error_number:'',
+            error_number_to:'',
+            error_tag:'',
+            error_tag_to:'',
+            cr_error_tag_to:'',
+            cr_start_date: '',
+            cr_end_date: '',
+            cr_description: '',
+            cr_start_date_error: '',
+            cr_start_date_error_: '',
+            cr_error_end: '',
+            cr_end_date_error: '',
+            provider:'',
+            certification_ID:'',
+            certification_UR:'',
+            id_type:0,
+            optionCertification:[],
+            selectYear:0,
+            selectMonth:0,
+
         }
 
     }
@@ -122,10 +149,66 @@ class Profile extends Component {
                 this.setState({ error: error.message, loading: false });
             });
 
+            axios.get("http://127.0.0.1:8000/profile/getalltypesCertifications/").then(response => {
+                var optionslist = []
+              
+
+                response.data.forEach(element => {
+                    optionslist.push({ value: element.id, label: element.name })
+                   
+                });
+                this.setState({ optionCertification: optionslist })
+
+            })
+                .catch(error => {
+                    console.log(error);
+                });
+            
+
+    }
+    addEmpolymentHistory(){
+
+        var history = {
+            "title": this.state.title,
+            "company": this.state.company,
+            "location": this.state.location,
+            "is_current_work": this.state.is_work,
+            "period_from_month": this.state.start_date,
+            "period_to_month": this.state.end_date,
+            "description": this.state.description,
+            "id": localStorage.getItem("uid")
+        };
+
+
+       axios.post("http://127.0.0.1:8000/profile/add_history_employment/",
+        history
+       ).then(response=>{
+        this.setState(prevState => {
+            const { data } = prevState;
+            data.empolumentHistory.push(response.data);
+          
+            return { data };
+        },
+            () => {
+                this.setState({
+                    title: '',
+                    company: '',
+                    location: '',
+                    is_work: false,
+                    start_date: '',
+                    end_date: '',
+                    start_date_error: '',
+                    error: '',
+                    description: ''
+                })
+            })
+       })
+
+
     }
     update_experiences() {
         if (this.state.title && this.state.company && this.state.location && this.state.description && this.state.start_date && this.state.end_date) {
-            console.log('gkgkgkkgkgkkgk');
+         
             var expierces = {
                 "title": this.state.title,
                 "company": this.state.company,
@@ -174,6 +257,77 @@ class Profile extends Component {
             })
         }
     }
+    add_Certificate(){
+
+        var certification = {
+            "provider": this.state.provider,
+            "description": this.state.cr_description,
+            "certification_ID": this.state.certification_ID,
+            "issuse_date": this.state.cr_start_date,
+            "expiration_date": this.state.cr_end_date,
+            "certification_UR": this.state.certification_UR,
+            "type_certificate": this.state.id_type,
+            "id": localStorage.getItem("uid")
+        };
+
+        axios.post("http://127.0.0.1:8000/profile/add_certification/", certification).then(respons => {
+            this.setState(prevState => {
+                const { data } = prevState;
+                data.certifications.push(respons.data);
+                return { data };
+            },
+                () => {
+                    document.getElementById('id07').style.display='none'
+                })
+        })
+
+
+        this.setState({
+            provider:'',
+            cr_description:'',
+            certification_ID:'',
+            cr_start_date:'',
+            cr_end_date:'',
+            certification_UR:'',
+            id_type:0,
+           
+          })
+    }
+    add_educations() {
+        if(this.state.edu_description&&this.state.school&&this.state.degree&&this.state.study&&this.state.from_year&&this.state.to_year){
+        var educations =
+         {"school":
+          this.state.school ,
+          "degree": this.state.degree,
+          "study":this.state.study,
+          "from_year": this.state.from_year
+          ,"to_year": this.state.to_year,
+          "description":this.state.edu_description,
+          "freelancer_register_id": localStorage.getItem("uid")};
+    
+          axios.post("http://127.0.0.1:8000/auth/save_education/", [educations]).then(respons => {
+            console.log(respons.data);
+            this.setState(prevState => {
+                const { data } = prevState;
+                data.educations.push(respons.data);
+                return { data };
+            },
+                () => {
+                    document.getElementById('id06').style.display='none'
+                })
+        })
+
+      this.setState({
+        school:'',
+        degree:'',
+        study:'',
+        from_year:'',
+        to_year:'',
+        edu_description:'',
+       
+      })
+    }
+      }
     add_experiences() {
         if (this.state.title && this.state.company && this.state.location && this.state.description && this.state.start_date && this.state.end_date) {
             var expierces = {
@@ -236,8 +390,6 @@ class Profile extends Component {
         }
         return (
             <div>
-
-
                 <div>
                     <NavBar url='http://127.0.0.1:8000/profile/get_details_free/'
                         openMenu={this.state.isMenu?(this.XsettingS):(this.settingS)}/>
@@ -254,7 +406,14 @@ class Profile extends Component {
                                 }
                             }><h5 className='pb-4'>Logout</h5></NavLink>
                         </div></div>
-                    <div className="container-border my-4">
+                    <div className="container-border my-4"  onClick={
+                (e)=>{
+                  
+                   
+                    this.XsettingS()
+                   
+                }
+            }>
                         <div className="container my-5">
                             <div className="row">
 
@@ -353,17 +512,40 @@ class Profile extends Component {
                                                 <h4 className="mb-3">Educations</h4>
                                                 <div>
                                                     <button type="button"
-                                                        className="btn btn-outline-primary btn-sm rounded-pill me-2"><i
-                                                            className="fa-solid fa-pen"></i></button>
+                                                        className="btn btn-outline-primary btn-sm rounded-pill me-2" onClick={
+                                                            () => {
+                                                                document.getElementById('id06').style.display = 'block'
+                                                            }
+                                                        }><i className="fa-solid fa-plus"></i></button>
                                                 </div>
                                             </div>
                                             <ul className="list-unstyled">
                                                 {this.state.data.educations.map((education, index) => (
                                                     <div className='container-border my-1'>
                                                         <li key={index}>
+                                        <button type="button" className="btn btn-outline-danger rounded-pill btn-sm" onClick={
+                                            ()=>{
+                                                axios.post('http://127.0.0.1:8000/profile/delEducation/',{
+                                                    id:education.id
+                                                }).then(response=>{
+                                                    this.setState(prevState => {
+                                                        const { data } = prevState;
+                                                        data.educations=this.removeItemOnce(data.educations,education)
+                                                      console.log(response.data);
+                                                        return { data };
+                                                    },
+                                                        () => {
+                                                          
+                                                        })
+                                                })
+                                            }
+                                        }><i
+                                            className="fa-solid fa-trash-can"></i></button>
                                                             <h5>{education.school}</h5>
                                                             <p>{education.from_year}</p>
+                                                            
                                                         </li>
+                                                        
                                                     </div>
 
                                                 ))}
@@ -407,6 +589,7 @@ class Profile extends Component {
                                             <div>
                                                 <button type="button" className="btn btn-outline-primary rounded-pill btn-sm me-2 " onClick={
                                                     ()=>{
+                                                        localStorage.removeItem("portflio")
                                                         window.location='/addPortFilo'
                                                     }
                                                 }><i
@@ -418,6 +601,30 @@ class Profile extends Component {
                                                 <div className="row d-flex justify-content-around ">
                                                     {this.state.data.portfilos.map((portfilo, index) => (
                                                         <div key={index} className="col-md-4">
+                                                             <button type="button" className="btn btn-outline-primary btn-sm rounded-pill me-2" onClick={
+                                                                ()=>{
+                                                                    localStorage.setItem("portfilo",JSON.stringify(portfilo))
+                                                                    window.location='/addPortFilo'
+                                                                }
+                                                             }><i
+                                            className="fa-solid fa-pen"></i></button>
+                                        <button type="button" className="btn btn-outline-danger rounded-pill btn-sm" onClick={
+                                                                ()=>{
+                                                                    axios.post('http://127.0.0.1:8000/profile/delPortFilo/',{
+                                                                        id:portfilo.id
+                                                                    }).then(response=>{
+                                                                        this.setState(prevState => {
+                                                                            const { data } = prevState;
+                                                                            data.portfilos=this.removeItemOnce(data.portfilos,portfilo)
+                                                                            return { data };
+                                                                        },
+                                                                            () => {
+                                                                               
+                                                                            })
+                                                                    })
+                                                                }
+                                                             }><i
+                                            className="fa-solid fa-trash-can"></i></button>
                                                             <div className="card">
                                                                 <img className="card-img-top" src={"data:image/*;base64," + portfilo.image} alt="Card image cap" style={{ width: '150px' }} />
                                                                 <div className="card-body">
@@ -537,10 +744,20 @@ class Profile extends Component {
                                             <div>
                                                 <button id="con" type="button" className="btn btn-outline-primary rounded-pill btn-sm me-2 " onClick={
                                                     () => {
+                                                        this.setState({
+                                                            title: '',
+                                                            company: '',
+                                                            location: '',
+                                                            is_work: false,
+                                                            start_date: '',
+                                                            end_date: '',
+                                                            start_date_error: '',
+                                                            error: '',
+                                                            description: ''
+                                                        })
                                                         document.getElementById('id05').style.display = 'block'
                                                     }
-                                                }><i
-                                                    className="fa-solid fa-pen"></i></button>
+                                                }><i className="fa-solid fa-plus"></i></button>
                                             </div>
 
                                         </div>
@@ -622,7 +839,12 @@ class Profile extends Component {
                             <h2 className="mb-0">Certifications</h2>
                             <div>
 
-                                <button type="button" className="btn btn-outline-success btn-sm rounded-pill"><i
+                                <button type="button" className="btn btn-outline-success btn-sm rounded-pill" onClick={
+                                    ()=>{
+                                       
+                                        document.getElementById('id07').style.display='block'
+                                    }
+                                }><i
                                     className="fa-solid fa-plus"></i></button>
                             </div>
                         </div>
@@ -635,9 +857,22 @@ class Profile extends Component {
 
                                     </div>
                                     <div>
-                                        <button type="button" className="btn btn-outline-primary btn-sm rounded-pill me-2"><i
-                                            className="fa-solid fa-pen"></i></button>
-                                        <button type="button" className="btn btn-outline-danger rounded-pill btn-sm"><i
+                                            <button type="button" className="btn btn-outline-danger rounded-pill btn-sm" onClick={
+                                                ()=>{
+                                                    axios.post('http://127.0.0.1:8000/profile/delcertificate/',{
+                                                        id:certification.id
+                                                    }).then(response=>{
+                                                        this.setState(prevState => {
+                                                            const { data } = prevState;
+                                                            data.certifications=this.removeItemOnce(data.certifications,certification)
+                                                            return { data };
+                                                        },
+                                                            () => {
+                                                               
+                                                            })
+                                                    })
+                                                }
+                                            }><i
                                             className="fa-solid fa-trash-can"></i></button>
                                     </div>
                                 </div>
@@ -658,7 +893,22 @@ class Profile extends Component {
                             <h2 className="mb-0">My Empolument History</h2>
                             <div>
 
-                                <button type="button" className="btn btn-outline-success btn-sm rounded-pill"><i
+                                <button type="button" className="btn btn-outline-success btn-sm rounded-pill" onClick={
+                                    ()=>{
+                                        this.setState({
+                                            title: '',
+                                            company: '',
+                                            location: '',
+                                            is_work: false,
+                                            start_date: '',
+                                            end_date: '',
+                                            start_date_error: '',
+                                            error: '',
+                                            description: ''
+                                        })
+                                        document.getElementById('id08').style.display='block'
+                                    }
+                                }><i
                                     className="fa-solid fa-plus"></i></button>
                             </div>
                         </div>
@@ -670,9 +920,22 @@ class Profile extends Component {
                                         <p className="mb-3">{empolumentHistory1.location}</p>
                                     </div>
                                     <div>
-                                        <button type="button" className="btn btn-outline-primary btn-sm rounded-pill me-2"><i
-                                            className="fa-solid fa-pen"></i></button>
-                                        <button type="button" className="btn btn-outline-danger rounded-pill btn-sm"><i
+                                              <button type="button" className="btn btn-outline-danger rounded-pill btn-sm" onClick={
+                                                ()=>{
+                                                    axios.post('http://127.0.0.1:8000/profile/delHistoryEmpl/',{
+                                                        id:empolumentHistory1.id
+                                                    }).then(response=>{
+                                                        this.setState(prevState => {
+                                                            const { data } = prevState;
+                                                            data.empolumentHistory=this.removeItemOnce(data.empolumentHistory,empolumentHistory1)
+                                                            return { data };
+                                                        },
+                                                            () => {
+                                                               
+                                                            })
+                                                    })
+                                                }
+                                              }><i
                                             className="fa-solid fa-trash-can"></i></button>
                                     </div>
                                 </div>
@@ -1059,6 +1322,344 @@ class Profile extends Component {
                         <button class="btn btn-success w-100" type='submit' >Submit</button>
                     </div>
                 </form>
+
+
+                <form id="id06"  class="needs-validation dialog"  onSubmit={
+         
+         (event) => {
+          event.preventDefault()
+          if(!this.state.error_tag_to){
+           
+            this.add_educations()
+          }
+         }
+       
+     }novalidate>
+          <div className=" formx form-content animate">
+          <div class="maimgcontainer">
+                            <span class="close" onClick={
+                                () => {
+
+                                    document.getElementById('id06').style.display = 'none'
+                                }
+                            }>&times;</span>
+
+                        </div>
+            <div className="mb-3 mt-3">
+              <label htmlFor="school" className="form-label">school:</label>
+              <input type="text" value={this.state.school} className="form-control" id="school" placeholder="Enter school" name="school" onChange={(e) => {
+                this.setState({ school: e.target.value })
+              }} required/>
+            </div>
+            <div className="mb-3 mt-3">
+              <label htmlFor="degree" className="form-label">degree:</label>
+              <input type="text" value={this.state.degree} className="form-control" id="degree" placeholder="Enter degree" name="degree" onChange={(e) => {
+                this.setState({ degree: e.target.value })
+              }} required/>
+            </div>
+            <div className="mb-3 mt-3">
+              <label htmlFor="study" className="form-label">study:</label>
+              <input type="text" value={this.state.study} className="form-control" id="study" placeholder="Enter study" name="study" onChange={(e) => {
+                this.setState({ study: e.target.value })
+              }} required/>
+            </div>
+
+            <div className="container row">
+              <div className="col-6">
+                <label htmlFor="from year">from year</label>
+                <input type="number" min="1990" max="2023" pattern='[0-9]{4}' onBlur={
+                  (e)=>{
+                    if(e.target.value<1990&&e.target.value>2023){
+                      this.setState({error_number:"not valid year",
+                    error_tag:"is-invalid"})
+                    
+                    }else{
+                      this.setState({error_number:"",
+                      error_tag:""})
+                    }
+                  }
+                } value={this.state.from_year} id="from_year" className={"form-control "+this.state.error_tag } onChange={(e) => {
+                  this.setState({ from_year: e.target.value })
+                }}required />
+                 <div className='text-danger'>
+                  {this.state.error_number}
+                </div>
+              </div>
+              <div className="col-6">
+                <label htmlFor="to year">to year</label>
+                <input type="number"  min="1990" max="2023" onBlur={
+                  (e)=>{
+                    if(e.target.value<1990&&e.target.value>2023){
+                      this.setState({error_number_to:"not valid year"})
+                      this.setState({ error_tag_to:"is-invalid"})
+                    }else{
+                     if(!this.state.from_year)
+                     {
+                      this.setState({error_number_to:"input from year first"})
+                      this.setState({ error_tag_to:"is-invalid"})
+                     }else if (e.target.value<this.state.from_year)
+                     {
+                      this.setState({error_number_to:"invalid year"})
+                      this.setState({ error_tag_to:"is-invalid"})
+                     }else{
+                      this.setState({error_number_to:"",
+                      error_tag_to:""})
+                     }
+                    }
+                  }
+                } pattern='[0-9]{4}' value={this.state.to_year} id="to_year" className={"form-control "+this.state.error_tag_to} onChange={(e) => {
+                  this.setState({ to_year: e.target.value })
+                }} required/>
+                <div className='text-danger'>
+                  {this.state.error_number_to}
+                </div>
+              </div>
+
+            </div>
+            <div className="mb-3">
+              <label htmlFor="description" className="form-label">Example textarea</label>
+              <textarea value={this.state.edu_description} className="form-control" id="description2" rows="3" onChange={(e) => {
+                this.setState({ edu_description: e.target.value })
+              }}required></textarea>
+            </div>
+
+            <button class="btn btn-success w-100" id='addEducation' type='submit'>Submit</button>
+          </div>
+          </form>
+
+
+          <form id="id07"  class="needs-validation dialog"  onSubmit={
+         
+         (event) => {
+          event.preventDefault()
+          if(!this.state.cr_error_tag_to&&this.state.id_type){
+            this.add_Certificate()
+          }
+         }
+       
+     }novalidate>
+          <div className=" formx form-content animate">
+          <div class="maimgcontainer">
+                            <span class="close" onClick={
+                                () => {
+
+                                    document.getElementById('id07').style.display = 'none'
+                                }
+                            }>&times;</span>
+
+                        </div>
+                        <br/>
+                        <br/>
+                        <div>
+                        <Select
+                             options={this.state.optionCertification}
+                             onChange={
+                                (e)=>{
+                                   this.setState({id_type:e.value})
+                                }
+                             }
+                    required/>
+                        </div>
+            <div className="mb-3 mt-3">
+              <label htmlFor="school" className="form-label">school:</label>
+              <input type="text" value={this.state.provider} className="form-control" id="school" placeholder="Enter provider" name="school" onChange={(e) => {
+                this.setState({ provider: e.target.value })
+              }} required/>
+            </div>
+            <div className="mb-3 mt-3">
+              <label htmlFor="degree" className="form-label">certification_ID:</label>
+              <input type="text" value={this.state.certification_ID} className="form-control" id="degree" placeholder="Enter degree" name="degree" onChange={(e) => {
+                this.setState({ certification_ID: e.target.value })
+              }} required/>
+            </div>
+            <div className="mb-3 mt-3">
+              <label htmlFor="study" className="form-label">certification_UR:</label>
+              <input type="text" value={this.state.certification_UR} className="form-control" id="study" placeholder="Enter study" name="study" onChange={(e) => {
+                this.setState({ certification_UR: e.target.value })
+              }} required/>
+            </div>
+
+            <div className="container row">
+                            <div className="col-6">
+                                <label htmlFor="start_date">Start</label>
+                                <input id="start_date" value={this.state.cr_start_date} className={"form-control " + this.state.cr_start_date_error_} type="date" onChange={(e) => {
+                                    var today = new Date();
+                                    var mydate = new Date(e.target.value + " 0:00:00");
+
+
+                                    if (today > mydate) {
+                                        this.setState({ cr_start_date: e.target.value })
+                                        this.setState({ cr_start_date_error: '' })
+                                        this.setState({ cr_start_date_error_: '' })
+                                    }
+                                    else {
+                                        this.setState({ cr_start_date_error: "invalid data start" })
+
+                                        this.setState({ cr_start_date_error_: 'is-invalid' })
+                                    }
+
+                                }} required />
+                                <div className='text-danger'>
+                                    {this.state.cr_start_date_error}
+                                </div>
+                            </div>
+                            <div className="col-6">
+                                <label htmlFor="end_date">End</label>
+                                <input id="end_date" value={this.state.cr_end_date} className={"form-control " + this.state.cr_error_end} type="date" onChange={(e) => {
+                                    var today = new Date(this.state.cr_start_date + " 0:00:00");
+                                    var mydate = new Date(e.target.value + " 0:00:00");
+
+                                    if (this.state.cr_start_date) {
+                                        if (today > mydate) {
+                                            this.setState({ cr_end_date_error: "invalid end date" })
+                                            this.setState({ cr_error_end: 'is-invalid' })
+                                        }
+                                        else {
+
+
+                                            this.setState({ cr_end_date: e.target.value })
+                                            this.setState({ cr_end_date_error: '' })
+                                            this.setState({ cr_error_end: '' })
+                                        }
+                                    }
+                                    else {
+                                        this.setState({ cr_end_date_error: "enter start date first" })
+                                        this.setState({ cr_error_end: 'is-invalid' })
+                                    }
+
+                                }} required />
+                                <div className='text-danger'>
+                                    {this.state.cr_end_date_error}
+                                </div>
+                            </div>
+                        </div>
+            <div className="mb-3">
+              <label htmlFor="description" className="form-label">Example textarea</label>
+              <textarea value={this.state.cr_description} className="form-control" id="description2" rows="3" onChange={(e) => {
+                this.setState({ cr_description: e.target.value })
+              }}required></textarea>
+            </div>
+
+            <button class="btn btn-success w-100" id='addEducation' type='submit'>Submit</button>
+          </div>
+          </form>
+
+
+          <form id="id08" class="needs-validation mamodal" onSubmit={
+
+(event) => {
+    event.preventDefault()
+    if (!this.state.end_date_error&&this.state.start_date&&this.state.end_date) {
+      
+            this.addEmpolymentHistory()
+            document.getElementById('id08').style.display = 'none'
+        
+        
+    }else{
+        if(!this.state.start_date){
+this.setState({start_date_error:"this is required"})
+        }else if (!this.state.end_date){
+            this.setState({end_date_error:"this is required"})
+        }
+    }
+}
+
+} novalidate>
+
+<div className=" formx form-content animate">
+    <div class="maimgcontainer">
+        <span class="close" onClick={
+            () => {
+
+                document.getElementById('id08').style.display = 'none'
+            }
+        }>&times;</span>
+
+    </div>
+    <div className="mb-3 mt-3">
+        <label htmlFor="email" className="form-label">Title:</label>
+        <input type="text" value={this.state.title} className="form-control" id="title" placeholder="Enter Title" name="Title" onChange={(e) => {
+            this.setState({ title: e.target.value })
+        }} required />
+    </div>
+    <div className="mb-3 mt-3">
+        <label htmlFor="email" className="form-label">company:</label>
+        <input type="text" value={this.state.company} className="form-control" id="company" placeholder="Enter company" name="company" onChange={(e) => {
+            this.setState({ company: e.target.value })
+        }} required />
+    </div>
+    <div className="mb-3 mt-3">
+        <label htmlFor="email" className="form-label">location:</label>
+        <input type="text" value={this.state.location} className="form-control" id="location" placeholder="Enter location" name="location" onChange={(e) => {
+            this.setState({ location: e.target.value })
+        }} required />
+    </div>
+
+    <div class="form-check">
+        <input id='checkbox_iswork' value={this.state.is_work} class='messageCheckbox' type='checkbox' onClick={
+            () => {
+                this.setState({
+                    is_work: !this.state.is_work
+                })
+            }
+        } />
+        <label class="messageCheckbox" for="is_work">
+            is current work in company
+        </label>
+    </div>
+    <div className="container row">
+        <div className="col-6">
+            <label htmlFor="start_date">Start</label>
+            <MonthPickerInput
+            minDate={[0,1990]}
+            maxDate={[11,2023]}
+            
+            className={"form-control"}
+  onChange={(maskedValue,selectedYear,selectedMonth)=>{
+        this.setState({start_date:maskedValue})
+        this.setState({selectYear:selectedYear})
+        this.setState({selectedMonth:selectedMonth})
+        this.setState({end_date_error:''})
+        this.setState({start_date_error:''})
+      
+  }}
+  required/>
+                        <div className='text-danger'>
+                {this.state.start_date_error}
+            </div>
+        </div>
+        <div className="col-6">
+            <label htmlFor="end_date">End</label>
+            <MonthPickerInput
+            minDate={[this.state.selectMonth,this.state.selectYear]}
+            maxDate={[11,2023]}
+            className={"form-control"}
+  onChange={(maskedValue, selectedYear, selectedMonth)=>{
+   if(this.state.start_date){
+    this.setState({end_date:maskedValue})
+    this.setState({end_date_error:''})
+   }else{
+    this.setState({end_date_error:"select start date"})
+   }
+  }}
+  required/>
+                       <div className='text-danger'>
+                {this.state.end_date_error}
+            </div>
+        </div>
+    </div>
+    <div className="mb-3">
+        <label htmlFor="description" className="form-label">Example textarea</label>
+        <textarea className="form-control" value={this.state.description} id="description" rows="3" onChange={(e) => {
+            this.setState({ description: e.target.value })
+        }} required></textarea>
+
+    </div>
+
+    <button class="btn btn-success w-100" type='submit' >Submit</button>
+</div>
+</form>
+
             </div>
         )
     }

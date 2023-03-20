@@ -5,7 +5,18 @@ import axios from "axios";
 const PortfolioProject = () => {
     const [title,SetTitle]=useState('')
     const [date_time,setDateime]=useState('0000-00-00')
+    const [portfilo,SetPortFillo]=useState(undefined)
 
+    useEffect(() => {
+        if(localStorage.getItem("portfilo"))
+        {
+            var p=JSON.parse(localStorage.getItem("portfilo"));
+            SetTitle(p.title)
+            setDateime(p.date_time)
+
+        }
+       
+      }, []);
     return (
         <div className="container row mt-5">
             <div className="col-sm-4 ">
@@ -51,6 +62,7 @@ const PortfolioProject = () => {
                         <div className="mt-3">
                             <button className="me-3 rounded-pill btn text-success border-success" onClick={
                                 ()=>{
+                                    localStorage.removeItem("portfilo")
                                     window.location='/profile_free'
                                 }
                             }>Cancel </button>
