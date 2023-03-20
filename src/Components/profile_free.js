@@ -14,13 +14,7 @@ let ProfileFreeLancer = () => {
     }
     }else{
     window.location='/error'
-    }
-   
-    // return <Profile/>
-    // return <PortfolioAddProject/>
-    
-    return <PortfolioAddDetails/>
-
+    }  
 
 }
 export default ProfileFreeLancer;

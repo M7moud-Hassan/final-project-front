@@ -373,7 +373,11 @@ class Profile extends Component {
                                         <div className="d-flex justify-content-between align-items-center mb-3">
                                             <h2 className="mb-0">Portflio</h2>
                                             <div>
-                                                <button type="button" className="btn btn-outline-primary rounded-pill btn-sm me-2 "><i
+                                                <button type="button" className="btn btn-outline-primary rounded-pill btn-sm me-2 " onClick={
+                                                    ()=>{
+                                                        window.location='/addPortFilo'
+                                                    }
+                                                }><i
                                                     className="fa-solid fa-pen"></i></button>
                                             </div>
                                         </div>
