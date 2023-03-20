@@ -54,8 +54,7 @@ const ClientProfile = () => {
              <NavBar 
             url='http://127.0.0.1:8000/profile/clientDetails/'
             openMenu={()=>{
-              console.log("skdkkdkdkk");
-              //open menu
+              
             }}
             />
             <div className='row'>
