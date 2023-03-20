@@ -16,8 +16,8 @@ const ClientSettings1 = () => {
     const [statez, setState] = useState('');
     const [postal_codez, setPostal_code] = useState('');
     const contactSection = useRef('');
-    const inputFile = useRef(null) ;
-    
+    const inputFile = useRef(null);
+
     const [current_imae_url, SetCurrentFile] = useState('');
 
     useEffect(() => {
@@ -31,9 +31,9 @@ const ClientSettings1 = () => {
                 setState(res.data.state);
                 setCity(res.data.city);
                 setPostal_code(res.data.postal_code);
-             
-                
-                
+
+
+
             })
             .catch(err => {
                 console.log(err.message);
@@ -58,7 +58,7 @@ const ClientSettings1 = () => {
     const onButtonClick = () => {
         // `current` points to the mounted file input element
         inputFile.current.click();
-      };
+    };
 
       if(localStorage.getItem('uid'))
   {

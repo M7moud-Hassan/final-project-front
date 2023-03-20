@@ -1,3 +1,5 @@
+import PortfolioAddDetails from "./Profile/freelancer/PortfolioAddDetails";
+import PortfolioAddProject from "./Profile/freelancer/PortfolioAddProject";
 import Profile from "./Profile/freelancer/profile"
 
 let ProfileFreeLancer = () => {
@@ -14,6 +16,11 @@ let ProfileFreeLancer = () => {
     window.location='/error'
     }
    
+    // return <Profile/>
+    // return <PortfolioAddProject/>
+    
+    return <PortfolioAddDetails/>
+
 
 }
 export default ProfileFreeLancer;
