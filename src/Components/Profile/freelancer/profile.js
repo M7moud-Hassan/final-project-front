@@ -13,6 +13,7 @@ import { useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import MonthPickerInput from 'react-month-picker-input'
 import 'react-month-picker-input/dist/react-month-picker-input.css';
+import './windows'
 class Profile extends Component {
     
     constructor() {
@@ -68,7 +69,9 @@ class Profile extends Component {
             certification_ID:'',
             certification_UR:'',
             id_type:0,
-            optionCertification:[]
+            optionCertification:[],
+            selectYear:0,
+            selectMonth:0,
 
         }
 
@@ -163,9 +166,49 @@ class Profile extends Component {
             
 
     }
+    addEmpolymentHistory(){
+
+        var history = {
+            "title": this.state.title,
+            "company": this.state.company,
+            "location": this.state.location,
+            "is_current_work": this.state.is_work,
+            "period_from_month": this.state.start_date,
+            "period_to_month": this.state.end_date,
+            "description": this.state.description,
+            "id": localStorage.getItem("uid")
+        };
+
+
+       axios.post("http://127.0.0.1:8000/profile/add_history_employment/",
+        history
+       ).then(response=>{
+        this.setState(prevState => {
+            const { data } = prevState;
+            data.empolumentHistory.push(response.data);
+          
+            return { data };
+        },
+            () => {
+                this.setState({
+                    title: '',
+                    company: '',
+                    location: '',
+                    is_work: false,
+                    start_date: '',
+                    end_date: '',
+                    start_date_error: '',
+                    error: '',
+                    description: ''
+                })
+            })
+       })
+
+
+    }
     update_experiences() {
         if (this.state.title && this.state.company && this.state.location && this.state.description && this.state.start_date && this.state.end_date) {
-            console.log('gkgkgkkgkgkkgk');
+         
             var expierces = {
                 "title": this.state.title,
                 "company": this.state.company,
@@ -347,8 +390,6 @@ class Profile extends Component {
         }
         return (
             <div>
-
-
                 <div>
                     <NavBar url='http://127.0.0.1:8000/profile/get_details_free/'
                         openMenu={this.state.isMenu?(this.XsettingS):(this.settingS)}/>
@@ -365,7 +406,14 @@ class Profile extends Component {
                                 }
                             }><h5 className='pb-4'>Logout</h5></NavLink>
                         </div></div>
-                    <div className="container-border my-4">
+                    <div className="container-border my-4"  onClick={
+                (e)=>{
+                  
+                   
+                    this.XsettingS()
+                   
+                }
+            }>
                         <div className="container my-5">
                             <div className="row">
 
@@ -468,17 +516,30 @@ class Profile extends Component {
                                                             () => {
                                                                 document.getElementById('id06').style.display = 'block'
                                                             }
-                                                        }><i
-                                                            className="fa-solid fa-pen"></i></button>
+                                                        }><i className="fa-solid fa-plus"></i></button>
                                                 </div>
                                             </div>
                                             <ul className="list-unstyled">
                                                 {this.state.data.educations.map((education, index) => (
                                                     <div className='container-border my-1'>
                                                         <li key={index}>
-                                                        <button type="button" className="btn btn-outline-primary btn-sm rounded-pill me-2"><i
-                                            className="fa-solid fa-pen"></i></button>
-                                        <button type="button" className="btn btn-outline-danger rounded-pill btn-sm"><i
+                                        <button type="button" className="btn btn-outline-danger rounded-pill btn-sm" onClick={
+                                            ()=>{
+                                                axios.post('http://127.0.0.1:8000/profile/delEducation/',{
+                                                    id:education.id
+                                                }).then(response=>{
+                                                    this.setState(prevState => {
+                                                        const { data } = prevState;
+                                                        data.educations=this.removeItemOnce(data.educations,education)
+                                                      console.log(response.data);
+                                                        return { data };
+                                                    },
+                                                        () => {
+                                                          
+                                                        })
+                                                })
+                                            }
+                                        }><i
                                             className="fa-solid fa-trash-can"></i></button>
                                                             <h5>{education.school}</h5>
                                                             <p>{education.from_year}</p>
@@ -528,6 +589,7 @@ class Profile extends Component {
                                             <div>
                                                 <button type="button" className="btn btn-outline-primary rounded-pill btn-sm me-2 " onClick={
                                                     ()=>{
+                                                        localStorage.removeItem("portflio")
                                                         window.location='/addPortFilo'
                                                     }
                                                 }><i
@@ -539,9 +601,29 @@ class Profile extends Component {
                                                 <div className="row d-flex justify-content-around ">
                                                     {this.state.data.portfilos.map((portfilo, index) => (
                                                         <div key={index} className="col-md-4">
-                                                             <button type="button" className="btn btn-outline-primary btn-sm rounded-pill me-2"><i
+                                                             <button type="button" className="btn btn-outline-primary btn-sm rounded-pill me-2" onClick={
+                                                                ()=>{
+                                                                    localStorage.setItem("portfilo",JSON.stringify(portfilo))
+                                                                    window.location='/addPortFilo'
+                                                                }
+                                                             }><i
                                             className="fa-solid fa-pen"></i></button>
-                                        <button type="button" className="btn btn-outline-danger rounded-pill btn-sm"><i
+                                        <button type="button" className="btn btn-outline-danger rounded-pill btn-sm" onClick={
+                                                                ()=>{
+                                                                    axios.post('http://127.0.0.1:8000/profile/delPortFilo/',{
+                                                                        id:portfilo.id
+                                                                    }).then(response=>{
+                                                                        this.setState(prevState => {
+                                                                            const { data } = prevState;
+                                                                            data.portfilos=this.removeItemOnce(data.portfilos,portfilo)
+                                                                            return { data };
+                                                                        },
+                                                                            () => {
+                                                                               
+                                                                            })
+                                                                    })
+                                                                }
+                                                             }><i
                                             className="fa-solid fa-trash-can"></i></button>
                                                             <div className="card">
                                                                 <img className="card-img-top" src={"data:image/*;base64," + portfilo.image} alt="Card image cap" style={{ width: '150px' }} />
@@ -662,10 +744,20 @@ class Profile extends Component {
                                             <div>
                                                 <button id="con" type="button" className="btn btn-outline-primary rounded-pill btn-sm me-2 " onClick={
                                                     () => {
+                                                        this.setState({
+                                                            title: '',
+                                                            company: '',
+                                                            location: '',
+                                                            is_work: false,
+                                                            start_date: '',
+                                                            end_date: '',
+                                                            start_date_error: '',
+                                                            error: '',
+                                                            description: ''
+                                                        })
                                                         document.getElementById('id05').style.display = 'block'
                                                     }
-                                                }><i
-                                                    className="fa-solid fa-pen"></i></button>
+                                                }><i className="fa-solid fa-plus"></i></button>
                                             </div>
 
                                         </div>
@@ -765,9 +857,22 @@ class Profile extends Component {
 
                                     </div>
                                     <div>
-                                        <button type="button" className="btn btn-outline-primary btn-sm rounded-pill me-2"><i
-                                            className="fa-solid fa-pen"></i></button>
-                                        <button type="button" className="btn btn-outline-danger rounded-pill btn-sm"><i
+                                            <button type="button" className="btn btn-outline-danger rounded-pill btn-sm" onClick={
+                                                ()=>{
+                                                    axios.post('http://127.0.0.1:8000/profile/delcertificate/',{
+                                                        id:certification.id
+                                                    }).then(response=>{
+                                                        this.setState(prevState => {
+                                                            const { data } = prevState;
+                                                            data.certifications=this.removeItemOnce(data.certifications,certification)
+                                                            return { data };
+                                                        },
+                                                            () => {
+                                                               
+                                                            })
+                                                    })
+                                                }
+                                            }><i
                                             className="fa-solid fa-trash-can"></i></button>
                                     </div>
                                 </div>
@@ -790,6 +895,17 @@ class Profile extends Component {
 
                                 <button type="button" className="btn btn-outline-success btn-sm rounded-pill" onClick={
                                     ()=>{
+                                        this.setState({
+                                            title: '',
+                                            company: '',
+                                            location: '',
+                                            is_work: false,
+                                            start_date: '',
+                                            end_date: '',
+                                            start_date_error: '',
+                                            error: '',
+                                            description: ''
+                                        })
                                         document.getElementById('id08').style.display='block'
                                     }
                                 }><i
@@ -804,9 +920,22 @@ class Profile extends Component {
                                         <p className="mb-3">{empolumentHistory1.location}</p>
                                     </div>
                                     <div>
-                                        <button type="button" className="btn btn-outline-primary btn-sm rounded-pill me-2"><i
-                                            className="fa-solid fa-pen"></i></button>
-                                        <button type="button" className="btn btn-outline-danger rounded-pill btn-sm"><i
+                                              <button type="button" className="btn btn-outline-danger rounded-pill btn-sm" onClick={
+                                                ()=>{
+                                                    axios.post('http://127.0.0.1:8000/profile/delHistoryEmpl/',{
+                                                        id:empolumentHistory1.id
+                                                    }).then(response=>{
+                                                        this.setState(prevState => {
+                                                            const { data } = prevState;
+                                                            data.empolumentHistory=this.removeItemOnce(data.empolumentHistory,empolumentHistory1)
+                                                            return { data };
+                                                        },
+                                                            () => {
+                                                               
+                                                            })
+                                                    })
+                                                }
+                                              }><i
                                             className="fa-solid fa-trash-can"></i></button>
                                     </div>
                                 </div>
@@ -1420,15 +1549,19 @@ class Profile extends Component {
 
 (event) => {
     event.preventDefault()
-    /*if (!this.state.error_end && !this.state.start_date_error) {
-        if (this.state.id_exp_update) {
-            this.update_experiences()
-            document.getElementById('id05').style.display = 'none'
-        } else {
-            this.add_experiences()
-            document.getElementById('id05').style.display = 'none'
+    if (!this.state.end_date_error&&this.state.start_date&&this.state.end_date) {
+      
+            this.addEmpolymentHistory()
+            document.getElementById('id08').style.display = 'none'
+        
+        
+    }else{
+        if(!this.state.start_date){
+this.setState({start_date_error:"this is required"})
+        }else if (!this.state.end_date){
+            this.setState({end_date_error:"this is required"})
         }
-    }*/
+    }
 }
 
 } novalidate>
@@ -1482,8 +1615,13 @@ class Profile extends Component {
             maxDate={[11,2023]}
             
             className={"form-control"}
-  onChange={function(maskedValue, selectedYear, selectedMonth) {
-    console.log(maskedValue, selectedYear, selectedMonth);
+  onChange={(maskedValue,selectedYear,selectedMonth)=>{
+        this.setState({start_date:maskedValue})
+        this.setState({selectYear:selectedYear})
+        this.setState({selectedMonth:selectedMonth})
+        this.setState({end_date_error:''})
+        this.setState({start_date_error:''})
+      
   }}
   required/>
                         <div className='text-danger'>
@@ -1493,12 +1631,16 @@ class Profile extends Component {
         <div className="col-6">
             <label htmlFor="end_date">End</label>
             <MonthPickerInput
-            minDate={[0,1990]}
+            minDate={[this.state.selectMonth,this.state.selectYear]}
             maxDate={[11,2023]}
-            
             className={"form-control"}
-  onChange={function(maskedValue, selectedYear, selectedMonth) {
-    console.log(maskedValue, selectedYear, selectedMonth);
+  onChange={(maskedValue, selectedYear, selectedMonth)=>{
+   if(this.state.start_date){
+    this.setState({end_date:maskedValue})
+    this.setState({end_date_error:''})
+   }else{
+    this.setState({end_date_error:"select start date"})
+   }
   }}
   required/>
                        <div className='text-danger'>

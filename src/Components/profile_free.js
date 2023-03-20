@@ -4,13 +4,13 @@ import Profile from "./Profile/freelancer/profile"
 
 let ProfileFreeLancer = () => {
 
-    if(localStorage.getItem('uid'))
+    if(localStorage.getItem('uid')!=undefined)
     {
       if(localStorage.getItem('type')=='free'){
         return <Profile/>
     }
     else{
-        window.location='/clientprofile'
+        window.location='/error'
     }
     }else{
     window.location='/error'
