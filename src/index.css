@@ -228,6 +228,7 @@ color: rgb(108, 180, 177);
   border :1px groove rgb(189, 189, 189);
   border-radius: 20px;
   text-align: center;
+  background-color: white;
 }
 ol.ordered{
   list-style-type:upper-alpha;
