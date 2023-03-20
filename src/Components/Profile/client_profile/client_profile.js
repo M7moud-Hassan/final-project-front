@@ -13,7 +13,7 @@ const ClientProfile = () => {
     const [id, setId] = useState('');
     const [data, setData] = useState('');
     const setting = useRef('');
-
+    const [isMenu, setIsMenu] = useState(false);
 
     useEffect(() => {
         if(localStorage.getItem('uid'))
@@ -26,10 +26,12 @@ const ClientProfile = () => {
       }, []);
     
     function settingS() {
+        setIsMenu(true)
         const DoM = setting.current;
             DoM.style.display = 'block'
       }
     function XsettingS() {
+        setIsMenu(false)
         const DoM = setting.current;
             DoM.style.display = 'none'
       }
@@ -53,10 +55,7 @@ const ClientProfile = () => {
         <div>
              <NavBar 
             url='http://127.0.0.1:8000/profile/clientDetails/'
-            openMenu={()=>{
-              console.log("skdkkdkdkk");
-              //open menu
-            }}
+            openMenu={isMenu?(XsettingS):(settingS)}
             />
             <div className='row'>
             <div className=' col-sm-3 buttonSetting text-center' ref={setting}>
