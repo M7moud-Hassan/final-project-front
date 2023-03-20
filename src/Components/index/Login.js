@@ -24,7 +24,7 @@ function Login() {
                     localStorage.setItem("type", res.data.type);
                     if(res.data.type=='free'){
                     window.location = '/profile_free'
-                    }else if(res.data.type=='client')
+                    }else if(res.data.type=='user')
                     {
                         window.location = '/clientprofile'
                     }
