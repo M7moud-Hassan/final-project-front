@@ -240,7 +240,7 @@ ol.ordered{
 }
 .buttonSetting{
   z-index: 99;
-  /* display: none; */
+  display: none;
   position: fixed;
   right: 0;
   background-color: white;
