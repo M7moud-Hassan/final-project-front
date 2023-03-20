@@ -12,6 +12,7 @@ const ClientProfile = () => {
     const [data, setData] = useState('');
     const setting = useRef('');
 
+
     useEffect(() => {
         setting.current.focus();
       }, []);

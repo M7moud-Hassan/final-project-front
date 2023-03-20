@@ -15,16 +15,24 @@ const ClientSettings1 = () => {
     const [statez, setState] = useState('');
     const [postal_codez, setPostal_code] = useState('');
     const contactSection = useRef('');
-
+    const inputFile = useRef(null) ;
+    
+    const [current_imae_url, SetCurrentFile] = useState('');
 
     useEffect(() => {
         axios.post(`http://127.0.0.1:8000/profile/clientDetails/`, { id: localStorage.getItem('uid') })
             .then(res => {
                 setData(res.data);
-                console.log(res.data);
                 setPhone(res.data.phone);
                 setFname(res.data.fname);
                 setLname(res.data.lname);
+                setStreet(res.data.street);
+                setState(res.data.state);
+                setCity(res.data.city);
+                setPostal_code(res.data.postal_code);
+             
+                
+                
             })
             .catch(err => {
                 console.log(err.message);
@@ -33,24 +41,6 @@ const ClientSettings1 = () => {
     useEffect(() => {
         contactSection.current.focus();
     }, []);
-    useEffect(() => {
-        axios.post(`http://localhost:8000/profile/secondaryDetails/`, {
-            id: localStorage.getItem('uid'),
-            street: streetz,
-            city: cityz,
-            state: statez,
-            postal_code: postal_codez
-        }).then(res => {
-            // res.data.street = streetz
-            setData(res.data);
-            setStreet(res.data.street);
-            setCity(res.data.city);
-            setState(res.data.state);
-            setPostal_code(res.data.postal_code);
-        })
-
-    })
-
     function contactS() {
         const DoM = contactSection.current;
         DoM.style.display = 'block'
@@ -59,12 +49,35 @@ const ClientSettings1 = () => {
         const DoM = contactSection.current;
         DoM.style.display = 'none'
     }
+    const onButtonClick = () => {
+        // `current` points to the mounted file input element
+        inputFile.current.click();
+      };
 
     return (
         <div className="container">
             <div className="contactModal container w-75" ref={contactSection}>
                 <div className=" container ">
-                    <form >
+                    <form onSubmit={
+                        (e)=>{
+                            e.preventDefault()
+                            axios.post(`http://localhost:8000/profile/secondaryDetails/`, {
+                             id: localStorage.getItem('uid'),
+                            street: streetz,
+                            city: cityz,
+                            state: statez,
+                            postal_code: postal_codez,
+                            fName:fnamez,
+                            lName:lnamez,
+                            phone:phonez
+        }).then(res => {
+            // res.data.street = streetz
+           console.log(res.data);
+           XcontactS()
+           
+        })
+                        }
+                    }>
                         <div class="row">
                             <div className="row mt-5">
                                 <div className="col-md-6 mb-4">
@@ -73,7 +86,7 @@ const ClientSettings1 = () => {
                                             className="form-control  rounded-pill" name="fname" value={fnamez}
                                             onChange={
                                                 (e) => {
-                                                    setLname(e.target.value)
+                                                    setFname(e.target.value)
                                                 }
                                             } />
                                         <div className="invalid-feedback text-center">
@@ -195,7 +208,38 @@ const ClientSettings1 = () => {
                 <div className="col-sm-8 ">
                     <div className="container mt-3 settingBody">
                         <h3 className="mt-3">Account </h3>
-                        <img className="settingImage mt-5 mb-5" src="./images/default.png" />
+                        <img className="settingImage mt-5 mb-5" src={current_imae_url?(current_imae_url):(data.image?("data:image/*;base64," +data.image):("./images/default.png"))} />
+                        <button type="file" className="btn btn-outline-primary btn-sm rounded-pill me-2" onClick={onButtonClick}><i
+                                                           className="fa-solid fa-pen"></i></button>
+                                                           <input type='file' id='file'  ref={inputFile} style={{display: 'none'}}  onChange={
+      (e)=>{
+        var file = e.target.files[0]
+        
+    let reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onload = () => {
+     
+    
+    axios.post(`http://127.0.0.1:8000/profile/updateImageUser/`,{
+        id:localStorage.getItem("uid"),
+        image:file
+    },{
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+    }).then(response=>{
+        if(response.data='ok'){
+            SetCurrentFile(reader.result)
+        }
+    })
+       
+    };
+    reader.onerror = function (error) {
+      console.log('Error: ', error);
+    }
+        
+      }
+    }/>
                         <hr className="w-100" />
                         <h3>{data.name} -<span className="text-muted"> client</span></h3>
                         <h3>{data.email}</h3>
@@ -208,14 +252,14 @@ const ClientSettings1 = () => {
                         <h3 className="mt-3">Contacts</h3>
                         <h2 className="fontAwsomeSetting"><button className="btn btn-success" onClick={contactS}><i class="fa-regular fa-pen-to-square " ></i></button></h2>
                         <h5 className="mt-3">Owner</h5>
-                        <h6>{data.name}</h6>
+                        <h6>{fnamez+" "+lnamez}</h6>
                         <hr className="w-100" />
                         <h5>Phone</h5>
-                        <h6>{data.phone}</h6>
+                        <h6>{phonez}</h6>
 
                         <hr className="w-100" />
                         <h5>Address </h5>
-                        <h6>User address Here </h6>
+                        <h6>{statez+" "+cityz+"  "+streetz+ " "+ postal_codez}</h6>
                     </div>
                 </div>
                 <div className="col-sm-4"></div>
