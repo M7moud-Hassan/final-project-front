@@ -130,7 +130,7 @@ class Profile extends Component {
     }
     update_experiences() {
         if (this.state.title && this.state.company && this.state.location && this.state.description && this.state.start_date && this.state.end_date) {
-            console.log('gkgkgkkgkgkkgk');
+           
             var expierces = {
                 "title": this.state.title,
                 "company": this.state.company,
@@ -691,6 +691,7 @@ class Profile extends Component {
 
                 </div>
                 <Footer />
+                 {/* overviw model */}
                 <div id="id02" class="mamodal rounded">
 
                     <form class="mamodal-content maanimate rounded">
@@ -755,6 +756,7 @@ class Profile extends Component {
                         </div>
                     </form>
                 </div>
+                {/* education mdel
                 <div id="id11" class="mamodal rounded" >
                     <form id="education" class="needs-validation dialog" onSubmit={
 
@@ -894,8 +896,8 @@ class Profile extends Component {
                         </div>
                     </form>
 
-
-                </div>
+                </div> */}
+                 {/* skills model */}
 
                 <div id="id03" class="mamodal rounded  ">
 
@@ -987,6 +989,8 @@ class Profile extends Component {
                     </form>
                 </div>
 
+                {/* services model */}
+
                 <div id="id04" class="mamodal rounded  ">
 
                     <form class="mamodal-content maanimate rounded" onSubmit={
@@ -1076,6 +1080,8 @@ class Profile extends Component {
                         </div>
                     </form>
                 </div>
+
+                {/* experincw model */}
 
                 <form id="id05" class="needs-validation mamodal" onSubmit={
 
