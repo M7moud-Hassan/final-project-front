@@ -9,7 +9,6 @@ let ProfileClient = () => {
     {
       if(localStorage.getItem('type')=='user'){
     return <div>
-            <NavBar/>
             <ClientProfile/>
             <Footer/>
 
