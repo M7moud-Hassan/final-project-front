@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useState } from 'react';
 // import { useEffect } from 'react';
 import '../../../index.css'
+import Error from '../../index/error';
 
 
 const ClientProfile = () => {
@@ -14,7 +15,13 @@ const ClientProfile = () => {
 
 
     useEffect(() => {
-        setting.current.focus();
+        if(localStorage.getItem('uid'))
+        {
+          if(localStorage.getItem('type')=='user'){
+            setting.current.focus();
+          }
+      }
+       
       }, []);
     
     function settingS() {
@@ -35,7 +42,11 @@ const ClientProfile = () => {
                 console.log(err.message);
             });
     }, [id]);
-
+    if(localStorage.getItem('uid'))
+    {
+      if(localStorage.getItem('type')=='user'){
+      
+      
 
     return (
         <div><div className='row'>
@@ -235,6 +246,13 @@ const ClientProfile = () => {
         </div>
 
     )
+}
+else{
+    window.location='/profile_free'
+}
+}else{
+window.location='/error'
+}
 }
 
 

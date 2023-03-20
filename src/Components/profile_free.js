@@ -2,6 +2,18 @@ import Profile from "./Profile/freelancer/profile"
 
 let ProfileFreeLancer = () => {
 
-    return <Profile/>
+    if(localStorage.getItem('uid'))
+    {
+      if(localStorage.getItem('type')=='free'){
+        return <Profile/>
+    }
+    else{
+        window.location='/clientprofile'
+    }
+    }else{
+    window.location='/error'
+    }
+   
+
 }
 export default ProfileFreeLancer;
