@@ -44,7 +44,12 @@ const ClientProfile = () => {
                 <h4 className='mt-3'>{data.name}</h4>
                 <hr />
                 <NavLink to={'/clientsettings'}><h5>Settings</h5></NavLink>
-                <NavLink to={'/'}><h5 className='pb-4'>Logout</h5></NavLink>
+                <NavLink onClick={
+                    ()=>{
+                        localStorage.clear()
+                        window.location="/"
+                    }
+                }><h5 className='pb-4'>Logout</h5></NavLink>
             </div></div>
             <div className='container'>
                 <div className='mt-md-5 mt-xs-3 mt-1'>

@@ -241,7 +241,7 @@ const ClientSettings1 = () => {
       }
     }/>
                         <hr className="w-100" />
-                        <h3>{data.name} -<span className="text-muted"> client</span></h3>
+                        <h3>{fnamez+" "+lnamez} -<span className="text-muted"> client</span></h3>
                         <h3>{data.email}</h3>
                     </div>
                 </div>
