@@ -228,6 +228,7 @@ color: rgb(108, 180, 177);
   border :1px groove rgb(189, 189, 189);
   border-radius: 20px;
   text-align: center;
+  background-color: white;
 }
 ol.ordered{
   list-style-type:upper-alpha;
@@ -239,7 +240,7 @@ ol.ordered{
 }
 .buttonSetting{
   z-index: 99;
-  /* display: none; */
+  display: none;
   position: fixed;
   right: 0;
   background-color: white;
@@ -255,4 +256,15 @@ ol.ordered{
   text-align: center;
   width: 100px;
   border-radius: 50%;
+}
+.fontAwsomeSetting{
+  margin-left: 90%;
+  margin-top: -7%;
+}
+.contactModal{
+  z-index: 10;
+  position: fixed;
+  background-color: white;
+  border-radius: 20px;
+  display: none;
 }

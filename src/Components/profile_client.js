@@ -5,12 +5,21 @@ import NavBar from "./Profile/freelancer/navbar";
 import Profile from "./Profile/freelancer/profile"
 
 let ProfileClient = () => {
-
+    if(localStorage.getItem('uid'))
+    {
+      if(localStorage.getItem('type')=='user'){
     return <div>
-            <NavBar/>
             <ClientProfile/>
             <Footer/>
 
     </div>
+    }
+    else{
+        window.location='/profile_free'
+    }
+    }else{
+    window.location='/error'
+    }
+    
 }
 export default ProfileClient;

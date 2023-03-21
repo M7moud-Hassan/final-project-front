@@ -21,7 +21,9 @@ import ProfileFreeLancer from './Components/profile_free';
 import Error from './Components/index/error';
 import ProfileClient from './Components/profile_client';
 import ClientSettings1 from './Components/Profile/client_profile/client_settings1';
-import ClientProfile from './Components/Profile/client_profile/client_profile';
+import PortfolioProject from './Components/Profile/freelancer/PortfolioAddProject';
+import PortfolioAddDetails from './Components/Profile/freelancer/PortfolioAddDetails';
+
 
 
 
@@ -43,7 +45,9 @@ function App() {
       <Route path='/test_token/:uid/:token/:type' element={<TestToken/>}/>
       <Route path='/clientprofile' element={<ProfileClient/>}/>
       <Route path="/profile_free" element={<ProfileFreeLancer/>}/>
-      <Route path='/clientsettings' element={<ClientProfile/>}/>
+      <Route path='/clientsettings' element={<ClientSettings1/>}/>
+      <Route path='/addPortFilo' element={<PortfolioProject/>}/>
+      <Route path='/PortfolioAddDetails/:title/:date_time' element={<PortfolioAddDetails/>}/>
       <Route path='*' element={<Error/>} />
       </Routes>
       </BrowserRouter>
