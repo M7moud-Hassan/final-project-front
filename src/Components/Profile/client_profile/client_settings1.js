@@ -206,14 +206,17 @@ const ClientSettings1 = () => {
                     </div>
                     <div className="row mt-5">
                         <div className="col-sm-4">
+                            <h2>Settings</h2>
                             <div>
                                 <ol className="ordered" >
-                                    <NavLink to={'/'}><li><h2>My info</h2></li></NavLink>
-                                    <NavLink to={'/'}><li><h2>Billing & Payments</h2></li></NavLink>
+                                    <NavLink style={({ isActive }) => ({ color: isActive ? 'green' : 'Black' })} to={'/clientsettings'}><li><h3>My info</h3></li></NavLink>
+                                    <NavLink style={({ isActive }) => ({ color: isActive ? 'green' : 'Black' })} to={'/ClientPayment'}><li><h3>Billing & Payments</h3></li></NavLink>
+                                    <NavLink style={({ isActive }) => ({ color: isActive ? 'green' : 'Black' })} to={'/changeUserPassword'}><li><h3>Password & Security</h3></li></NavLink>
                                 </ol>
                             </div>
                         </div>
                         <div className="col-sm-8 ">
+                        <h2>Contact info</h2>
                             <div className="container mt-3 settingBody">
                                 <h3 className="mt-3">Account </h3>
                                 <img className="settingImage mt-5 mb-5" src={current_imae_url ? (current_imae_url) : (data.image ? ("data:image/*;base64," + data.image) : ("./images/default.png"))} />

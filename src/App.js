@@ -24,6 +24,11 @@ import ClientSettings1 from './Components/Profile/client_profile/client_settings
 import PortfolioProject from './Components/Profile/freelancer/PortfolioAddProject';
 import PortfolioAddDetails from './Components/Profile/freelancer/PortfolioAddDetails';
 import FreeSettings from './Components/Profile/freelancer/FreelancerSettings';
+import PaymentUser from './Components/Profile/client_profile/Payment';
+import ChangePassword from './Components/Profile/client_profile/changePassword';
+import ChangePasswordFree from './Components/Profile/freelancer/changePasswordFree';
+import PaymentFreeLancer from './Components/Profile/freelancer/PaymentFree';
+import HomeFreeLancer from './Components/home/freelancer/home';
 
 
 
@@ -50,6 +55,13 @@ function App() {
       <Route path='/Freelancersettings' element={<FreeSettings/>}/>
       <Route path='/addPortFilo' element={<PortfolioProject/>}/>
       <Route path='/PortfolioAddDetails/:title/:date_time' element={<PortfolioAddDetails/>}/>
+      <Route path='/ClientPayment' element={<PaymentUser/>}/>
+      <Route path='/FreePayment' element={<PaymentFreeLancer/>}/>
+      <Route path='/changeUserPassword' element={<ChangePassword/>}/>
+      <Route path='/changeFreePassword'element={<ChangePasswordFree/>}/>
+      <Route path='/home_freelancer' element={<HomeFreeLancer/>}/>
+
+
       <Route path='*' element={<Error/>} />
       </Routes>
       </BrowserRouter>

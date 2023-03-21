@@ -398,7 +398,7 @@ class Profile extends Component {
                             <img className='littleSymbolImage' src={data.image ? ("data:image/*;base64," + data.image) : ("./images/default.png")} />
                             <h4 className='mt-3'>{data.name}</h4>
                             <hr />
-                            <NavLink to={'/clientsettings'}><h5>Settings</h5></NavLink>
+                            <NavLink to={'/Freelancersettings'}><h5>Settings</h5></NavLink>
                             <NavLink onClick={
                                 () => {
                                     localStorage.clear()
@@ -777,7 +777,7 @@ class Profile extends Component {
                                                                                 id: experiecnce.id
                                                                             }).then(response => {
 
-                                                                                console.log(response.data.exp.title)
+                                                                            
                                                                                 this.setState({
                                                                                     title: response.data.exp.title,
                                                                                     company: response.data.exp.company,

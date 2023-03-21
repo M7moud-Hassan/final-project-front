@@ -38,7 +38,7 @@ const ChangePassword = () => {
                             })
                         }
                     }>
-                        <h3>Change Password</h3>
+                        <h3 className="text-start">Change Password</h3>
                         <div className="ms-3 mt-3">
                             <div className="row text-start">
                                 <div className="col-md-12 mt-3">
@@ -81,13 +81,13 @@ const ChangePassword = () => {
             </div>
 
             <div className="row mt-5">
-                <div className="col-md-4">
-                    <h2>Password & security</h2>
+                <div className="col-md-4 text-start">
+                    <h2>Settings</h2>
                     <div>
-                        <ol className="ordered" >
-                            <NavLink to={'/'}><li><h2>My info</h2></li></NavLink>
-                            <NavLink to={'/'}><li><h2>Billing & Payments</h2></li></NavLink>
-                            <NavLink to={'/'}><li><h2>Password & security</h2></li></NavLink>
+                        <ol className="ordered text-start" >
+                            <NavLink style={({ isActive }) => ({ color: isActive ? 'green' : 'Black' })} to={'/clientsettings'}><li><h3>My info</h3></li></NavLink>
+                            <NavLink style={({ isActive }) => ({ color: isActive ? 'green' : 'Black' })} to={'/ClientPayment'}><li><h3>Billing & Payments</h3></li></NavLink>
+                            <NavLink style={({ isActive }) => ({ color: isActive ? 'green' : 'Black' })} to={'/changeUserPassword'}><li><h3>Password & Security</h3></li></NavLink>
                         </ol>
                     </div>
                 </div>

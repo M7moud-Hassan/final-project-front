@@ -8,7 +8,7 @@ import PortfolioAddProject from "./Profile/freelancer/PortfolioAddProject";
 import Profile from "./Profile/freelancer/profile"
 
 let ProfileFreeLancer = () => {
-
+    
      if(localStorage.getItem('uid')!=undefined)
      {
        if(localStorage.getItem('type')=='free'){
@@ -24,4 +24,5 @@ let ProfileFreeLancer = () => {
     // return <PaymentFreeLancer/>
       //  return<ChangePasswordFree/>
 }
+
 export default ProfileFreeLancer;
