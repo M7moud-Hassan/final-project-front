@@ -23,6 +23,7 @@ import ProfileClient from './Components/profile_client';
 import ClientSettings1 from './Components/Profile/client_profile/client_settings1';
 import PortfolioProject from './Components/Profile/freelancer/PortfolioAddProject';
 import PortfolioAddDetails from './Components/Profile/freelancer/PortfolioAddDetails';
+import FreeSettings from './Components/Profile/freelancer/FreelancerSettings';
 
 
 
@@ -46,6 +47,7 @@ function App() {
       <Route path='/clientprofile' element={<ProfileClient/>}/>
       <Route path="/profile_free" element={<ProfileFreeLancer/>}/>
       <Route path='/clientsettings' element={<ClientSettings1/>}/>
+      <Route path='/Freelancersettings' element={<FreeSettings/>}/>
       <Route path='/addPortFilo' element={<PortfolioProject/>}/>
       <Route path='/PortfolioAddDetails/:title/:date_time' element={<PortfolioAddDetails/>}/>
       <Route path='*' element={<Error/>} />

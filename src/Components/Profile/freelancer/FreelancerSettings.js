@@ -217,7 +217,7 @@ const FreeSettings = () => {
                             <div className="container mt-3 settingBody">
                                 <h3 className="mt-3">Account </h3>
                                 <img className="settingImage mt-5 mb-5" src={current_imae_url ? (current_imae_url) : (data.user_image ? ("data:image/*;base64," + data.user_image) : ("./images/default.png"))} />
-                                <button type="file" className="btn btn-outline-primary btn-sm rounded-pill me-2" onClick={onButtonClick}><i
+                                <button type="file" className="btn btn-outline-success btn-sm rounded-pill ms-1" onClick={onButtonClick}><i
                                     className="fa-solid fa-pen"></i></button>
                                 <input type='file' id='file' ref={inputFile} style={{ display: 'none' }} onChange={
                                     (e) => {

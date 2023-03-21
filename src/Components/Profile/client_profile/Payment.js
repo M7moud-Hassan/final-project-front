@@ -19,63 +19,63 @@ const PaymentUser = () => {
 
     return (
         <div className="container">
-            <div className="container w-75 paymentModal  ms-5 border border-success " ref={paymentSection}>
+            <div className="container w-75 paymentModal  ms-5 border border-success animate" ref={paymentSection}>
                 <div className=" container mt-3">
                     <form className="text-center ">
                             <h3>Billing Address</h3>
 
                                 <div className="row text-start">
-                                    <div className="col-md-6 mt-3 ">
+                                    <div className="col-md-6 mt-md-3 mt-xs-1 mt-0">
                                         <label for="fname" className=""><i className="fa fa-user"></i> Full Name</label>
-                                        <input type="text" className="form-control" id="fname" name="firstname" placeholder="John M. Doe" />
+                                        <input type="text" className="form-control" id="fname" name="firstname" placeholder="Full name" />
                                     </div>
-                                    <div className="col-md-6 mt-3">
+                                    <div className="col-md-6 mt-md-3 mt-xs-1 mt-0">
                                         <label for="email"><i className="fa fa-envelope"></i> Email</label>
-                                        <input type="text" id="email" name="email" className="form-control" placeholder="john@example.com" />
+                                        <input type="text" id="email" name="email" className="form-control" placeholder="iTiUser@iti.com" />
                                     </div>
                                 </div>
-                                <div className="mt-3 text-start">
+                                <div className="mt-md-3 mt-xs-1 mt-0mt-3 text-start">
                                     <label for="adr"><i className="fa fa-address-card-o"></i> Address</label>
                                     <input type="text" id="adr" name="address" className="form-control" placeholder="542 W. 15th Street" />
                                 </div>
 
                                 <div className="row text-start">
-                                    <div className="col-md-4 mt-3">
+                                    <div className="col-4 mt-md-3 mt-xs-1 mt-0">
                                         <label for="city"><i className="fa fa-institution"></i> City</label>
-                                        <input type="text" id="city" name="city" className="form-control" placeholder="New York" />
+                                        <input type="text" id="city" name="city" className="form-control" placeholder="Address" />
                                     </div>
-                                    <div className="col-md-4 mt-3">
+                                    <div className="col-4 mt-md-3 mt-xs-1 mt-0">
                                         <label for="state">State</label>
                                         <input type="text" id="state" name="state" className="form-control" placeholder="NY" />
                                     </div>
-                                    <div className="col-md-4 mt-3">
+                                    <div className="col-4 mt-md-3 mt-xs-1 mt-0">
                                         <label for="zip">Zip</label>
-                                        <input type="text" id="zip" name="zip" className="form-control" placeholder="10001" />
+                                        <input type="text" id="zip" name="zip" className="form-control" placeholder="12345" />
                                     </div>
                                 </div>
 
 
                             <div className="row text-start ">
-                                <div className="col-md-6 mt-3">
+                                <div className="col-md-6 mt-md-3 mt-xs-1 mt-0">
                                     <label for="cname">Name on Card</label>
-                                    <input type="text" id="cname" name="cardname" className="form-control" placeholder="John More Doe" />
+                                    <input type="text" id="cname" name="cardname" className="form-control" placeholder="Full name on the card" />
                                 </div>
-                                <div className="col-md-6 mt-3">
+                                <div className="col-md-6 mt-md-3 mt-xs-1 mt-0">
                                     <label for="ccnum">Credit card number</label>
                                     <input type="text" id="ccnum" name="cardnumber" className="form-control" placeholder="1111-2222-3333-4444" />
                                 </div>
                             </div>
                             <div className="row mb-3 text-start">
-                                <div className="col-md-4 mt-3">
+                                <div className="col-4 mt-md-3 mt-xs-1 mt-0">
                                     <label for="expmonth">Exp Month</label>
-                                    <input type="text" id="expmonth" name="expmonth" className="form-control" placeholder="September" />
+                                    <input type="text" id="expmonth" name="expmonth" className="form-control" placeholder="M-number" />
                                 </div>
-                                <div className="col-md-4 mt-3">
+                                <div className="col-4 mt-md-3 mt-xs-1 mt-0">
                                     <label for="expyear">Exp Year</label>
-                                    <input type="text" id="expyear" name="expyear" className="form-control" placeholder="2018" />
+                                    <input type="text" id="expyear" name="expyear" className="form-control" placeholder="2024" />
                                 </div>
 
-                                <div className="col-md-4 mt-3 ">
+                                <div className="col-4 mt-md-3 mt-xs-1 mt-0 ">
                                     <label for="cvv">CVV</label>
                                     <input type="text" id="cvv" name="cvv" className="form-control" placeholder="352" />
                                 </div>
