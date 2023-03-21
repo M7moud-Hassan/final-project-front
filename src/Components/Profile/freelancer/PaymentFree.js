@@ -216,9 +216,10 @@ const PaymentFreeLancer = () => {
                     <h2>Settings</h2>
                     <div>
                         <ol className="ordered" >
-                            <NavLink to={'/'}><li><h2>My info</h2></li></NavLink>
-                            <NavLink to={'/'}><li><h2>Billing & Payments</h2></li></NavLink>
-                            <NavLink to={'/'}><li><h2>Change Password</h2></li></NavLink>
+                            <NavLink style={({ isActive }) => ({ color: isActive ? 'green' : 'Black' })} to={'/Freelancersettings'}><li><h3>My info</h3></li></NavLink>
+                            <NavLink style={({ isActive }) => ({ color: isActive ? 'green' : 'Black' })} to={'/FreePayment'}><li><h3>Billing & Payments</h3></li></NavLink>
+                            <NavLink style={({ isActive }) => ({ color: isActive ? 'green' : 'Black' })} to={'/changeFreePassword'}><li><h3>Password & Security</h3></li></NavLink>
+                            <NavLink style={({ isActive }) => ({ color: isActive ? 'green' : 'Black' })} to={'/profile_free'}><li><h3>Return to profile page </h3></li></NavLink>
                         </ol>
                     </div>
                 </div>
