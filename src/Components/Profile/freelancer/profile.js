@@ -15,11 +15,11 @@ import MonthPickerInput from 'react-month-picker-input'
 import 'react-month-picker-input/dist/react-month-picker-input.css';
 import './windows'
 class Profile extends Component {
-    
+
     constructor() {
         super();
         const animatedComponents = makeAnimated();
-       
+
         this.state = {
             isMenu: false,
             data: false,
@@ -53,11 +53,11 @@ class Profile extends Component {
             from_year: '',
             to_year: '',
             edu_description: '',
-            error_number:'',
-            error_number_to:'',
-            error_tag:'',
-            error_tag_to:'',
-            cr_error_tag_to:'',
+            error_number: '',
+            error_number_to: '',
+            error_tag: '',
+            error_tag_to: '',
+            cr_error_tag_to: '',
             cr_start_date: '',
             cr_end_date: '',
             cr_description: '',
@@ -65,26 +65,26 @@ class Profile extends Component {
             cr_start_date_error_: '',
             cr_error_end: '',
             cr_end_date_error: '',
-            provider:'',
-            certification_ID:'',
-            certification_UR:'',
-            id_type:0,
-            optionCertification:[],
-            selectYear:0,
-            selectMonth:0,
+            provider: '',
+            certification_ID: '',
+            certification_UR: '',
+            id_type: 0,
+            optionCertification: [],
+            selectYear: 0,
+            selectMonth: 0,
 
         }
 
     }
-    
 
-    settingS=() =>{
-        this.setState({isMenu:true})
+
+    settingS = () => {
+        this.setState({ isMenu: true })
         const DoM = document.getElementById("setting")
         DoM.style.display = 'block'
     }
-    XsettingS=()=> {
-        this.setState({isMenu:false})
+    XsettingS = () => {
+        this.setState({ isMenu: false })
         const DoM = document.getElementById("setting")
         DoM.style.display = 'none'
     }
@@ -149,24 +149,24 @@ class Profile extends Component {
                 this.setState({ error: error.message, loading: false });
             });
 
-            axios.get("http://127.0.0.1:8000/profile/getalltypesCertifications/").then(response => {
-                var optionslist = []
-              
+        axios.get("http://127.0.0.1:8000/profile/getalltypesCertifications/").then(response => {
+            var optionslist = []
 
-                response.data.forEach(element => {
-                    optionslist.push({ value: element.id, label: element.name })
-                   
-                });
-                this.setState({ optionCertification: optionslist })
 
-            })
-                .catch(error => {
-                    console.log(error);
-                });
-            
+            response.data.forEach(element => {
+                optionslist.push({ value: element.id, label: element.name })
+
+            });
+            this.setState({ optionCertification: optionslist })
+
+        })
+            .catch(error => {
+                console.log(error);
+            });
+
 
     }
-    addEmpolymentHistory(){
+    addEmpolymentHistory() {
 
         var history = {
             "title": this.state.title,
@@ -180,35 +180,35 @@ class Profile extends Component {
         };
 
 
-       axios.post("http://127.0.0.1:8000/profile/add_history_employment/",
-        history
-       ).then(response=>{
-        this.setState(prevState => {
-            const { data } = prevState;
-            data.empolumentHistory.push(response.data);
-          
-            return { data };
-        },
-            () => {
-                this.setState({
-                    title: '',
-                    company: '',
-                    location: '',
-                    is_work: false,
-                    start_date: '',
-                    end_date: '',
-                    start_date_error: '',
-                    error: '',
-                    description: ''
+        axios.post("http://127.0.0.1:8000/profile/add_history_employment/",
+            history
+        ).then(response => {
+            this.setState(prevState => {
+                const { data } = prevState;
+                data.empolumentHistory.push(response.data);
+
+                return { data };
+            },
+                () => {
+                    this.setState({
+                        title: '',
+                        company: '',
+                        location: '',
+                        is_work: false,
+                        start_date: '',
+                        end_date: '',
+                        start_date_error: '',
+                        error: '',
+                        description: ''
+                    })
                 })
-            })
-       })
+        })
 
 
     }
     update_experiences() {
         if (this.state.title && this.state.company && this.state.location && this.state.description && this.state.start_date && this.state.end_date) {
-         
+
             var expierces = {
                 "title": this.state.title,
                 "company": this.state.company,
@@ -257,7 +257,7 @@ class Profile extends Component {
             })
         }
     }
-    add_Certificate(){
+    add_Certificate() {
 
         var certification = {
             "provider": this.state.provider,
@@ -277,57 +277,59 @@ class Profile extends Component {
                 return { data };
             },
                 () => {
-                    document.getElementById('id07').style.display='none'
+                    document.getElementById('id07').style.display = 'none'
                 })
         })
 
 
         this.setState({
-            provider:'',
-            cr_description:'',
-            certification_ID:'',
-            cr_start_date:'',
-            cr_end_date:'',
-            certification_UR:'',
-            id_type:0,
-           
-          })
+            provider: '',
+            cr_description: '',
+            certification_ID: '',
+            cr_start_date: '',
+            cr_end_date: '',
+            certification_UR: '',
+            id_type: 0,
+
+        })
     }
     add_educations() {
-        if(this.state.edu_description&&this.state.school&&this.state.degree&&this.state.study&&this.state.from_year&&this.state.to_year){
-        var educations =
-         {"school":
-          this.state.school ,
-          "degree": this.state.degree,
-          "study":this.state.study,
-          "from_year": this.state.from_year
-          ,"to_year": this.state.to_year,
-          "description":this.state.edu_description,
-          "freelancer_register_id": localStorage.getItem("uid")};
-    
-          axios.post("http://127.0.0.1:8000/auth/save_education/", [educations]).then(respons => {
-            console.log(respons.data);
-            this.setState(prevState => {
-                const { data } = prevState;
-                data.educations.push(respons.data);
-                return { data };
-            },
-                () => {
-                    document.getElementById('id06').style.display='none'
-                })
-        })
+        if (this.state.edu_description && this.state.school && this.state.degree && this.state.study && this.state.from_year && this.state.to_year) {
+            var educations =
+            {
+                "school":
+                    this.state.school,
+                "degree": this.state.degree,
+                "study": this.state.study,
+                "from_year": this.state.from_year
+                , "to_year": this.state.to_year,
+                "description": this.state.edu_description,
+                "freelancer_register_id": localStorage.getItem("uid")
+            };
 
-      this.setState({
-        school:'',
-        degree:'',
-        study:'',
-        from_year:'',
-        to_year:'',
-        edu_description:'',
-       
-      })
+            axios.post("http://127.0.0.1:8000/auth/save_education/", [educations]).then(respons => {
+                console.log(respons.data);
+                this.setState(prevState => {
+                    const { data } = prevState;
+                    data.educations.push(respons.data);
+                    return { data };
+                },
+                    () => {
+                        document.getElementById('id06').style.display = 'none'
+                    })
+            })
+
+            this.setState({
+                school: '',
+                degree: '',
+                study: '',
+                from_year: '',
+                to_year: '',
+                edu_description: '',
+
+            })
+        }
     }
-      }
     add_experiences() {
         if (this.state.title && this.state.company && this.state.location && this.state.description && this.state.start_date && this.state.end_date) {
             var expierces = {
@@ -392,10 +394,10 @@ class Profile extends Component {
             <div>
                 <div>
                     <NavBar url='http://127.0.0.1:8000/profile/get_details_free/'
-                        openMenu={this.state.isMenu?(this.XsettingS):(this.settingS)}/>
+                        openMenu={this.state.isMenu ? (this.XsettingS) : (this.settingS)} />
                     <div className='row'>
                         <div className=' col-sm-3 buttonSetting text-center' id='setting' >
-                            <img className='littleSymbolImage' src={data.image ? ("data:image/*;base64," + data.image) : ("./images/default.png")} />
+                            <img className='littleSymbolImage mt-3' src={data.image ? ("data:image/*;base64," + data.image) : ("./images/default.png")} />
                             <h4 className='mt-3'>{data.name}</h4>
                             <hr />
                             <NavLink to={'/Freelancersettings'}><h5>Settings</h5></NavLink>
@@ -406,23 +408,23 @@ class Profile extends Component {
                                 }
                             }><h5 className='pb-4'>Logout</h5></NavLink>
                         </div></div>
-                    <div className="container-border my-4"  onClick={
-                (e)=>{
-                  
-                   
-                    this.XsettingS()
-                   
-                }
-            }>
-                        <div className="container my-5">
-                            <div className="row">
+                    <div className="container-border my-4" onClick={
+                        (e) => {
 
-                                <div className="col-md-3">
-                                    <img src={"data:image/*;base64," + this.state.data.image} className="img-fluid rounded-circle mb-3"
+
+                            this.XsettingS()
+
+                        }
+                    }>
+                        <div className="container w-75 my-5">
+                            <div className="row container">
+
+                                <div className="col-lg-5 col-md-6">
+                                    <img src={"data:image/*;base64," + this.state.data.image} className=" rounded-circle mb-3 profileFreePic"
                                         alt="Profile Picture" />
 
                                 </div>
-                                <div className="col-md-9">
+                                <div className="col-lg-7 col-md-6">
                                     <h4>{this.state.data.name}</h4>
 
                                     <p className="text-muted">{this.state.data.address}</p>
@@ -503,14 +505,14 @@ class Profile extends Component {
                             <hr />
 
                             <div className="row">
-                                <div className="col-md-3 px-2">
+                                <div className="col-md-5 px-2">
 
 
                                     <div className="row">
                                         <div className="col-md-12">
                                             <div className="d-flex justify-content-between align-items-center">
                                                 <h4 className="mb-3">Educations</h4>
-                                                <div>
+                                                <div >
                                                     <button type="button"
                                                         className="btn btn-outline-success btn-sm rounded-pill me-2" onClick={
                                                             () => {
@@ -519,7 +521,7 @@ class Profile extends Component {
                                                         }><i className="fa-solid fa-plus"></i></button>
                                                 </div>
                                             </div>
-                                            <ul className="list-unstyled">
+                                            <ul className="list-unstyled ">
                                                 {this.state.data.educations.map((education, index) => (
                                                     <div className='container-border2 my-1 text-center'>
                                                         <li className='mt-3' key={index} >
@@ -543,9 +545,9 @@ class Profile extends Component {
                                                                 className="fa-solid fa-trash-can"></i></button>
                                                             <h5>{education.school}</h5>
                                                             <p>{education.from_year}</p>
-                                                            
+
                                                         </li>
-                                                        
+
                                                     </div>
 
                                                 ))}
@@ -555,10 +557,10 @@ class Profile extends Component {
 
                                 </div>
 
-                                <div className="col-md-9 px-2">
+                                <div className="col-md-7 px-2">
                                     <div>
                                         <div className="d-flex justify-content-between align-items-center">
-                                            <h2 className="mb-0">About Me</h2>
+                                            <h4 className="mb-0">About Me</h4>
                                             <div>
                                                 <button type="button" className="btn btn-outline-success rounded-pill btn-sm me-2 " onClick={
                                                     () => {
@@ -585,7 +587,7 @@ class Profile extends Component {
 
                                     <div id='portflio'>
                                         <div className="d-flex justify-content-between align-items-center mb-3">
-                                            <h2 className="mb-0">Portflio</h2>
+                                            <h4 className="mb-0">Portflio</h4>
                                             <div>
                                                 <button type="button" className="btn btn-outline-success rounded-pill btn-sm me-2 " onClick={
                                                     () => {
@@ -681,7 +683,7 @@ class Profile extends Component {
 
 
                                         <div className="d-flex justify-content-between align-items-center mb-2">
-                                            <h2 className="mb-0">My Skills</h2>
+                                            <h4 className=" mb-3">My Skills</h4>
                                             <div>
 
                                                 <button type="button" className="btn btn-outline-success btn-sm rounded-pill me-2" onClick={
@@ -712,7 +714,7 @@ class Profile extends Component {
 
 
                                         <div className="d-flex justify-content-between align-items-center mb-2">
-                                            <h2 className="mb-0">My Services</h2>
+                                            <h4 className="mb-0 mb-3">My Services</h4>
                                             <div>
 
                                                 <button type="button" className="btn btn-outline-success btn-sm rounded-pill me-2" onClick={
@@ -741,7 +743,7 @@ class Profile extends Component {
                                     <hr />
                                     <div>
                                         <div className="d-flex justify-content-between align-items-center">
-                                            <h2>My Work Experience</h2>
+                                            <h4>My Work Experience</h4>
                                             <div>
                                                 <button id="con" type="button" className="btn btn-outline-success rounded-pill btn-sm me-2 " onClick={
                                                     () => {
@@ -764,9 +766,9 @@ class Profile extends Component {
                                         </div>
                                         <ul className="list-unstyled">
                                             {this.state.data.experiecnces.map((experiecnce, index) => (
-                                                <li key={index}>
+                                                <li className="" key={index}>
 
-                                                    <div className="position-relative container-border my-4">
+                                                    <div className="position-relative container-border2 text-center my-4">
 
                                                         <div className=" mt-3">
                                                             <h3 className="mb-34 mt-3">{experiecnce.title}</h3>
@@ -778,7 +780,7 @@ class Profile extends Component {
                                                                                 id: experiecnce.id
                                                                             }).then(response => {
 
-                                                                            
+                                                                                console.log(response.data.exp.title)
                                                                                 this.setState({
                                                                                     title: response.data.exp.title,
                                                                                     company: response.data.exp.company,
@@ -837,13 +839,13 @@ class Profile extends Component {
 
                     <div className="container-border my-4 p-4 row">
                         <div className="d-flex justify-content-between align-items-center">
-                            <h2 className="mb-0">Certifications</h2>
+                            <h4 className="mb-0">Certifications</h4>
                             <div>
 
                                 <button type="button" className="btn btn-outline-success btn-sm rounded-pill" onClick={
-                                    ()=>{
-                                       
-                                        document.getElementById('id07').style.display='block'
+                                    () => {
+
+                                        document.getElementById('id07').style.display = 'block'
                                     }
                                 }><i
                                     className="fa-solid fa-plus"></i></button>
@@ -890,11 +892,11 @@ class Profile extends Component {
 
                     <div className="container-border my-4 p-4">
                         <div className="d-flex justify-content-between align-items-center">
-                            <h2 className="mb-0">My Empolument History</h2>
+                            <h4 className="mb-0">My Employment History</h4>
                             <div>
 
                                 <button type="button" className="btn btn-outline-success btn-sm rounded-pill" onClick={
-                                    ()=>{
+                                    () => {
                                         this.setState({
                                             title: '',
                                             company: '',
@@ -906,7 +908,7 @@ class Profile extends Component {
                                             error: '',
                                             description: ''
                                         })
-                                        document.getElementById('id08').style.display='block'
+                                        document.getElementById('id08').style.display = 'block'
                                     }
                                 }><i
                                     className="fa-solid fa-plus"></i></button>
@@ -980,7 +982,7 @@ class Profile extends Component {
                                 </ul>
                             </div>
 
-                            <textarea className='w-100' type="text" placeholder="Enter Username" name="uname" required rows="5" onChange={
+                            <textarea className='w-100 form-control' type="text" placeholder="Enter Username" name="uname" required rows="5" onChange={
                                 (e) => {
 
                                     this.setState({ overview: e.target.value })
@@ -992,12 +994,12 @@ class Profile extends Component {
                         </div>
 
                         <div class="container myconatiner rounded">
-                            <button type="button" onclick="document.getElementById('id02').style.display='none'" class="macancelbtnC btn btn-link" onClick={
+                            <button type="button" onclick="document.getElementById('id02').style.display='none'" class="macancelbtnC btn btn-light text-success border border-success mb-5 mt-3 me-3" onClick={
                                 () => {
                                     document.getElementById('id02').style.display = 'none'
                                 }
                             }>Cancel</button>
-                            <button type="button" onclick="document.getElementById('id02').style.display='none'" class="macancelbtn" onClick={() => {
+                            <button type="button" onclick="document.getElementById('id02').style.display='none'" class="macancelbtn btn btn-success text-light  mb-5 mt-3" onClick={() => {
                                 this.setState(prevState => {
 
                                     const { data } = prevState;
@@ -1073,8 +1075,8 @@ class Profile extends Component {
                                 () => {
                                     document.getElementById('id03').style.display = 'none'
                                 }
-                            } class="macancelbtnC btn btn-link">Cancel</button>
-                            <button type="button" class="macancelbtn" onClick={
+                            } className="macancelbtnC btn btn-light text-success border border-success mb-5 mt-3 me-3">Cancel</button>
+                            <button type="button" className="macancelbtn btn btn-success text-light mb-5 mt-3 me-3" onClick={
                                 () => {
                                     if (this.state.defaultSkills.length > 4) {
                                         this.setState(prevState => {
@@ -1163,8 +1165,8 @@ class Profile extends Component {
                                 () => {
                                     document.getElementById('id03').style.display = 'none'
                                 }
-                            } class="macancelbtnC btn btn-link">Cancel</button>
-                            <button type="button" class="macancelbtn" onClick={
+                            } class="macancelbtnC btn btn btn-light text-success border border-success mb-5 mt-3 me-3">Cancel</button>
+                            <button type="button" class="macancelbtn btn btn-success text-light  mb-5 mt-3 me-3" onClick={
                                 () => {
                                     if (this.state.defaultServices.length > 4) {
                                         this.setState(prevState => {
@@ -1218,7 +1220,7 @@ class Profile extends Component {
 
                 } novalidate>
 
-                    <div className=" formx form-content animate">
+                    <div className=" formx form-content animate p-5">
                         <div class="maimgcontainer">
                             <span class="close" onClick={
                                 () => {
@@ -1247,7 +1249,7 @@ class Profile extends Component {
                             }} required />
                         </div>
 
-                        <div class="form-check">
+                        <div class="form-check p-5">
                             <input id='checkbox_iswork' value={this.state.is_work} class='messageCheckbox' type='checkbox' onClick={
                                 () => {
                                     this.setState({
@@ -1326,19 +1328,19 @@ class Profile extends Component {
                 </form>
 
 
-                <form id="id06"  class="needs-validation dialog"  onSubmit={
-         
-         (event) => {
-          event.preventDefault()
-          if(!this.state.error_tag_to){
-           
-            this.add_educations()
-          }
-         }
-       
-     }novalidate>
-          <div className=" formx form-content animate">
-          <div class="maimgcontainer">
+                <form id="id06" class="needs-validation dialog" onSubmit={
+
+                    (event) => {
+                        event.preventDefault()
+                        if (!this.state.error_tag_to) {
+
+                            this.add_educations()
+                        }
+                    }
+
+                } novalidate>
+                    <div className=" formx form-content animate p-5">
+                        <div class="maimgcontainer">
                             <span class="close" onClick={
                                 () => {
 
@@ -1347,101 +1349,105 @@ class Profile extends Component {
                             }>&times;</span>
 
                         </div>
-            <div className="mb-3 mt-3">
-              <label htmlFor="school" className="form-label">school:</label>
-              <input type="text" value={this.state.school} className="form-control" id="school" placeholder="Enter school" name="school" onChange={(e) => {
-                this.setState({ school: e.target.value })
-              }} required/>
-            </div>
-            <div className="mb-3 mt-3">
-              <label htmlFor="degree" className="form-label">degree:</label>
-              <input type="text" value={this.state.degree} className="form-control" id="degree" placeholder="Enter degree" name="degree" onChange={(e) => {
-                this.setState({ degree: e.target.value })
-              }} required/>
-            </div>
-            <div className="mb-3 mt-3">
-              <label htmlFor="study" className="form-label">study:</label>
-              <input type="text" value={this.state.study} className="form-control" id="study" placeholder="Enter study" name="study" onChange={(e) => {
-                this.setState({ study: e.target.value })
-              }} required/>
-            </div>
+                        <div className="mb-3 mt-3">
+                            <label htmlFor="school" className="form-label">school:</label>
+                            <input type="text" value={this.state.school} className="form-control" id="school" placeholder="Enter school" name="school" onChange={(e) => {
+                                this.setState({ school: e.target.value })
+                            }} required />
+                        </div>
+                        <div className="mb-3 mt-3">
+                            <label htmlFor="degree" className="form-label">degree:</label>
+                            <input type="text" value={this.state.degree} className="form-control" id="degree" placeholder="Enter degree" name="degree" onChange={(e) => {
+                                this.setState({ degree: e.target.value })
+                            }} required />
+                        </div>
+                        <div className="mb-3 mt-3">
+                            <label htmlFor="study" className="form-label">study:</label>
+                            <input type="text" value={this.state.study} className="form-control" id="study" placeholder="Enter study" name="study" onChange={(e) => {
+                                this.setState({ study: e.target.value })
+                            }} required />
+                        </div>
 
-            <div className="container row">
-              <div className="col-6">
-                <label htmlFor="from year">from year</label>
-                <input type="number" min="1990" max="2023" pattern='[0-9]{4}' onBlur={
-                  (e)=>{
-                    if(e.target.value<1990&&e.target.value>2023){
-                      this.setState({error_number:"not valid year",
-                    error_tag:"is-invalid"})
-                    
-                    }else{
-                      this.setState({error_number:"",
-                      error_tag:""})
+                        <div className="container row">
+                            <div className="col-6">
+                                <label htmlFor="from year">from year</label>
+                                <input type="number" min="1990" max="2023" pattern='[0-9]{4}' onBlur={
+                                    (e) => {
+                                        if (e.target.value < 1990 && e.target.value > 2023) {
+                                            this.setState({
+                                                error_number: "not valid year",
+                                                error_tag: "is-invalid"
+                                            })
+
+                                        } else {
+                                            this.setState({
+                                                error_number: "",
+                                                error_tag: ""
+                                            })
+                                        }
+                                    }
+                                } value={this.state.from_year} id="from_year" className={"form-control " + this.state.error_tag} onChange={(e) => {
+                                    this.setState({ from_year: e.target.value })
+                                }} required />
+                                <div className='text-danger'>
+                                    {this.state.error_number}
+                                </div>
+                            </div>
+                            <div className="col-6">
+                                <label htmlFor="to year">to year</label>
+                                <input type="number" min="1990" max="2023" onBlur={
+                                    (e) => {
+                                        if (e.target.value < 1990 && e.target.value > 2023) {
+                                            this.setState({ error_number_to: "not valid year" })
+                                            this.setState({ error_tag_to: "is-invalid" })
+                                        } else {
+                                            if (!this.state.from_year) {
+                                                this.setState({ error_number_to: "input from year first" })
+                                                this.setState({ error_tag_to: "is-invalid" })
+                                            } else if (e.target.value < this.state.from_year) {
+                                                this.setState({ error_number_to: "invalid year" })
+                                                this.setState({ error_tag_to: "is-invalid" })
+                                            } else {
+                                                this.setState({
+                                                    error_number_to: "",
+                                                    error_tag_to: ""
+                                                })
+                                            }
+                                        }
+                                    }
+                                } pattern='[0-9]{4}' value={this.state.to_year} id="to_year" className={"form-control " + this.state.error_tag_to} onChange={(e) => {
+                                    this.setState({ to_year: e.target.value })
+                                }} required />
+                                <div className='text-danger'>
+                                    {this.state.error_number_to}
+                                </div>
+                            </div>
+
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="description" className="form-label">Example textarea</label>
+                            <textarea value={this.state.edu_description} className="form-control" id="description2" rows="3" onChange={(e) => {
+                                this.setState({ edu_description: e.target.value })
+                            }} required></textarea>
+                        </div>
+
+                        <button class="btn btn-success w-100" id='addEducation' type='submit'>Submit</button>
+                    </div>
+                </form>
+
+
+                <form id="id07" class="needs-validation dialog" onSubmit={
+
+                    (event) => {
+                        event.preventDefault()
+                        if (!this.state.cr_error_tag_to && this.state.id_type) {
+                            this.add_Certificate()
+                        }
                     }
-                  }
-                } value={this.state.from_year} id="from_year" className={"form-control "+this.state.error_tag } onChange={(e) => {
-                  this.setState({ from_year: e.target.value })
-                }}required />
-                 <div className='text-danger'>
-                  {this.state.error_number}
-                </div>
-              </div>
-              <div className="col-6">
-                <label htmlFor="to year">to year</label>
-                <input type="number"  min="1990" max="2023" onBlur={
-                  (e)=>{
-                    if(e.target.value<1990&&e.target.value>2023){
-                      this.setState({error_number_to:"not valid year"})
-                      this.setState({ error_tag_to:"is-invalid"})
-                    }else{
-                     if(!this.state.from_year)
-                     {
-                      this.setState({error_number_to:"input from year first"})
-                      this.setState({ error_tag_to:"is-invalid"})
-                     }else if (e.target.value<this.state.from_year)
-                     {
-                      this.setState({error_number_to:"invalid year"})
-                      this.setState({ error_tag_to:"is-invalid"})
-                     }else{
-                      this.setState({error_number_to:"",
-                      error_tag_to:""})
-                     }
-                    }
-                  }
-                } pattern='[0-9]{4}' value={this.state.to_year} id="to_year" className={"form-control "+this.state.error_tag_to} onChange={(e) => {
-                  this.setState({ to_year: e.target.value })
-                }} required/>
-                <div className='text-danger'>
-                  {this.state.error_number_to}
-                </div>
-              </div>
 
-            </div>
-            <div className="mb-3">
-              <label htmlFor="description" className="form-label">Example textarea</label>
-              <textarea value={this.state.edu_description} className="form-control" id="description2" rows="3" onChange={(e) => {
-                this.setState({ edu_description: e.target.value })
-              }}required></textarea>
-            </div>
-
-            <button class="btn btn-success w-100" id='addEducation' type='submit'>Submit</button>
-          </div>
-          </form>
-
-
-          <form id="id07"  class="needs-validation dialog"  onSubmit={
-         
-         (event) => {
-          event.preventDefault()
-          if(!this.state.cr_error_tag_to&&this.state.id_type){
-            this.add_Certificate()
-          }
-         }
-       
-     }novalidate>
-          <div className=" formx form-content animate">
-          <div class="maimgcontainer">
+                } novalidate>
+                    <div className=" formx form-content animate p-5">
+                        <div class="maimgcontainer">
                             <span class="close" onClick={
                                 () => {
 
@@ -1450,8 +1456,8 @@ class Profile extends Component {
                             }>&times;</span>
 
                         </div>
-                        <br/>
-                        <br/>
+                        <br />
+                        <br />
                         <div>
                             <h6>Certificate Type</h6>
                             <Select
@@ -1461,29 +1467,28 @@ class Profile extends Component {
                                         this.setState({ id_type: e.value })
                                     }
                                 }
-                             
-                    required/>
+                                required />
                         </div>
-            <div className="mb-3 mt-3">
-              <label htmlFor="school" className="form-label">school:</label>
-              <input type="text" value={this.state.provider} className="form-control" id="school" placeholder="Enter provider" name="school" onChange={(e) => {
-                this.setState({ provider: e.target.value })
-              }} required/>
-            </div>
-            <div className="mb-3 mt-3">
-              <label htmlFor="degree" className="form-label">certification_ID:</label>
-              <input type="text" value={this.state.certification_ID} className="form-control" id="degree" placeholder="Enter degree" name="degree" onChange={(e) => {
-                this.setState({ certification_ID: e.target.value })
-              }} required/>
-            </div>
-            <div className="mb-3 mt-3">
-              <label htmlFor="study" className="form-label">certification_UR:</label>
-              <input type="text" value={this.state.certification_UR} className="form-control" id="study" placeholder="Enter study" name="study" onChange={(e) => {
-                this.setState({ certification_UR: e.target.value })
-              }} required/>
-            </div>
+                        <div className="mb-3 mt-3">
+                            <label htmlFor="school" className="form-label">school:</label>
+                            <input type="text" value={this.state.provider} className="form-control" id="school" placeholder="Enter provider" name="school" onChange={(e) => {
+                                this.setState({ provider: e.target.value })
+                            }} required />
+                        </div>
+                        <div className="mb-3 mt-3">
+                            <label htmlFor="degree" className="form-label">certification_ID:</label>
+                            <input type="text" value={this.state.certification_ID} className="form-control" id="degree" placeholder="Enter degree" name="degree" onChange={(e) => {
+                                this.setState({ certification_ID: e.target.value })
+                            }} required />
+                        </div>
+                        <div className="mb-3 mt-3">
+                            <label htmlFor="study" className="form-label">certification_UR:</label>
+                            <input type="text" value={this.state.certification_UR} className="form-control" id="study" placeholder="Enter study" name="study" onChange={(e) => {
+                                this.setState({ certification_UR: e.target.value })
+                            }} required />
+                        </div>
 
-            <div className="container row">
+                        <div className="container row">
                             <div className="col-6">
                                 <label htmlFor="start_date">Start</label>
                                 <input id="start_date" value={this.state.cr_start_date} className={"form-control " + this.state.cr_start_date_error_} type="date" onChange={(e) => {
@@ -1537,132 +1542,132 @@ class Profile extends Component {
                                 </div>
                             </div>
                         </div>
-            <div className="mb-3">
-              <label htmlFor="description" className="form-label">Example textarea</label>
-              <textarea value={this.state.cr_description} className="form-control" id="description2" rows="3" onChange={(e) => {
-                this.setState({ cr_description: e.target.value })
-              }}required></textarea>
-            </div>
+                        <div className="mb-3">
+                            <label htmlFor="description" className="form-label">Example textarea</label>
+                            <textarea value={this.state.cr_description} className="form-control" id="description2" rows="3" onChange={(e) => {
+                                this.setState({ cr_description: e.target.value })
+                            }} required></textarea>
+                        </div>
 
-            <button class="btn btn-success w-100" id='addEducation' type='submit'>Submit</button>
-          </div>
-          </form>
+                        <button class="btn btn-success w-100" id='addEducation' type='submit'>Submit</button>
+                    </div>
+                </form>
 
 
-          <form id="id08" class="needs-validation mamodal" onSubmit={
+                <form id="id08" class="needs-validation mamodal" onSubmit={
 
-(event) => {
-    event.preventDefault()
-    if (!this.state.end_date_error&&this.state.start_date&&this.state.end_date) {
-      
-            this.addEmpolymentHistory()
-            document.getElementById('id08').style.display = 'none'
-        
-        
-    }else{
-        if(!this.state.start_date){
-this.setState({start_date_error:"this is required"})
-        }else if (!this.state.end_date){
-            this.setState({end_date_error:"this is required"})
-        }
-    }
-}
+                    (event) => {
+                        event.preventDefault()
+                        if (!this.state.end_date_error && this.state.start_date && this.state.end_date) {
 
-} novalidate>
+                            this.addEmpolymentHistory()
+                            document.getElementById('id08').style.display = 'none'
 
-<div className=" formx form-content animate">
-    <div class="maimgcontainer">
-        <span class="close" onClick={
-            () => {
 
-                document.getElementById('id08').style.display = 'none'
-            }
-        }>&times;</span>
+                        } else {
+                            if (!this.state.start_date) {
+                                this.setState({ start_date_error: "this is required" })
+                            } else if (!this.state.end_date) {
+                                this.setState({ end_date_error: "this is required" })
+                            }
+                        }
+                    }
 
-    </div>
-    <div className="mb-3 mt-3">
-        <label htmlFor="email" className="form-label">Title:</label>
-        <input type="text" value={this.state.title} className="form-control" id="title" placeholder="Enter Title" name="Title" onChange={(e) => {
-            this.setState({ title: e.target.value })
-        }} required />
-    </div>
-    <div className="mb-3 mt-3">
-        <label htmlFor="email" className="form-label">company:</label>
-        <input type="text" value={this.state.company} className="form-control" id="company" placeholder="Enter company" name="company" onChange={(e) => {
-            this.setState({ company: e.target.value })
-        }} required />
-    </div>
-    <div className="mb-3 mt-3">
-        <label htmlFor="email" className="form-label">location:</label>
-        <input type="text" value={this.state.location} className="form-control" id="location" placeholder="Enter location" name="location" onChange={(e) => {
-            this.setState({ location: e.target.value })
-        }} required />
-    </div>
+                } novalidate>
 
-    <div class="form-check">
-        <input id='checkbox_iswork' value={this.state.is_work} class='messageCheckbox' type='checkbox' onClick={
-            () => {
-                this.setState({
-                    is_work: !this.state.is_work
-                })
-            }
-        } />
-        <label class="messageCheckbox" for="is_work">
-            is current work in company
-        </label>
-    </div>
-    <div className="container row">
-        <div className="col-6">
-            <label htmlFor="start_date">Start</label>
-            <MonthPickerInput
-            minDate={[0,1990]}
-            maxDate={[11,2023]}
-            
-            className={"form-control"}
-  onChange={(maskedValue,selectedYear,selectedMonth)=>{
-        this.setState({start_date:maskedValue})
-        this.setState({selectYear:selectedYear})
-        this.setState({selectedMonth:selectedMonth})
-        this.setState({end_date_error:''})
-        this.setState({start_date_error:''})
-      
-  }}
-  required/>
-                        <div className='text-danger'>
-                {this.state.start_date_error}
-            </div>
-        </div>
-        <div className="col-6">
-            <label htmlFor="end_date">End</label>
-            <MonthPickerInput
-            minDate={[this.state.selectMonth,this.state.selectYear]}
-            maxDate={[11,2023]}
-            className={"form-control"}
-  onChange={(maskedValue, selectedYear, selectedMonth)=>{
-   if(this.state.start_date){
-    this.setState({end_date:maskedValue})
-    this.setState({end_date_error:''})
-   }else{
-    this.setState({end_date_error:"select start date"})
-   }
-  }}
-  required/>
-                       <div className='text-danger'>
-                {this.state.end_date_error}
-            </div>
-        </div>
-    </div>
-    <div className="mb-3">
-        <label htmlFor="description" className="form-label">Example textarea</label>
-        <textarea className="form-control" value={this.state.description} id="description" rows="3" onChange={(e) => {
-            this.setState({ description: e.target.value })
-        }} required></textarea>
+                    <div className=" formx form-content animate p-5">
+                        <div class="maimgcontainer">
+                            <span class="close" onClick={
+                                () => {
 
-    </div>
+                                    document.getElementById('id08').style.display = 'none'
+                                }
+                            }>&times;</span>
 
-    <button class="btn btn-success w-100" type='submit' >Submit</button>
-</div>
-</form>
+                        </div>
+                        <div className="mb-3 mt-3">
+                            <label htmlFor="email" className="form-label">Title:</label>
+                            <input type="text" value={this.state.title} className="form-control" id="title" placeholder="Enter Title" name="Title" onChange={(e) => {
+                                this.setState({ title: e.target.value })
+                            }} required />
+                        </div>
+                        <div className="mb-3 mt-3">
+                            <label htmlFor="email" className="form-label">company:</label>
+                            <input type="text" value={this.state.company} className="form-control" id="company" placeholder="Enter company" name="company" onChange={(e) => {
+                                this.setState({ company: e.target.value })
+                            }} required />
+                        </div>
+                        <div className="mb-3 mt-3">
+                            <label htmlFor="email" className="form-label">location:</label>
+                            <input type="text" value={this.state.location} className="form-control" id="location" placeholder="Enter location" name="location" onChange={(e) => {
+                                this.setState({ location: e.target.value })
+                            }} required />
+                        </div>
+
+                        <div class="form-check">
+                            <input id='checkbox_iswork' value={this.state.is_work} class='messageCheckbox' type='checkbox' onClick={
+                                () => {
+                                    this.setState({
+                                        is_work: !this.state.is_work
+                                    })
+                                }
+                            } />
+                            <label class="messageCheckbox" for="is_work">
+                                is current work in company
+                            </label>
+                        </div>
+                        <div className="container row">
+                            <div className="col-6">
+                                <label htmlFor="start_date">Start</label>
+                                <MonthPickerInput
+                                    minDate={[0, 1990]}
+                                    maxDate={[11, 2023]}
+
+                                    className={"form-control"}
+                                    onChange={(maskedValue, selectedYear, selectedMonth) => {
+                                        this.setState({ start_date: maskedValue })
+                                        this.setState({ selectYear: selectedYear })
+                                        this.setState({ selectedMonth: selectedMonth })
+                                        this.setState({ end_date_error: '' })
+                                        this.setState({ start_date_error: '' })
+
+                                    }}
+                                    required />
+                                <div className='text-danger'>
+                                    {this.state.start_date_error}
+                                </div>
+                            </div>
+                            <div className="col-6">
+                                <label htmlFor="end_date">End</label>
+                                <MonthPickerInput
+                                    minDate={[this.state.selectMonth, this.state.selectYear]}
+                                    maxDate={[11, 2023]}
+                                    className={"form-control"}
+                                    onChange={(maskedValue, selectedYear, selectedMonth) => {
+                                        if (this.state.start_date) {
+                                            this.setState({ end_date: maskedValue })
+                                            this.setState({ end_date_error: '' })
+                                        } else {
+                                            this.setState({ end_date_error: "select start date" })
+                                        }
+                                    }}
+                                    required />
+                                <div className='text-danger'>
+                                    {this.state.end_date_error}
+                                </div>
+                            </div>
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="description" className="form-label">Example textarea</label>
+                            <textarea className="form-control" value={this.state.description} id="description" rows="3" onChange={(e) => {
+                                this.setState({ description: e.target.value })
+                            }} required></textarea>
+
+                        </div>
+
+                        <button class="btn btn-success w-100" type='submit' >Submit</button>
+                    </div>
+                </form>
 
             </div>
         )
