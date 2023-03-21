@@ -429,7 +429,7 @@ class Profile extends Component {
 
                                     <p className="text-muted">{this.state.data.address}</p>
                                     <p>{this.state.data.jobtitle} &nbsp;&nbsp;&nbsp;
-                                        <button type="button" className="btn btn-outline-primary btn-sm rounded-pill me-2" onClick={
+                                        <button type="button" className="btn btn-outline-success btn-sm rounded-pill me-2" onClick={
                                             () => {
 
                                                 this.setState({ jobtitle2: this.state.data.jobtitle })
@@ -467,12 +467,12 @@ class Profile extends Component {
                                             </div>
 
                                             <div class="container myconatiner rounded mt-4">
-                                                <button type="button" onclick="document.getElementById('id01').style.display='none'" class="macancelbtnC btn btn-link" onClick={
+                                                <button type="button" onclick="document.getElementById('id01').style.display='none'" class="macancelbtnC btn btn btn-light text-success border border-success mb-5 mt-3 me-3" onClick={
                                                     () => {
                                                         document.getElementById('id01').style.display = 'none'
                                                     }
                                                 }>Cancel</button>
-                                                <button type="button" onclick="document.getElementById('id01').style.display='none'" class="macancelbtn" onClick={
+                                                <button type="button" onclick="document.getElementById('id01').style.display='none'" class="macancelbtn btn btn-success text-light  mb-5 mt-3 me-3" onClick={
                                                     () => {
                                                         this.setState(prevState => {
 
@@ -514,7 +514,7 @@ class Profile extends Component {
                                                 <h4 className="mb-3">Educations</h4>
                                                 <div >
                                                     <button type="button"
-                                                        className="btn btn-outline-primary btn-sm rounded-pill me-2" onClick={
+                                                        className="btn btn-outline-success btn-sm rounded-pill me-2" onClick={
                                                             () => {
                                                                 document.getElementById('id06').style.display = 'block'
                                                             }
@@ -525,7 +525,7 @@ class Profile extends Component {
                                                 {this.state.data.educations.map((education, index) => (
                                                     <div className='container-border2 my-1 text-center'>
                                                         <li className='mt-3' key={index} >
-                                                            <button type="button" className="btn btn-outline-danger rounded-pill btn-sm" onClick={
+                                                            <button type="button" className="btn btn-outline-danger rounded-pill btn-sm educateFree" onClick={
                                                                 () => {
                                                                     axios.post('http://127.0.0.1:8000/profile/delEducation/', {
                                                                         id: education.id
@@ -562,7 +562,7 @@ class Profile extends Component {
                                         <div className="d-flex justify-content-between align-items-center">
                                             <h4 className="mb-0">About Me</h4>
                                             <div>
-                                                <button type="button" className="btn btn-outline-primary rounded-pill btn-sm me-2 " onClick={
+                                                <button type="button" className="btn btn-outline-success rounded-pill btn-sm me-2 " onClick={
                                                     () => {
                                                         this.setState({ overview: this.state.data.overView })
                                                         document.getElementById('id02').style.display = 'block'
@@ -589,7 +589,7 @@ class Profile extends Component {
                                         <div className="d-flex justify-content-between align-items-center mb-3">
                                             <h4 className="mb-0">Portflio</h4>
                                             <div>
-                                                <button type="button" className="btn btn-outline-primary rounded-pill btn-sm me-2 " onClick={
+                                                <button type="button" className="btn btn-outline-success rounded-pill btn-sm me-2 " onClick={
                                                     () => {
                                                         localStorage.removeItem("portflio")
                                                         window.location = '/addPortFilo'
@@ -599,45 +599,49 @@ class Profile extends Component {
                                             </div>
                                         </div>
                                         <div>
-                                            <div className=" ">
-                                                <div className="row d-flex justify-content-around ">
-                                                    {this.state.data.portfilos.map((portfilo, index) => (
-                                                        <div key={index} className="col-md-4">
-                                                            <button type="button" className="btn btn-outline-primary btn-sm rounded-pill me-2" onClick={
-                                                                () => {
-                                                                    localStorage.setItem("portfilo", JSON.stringify(portfilo))
-                                                                    window.location = '/addPortFilo'
-                                                                }
-                                                            }><i
-                                                                className="fa-solid fa-pen"></i></button>
-                                                            <button type="button" className="btn btn-outline-danger rounded-pill btn-sm" onClick={
-                                                                () => {
-                                                                    axios.post('http://127.0.0.1:8000/profile/delPortFilo/', {
-                                                                        id: portfilo.id
-                                                                    }).then(response => {
-                                                                        this.setState(prevState => {
-                                                                            const { data } = prevState;
-                                                                            data.portfilos = this.removeItemOnce(data.portfilos, portfilo)
-                                                                            return { data };
-                                                                        },
-                                                                            () => {
+                                            <div className="">
+                                                {this.state.data.portfilos.map((portfilo, index) => (
+                                                    <div key={index} className="">
 
-                                                                            })
-                                                                    })
-                                                                }
-                                                            }><i
-                                                                className="fa-solid fa-trash-can"></i></button>
-                                                            <div className="card">
+                                                        <div className="card col-12 mt-3">
+                                                            <div className='profilePortfolioBtns'>
+                                                                <button type="button" className="btn btn-outline-success btn-sm rounded-pill me-2" onClick={
+                                                                    () => {
+                                                                        localStorage.setItem("portfilo", JSON.stringify(portfilo))
+                                                                        window.location = '/addPortFilo'
+                                                                    }
+                                                                }><i
+                                                                    className="fa-solid fa-pen"></i></button>
+                                                                <button type="button" className="btn btn-outline-danger rounded-pill btn-sm" onClick={
+                                                                    () => {
+                                                                        axios.post('http://127.0.0.1:8000/profile/delPortFilo/', {
+                                                                            id: portfilo.id
+                                                                        }).then(response => {
+                                                                            this.setState(prevState => {
+                                                                                const { data } = prevState;
+                                                                                data.portfilos = this.removeItemOnce(data.portfilos, portfilo)
+                                                                                return { data };
+                                                                            },
+                                                                                () => {
+
+                                                                                })
+                                                                        })
+                                                                    }
+                                                                }><i
+                                                                    className="fa-solid fa-trash-can"></i></button>
+                                                            </div>
+                                                            <div className='ms-4 text-center'>
                                                                 <img className="card-img-top" src={"data:image/*;base64," + portfilo.image} alt="Card image cap" style={{ width: '150px' }} />
+
                                                                 <div className="card-body">
                                                                     <h5 className="card-title">{portfilo.title}</h5>
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                    </div>
 
-                                                    ))}
+                                                ))}
 
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -647,25 +651,22 @@ class Profile extends Component {
                                     <div id='History_work'>
                                         <div className="d-flex justify-content-between align-items-center mb-3">
                                             <h4 className="mb-0">History work</h4>
-                                            <div>
-                                                <button type="button" className="btn btn-outline-primary rounded-pill btn-sm me-2 "><i
-                                                    className="fa-solid fa-pen"></i></button>
-                                            </div>
+
                                         </div>
                                         <div>
                                             <div className=" ">
-                                                <div className="row d-flex justify-content-around ">
+                                                <div className="row d-flex ">
                                                     {this.state.data.history_work.map((history_work1, index) => (
-                                                        <div key={index} className="col-md-4">
-                                                            <div className="card">
-                                                                <div className="card-body">
-                                                                    <h5 className="card-title">{history_work1.location}</h5>
+                                                        <div key={index} className="col-md-6">
+                                                            <div className="card ms-1 me-1 mt-3">
+                                                                <div className="text-center mt-3">
+                                                                    <h5 className="">{history_work1.location}</h5>
                                                                 </div>
-                                                                <div className="card-body">
-                                                                    <p className="card-title">{history_work1.date}</p>
+                                                                <div className="ms-3">
+                                                                    <p className="">{history_work1.date}</p>
                                                                 </div>
-                                                                <div className="card-body">
-                                                                    <p className="card-title">{history_work1.cost}</p>
+                                                                <div className="ms-3">
+                                                                    <p className="">{history_work1.cost}</p>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -685,7 +686,7 @@ class Profile extends Component {
                                             <h4 className=" mb-3">My Skills</h4>
                                             <div>
 
-                                                <button type="button" className="btn btn-outline-primary btn-sm rounded-pill me-2" onClick={
+                                                <button type="button" className="btn btn-outline-success btn-sm rounded-pill me-2" onClick={
                                                     () => {
 
                                                         document.getElementById('id03').style.display = 'block'
@@ -700,7 +701,7 @@ class Profile extends Component {
                                                 <ul className="list-inline">
                                                     {this.state.data.skills.map((skill, index) => (
                                                         <li className='list-inline-item' key={index}>
-                                                            <span class="badge rounded-pill bg-primary fs-6 m-sm-0 m-1">{skill}</span>
+                                                            <span class="badge rounded-pill bg-success fs-6  m-1">{skill}</span>
                                                         </li>
                                                     ))}
                                                 </ul>
@@ -716,7 +717,7 @@ class Profile extends Component {
                                             <h4 className="mb-0 mb-3">My Services</h4>
                                             <div>
 
-                                                <button type="button" className="btn btn-outline-primary btn-sm rounded-pill me-2" onClick={
+                                                <button type="button" className="btn btn-outline-success btn-sm rounded-pill me-2" onClick={
                                                     () => {
 
                                                         document.getElementById('id04').style.display = 'block'
@@ -731,7 +732,7 @@ class Profile extends Component {
                                                 <ul className="list-inline">
                                                     {this.state.data.services.map((service, index) => (
                                                         <li className='list-inline-item' key={index}>
-                                                            <span class="badge rounded-pill bg-primary fs-6 m-sm-0 m-1">{service}</span>
+                                                            <span class="badge rounded-pill bg-success fs-6  m-1">{service}</span>
                                                         </li>
                                                     ))}
                                                 </ul>
@@ -744,7 +745,7 @@ class Profile extends Component {
                                         <div className="d-flex justify-content-between align-items-center">
                                             <h4>My Work Experience</h4>
                                             <div>
-                                                <button id="con" type="button" className="btn btn-outline-primary rounded-pill btn-sm me-2 " onClick={
+                                                <button id="con" type="button" className="btn btn-outline-success rounded-pill btn-sm me-2 " onClick={
                                                     () => {
                                                         this.setState({
                                                             title: '',
@@ -769,11 +770,11 @@ class Profile extends Component {
 
                                                     <div className="position-relative container-border2 text-center my-4">
 
-                                                        <div className="d-flex justify-content-between align-items-center">
-                                                            <h3 className="mb-3 ms-4 mt-3">{experiecnce.title}</h3>
-                                                            <div>
+                                                        <div className=" mt-3">
+                                                            <h3 className="mb-34 mt-3">{experiecnce.title}</h3>
+                                                            <div className='profileWorkExpBtns'>
                                                                 <button type="button"
-                                                                    className="btn btn-outline-primary btn-sm rounded-pill me-2" onClick={
+                                                                    className="btn btn-outline-success btn-sm rounded-pill me-2" onClick={
                                                                         () => {
                                                                             axios.post('http://127.0.0.1:8000/profile/getExperience/', {
                                                                                 id: experiecnce.id
@@ -817,8 +818,8 @@ class Profile extends Component {
                                                                     className="fa-solid fa-trash-can" ></i></button>
                                                             </div>
                                                         </div>
-                                                        <p assName="text-muted">{experiecnce.company}</p>
-                                                        <p>{experiecnce.description}</p>
+                                                        <p className="text-muted text-start ms-3">{experiecnce.company}</p>
+                                                        <p className="text-muted text-start ms-3">{experiecnce.description}</p>
                                                     </div>
                                                 </li>
 
@@ -836,7 +837,7 @@ class Profile extends Component {
                         </div>
                     </div>
 
-                    <div className="container-border my-4 p-4">
+                    <div className="container-border my-4 p-4 row">
                         <div className="d-flex justify-content-between align-items-center">
                             <h4 className="mb-0">Certifications</h4>
                             <div>
@@ -851,15 +852,12 @@ class Profile extends Component {
                             </div>
                         </div>
                         {this.state.data.certifications.map((certification, index) => (
-                            <div key={index} className="position-relative container-border my-4">
-                                <div className="d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <h5 className="mb-3">{certification.provider}</h5>
-                                        <p className="mb-3">{certification.certification_type.name}</p>
+                            <div key={index} className="col-md-6 mt-2  ">
+                                <div className="m-2 CertificateSectionFree ">
 
-                                    </div>
-                                    <div>
-                                        <button type="button" className="btn btn-outline-danger rounded-pill btn-sm" onClick={
+                                    <h5 className="mb-3 ms-3 mt-3 text-center">{certification.provider}</h5>
+                                    <div className=' ms-3 mt-3'>
+                                        <button type="button" className="btn btn-outline-danger rounded-pill btn-sm Employement" onClick={
                                             () => {
                                                 axios.post('http://127.0.0.1:8000/profile/delcertificate/', {
                                                     id: certification.id
@@ -877,8 +875,10 @@ class Profile extends Component {
                                         }><i
                                             className="fa-solid fa-trash-can"></i></button>
                                     </div>
+                                    <p className="ms-3">{certification.certification_type.name}</p>
+                                    <p className="ms-3 mt-3">{certification.description}</p>
                                 </div>
-                                <p className="mb-0">{certification.description}</p>
+
                             </div>
 
                         ))}
@@ -915,14 +915,13 @@ class Profile extends Component {
                             </div>
                         </div>
                         {this.state.data.empolumentHistory.map((empolumentHistory1, index) => (
-                            <div key={index} className="position-relative container-border my-4">
-                                <div className="d-flex justify-content-between align-items-center">
+                            <div key={index} className="col-md-6 mt-2">
+                                <div className="m-2 CertificateSectionFree">
+
                                     <div>
-                                        <h4 className="mb-3">{empolumentHistory1.title}</h4>
-                                        <p className="mb-3">{empolumentHistory1.location}</p>
-                                    </div>
-                                    <div>
-                                        <button type="button" className="btn btn-outline-danger rounded-pill btn-sm" onClick={
+                                        <h4 className="mb-3 ms-3 mt-3 text-center">{empolumentHistory1.title}</h4>
+                                        <div className=' ms-3 mt-3'>
+                                        <button type="button" className="btn btn-outline-danger rounded-pill btn-sm Employement" onClick={
                                             () => {
                                                 axios.post('http://127.0.0.1:8000/profile/delHistoryEmpl/', {
                                                     id: empolumentHistory1.id
@@ -939,9 +938,12 @@ class Profile extends Component {
                                             }
                                         }><i
                                             className="fa-solid fa-trash-can"></i></button>
+                                            </div>
                                     </div>
+                                    <p className="ms-3 ">{empolumentHistory1.location}</p>
+                                    <p className="ms-3 mt-3">{empolumentHistory1.description}</p>
                                 </div>
-                                <p className="mb-0">{empolumentHistory1.description}</p>
+
                             </div>
 
                         ))}
@@ -960,7 +962,7 @@ class Profile extends Component {
                 <Footer />
                 <div id="id02" class="mamodal rounded">
 
-                    <form class="mamodal-content maanimate rounded">
+                    <form class="mamodal-content maanimate rounded p-3">
                         <div class="maimgcontainer">
                             <span onClick={
                                 () => {
@@ -1038,10 +1040,10 @@ class Profile extends Component {
                         </div>
 
                         <div class="container myconatiner pt-4">
-                            <h3 class="text-left ml-4">Edit your title </h3>
+                            <h3 class="text-left ml-4">Edit your skills </h3>
                             <div class="container myconatiner">
-                                <h4>Your title</h4>
-                                <p>Enter a single sentence description of your professional skills/experience (e.g. Expert Web Designer with Ajax experience) </p>
+                                <h4>Add skills</h4>
+                                <p>Add skills you want to add </p>
                             </div>
                             {this.state.defaultSkills.length > 0 ? (
                                 <Select
@@ -1457,6 +1459,7 @@ class Profile extends Component {
                         <br />
                         <br />
                         <div>
+                            <h6>Certificate Type</h6>
                             <Select
                                 options={this.state.optionCertification}
                                 onChange={

@@ -295,7 +295,6 @@ ol.ordered{
   height: 500px;
   /* margin-right: 5%; */
 
- 
 }
 
 
@@ -303,5 +302,24 @@ ol.ordered{
   width: 80%;
 }
 
+.profileWorkExpBtns{
+  margin-left: 80%;
+  margin-top: -7%;
+}
 
-
+.profilePortfolioBtns{
+  margin-left: 80%;
+  margin-top: 5%;
+}
+.educateFree{
+  margin-left: 85%;
+  margin-top: -7%;
+}
+.CertificateSectionFree{
+  border: 1px groove lightgrey;
+  border-radius: 20px;
+}
+.Employement{
+  margin-left: 90%;
+  margin-top: -15%;
+}
