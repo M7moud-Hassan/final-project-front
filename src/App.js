@@ -15,8 +15,8 @@ import TestToken from './Components/index/test_token';
 import Check_email from './Components/index/please_activate';
 
 import './Components/js/jquery'
-import '@fortawesome/fontawesome-free/css/all.min.css';
-import '@fortawesome/fontawesome-free/js/all.min.js';
+// import '@fontawesome/fontawesome-free/css/all.min.css';
+// import '@fontawesome/fontawesome-free/js/all.min.js';
 import ProfileFreeLancer from './Components/profile_free';
 // import ClientProfile from './Components/Profile/client_profile/client_profile';
 import Error from './Components/index/error';
