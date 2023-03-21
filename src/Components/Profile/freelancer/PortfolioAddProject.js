@@ -12,6 +12,8 @@ const PortfolioProject = () => {
         {
             var p=JSON.parse(localStorage.getItem("portfilo"));
             SetTitle(p.title)
+            console.log(p);
+            console.log(p.date_time);
             setDateime(p.date_time)
 
         }
