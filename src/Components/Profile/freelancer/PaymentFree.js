@@ -16,6 +16,7 @@ const PaymentFreeLancer = () => {
     const [CVVz, setCVV] = useState('');
     const [Expire_monthz, setExpire_month] = useState('');
     const [Zip_codez, setZip_code] = useState('');
+    const [cards, setCards] = useState([]);
 
     const paymentSection = useRef('');
 
@@ -24,31 +25,16 @@ const PaymentFreeLancer = () => {
         paymentSection.current.focus();
     }, []);
 
-    // useEffect(() => {
-    //     axios.post(`http://127.0.0.1:8000/profile/freelancepayment/`, { free_id: localStorage.getItem('uid') })
-    //         .then(res => {
-
-    //             setData(res.data);
-    //             setNameOnTheCard(res.data.nameOnTheCard);
-    //             setExpire_year(res.data.Expire_year);
-    //             setCredit_number(res.data.Credit_number);
-    //             setExpire_month(res.data.Expire_month);
-    //             setCVV(res.data.CVV);
-    //             setEmail(res.data.email);
-    //             setStreet(res.data.street);
-    //             setState(res.data.state);
-    //             setCity(res.data.city);
-    //             setZip_code(res.data.Zip_code);
-
-    //         })
-    //         .catch(err => {
-    //             console.log(err.message);
-    //         });
-    // }, [free_id]);
-
-
-
-
+    useEffect(() => {
+        axios.post(`http://127.0.0.1:8000/profile/freePaymentCards/`, { free_id: localStorage.getItem('uid') })
+            .then(res => {
+                setCards(res.data);
+                console.log(cards)
+            })
+            .catch(err => {
+                console.log(err.message);
+            });
+    }, []);
 
     function contactS() {
         const DoM = paymentSection.current;
@@ -233,8 +219,22 @@ const PaymentFreeLancer = () => {
                         >
                             Add a New Biling Method
                         </button>
-                        <h6 className="text-start ms-3 mt-3">You have not set up any billing methods yet.</h6>
                         <p className=" text-start ms-3 me-3">Your billing method will charged only when your available balance from Upwork earnings is not sufficient to pay for your monthly membership and/or Connects.</p>
+                        <div className=" container text-start ">
+                            {cards.map(card => (
+                                <div className="PaymentContainer p-4" key={card.id}>
+                                    <h6 className="text-dark">Card Number : <span className="text-muted"> {card.id}</span></h6>
+                                    <h6 className="text-dark">Name on the card : <span className="text-muted">{card.nameOnTheCard}</span></h6>
+                                    <h6 className="text-dark">Credit card number : <span className="text-muted">{card.Credit_number}</span></h6>
+                                    <h6 className="text-dark">Expiration date : <span className="text-muted">{card.Expire_month}</span> / <span className="text-muted">{card.Expire_year}</span></h6>
+                                    <h6 className="text-dark">CVV : <span className="text-muted"></span>{card.CVV}</h6>
+                                    <h6 className="text-dark">Email : <span className="text-muted">{card.email}</span></h6>
+                                    <h6 className="text-dark">City : <span className="text-muted">{card.city}</span></h6>
+                                    <h6 className="text-dark">State : <span className="text-muted">{card.state}</span></h6>
+                                    <h6 className="text-dark">Zip code : <span className="text-muted">{card.Zip_code}</span></h6>
+                                </div>
+                            ))}
+                        </div>
 
                     </div>
                 </div>

@@ -32,8 +32,6 @@ const ClientSettings1 = () => {
                 setCity(res.data.city);
                 setPostal_code(res.data.postal_code);
 
-
-
             })
             .catch(err => {
                 console.log(err.message);

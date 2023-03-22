@@ -323,3 +323,9 @@ ol.ordered{
   margin-left: 90%;
   margin-top: -15%;
 }
+
+.PaymentContainer{
+  border: 1px groove gainsboro;
+  border-radius: 20px;
+
+}
