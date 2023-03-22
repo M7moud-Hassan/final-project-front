@@ -6,8 +6,7 @@ import { useState } from 'react';
 import '../../../index.css'
 import Error from '../../index/error';
 import NavBar from '../freelancer/navbar';
-
-
+import './windows'
 const ClientProfile = () => {
 
     const [id, setId] = useState('');
@@ -59,7 +58,7 @@ const ClientProfile = () => {
             openMenu={isMenu?(XsettingS):(settingS)}
             />
             <div className='row'>
-            <div className=' col-sm-3 buttonSetting text-center' ref={setting}>
+            <div className=' col-sm-3 buttonSetting text-center' id="setting" ref={setting}>
                 <img className='littleSymbolImage' src={data.image?("data:image/*;base64," +data.image):("./images/default.png")} />
                 <h4 className='mt-3'>{data.name}</h4>
                 <hr />
@@ -71,7 +70,11 @@ const ClientProfile = () => {
                     }
                 }><h5 className='pb-4'>Logout</h5></NavLink>
             </div></div>
-            <div className='container'>
+            <div className='container' onClick={
+                ()=>{
+                    document.getElementById("setting").style.display='none'
+                }
+            }>
                 <div className='mt-md-5 mt-xs-3 mt-1'>
                     <h1 className='text-dark'>Hi , {data.name} </h1>
                     <h3 className='text-dark'>Your workspace</h3>
