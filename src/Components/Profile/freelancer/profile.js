@@ -416,7 +416,7 @@ class Profile extends Component {
 
                         }
                     }>
-                        <div className="container w-75 my-5">
+                        <div className="container  my-5">
                             <div className="row container">
 
                                 <div className="col-lg-5 col-md-6">
