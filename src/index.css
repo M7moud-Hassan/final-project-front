@@ -164,8 +164,8 @@ color: rgb(108, 180, 177);
 }
 .pCardsTwo{
   
-  margin-left: 36%;
-  font-size: 40px;
+  font-size: 50px;
+  margin-top: 50%;
 }
 .logos{
   width: 150px;
@@ -327,4 +327,15 @@ ol.ordered{
 .PaymentContainer{
   border: 1px groove gainsboro;
   border-radius: 20px;
+}
+
+
+.jobModal{
+  top: 0;
+  display: none;
+  z-index: 10;
+  position: fixed;
+  background-color: white;
+  border-radius: 20px;
+
 }

@@ -94,11 +94,7 @@ const PortfolioAddDetails = () => {
                         <h5 className="text-start mt-5">add images for portfilo</h5>
                         <input type="file" className="form-control w-100 rounded-pill "  onChange={
                             (e)=>{
-                               
-                                
                               setImages(e.target.files)
-        
-    
                             }
                         } multiple required/>
 
