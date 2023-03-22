@@ -224,7 +224,7 @@ const PaymentUser = () => {
                                     <h6 className="text-dark">Name on the card : <span className="text-muted">{card.nameOnTheCard}</span></h6>
                                     <h6 className="text-dark">Credit card number : <span className="text-muted">{card.Credit_number}</span></h6>
                                     <h6 className="text-dark">Expiration date : <span className="text-muted">{card.Expire_month}</span> / <span className="text-muted">{card.Expire_year}</span></h6>
-                                    <h6 className="text-dark">CVV : <span className="text-muted"></span>{card.CVV}</h6>
+                                    <h6 className="text-dark">CVV : <span className="text-muted">{card.CVV}</span></h6>
                                     <h6 className="text-dark">Email : <span className="text-muted">{card.email}</span></h6>
                                     <h6 className="text-dark">City : <span className="text-muted">{card.city}</span></h6>
                                     <h6 className="text-dark">State : <span className="text-muted">{card.state}</span></h6>
