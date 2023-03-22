@@ -113,8 +113,8 @@ class Job_details extends Component {
                                 </div>
                             </div>
                             <hr />
-                            <div class="row">
-                                <div class="col">
+                            <div class="row" >
+                                <div class="col" className='abskill'>
                                     <h6>
                                         Skills and Expertise
                                     </h6>
@@ -131,7 +131,7 @@ class Job_details extends Component {
                             </div>
                             <hr />
                             <div class="row">
-                                <div class="col">
+                                <div class="col"  className='abskill'>
                                     <h6>Activity on this job</h6>
                                     <div>
                                         <p class="text-muted small">Proposals: Less than 5</p>
