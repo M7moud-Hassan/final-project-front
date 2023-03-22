@@ -113,13 +113,17 @@ XsettingS=()=> {
                                   seconds,
                                 )}`;
                               }
-                              element.islike=false
-                              element.isDislike=false
+
+                              var islike=false
+                              var isDislike=false
+                              element.likeId=0
+
                               
                               element.likes.forEach(ele => {
                                 if(ele.id_free==localStorage.getItem("uid"))
                                 {
-                                    element.islike=true
+
+                                    islike=true
                                     element.likeId=ele.id
                                     return;
                                 }
@@ -128,7 +132,8 @@ XsettingS=()=> {
                              element.dislikes.forEach(ele => {
                                 if(ele.id_free==localStorage.getItem("uid"))
                                 {
-                                    element.isDislike=true
+
+                                    isDislike=true
                                     element.likeId=ele.id
                                     return;
                                 }
@@ -137,21 +142,29 @@ XsettingS=()=> {
                             
                             return(
                             <div>
-                                <div class="container" id="">
+
+                                <div class="container" >
                             <div class="row my-3">
                                 <div class="col-md-6">
                                     <a href="#" class="text-center text-success">{element.title}</a>
-
-
                                 </div>
                                 <div class="col-md-6 text-end">
 
 
-                                    <a name="" id="" class="btn btn-primary rounded-pill btn-sm" onClick={
+
+                                    <a name=""  class="btn btn-primary rounded-pill btn-sm" onClick={
                                         ()=> {
+                                            
                                             if(document.getElementById("dislike"+element.id).style.color=='red'){
-                                               
+                                                axios.post('http://127.0.0.1:8000/home/removeDislike_job/',{
+                                                id:localStorage.getItem('uid'),
+                                                job_id:element.id,
+                                                like_id:element.likeId
+                                            }).then(response=>{
+                                                document.getElementById("dislike"+element.id).style.color="white"
+                                            })
                                         }else{
+                                            
                                             if(document.getElementById("like"+element.id).style.color=='red'){
                                               
                                             axios.post('http://127.0.0.1:8000/home/removelike_job/',{
@@ -160,14 +173,16 @@ XsettingS=()=> {
                                                 like_id:element.likeId
                                             }).then(response=>{
                                                if(response.data=='ok'){
-                                                element.islike=false
+
+                                                islike=false
                                                 axios.post('http://127.0.0.1:8000/home/dislike_job/',{
                                                     id:localStorage.getItem('uid'),
                                                     job_id:element.id,
                                                   
                                                 }).then(response=>{
                                                     if(response.data.res=='ok'){
-                                                        element.isDislike=true
+
+                                                        isDislike=true
                                                         element.likeId=response.data.id
                                                         document.getElementById("like"+element.id).style.color="white"
                                                         document.getElementById("dislike"+element.id).style.color="red"
@@ -182,8 +197,10 @@ XsettingS=()=> {
                                                     job_id:element.id,
                                                   
                                                 }).then(response=>{
-                                                    if(response.data){
-                                                        element.isDislike=true
+
+                                                    if(response.data.res='ok'){
+                                                        isDislike=true
+                                                        element.likeId=element.id
                                                         document.getElementById("dislike"+element.id).style.color="red"
     
                                                     }
@@ -194,31 +211,49 @@ XsettingS=()=> {
                                 }
                                         role="button"><i class="fa-solid fa-thumbs-down" id={"dislike"+element.id} style={
                                             {
-                                                color:element.isDislike?"red":"white"
+
+                                                color:isDislike?"red":"white"
                                             }
                                         }></i></a>
                                     <a name="" id="" class="btn btn-success rounded-pill btn-sm" onClick={
                                         ()=>{
+
+                                         
                                             if(document.getElementById("like"+element.id).style.color=='red'){
+                                                console.log(element.likeId);
+                                                axios.post('http://127.0.0.1:8000/home/removelike_job/',{
+                                                    id:localStorage.getItem('uid'),
+                                                    job_id:element.id,
+                                                    like_id:element.likeId
+                                                }).then(response=>{
+                                                    console.log(response.data);
+                                                    document.getElementById("like"+element.id).style.color="white"
+                                                })
                                                
                                             }else{
+                                                //
                                                 if(document.getElementById("dislike"+element.id).style.color=='red'){
+        
                                                 axios.post('http://127.0.0.1:8000/home/removeDislike_job/',{
                                                     id:localStorage.getItem('uid'),
                                                     job_id:element.id,
                                                     like_id:element.likeId
                                                 }).then(response=>{
+
+                                                  
                                                    if(response.data=='ok'){
-                                                    element.isDislike=false
-                                                   
+                                                    isDislike=false
+                                                
                                                     axios.post('http://127.0.0.1:8000/home/like_job/',{
                                                         id:localStorage.getItem('uid'),
                                                         job_id:element.id,
                                                       
                                                     }).then(response=>{
-                                                       
+
+                                                      
                                                        if(response.data.res=='ok'){
-                                                        element.islike=true
+                                                        
+                                                        islike=true
                                                         element.likeId=response.data.id
                                                         document.getElementById("like"+element.id).style.color="red"
                                                         document.getElementById("dislike"+element.id).style.color="white"
@@ -232,8 +267,10 @@ XsettingS=()=> {
                                                         job_id:element.id,
                                                       
                                                     }).then(response=>{
-                                                        if(response.data=='ok'){
-                                                            element.islike=true
+
+                                                        if(response.data.res=='ok'){
+                                                            islike=true
+                                                            element.likeId=response.data.id
                                                         document.getElementById("like"+element.id).style.color="red"
 
                                                         }
@@ -244,7 +281,8 @@ XsettingS=()=> {
                                     }
                                         role="button"><i class="fa-solid fa-heart" id={"like"+element.id} style={
                                             {
-                                                color:element.islike?"red":"white"
+
+                                                color:islike?"red":"white"
                                             }
                                         }></i></a>
 
@@ -260,11 +298,11 @@ XsettingS=()=> {
                             </div>
 
                             <div class="row my-3 text-center">
-                                  <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+                                  <div id={"carouselExampleIndicators"+element.id} class="carousel slide" data-bs-ride="true">
   <div class="carousel-indicators">
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    <button type="button" data-bs-target={"#carouselExampleIndicators"+element.id} data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target={"#carouselExampleIndicators"+element.id} data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target={"#carouselExampleIndicators"+element.id} data-bs-slide-to="2" aria-label="Slide 3"></button>
   </div>
   <div class="carousel-inner">
     {element.images.map((ele,index)=>{
@@ -280,11 +318,12 @@ XsettingS=()=> {
         }
     })}
   </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+
+  <button class="carousel-control-prev" type="button" data-bs-target={"#carouselExampleIndicators"+element.id} data-bs-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Previous</span>
   </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+  <button class="carousel-control-next" type="button" data-bs-target={"#carouselExampleIndicators"+element.id} data-bs-slide="next">
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Next</span>
   </button>
