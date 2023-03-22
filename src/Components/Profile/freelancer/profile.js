@@ -415,6 +415,10 @@ class Profile extends Component {
                             this.XsettingS()
 
                         }
+                    } style={
+                        {
+                            maxWidth:"90%"
+                        }
                     }>
                         <div className="container w-75 my-5">
                             <div className="row container">
