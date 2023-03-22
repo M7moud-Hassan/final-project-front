@@ -23,7 +23,7 @@ function Login() {
                     localStorage.setItem("userName", res.data.name);
                     localStorage.setItem("type", res.data.type);
                     if(res.data.type=='free'){
-                    window.location = '/profile_free'
+                    window.location = '/home_freelancer'
                     }else if(res.data.type=='user')
                     {
                         window.location = '/clientprofile'
@@ -58,7 +58,7 @@ function Login() {
     console.log(msg);
     var type= localStorage.getItem("type");
     if(type=='free'){
-    window.location = '/profile_free/'
+    window.location = '/home_freelancer/'
     }else if(type=='user')
     {
         window.location = '/clientprofile'

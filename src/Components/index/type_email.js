@@ -22,7 +22,7 @@ let check_email=()=>{
 }
 var type= localStorage.getItem("type");
 if(type=='free'){
-window.location = '/profile_free'
+window.location = '/home_freelancer'
 }else if(type=='client')
 {
     window.location = '/clientprofile'

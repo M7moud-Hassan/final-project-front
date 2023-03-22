@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import "../../css/Home_free.css"
+import '../../css/home_free.css';
 import "../../js/home_free.js"
+
 
 
 
@@ -17,6 +18,7 @@ class Home_free extends Component {
   
 
   render() {
+    return (
     <div>
 
 <div class="container my-4">
@@ -139,7 +141,7 @@ class Home_free extends Component {
             <div class=" col-md-3 px-2">
                 <div class="container-border my-2">
                     <div class="card text-center">
-                        <img src="me.png" class="card-img-top rounded-pill mx-auto" style="width: 100px;" alt="..."/>
+                        <img src="" class="card-img-top rounded-pill mx-auto" style="width: 100px;" alt="..."/>
                         <div class="card-body ">
                             <a href="#" class="text-center text-success">Mahmoud A.</a>
                             <p class="card-text">full stack</p>
@@ -194,7 +196,7 @@ class Home_free extends Component {
 
 
 
-  
+    )
   }
 }
 

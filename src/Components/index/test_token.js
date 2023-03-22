@@ -33,7 +33,7 @@ let TestToken =()=>
      let rendercontent = ()=>{
         var typee= localStorage.getItem("type");
         if(typee=='free'){
-        window.location = '/profile_free'
+        window.location = '/home_freelancer'
         }else if(typee=='client')
         {
             window.location = '/clientprofile'

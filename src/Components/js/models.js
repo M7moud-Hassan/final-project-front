@@ -6,7 +6,6 @@ var addEx =  document.getElementById("id05");
 // Get the modal
 var modal2 = document.getElementById('id02');
 var modal1 = document.getElementById('id01');
-var modal11 = document.getElementById('id11')
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
@@ -16,13 +15,8 @@ window.onclick = function(event) {
       modal2.style.display = "none";
     }else if(event.target == modal3){
       modal3.style.display = "none";
-
-    }else if(event.target == modal11){
-      modal11.style.display = "none";
-
     }else{
       addEx.style.display = "none";
-
     }
 }
 

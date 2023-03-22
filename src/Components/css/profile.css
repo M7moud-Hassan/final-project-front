@@ -6,14 +6,25 @@ body {
 }
 
 .container-border {
-   
-    max-width: 1000px;
-    margin: 0 auto;
-    border: 2px solid #ccc;
+  
+    width: 80%;
+    margin: auto;
+    border: 1px solid #ccc;
     border-radius: 10px;
-    padding: 20px;
+    /* padding: 20px; */
     background-color: #fff;
 }
+.container-border2 {
+  width: 90%;
+  /* margin: auto; */margin-top: 3%;
+  margin-left: 3%;
+  margin-right: 3%;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  /* padding: 20px; */
+  background-color: #fff;
+}
+
 
 .notification-container {
     position: relative;
@@ -32,6 +43,13 @@ body {
   }
 
   hr {
-    border: 2px solid green;
-    border-radius: 5px;
+    color: green;
+    margin-top: 7%;
+    margin-bottom: 7%;
   }
+
+.profileFreePic{
+  padding: 0;
+  width: 200px;
+  height: 200px;
+}

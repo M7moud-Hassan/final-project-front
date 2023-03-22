@@ -7,7 +7,20 @@ const PortfolioAddDetails = () => {
     const [linkVideo,SetLinkVideo]=useState('');
     const [description,setDescription]=useState('');
     const [images,setImages] =useState([]);
+    const [id,setId]=useState()
 
+    useEffect(() => {
+        if(localStorage.getItem("portfilo"))
+        {
+            var p=JSON.parse(localStorage.getItem("portfilo"));
+           
+            SetLinkVideo(p.linkvideo)
+            setDescription(p.description)
+            setId(p.id)
+
+        }
+       
+      }, []);
     return (
         <div className="container row mt-5">
             <div className="col-sm-4 ">
@@ -30,6 +43,31 @@ const PortfolioAddDetails = () => {
                 <form className=" needs-validation" novalidate onSubmit={
                 (e)=>{
                     e.preventDefault()
+                    if(localStorage.getItem("portfilo"))
+                    {
+                        axios.post('http://127.0.0.1:8000/profile/delPortFilo/',{
+                            id:id
+                        }).then(response=>{
+                            axios.post('http://localhost:8000/profile/add_portfilo/',{
+                    id:localStorage.getItem("uid"),
+                    title:title,
+                    date_time:date_time,
+                    linkVide:linkVideo,
+                    description:description,
+                    "images":images
+                 },
+                 {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                      }
+                 }).then(response=>{
+                    if(response.data=='ok'){
+                        localStorage.removeItem("portfilo")
+                      window.location='/profile_free'
+                    }
+                 })
+                        })
+                    }else{
                  axios.post('http://localhost:8000/profile/add_portfilo/',{
                     id:localStorage.getItem("uid"),
                     title:title,
@@ -48,6 +86,7 @@ const PortfolioAddDetails = () => {
                     }
                  })
                 }
+            }
             } >
                 <div className="container mt-3 settingBody ">
                     <div className="ms-4 me-4">
@@ -63,16 +102,16 @@ const PortfolioAddDetails = () => {
                             }
                         } multiple required/>
 
-                        <h5 className="text-start mt-5">Add Video</h5>
-                        <input type="text"  className="form-control w-100 rounded-pill " value={linkVideo} onChange={
+                        <h5 className="text-start mt-5">Add Video <span className="text-muted h6"> -Optional</span></h5>
+                        <input type="text"  className="form-control w-100 rounded-pill " placeholder="put your link here" value={linkVideo} onChange={
                             (e)=>{
                                 SetLinkVideo(e.target.value);
                             }
                         }/>
-                        <p className="text-start mt-4">Images (.jpg, .gif, .png, up to 10 MB, no more than 4000 px in any dimension)</p>
+                        {/* <p className="text-start mt-4">Images (.jpg, .gif, .png, up to 10 MB, no more than 4000 px in any dimension)</p>
                         <p className="text-start mt-3">   Videos (.mp4, .mov, .webm, .ogm, ogv, up to 100 MB, 2 maximum, More than 60 seconds)</p> 
                         <p className="text-start mt-3">    Audio (.mp3, .wav, up to 10 MB, 20 maximum)</p>
-                        <p className="text-start mt-3">    Document (.pdf, up to 10 MB)</p>
+                        <p className="text-start mt-3">    Document (.pdf, up to 10 MB)</p> */}
                         
                         <h5 className="text-start mt-4">Project Description</h5>
                         <textarea className="form-control w-100 " rows="5" placeholder="Descripe what you did on the project" value={description} onChange={
@@ -84,10 +123,12 @@ const PortfolioAddDetails = () => {
                         <div className="mt-3">
                             <button type="button" className="me-3 rounded-pill btn text-success border-success" onClick={
                                 ()=>{
+                                    localStorage.removeItem("portfilo")
                                     window.location='/profile_free'
+                                    
                                 }
                             }>cancel</button>
-                            <button type="submit" className="ms-3 rounded-pill btn btn-success">svae data </button>
+                            <button type="submit" className="ms-3 rounded-pill btn btn-success">save data </button>
                         </div>
                     </div>
                 </div>

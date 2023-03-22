@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import '../css/add_details.css';
-import '../js/add_details.js';
+import '../css/add_details.css'
+import '../js/add_details.js'
 import { NavLink } from 'react-router-dom';
 
 
@@ -258,7 +258,7 @@ class AddDetails extends Component {
     }
     var type= localStorage.getItem("type");
         if(type=='free'){
-        window.location = '/profile_free'
+        window.location = '/home_freelancer'
         }else if(type=='client')
         {
             window.location = '/clientprofile'

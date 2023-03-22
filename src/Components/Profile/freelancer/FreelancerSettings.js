@@ -4,7 +4,8 @@ import { NavLink } from "react-router-dom"
 import axios from "axios";
 import Error from "../../index/error";
 
-const ClientSettings1 = () => {
+const FreeSettings = () => {
+
 
     const [id, setId] = useState('');
     const [data, setData] = useState('');
@@ -21,16 +22,18 @@ const ClientSettings1 = () => {
     const [current_imae_url, SetCurrentFile] = useState('');
 
     useEffect(() => {
-        axios.post(`http://127.0.0.1:8000/profile/clientDetails/`, { id: localStorage.getItem('uid') })
+        axios.post(`http://127.0.0.1:8000/profile/FreeDetails/`, { id: localStorage.getItem('uid') })
             .then(res => {
                 setData(res.data);
-                setPhone(res.data.phone);
-                setFname(res.data.fname);
-                setLname(res.data.lname);
-                setStreet(res.data.street);
+                setPhone(res.data.phone_number);
+                setFname(res.data.first_name);
+                setLname(res.data.last_name);
+                setStreet(res.data.street_address);
                 setState(res.data.state);
                 setCity(res.data.city);
                 setPostal_code(res.data.postal_code);
+                console.log(res.data)
+
 
             })
             .catch(err => {
@@ -58,7 +61,7 @@ const ClientSettings1 = () => {
     };
 
     if (localStorage.getItem('uid')) {
-        if (localStorage.getItem('type') == 'user') {
+        if (localStorage.getItem('type') == 'free') {
             return (
                 <div className="container">
                     <div className="contactModal container w-75" ref={contactSection}>
@@ -66,15 +69,15 @@ const ClientSettings1 = () => {
                             <form onSubmit={
                                 (e) => {
                                     e.preventDefault()
-                                    axios.post(`http://localhost:8000/profile/secondaryDetails/`, {
+                                    axios.post(`http://localhost:8000/profile/secondaryDetailsFree/`, {
                                         id: localStorage.getItem('uid'),
-                                        street: streetz,
+                                        street_address: streetz,
                                         city: cityz,
                                         state: statez,
                                         postal_code: postal_codez,
-                                        fName: fnamez,
-                                        lName: lnamez,
-                                        phone: phonez
+                                        first_name: fnamez,
+                                        last_name: lnamez,
+                                        phone_number: phonez
                                     }).then(res => {
                                         // res.data.street = streetz
                                         console.log(res.data);
@@ -88,8 +91,7 @@ const ClientSettings1 = () => {
                                         <div className="col-md-6 mb-4">
                                             <div className="form-outline position-relative">
                                                 <input type="text" id="firstName" placeholder="First Name" required
-                                                    className="form-control  rounded-pill" name="fname"
-                                                    value={fnamez}
+                                                    className="form-control  rounded-pill" name="first_name" value={fnamez}
                                                     onChange={
                                                         (e) => {
                                                             setFname(e.target.value)
@@ -104,7 +106,7 @@ const ClientSettings1 = () => {
                                         <div className="col-md-6 mb-4">
                                             <div className="form-outline position-relative">
                                                 <input type="text" id="lastName" placeholder="Last Name" required
-                                                    className="form-control  rounded-pill ms-md-3" name="lname" value={lnamez}
+                                                    className="form-control  rounded-pill ms-md-3" name="last_name" value={lnamez}
                                                     onChange={
                                                         (e) => {
                                                             setLname(e.target.value)
@@ -120,7 +122,7 @@ const ClientSettings1 = () => {
                                     <div className="form-group">
                                         <div className="input-group position-relative mb-4">
                                             <input type="text" className="form-control rounded-pill" placeholder="Phone number" id="phone"
-                                                name="phone" pattern="01[0125][0-9]{8}" value={phonez}
+                                                name="phone_number" pattern="01[0125][0-9]{8}" value={phonez}
                                                 onChange={
                                                     (e) => {
                                                         setPhone(e.target.value)
@@ -138,7 +140,7 @@ const ClientSettings1 = () => {
                                         <div className="col-md-6 mb-4">
                                             <div className="form-outline position-relative">
                                                 <input type="text" id="firstName" placeholder="Street" required
-                                                    className="form-control  rounded-pill" name="street" value={streetz}
+                                                    className="form-control  rounded-pill" name="street_address" value={streetz}
                                                     onChange={
                                                         (e) => {
                                                             setStreet(e.target.value)
@@ -207,18 +209,19 @@ const ClientSettings1 = () => {
                             <h2>Settings</h2>
                             <div>
                                 <ol className="ordered" >
-                                    <NavLink style={({ isActive }) => ({ color: isActive ? 'green' : 'Black' })} to={'/clientsettings'}><li><h3>My info</h3></li></NavLink>
-                                    <NavLink style={({ isActive }) => ({ color: isActive ? 'green' : 'Black' })} to={'/ClientPayment'}><li><h3>Billing & Payments</h3></li></NavLink>
-                                    <NavLink style={({ isActive }) => ({ color: isActive ? 'green' : 'Black' })} to={'/changeUserPassword'}><li><h3>Password & Security</h3></li></NavLink>
+                                    <NavLink style={({ isActive }) => ({ color: isActive ? 'green' : 'Black' })} to={'/Freelancersettings'}><li><h3>My info</h3></li></NavLink>
+                                    <NavLink style={({ isActive }) => ({ color: isActive ? 'green' : 'Black' })} to={'/FreePayment'}><li><h3>Billing & Payments</h3></li></NavLink>
+                                    <NavLink style={({ isActive }) => ({ color: isActive ? 'green' : 'Black' })} to={'/changeFreePassword'}><li><h3>Password & Security</h3></li></NavLink>
+                                    <NavLink style={({ isActive }) => ({ color: isActive ? 'green' : 'Black' })} to={'/profile_free'}><li><h3>Return to profile page </h3></li></NavLink>
                                 </ol>
                             </div>
                         </div>
                         <div className="col-sm-8 ">
-                        <h2>Contact info</h2>
+                            <h2>Contact info</h2>
                             <div className="container mt-3 settingBody">
                                 <h3 className="mt-3">Account </h3>
-                                <img className="settingImage mt-5 mb-5" src={current_imae_url ? (current_imae_url) : (data.image ? ("data:image/*;base64," + data.image) : ("./images/default.png"))} />
-                                <button type="file" className="btn btn-outline-primary btn-sm rounded-pill me-2" onClick={onButtonClick}><i
+                                <img className="settingImage mt-5 mb-5" src={current_imae_url ? (current_imae_url) : (data.user_image ? ("data:image/*;base64," + data.user_image) : ("./images/default.png"))} />
+                                <button type="file" className="btn btn-outline-success btn-sm rounded-pill ms-1" onClick={onButtonClick}><i
                                     className="fa-solid fa-pen"></i></button>
                                 <input type='file' id='file' ref={inputFile} style={{ display: 'none' }} onChange={
                                     (e) => {
@@ -229,9 +232,9 @@ const ClientSettings1 = () => {
                                         reader.onload = () => {
 
 
-                                            axios.post(`http://127.0.0.1:8000/profile/updateImageUser/`, {
+                                            axios.post(`http://127.0.0.1:8000/profile/updateImageFreeUser/`, {
                                                 id: localStorage.getItem("uid"),
-                                                image: file
+                                                user_image: file
                                             }, {
                                                 headers: {
                                                     'Content-Type': 'multipart/form-data'
@@ -250,7 +253,7 @@ const ClientSettings1 = () => {
                                     }
                                 } />
                                 <hr className="w-100" />
-                                <h3>{fnamez + " " + lnamez} -<span className="text-muted"> client</span></h3>
+                                <h3>{fnamez + " " + lnamez} -<span className="text-muted"> Freelancer</span></h3>
                                 <h3>{data.email}</h3>
                             </div>
                         </div>
@@ -259,7 +262,7 @@ const ClientSettings1 = () => {
                         <div className="col-sm-8 mt-5">
                             <div className="container mt-3 settingBody ">
                                 <h3 className="mt-3">Contacts</h3>
-                                <h2 className="fontAwsomeSetting"><button className="btn btn-success" onClick={contactS}><i class="fa-regular fa-pen-to-square " ></i></button></h2>
+                                <h2 className="fontAwsomeSetting"><button className="btn btn-success" onClick={contactS}><i className="fa-regular fa-pen-to-square " ></i></button></h2>
                                 <h5 className="mt-3">Owner</h5>
                                 <h6>{fnamez + " " + lnamez}</h6>
                                 <hr className="w-100" />
@@ -296,4 +299,4 @@ const ClientSettings1 = () => {
         return <Error />
     }
 }
-export default ClientSettings1
+export default FreeSettings;
