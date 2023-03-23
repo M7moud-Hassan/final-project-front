@@ -14,7 +14,7 @@ class Home extends Component{
       var type= localStorage.getItem("type");
       if(type=='free'){
       window.location = '/home_freelancer'
-      }else if(type=='client')
+      }else if(type=='user')
       {
           window.location = '/clientprofile'
       }else{

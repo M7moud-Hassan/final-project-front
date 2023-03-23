@@ -136,7 +136,13 @@ const ClientProfile = () => {
                                               'Content-Type': 'multipart/form-data'
                                             }
                                         }).then(res => {
-                                            console.log(res.data);
+                                            
+                                            setTitle('')
+                                            setCost('')
+                                            setDescription('')
+                                            SetSelectionSkills([])
+                                            setImages([])
+                                            setselect_error('')
                                             XcontactS()
 
                                         })
