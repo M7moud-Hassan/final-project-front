@@ -4,7 +4,8 @@ import axios from 'axios';
 import { useState } from 'react';
 // import { useEffect } from 'react';
 import '../../../index.css'
-
+import Select from 'react-select'
+import makeAnimated from 'react-select/animated';
 import NavBar from '../freelancer/navbar';
 import './windows'
 const ClientProfile = () => {
@@ -20,6 +21,11 @@ const ClientProfile = () => {
     const [descriptionz, setDescription] = useState('');
     const [is_pymentz, setIs_pyment] = useState('');
     const [imagesz, setImages] = useState('');
+    const animatedComponents = makeAnimated();
+    const [optionsSkills,setOptionsSkills]=useState([]);
+    const [selectionSkills,SetSelectionSkills]=useState([]);
+    const [select_error,setselect_error]=useState('')
+
 
     useEffect(() => {
         if (localStorage.getItem('uid')) {
@@ -27,6 +33,15 @@ const ClientProfile = () => {
                 setting.current.focus();
             }
         }
+        axios.get("http://127.0.0.1:8000/auth/get_skills/").then(response => {
+            var optionslist = []
+                    
+                    response.data.forEach(element => {
+                        optionslist.push({ value: element.id, label: element.name })
+                       
+                    });
+                    setOptionsSkills(optionslist)
+        })
 
     }, []);
 
@@ -104,19 +119,29 @@ const ClientProfile = () => {
                                 <form className="text-center " onSubmit={
                                     (e) => {
                                         e.preventDefault()
+                                        if(selectionSkills.length==0){
+                                            setselect_error("select skills")
+                                        }else{
                                         axios.post(`http://localhost:8000/home/JobClient/`, {
                                             title: titlez,
                                             cost: costz,
                                             description: descriptionz,
-                                            is_pyment: is_pymentz,
-                                            "images": imagesz,
-                                            client_id: localStorage.getItem('uid')
+                                            is_pyment: data.is_payments,
+                                            images: imagesz,
+                                            client_id: localStorage.getItem('uid'),
+                                            skills:selectionSkills,
+                                        },{
+                                            headers: {
+                                                'Accept': 'application/json',
+                                              'Content-Type': 'multipart/form-data'
+                                            }
                                         }).then(res => {
                                             console.log(res.data);
                                             XcontactS()
 
                                         })
                                     }
+                                }
 
                                 }>
                                     <h3>Add Job</h3>
@@ -130,17 +155,17 @@ const ClientProfile = () => {
                                                     (e) => {
                                                         setTitle(e.target.value)
                                                     }}
-                                            />
+                                            required/>
                                         </div>
                                         <div className="col-md-6 mt-3">
                                             <label for="cost"> Job Cost</label>
-                                            <input type="text" id="cost" name="cost" className="form-control" placeholder="Job Cost"
+                                            <input type="number" id="cost" name="cost" className="form-control" placeholder="Job Cost"
                                                 value={costz}
                                                 onChange={
                                                     (e) => {
                                                         setCost(e.target.value)
                                                     }}
-                                            />
+                                            required/>
                                         </div>
                                     </div>
                                     <div className="row text-start">
@@ -152,19 +177,32 @@ const ClientProfile = () => {
                                                     (e) => {
                                                         setDescription(e.target.value)
                                                     }}
-                                            />
+                                            required/>
                                         </div>
-
-                                        <div className="mt-3">
-                                            <label for="is_pyment">Use Payment method</label>
-                                            <input type="checkbox" id="is_pyment" name="is_pyment" className='ms-3'
-                                                value="True"
-                                                onChange={
-                                                    (e) => {
-                                                        setIs_pyment(e.target.value)
-                                                    }}
-                                            />
-                                        </div>
+                                        <div className='mt-2'></div>
+                                        <Select
+                                    closeMenuOnSelect={false}
+                                    components={animatedComponents}
+                                    isMulti
+                                    options={optionsSkills}
+                                    className="basic-multi-select"
+                                    classNamePrefix="select"
+                                    onChange={
+                                        (e) => {
+                                            setselect_error('')
+                                            var m=[]
+                                            e.forEach(element => {
+                                                m.push(element.value)
+                                            });
+                                            SetSelectionSkills(m)
+                                           
+                                           // this.setState({ defaultSkills: e })
+                                        }
+                                    }
+                                required/>
+                                <div className='text-danger'>
+                                    {select_error}
+                                </div>
                                     </div>
 
                                     <div className="row text-start ">
@@ -173,9 +211,10 @@ const ClientProfile = () => {
                                             <input type="file" id="images" name="images" className="form-control" placeholder="Choose your images" multiple
                                                 onChange={
                                                     (e) => {
+            
                                                         setImages(e.target.files)
                                                     }}
-                                            />
+                                            required/>
                                         </div>
                                     </div>
 
