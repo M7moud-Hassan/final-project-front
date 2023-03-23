@@ -12,7 +12,6 @@ import ActivateUser from './Components/index/activate_user';
 import ActivateFreeLancer from './Components/index/activate';
 import TestToken from './Components/index/test_token';
 import Check_email from './Components/index/please_activate';
-
 import './Components/js/jquery'
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import '@fortawesome/fontawesome-free/js/all.min.js';
