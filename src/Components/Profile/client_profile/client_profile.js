@@ -22,9 +22,25 @@ const ClientProfile = () => {
     const [is_pymentz, setIs_pyment] = useState('');
     const [imagesz, setImages] = useState('');
     const animatedComponents = makeAnimated();
-    const [optionsSkills,setOptionsSkills]=useState([]);
-    const [selectionSkills,SetSelectionSkills]=useState([]);
-    const [select_error,setselect_error]=useState('')
+    const [optionsSkills, setOptionsSkills] = useState([]);
+    const [selectionSkills, SetSelectionSkills] = useState([]);
+    const [select_error, setselect_error] = useState('')
+    const [jobs, setJobs] = useState([]);
+
+
+
+    useEffect(() => {
+        axios.post(`http://localhost:8000/home/latestJobs/`, { client_id: localStorage.getItem('uid') })
+            .then(res => {
+                setJobs(res.data);
+                console.log(res.data)
+                console.log(jobs)
+                console.log(res.data.images)
+            })
+            .catch(err => {
+                console.log(err.message);
+            });
+    }, []);
 
 
     useEffect(() => {
@@ -35,12 +51,12 @@ const ClientProfile = () => {
         }
         axios.get("http://127.0.0.1:8000/auth/get_skills/").then(response => {
             var optionslist = []
-                    
-                    response.data.forEach(element => {
-                        optionslist.push({ value: element.id, label: element.name })
-                       
-                    });
-                    setOptionsSkills(optionslist)
+
+            response.data.forEach(element => {
+                optionslist.push({ value: element.id, label: element.name })
+
+            });
+            setOptionsSkills(optionslist)
         })
 
     }, []);
@@ -119,29 +135,29 @@ const ClientProfile = () => {
                                 <form className="text-center " onSubmit={
                                     (e) => {
                                         e.preventDefault()
-                                        if(selectionSkills.length==0){
+                                        if (selectionSkills.length == 0) {
                                             setselect_error("select skills")
-                                        }else{
-                                        axios.post(`http://localhost:8000/home/JobClient/`, {
-                                            title: titlez,
-                                            cost: costz,
-                                            description: descriptionz,
-                                            is_pyment: data.is_payments,
-                                            images: imagesz,
-                                            client_id: localStorage.getItem('uid'),
-                                            skills:selectionSkills,
-                                        },{
-                                            headers: {
-                                                'Accept': 'application/json',
-                                              'Content-Type': 'multipart/form-data'
-                                            }
-                                        }).then(res => {
-                                            console.log(res.data);
-                                            XcontactS()
+                                        } else {
+                                            axios.post(`http://localhost:8000/home/JobClient/`, {
+                                                title: titlez,
+                                                cost: costz,
+                                                description: descriptionz,
+                                                is_pyment: data.is_payments,
+                                                images: imagesz,
+                                                client_id: localStorage.getItem('uid'),
+                                                skills: selectionSkills,
+                                            }, {
+                                                headers: {
+                                                    'Accept': 'application/json',
+                                                    'Content-Type': 'multipart/form-data'
+                                                }
+                                            }).then(res => {
+                                                console.log(res.data);
+                                                XcontactS()
 
-                                        })
+                                            })
+                                        }
                                     }
-                                }
 
                                 }>
                                     <h3>Add Job</h3>
@@ -155,7 +171,7 @@ const ClientProfile = () => {
                                                     (e) => {
                                                         setTitle(e.target.value)
                                                     }}
-                                            required/>
+                                                required />
                                         </div>
                                         <div className="col-md-6 mt-3">
                                             <label for="cost"> Job Cost</label>
@@ -165,44 +181,44 @@ const ClientProfile = () => {
                                                     (e) => {
                                                         setCost(e.target.value)
                                                     }}
-                                            required/>
+                                                required />
                                         </div>
                                     </div>
                                     <div className="row text-start">
                                         <div className="mt-3">
-                                            <label for="description"><i className="fa fa-institution"></i> Job Description </label>
+                                            <label for="description">Job Description </label>
                                             <textarea type="text" id="description" name="description" className="form-control" rows={8} placeholder="Just Enter your city"
                                                 value={descriptionz}
                                                 onChange={
                                                     (e) => {
                                                         setDescription(e.target.value)
                                                     }}
-                                            required/>
+                                                required />
                                         </div>
                                         <div className='mt-2'></div>
                                         <Select
-                                    closeMenuOnSelect={false}
-                                    components={animatedComponents}
-                                    isMulti
-                                    options={optionsSkills}
-                                    className="basic-multi-select"
-                                    classNamePrefix="select"
-                                    onChange={
-                                        (e) => {
-                                            setselect_error('')
-                                            var m=[]
-                                            e.forEach(element => {
-                                                m.push(element.value)
-                                            });
-                                            SetSelectionSkills(m)
-                                           
-                                           // this.setState({ defaultSkills: e })
-                                        }
-                                    }
-                                required/>
-                                <div className='text-danger'>
-                                    {select_error}
-                                </div>
+                                            closeMenuOnSelect={false}
+                                            components={animatedComponents}
+                                            isMulti
+                                            options={optionsSkills}
+                                            className="basic-multi-select"
+                                            classNamePrefix="select"
+                                            onChange={
+                                                (e) => {
+                                                    setselect_error('')
+                                                    var m = []
+                                                    e.forEach(element => {
+                                                        m.push(element.value)
+                                                    });
+                                                    SetSelectionSkills(m)
+
+                                                    // this.setState({ defaultSkills: e })
+                                                }
+                                            }
+                                            required />
+                                        <div className='text-danger'>
+                                            {select_error}
+                                        </div>
                                     </div>
 
                                     <div className="row text-start ">
@@ -211,14 +227,14 @@ const ClientProfile = () => {
                                             <input type="file" id="images" name="images" className="form-control" placeholder="Choose your images" multiple
                                                 onChange={
                                                     (e) => {
-            
+
                                                         setImages(e.target.files)
                                                     }}
-                                            required/>
+                                                required />
                                         </div>
                                     </div>
 
-                                    <input type="submit" value="Continue to checkout" className="btn btn-success mb-3 mt-3" />
+                                    <input type="submit" value="Add Job" className="btn btn-success mb-3 mt-3" />
                                     <button className="btn btn-light text-success ms-5"
                                         onClick={XcontactS}
                                     >Return</button>
@@ -250,7 +266,7 @@ const ClientProfile = () => {
                                             <button className='btn btn-success btn-bg  rounded-pill'
                                                 onClick={contactS}
                                             >
-                                                <i class="fa-solid fa-circle-plus" ></i>
+                                                <i className="fa-duotone fa-plus h3"></i>
                                             </button>
                                         </div>
                                     </div>
@@ -362,7 +378,7 @@ const ClientProfile = () => {
                         {/* section 4 */}
                         <div className='profileCards3 container pCards4 text-dark'>
                             <div className='mt-3 p-3'>
-                                <h3>Get Started</h3>
+                                <h3>History Work</h3>
                             </div>
                             <div className='w-75 p-3 h2'>
                                 Get started and connect with talent to get work done
@@ -373,35 +389,28 @@ const ClientProfile = () => {
                         </div>
                         {/* section 5 */}
                         <div className='mt-md-5 mt-xs-3 mt-1'>
-                            <h1 className='text-dark'>Complete these steps to stand out and hire fast </h1>
+                            <h1 className='text-dark'>Latest Jobs</h1>
                         </div>
                         <div className='mt-5'>
                             <div className='row mb-5'>
-                                <div className='col-md-4 col-12 mt-3'>
-                                    <div className='profileCards2 container pCards2 text-dark' >
-                                        <div className='mt-3 p-3'><h4 className='text-secondary'>Payments </h4></div>
-                                        <div className=' ps-3 mt-1 h4 text-dark'>
-                                            Everything you need to know about payments
+                                {jobs.map(job => (
+                                    <div className='col-md-4 col-12 mt-3'>
+                                        <div className='profileCards2 container pCards2 text-dark' >
+                                            <div className='mt-3 p-3'><h3 className='text-center'>{job.title} </h3></div>
+                                            <div className=' ps-3 mt-1 h4 text-muted'>
+                                                {job.description}
+                                            </div>
+                                            <div>
+                                                {job.images.map(imgs => (
+                                                    <div key={imgs.id}>
+                                                        <img src={imgs.image} alt={imgs.alt_text} />
+                                                    </div>
+                                                ))}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                ))}
 
-                                <div className='col-md-4 col-12 mt-3'>
-                                    <div className='profileCards2 container pCards2 text-dark' >
-                                        <div className='mt-3 p-3'><h4 className='text-secondary'>Payments </h4></div>
-                                        <div className=' ps-3 mt-1 h4 text-dark'>
-                                            How to seat up your prefered billing method
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className='col-md-4 col-12 mt-3'>
-                                    <div className='profileCards2 container pCards2 text-dark' >
-                                        <div className='mt-3 p-3'><h4 className='text-secondary'>Trust and Safety </h4></div>
-                                        <div className=' ps-3 mt-1 h4 text-dark'>
-                                            Keep yourself and others safe on upwork
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
 
