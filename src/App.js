@@ -30,6 +30,8 @@ import ChangePasswordFree from './Components/Profile/freelancer/changePasswordFr
 import PaymentFreeLancer from './Components/Profile/freelancer/PaymentFree';
 import HomeFreeLancer from './Components/home/freelancer/home';
 import Job_details from './Components/home/freelancer/job_details';
+import Proposal from './Components/home/freelancer/Proposal';
+
 
 
 
@@ -62,6 +64,7 @@ function App() {
       <Route path='/changeFreePassword'element={<ChangePasswordFree/>}/>
       <Route path='/home_freelancer' element={<HomeFreeLancer/>}/>
       <Route path='/job_details' element={<Job_details/>}/>
+      <Route path='/proposal' element={<Proposal/>}/>
 
 
       <Route path='*' element={<Error/>} />
