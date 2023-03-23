@@ -17,9 +17,9 @@ class Proposal extends Component {
         return (
             <div>
                 <div class="container my-4 ">
-        <div class="row">
-            <div class="col">
-                <h3>
+        <div class="row abskill">
+            <div class=" abskill">
+                <h3 className='abskill'>
                     Submit a Proposal
                 </h3>
             </div>
@@ -55,7 +55,7 @@ class Proposal extends Component {
 
                             <hr/>
                             <div class="row">
-                                <div class="col">
+                                <div class="abskill">
                                     <h6>
                                         Skills and Expertise
                                     </h6>
@@ -79,7 +79,7 @@ class Proposal extends Component {
                             <h5>Terms</h5>
                             <div class="container mt-3">
                                 <div class="row">
-                                    <div class="col">
+                                    <div class="abskill">
                                         <h6>
                                             What is the rate you'd like to bid for this job?
                                         </h6>
