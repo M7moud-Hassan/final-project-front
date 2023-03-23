@@ -22,7 +22,7 @@ class HomeFreeLancer extends Component {
     axios.post('http://127.0.0.1:8000/home/detalis_free_home/',{
         id:localStorage.getItem("uid")
     }).then(response=>{
-        console.log(response.dat);
+      //  console.log(response.dat);
         this.setState({data:response.data})
     })
   }
@@ -160,21 +160,21 @@ XsettingS=()=> {
                                         }else{
                                             
                                             if(document.getElementById("like"+element.id).style.color=='red'){
-                                              
+                                              console.log(element.likeId);
                                             axios.post('http://127.0.0.1:8000/home/removelike_job/',{
                                                 id:localStorage.getItem('uid'),
                                                 job_id:element.id,
                                                 like_id:element.likeId
                                             }).then(response=>{
                                                if(response.data=='ok'){
-                                                islike=false
+                                                //islike=false
                                                 axios.post('http://127.0.0.1:8000/home/dislike_job/',{
                                                     id:localStorage.getItem('uid'),
                                                     job_id:element.id,
                                                   
                                                 }).then(response=>{
                                                     if(response.data.res=='ok'){
-                                                        isDislike=true
+                                                       // isDislike=true
                                                         element.likeId=response.data.id
                                                         document.getElementById("like"+element.id).style.color="white"
                                                         document.getElementById("dislike"+element.id).style.color="red"
@@ -190,8 +190,8 @@ XsettingS=()=> {
                                                   
                                                 }).then(response=>{
                                                     if(response.data.res='ok'){
-                                                        isDislike=true
-                                                        element.likeId=element.id
+                                                       // isDislike=true
+                                                        element.likeId=response.data.id
                                                         document.getElementById("dislike"+element.id).style.color="red"
     
                                                     }
@@ -209,20 +209,20 @@ XsettingS=()=> {
                                         ()=>{
                                          
                                             if(document.getElementById("like"+element.id).style.color=='red'){
-                                                console.log(element.likeId);
+                                               // console.log(element.likeId);
                                                 axios.post('http://127.0.0.1:8000/home/removelike_job/',{
                                                     id:localStorage.getItem('uid'),
                                                     job_id:element.id,
                                                     like_id:element.likeId
                                                 }).then(response=>{
-                                                    console.log(response.data);
+                                                   // console.log(response.data);
                                                     document.getElementById("like"+element.id).style.color="white"
                                                 })
                                                
                                             }else{
                                                 //
                                                 if(document.getElementById("dislike"+element.id).style.color=='red'){
-        
+                                                   // console.log(element.likeId);
                                                 axios.post('http://127.0.0.1:8000/home/removeDislike_job/',{
                                                     id:localStorage.getItem('uid'),
                                                     job_id:element.id,
