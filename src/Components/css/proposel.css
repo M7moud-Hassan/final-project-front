@@ -47,5 +47,9 @@ a {
   .form-check {
     margin-bottom: 10px;
   }
-  
-  
+  .abskill{
+    background-color:transparent
+  }
+  .abskill:hover{
+
+  }

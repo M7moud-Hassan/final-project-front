@@ -35,6 +35,7 @@ import Proposal from './Components/home/freelancer/Proposal';
 
 
 
+
 function App() {
   return (
       <BrowserRouter>
