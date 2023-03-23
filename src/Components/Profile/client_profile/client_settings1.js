@@ -210,6 +210,7 @@ const ClientSettings1 = () => {
                                     <NavLink style={({ isActive }) => ({ color: isActive ? 'green' : 'Black' })} to={'/clientsettings'}><li><h3>My info</h3></li></NavLink>
                                     <NavLink style={({ isActive }) => ({ color: isActive ? 'green' : 'Black' })} to={'/ClientPayment'}><li><h3>Billing & Payments</h3></li></NavLink>
                                     <NavLink style={({ isActive }) => ({ color: isActive ? 'green' : 'Black' })} to={'/changeUserPassword'}><li><h3>Password & Security</h3></li></NavLink>
+                                    <NavLink style={({ isActive }) => ({ color: isActive ? 'green' : 'Black' })} to={'/clientprofile'}><li><h3>Return to client page</h3></li></NavLink>
                                 </ol>
                             </div>
                         </div>

@@ -420,15 +420,15 @@ class Profile extends Component {
                             maxWidth:"90%"
                         }
                     }>
-                        <div className="container w-75 my-5">
+                        <div className="container  my-5">
                             <div className="row container">
 
-                                <div className="col-lg-5 col-md-6">
+                                <div className="col-lg-4 col-md-6">
                                     <img src={"data:image/*;base64," + this.state.data.image} className=" rounded-circle mb-3 profileFreePic"
                                         alt="Profile Picture" />
 
                                 </div>
-                                <div className="col-lg-7 col-md-6">
+                                <div className="col-lg-8 col-md-6">
                                     <h4>{this.state.data.name}</h4>
 
                                     <p className="text-muted">{this.state.data.address}</p>
