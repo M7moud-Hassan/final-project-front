@@ -25,7 +25,7 @@ class Job_details extends Component {
 
                     </div>
                     <div class="row ">
-                        <div class="col-md-8 border">
+                        <div class="col-md-8">
                             <h5>Odoo developer SAML CONNECTOR</h5>
                             <div class=" mt-5">
                                 <h5><a href="#" class="text-center text-success">Python Developer</a></h5>
