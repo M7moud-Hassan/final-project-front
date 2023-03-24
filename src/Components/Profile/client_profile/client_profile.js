@@ -206,7 +206,7 @@ const ClientProfile = () => {
                                     }
                                 }>
                                     <h3>Add Job</h3>
-                                    <div className="row text-start">
+                                    <div className="row text-start m-auto">
                                         <div className="col-md-6 mt-3 ">
                                             <label for="fname" className="">Job Title</label>
                                             <input type="text" className="form-control" id="fname" name="title" placeholder="Job Title"
@@ -287,7 +287,7 @@ const ClientProfile = () => {
                         </div>
 
                         {/* Job Details Section   */}
-                        <div className='JobDetails text-center w-75 mt-5 animate' ref={JTitle}>
+                        <div className='JobDetails m-auto text-center w-md-75 mt-5 animate ' ref={JTitle}>
                             <div className=" p-4" >
 
                                 {
@@ -298,15 +298,47 @@ const ClientProfile = () => {
                                         <h3 className="text-dark">Number of Likes : <span className="text-muted">{jobsDetails.numlikes}</span></h3>
                                         <h3 className="text-dark">Number of Dislike : <span className="text-muted">{jobsDetails.numDislike}</span></h3>
                                         <div>
-                                            {jobsDetails.images ? (jobsDetails.images.map(imgs => {
-                                              console.log(imgs) ;
-                                              return( <div>
-                                                    <img src={"http://localhost:8000" + imgs} className="d-block w-100 haimage slide CaroClientProfile " alt="..." />
-                                                </div>)
-                                            })) : console.log("not found")
-                                            // (<div></div>)
-                                            }
+                                            <div className='row'>
+                                                {jobsDetails.images ? (jobsDetails.images.map(imgs => {
+                                                    console.log(imgs);
+                                                    return (
+                                                        <div className='col-md-4'>
+                                                            <img src={"http://localhost:8000" + imgs} className="d-block w-100 haimage slide BorderRadiusClass " alt="..." />
+                                                        </div>)
+                                                })) :
+                                                    (<div>no images for this job</div>)
+                                                }
+                                            </div>
+                                            <div className='mt-3 mb-3'>
+                                                <h3>Requried skills for this Job</h3>
+                                                {jobsDetails.skills ? (jobsDetails.skills.map(skill => {
+                                                    return (
+                                                        <span className='btn btn-success m-1 disabled'>
+                                                            {skill}
+                                                        </span>
+                                                    )
+                                                })) :
+                                                    (<div>no images for this job</div>)
+                                                }
+                                            </div>
+                                            <h3>Proposals</h3>
+                                            <div className='mt-3 mb-3 row'>
+                                                {jobsDetails.proposals ? (jobsDetails.proposals.map(props => {
+                                                    return (
+                                                        <div className=' col-md-6    text-start'>
+                                                            <div className='propsBody rounded-pill ms-3 me-3 mt-3'>
+                                                                <input type="hidden" value={props.id} />
+                                                                <img className='imgPropsal ' src={"http://localhost:8000" + props.image} c />
+                                                                <span className='mt-3 ms-3'>{props.name}</span>
+                                                            </div>
+                                                        </div>
+                                                    )
 
+                                                })) : (<div>no Props for this job</div>)
+
+                                                }
+
+                                            </div>
                                         </div>
                                         <button className='btn btn-success text-center ' onClick={XJTitleOP} ><h3> Return  </h3></button>
                                     </div>
@@ -316,9 +348,6 @@ const ClientProfile = () => {
                             </div>
                         </div>
 
-
-                        <h1>hi amigio</h1>
-                        {/* </div> */}
                         {/* section 1 */}
                         <div className='mt-5'>
                             <div className='row'>
@@ -471,7 +500,7 @@ const ClientProfile = () => {
 
                             <div className='row mb-5'>
                                 {jobs.map(job => (
-                                    <div className='col-md-4 col-12 mt-3'>
+                                    <div className='col-md-4 mt-3'>
                                         <div className='profileCards2 container pCards2 text-dark' >
                                             <div className='mt-3 p-3'><h3 className='text-center'>{job.title} </h3></div>
                                             <div className=' ps-3 mt-1 h4 text-muted'>
@@ -495,17 +524,9 @@ const ClientProfile = () => {
                                                                         .then(res => {
                                                                             setJobsDetails(res.data);
 
-                                                                            // console.log(res.data)
-                                                                            // console.log(jobsDetails)
-                                                                            // console.log(res.data.images)
                                                                             console.log(job.id)
                                                                             console.log(jobsDetails)
-                                                                            // setjtitle(jobsDetails.title)
-                                                                            // setjcreate(jobsDetails.create_at)
-                                                                            // setjdescriptionz(jobsDetails.description)
-                                                                            // setjcostz(jobsDetails.cost)
-                                                                            // setjlikes(jobsDetails.numlikes)
-                                                                            // setjdislike (jobsDetails.numDislike)
+
                                                                             JTitleOP()
                                                                         })
                                                                         .catch(err => {
@@ -519,11 +540,11 @@ const ClientProfile = () => {
                                                         {job.images.map((imgs, index) => {
                                                             if (index == 0) {
                                                                 return (<div class="carousel-item active">
-                                                                    <img src={"http://localhost:8000" + imgs.image} className="d-block w-100 haimage slide CaroClientProfile" alt="..." />
+                                                                    <img src={"http://localhost:8000" + imgs.image} className="d-block w-100 haimage slide BorderRadiusClass" alt="..." />
                                                                 </div>)
                                                             } else {
                                                                 return (<div class="carousel-item">
-                                                                    <img src={"http://localhost:8000" + imgs.image} className="d-block w-100 haimage slide CaroClientProfile " alt="..." />
+                                                                    <img src={"http://localhost:8000" + imgs.image} className="d-block w-100 haimage slide BorderRadiusClass " alt="..." />
                                                                 </div>)
                                                             }
                                                         })}

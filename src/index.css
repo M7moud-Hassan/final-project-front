@@ -340,12 +340,13 @@ ol.ordered{
 
 }
 
-.CaroClientProfile{
+.BorderRadiusClass{
   border-radius: 20px;
 
   border: 1px groove rgb(231, 231, 231);
 }
 .JobDetails{
+  margin: auto;
   top: 0;
   display: none;
   z-index: 10;
@@ -354,5 +355,19 @@ ol.ordered{
   border-radius: 20px;
   box-shadow: 2px 2px 20px 5px #888888;
   border: 1px groove rgb(155, 155, 155);
-  
+  overflow: scroll;
+  height: 400px;
+}
+.imgPropsal{
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  text-align: start;
+}
+.propsBody{
+  height: 70px;
+  /* width: 350px; */
+  /* font-size: 20px; */
+  font-weight: 600;
+  background-color: lightgray;
 }
