@@ -13,7 +13,7 @@ class Search extends Component {
         super()
         this.state = {
             data:[],
-            dataa:'',
+            dataa:[],
             data_filter:[]
         }
 
@@ -76,13 +76,14 @@ class Search extends Component {
         }).then(response=>{
             console.log(response.data);
             this.setState({data:response.data})
+            this.setState({data_filter:response.data})
         })
         axios.post('http://127.0.0.1:8000/profile/get_details_free/',{
           id:localStorage.getItem("uid")  
         }).then(res=>{
             console.log(res.data);
             this.setState({dataa:res.data})
-            this.setState({data_filter:res.data})
+            
         })
     }
 
