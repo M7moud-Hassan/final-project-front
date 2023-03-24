@@ -313,10 +313,14 @@ XsettingS=()=> {
                             <div class="row my-3 text-center">
                                   <div id={"carouselExampleIndicators"+element.id} class="carousel slide" data-bs-ride="true">
   <div class="carousel-indicators">
-    <button type="button" data-bs-target={"#carouselExampleIndicators"+element.id} data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-    <button type="button" data-bs-target={"#carouselExampleIndicators"+element.id} data-bs-slide-to="1" aria-label="Slide 2"></button>
-    <button type="button" data-bs-target={"#carouselExampleIndicators"+element.id} data-bs-slide-to="2" aria-label="Slide 3"></button>
-  </div>
+  {element.images.map((ele,index)=>{
+    if(index==0)
+    {
+        return( <button type="button" data-bs-target={"#carouselExampleIndicators"+element.id} data-bs-slide-to={index} class="active" aria-current="true" aria-label="Slide 1"></button>)
+    }else{
+        return (<button type="button" data-bs-target={"#carouselExampleIndicators"+element.id} data-bs-slide-to={index} aria-label="Slide 2"></button>)
+    }
+                        })}  </div>
   <div class="carousel-inner">
     {element.images.map((ele,index)=>{
         if(index==0)
