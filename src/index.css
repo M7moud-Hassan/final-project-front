@@ -339,3 +339,20 @@ ol.ordered{
   border-radius: 20px;
 
 }
+
+.CaroClientProfile{
+  border-radius: 20px;
+
+  border: 1px groove rgb(231, 231, 231);
+}
+.JobDetails{
+  top: 0;
+  display: none;
+  z-index: 10;
+  position: fixed;
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 2px 2px 20px 5px #888888;
+  border: 1px groove rgb(155, 155, 155);
+  
+}

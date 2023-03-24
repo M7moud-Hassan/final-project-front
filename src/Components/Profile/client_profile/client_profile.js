@@ -7,13 +7,18 @@ import '../../../index.css'
 import Select from 'react-select'
 import makeAnimated from 'react-select/animated';
 import NavBar from '../freelancer/navbar';
+
 import './windows'
+import Slider from 'react-slick';
+// import "slick-carousel/slick/slick.css";
+// import "slick-carousel/slick/slick-theme.css";
 const ClientProfile = () => {
 
     const [id, setId] = useState('');
     const [data, setData] = useState('');
     const setting = useRef('');
     const jobSection = useRef('');
+    const JTitle = useRef('')
     const [isMenu, setIsMenu] = useState(false);
 
     const [titlez, setTitle] = useState('');
@@ -26,8 +31,14 @@ const ClientProfile = () => {
     const [selectionSkills, SetSelectionSkills] = useState([]);
     const [select_error, setselect_error] = useState('')
     const [jobs, setJobs] = useState([]);
+    const [jobsDetails, setJobsDetails] = useState([]);
 
-
+    // const [jtitle, setjtitle] = useState('');
+    // const [jcreate, setjcreate] = useState('');
+    // const [jdescription, setjdescriptionz] = useState('');
+    // const [jcost, setjcostz] = useState('');
+    // const [jlikes, setjlikes] = useState('');
+    // const [jdislike, setjdislike] = useState('');
 
     useEffect(() => {
         axios.post(`http://localhost:8000/home/latestJobs/`, { client_id: localStorage.getItem('uid') })
@@ -35,6 +46,22 @@ const ClientProfile = () => {
                 setJobs(res.data);
                 console.log(res.data)
                 console.log(jobs)
+                console.log(res.data.images)
+            })
+            .catch(err => {
+                console.log(err.message);
+            });
+    }, []);
+
+
+
+    useEffect(() => {
+
+        axios.post(`http://localhost:8000/home/jobDetails/`, { id: jobs.id })
+            .then(res => {
+                setJobsDetails(res.data);
+                console.log(res.data)
+                console.log(jobsDetails)
                 console.log(res.data.images)
             })
             .catch(err => {
@@ -85,6 +112,19 @@ const ClientProfile = () => {
         const DoM = setting.current;
         DoM.style.display = 'none'
     }
+
+    function JTitleOP() {
+        setIsMenu(true)
+        const DoM = JTitle.current;
+        DoM.style.display = 'block'
+    }
+    function XJTitleOP() {
+        setIsMenu(false)
+        const DoM = JTitle.current;
+        DoM.style.display = 'none'
+    }
+
+
     useEffect(() => {
         axios.post(`http://127.0.0.1:8000/profile/clientDetails/`, { id: localStorage.getItem('uid') })
             .then(res => {
@@ -154,14 +194,11 @@ const ClientProfile = () => {
                                             }).then(res => {
                                                 console.log(res.data);
                                                 XcontactS()
-
                                             })
                                         }
                                     }
-
                                 }>
                                     <h3>Add Job</h3>
-
                                     <div className="row text-start">
                                         <div className="col-md-6 mt-3 ">
                                             <label for="fname" className="">Job Title</label>
@@ -242,7 +279,36 @@ const ClientProfile = () => {
                             </div>
                         </div>
 
+                        {/* Job Details Section   */}
+                        <div className='JobDetails text-center w-75 mt-5 animate' ref={JTitle}>
+                            <div className=" p-4" >
 
+                                {
+                                    <div className=" p-4 m-auto" key={jobsDetails.id}>
+                                        <h3 className="text-dark">Job Title : <span className="text-muted">{jobsDetails.title}</span></h3>
+                                        <h3 className="text-dark">Created at : <span className="text-muted">{jobsDetails.create_at}</span></h3>
+                                        <h3 className="text-dark">Description : <span className="text-muted">{jobsDetails.description}</span></h3>
+                                        <h3 className="text-dark">Number of Likes : <span className="text-muted">{jobsDetails.numlikes}</span></h3>
+                                        <h3 className="text-dark">Number of Dislike : <span className="text-muted">{jobsDetails.numDislike}</span></h3>
+                                        <div>
+                                            {jobsDetails.images ? jobsDetails.images.map(imgs => {
+                                                <div>
+                                                    <img src={"http://localhost:8000" + imgs.image} className="d-block w-100 haimage slide CaroClientProfile " alt="..." />
+                                                </div>
+                                            }) : console.log("nothing")}
+
+                                        </div>
+                                        <button className='btn btn-success text-center ' onClick={XJTitleOP} ><h3> Return  </h3></button>
+                                    </div>
+
+                                }
+
+                            </div>
+                        </div>
+
+
+                        <h1>hi amigio</h1>
+                        {/* </div> */}
                         {/* section 1 */}
                         <div className='mt-5'>
                             <div className='row'>
@@ -392,6 +458,7 @@ const ClientProfile = () => {
                             <h1 className='text-dark'>Latest Jobs</h1>
                         </div>
                         <div className='mt-5'>
+
                             <div className='row mb-5'>
                                 {jobs.map(job => (
                                     <div className='col-md-4 col-12 mt-3'>
@@ -400,20 +467,81 @@ const ClientProfile = () => {
                                             <div className=' ps-3 mt-1 h4 text-muted'>
                                                 {job.description}
                                             </div>
-                                                {job.images.map(imgs => (
-                                                    <div key={imgs.id} className='text-center mt-3 mb-3 '>
-                                                        <img className='w-75 border border-dark' src={'http://127.0.0.1:8000'+imgs.image} alt={imgs.alt_text} />
+
+                                            <div class="row my-3 text-center">
+                                                <div id={"carouselExampleIndicators" + job.id} className="carousel  " data-bs-ride="true">
+                                                    <div class="carousel-indicators">
+                                                        <button type="button" data-bs-target={"#carouselExampleIndicators" + job.id} data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                                                        <button type="button" data-bs-target={"#carouselExampleIndicators" + job.id} data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                                        <button type="button" data-bs-target={"#carouselExampleIndicators" + job.id} data-bs-slide-to="2" aria-label="Slide 3"></button>
                                                     </div>
-                                                ))}
+                                                    <div class="carousel-inner "
+                                                        onClick={
+                                                            () => {
+                                                                if (job.id.length == 0) {
+                                                                    console.log("no data")
+                                                                } else {
+                                                                    axios.post(`http://localhost:8000/home/jobDetails/`, { id: job.id })
+                                                                        .then(res => {
+                                                                            setJobsDetails(res.data);
+
+                                                                            // console.log(res.data)
+                                                                            // console.log(jobsDetails)
+                                                                            // console.log(res.data.images)
+                                                                            console.log(job.id)
+                                                                            console.log(jobsDetails)
+                                                                            // setjtitle(jobsDetails.title)
+                                                                            // setjcreate(jobsDetails.create_at)
+                                                                            // setjdescriptionz(jobsDetails.description)
+                                                                            // setjcostz(jobsDetails.cost)
+                                                                            // setjlikes(jobsDetails.numlikes)
+                                                                            // setjdislike (jobsDetails.numDislike)
+                                                                            JTitleOP()
+                                                                        })
+                                                                        .catch(err => {
+                                                                            console.log(err.message);
+                                                                        })
+
+                                                                }
+                                                            }
+                                                        }
+                                                    >
+                                                        {job.images.map((imgs, index) => {
+                                                            if (index == 0) {
+                                                                return (<div class="carousel-item active">
+                                                                    <img src={"http://localhost:8000" + imgs.image} className="d-block w-100 haimage slide CaroClientProfile" alt="..." />
+                                                                </div>)
+                                                            } else {
+                                                                return (<div class="carousel-item">
+                                                                    <img src={"http://localhost:8000" + imgs.image} className="d-block w-100 haimage slide CaroClientProfile " alt="..." />
+                                                                </div>)
+                                                            }
+                                                        })}
+                                                    </div>
+
+                                                    <button class="carousel-control-prev" type="button" data-bs-target={"#carouselExampleIndicators" + job.id} data-bs-slide="prev">
+                                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                        <span class="visually-hidden">Previous</span>
+                                                    </button>
+                                                    <button class="carousel-control-next" type="button" data-bs-target={"#carouselExampleIndicators" + job.id} data-bs-slide="next">
+                                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                        <span class="visually-hidden">Next</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
                                 ))}
 
                             </div>
+
                         </div>
 
+                        {/* Test Section */}
+
                     </div>
-                </div>
+                </div >
 
             )
         }
