@@ -12,7 +12,7 @@ class NavBar extends Component {
 
   }}
   componentDidMount() {
-       
+      
     axios.post(this.props.url,
         {
             "id": localStorage.getItem('uid')

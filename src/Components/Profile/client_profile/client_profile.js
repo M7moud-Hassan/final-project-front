@@ -192,8 +192,15 @@ const ClientProfile = () => {
                                                     'Content-Type': 'multipart/form-data'
                                                 }
                                             }).then(res => {
-                                                console.log(res.data);
+
+                                                setTitle('')
+                                                setCost('')
+                                                setDescription('')
+                                                SetSelectionSkills([])
+                                                setImages([])
+                                                setselect_error('')
                                                 XcontactS()
+
                                             })
                                         }
                                     }
@@ -291,11 +298,14 @@ const ClientProfile = () => {
                                         <h3 className="text-dark">Number of Likes : <span className="text-muted">{jobsDetails.numlikes}</span></h3>
                                         <h3 className="text-dark">Number of Dislike : <span className="text-muted">{jobsDetails.numDislike}</span></h3>
                                         <div>
-                                            {jobsDetails.images ? jobsDetails.images.map(imgs => {
-                                                <div>
-                                                    <img src={"http://localhost:8000" + imgs.image} className="d-block w-100 haimage slide CaroClientProfile " alt="..." />
-                                                </div>
-                                            }) : console.log("nothing")}
+                                            {jobsDetails.images ? (jobsDetails.images.map(imgs => {
+                                              console.log(imgs) ;
+                                              return( <div>
+                                                    <img src={"http://localhost:8000" + imgs} className="d-block w-100 haimage slide CaroClientProfile " alt="..." />
+                                                </div>)
+                                            })) : console.log("not found")
+                                            // (<div></div>)
+                                            }
 
                                         </div>
                                         <button className='btn btn-success text-center ' onClick={XJTitleOP} ><h3> Return  </h3></button>
