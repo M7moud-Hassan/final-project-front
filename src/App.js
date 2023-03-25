@@ -31,6 +31,7 @@ import HomeFreeLancer from './Components/home/freelancer/home';
 import Job_details from './Components/home/freelancer/job_details';
 import Proposal from './Components/home/freelancer/Proposal';
 import Search from './Components/home/freelancer/search';
+import Cv_free from './Components/Profile/freelancer/cv_free';
 
 
 
@@ -67,6 +68,7 @@ function App() {
       <Route path='/job_details' element={<Job_details/>}/>
       <Route path='/proposal' element={<Proposal/>}/>
       <Route path='/search/:param1' element={<Search/>}/>
+      <Route path='/cv_free' element={<Cv_free/>}/>
 
       <Route path='*' element={<Error/>} />
       </Routes>

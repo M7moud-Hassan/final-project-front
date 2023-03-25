@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../../css/proposel.css'
+import NavBar from '../../Profile/freelancer/navbar';
 
 
 
@@ -16,15 +17,17 @@ class Proposal extends Component {
 
         return (
             <div>
+                 <NavBar/> 
+
                 <div class="container my-4 ">
-        <div class="row abskill">
-            <div class=" abskill">
+        <div class="row abskill ">
+            <div class=" abskill d-flex justify-content-center">
                 <h3 className='abskill'>
                     Submit a Proposal
                 </h3>
             </div>
         </div>
-        <div class="row">
+        <div class="row d-flex justify-content-center">
             
             <div class=" col-md-9 px-2">
                     <form action="" method="post" novalidate>
