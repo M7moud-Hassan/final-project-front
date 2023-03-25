@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import NavBar from './navbar';
 import Footer from './Footer';
 
+
 class Cv_free extends Component {
   constructor() {
     super();

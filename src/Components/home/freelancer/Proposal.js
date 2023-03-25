@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import '../../css/proposel.css'
+import '../../css/proposel.css';
 import NavBar from '../../Profile/freelancer/navbar';
+
 
 
 
