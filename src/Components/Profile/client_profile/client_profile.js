@@ -7,13 +7,17 @@ import '../../../index.css'
 import Select from 'react-select'
 import makeAnimated from 'react-select/animated';
 import NavBar from '../freelancer/navbar';
+
 import './windows'
+// import "slick-carousel/slick/slick.css";
+// import "slick-carousel/slick/slick-theme.css";
 const ClientProfile = () => {
 
     const [id, setId] = useState('');
     const [data, setData] = useState('');
     const setting = useRef('');
     const jobSection = useRef('');
+    const JTitle = useRef('')
     const [isMenu, setIsMenu] = useState(false);
 
     const [titlez, setTitle] = useState('');
@@ -22,9 +26,74 @@ const ClientProfile = () => {
     const [is_pymentz, setIs_pyment] = useState('');
     const [imagesz, setImages] = useState('');
     const animatedComponents = makeAnimated();
-    const [optionsSkills,setOptionsSkills]=useState([]);
-    const [selectionSkills,SetSelectionSkills]=useState([]);
-    const [select_error,setselect_error]=useState('')
+    const [optionsSkills, setOptionsSkills] = useState([]);
+    const [selectionSkills, SetSelectionSkills] = useState([]);
+    const [select_error, setselect_error] = useState('')
+    const [jobs, setJobs] = useState([]);
+    const [jobsDetails, setJobsDetails] = useState([]);
+
+    // const [jtitle, setjtitle] = useState('');
+    // const [jcreate, setjcreate] = useState('');
+    // const [jdescription, setjdescriptionz] = useState('');
+    // const [jcost, setjcostz] = useState('');
+    // const [jlikes, setjlikes] = useState('');
+    // const [jdislike, setjdislike] = useState('');
+
+    let calday=(create_at)=>{
+        var a = new Date(create_at)
+        var b = new Date()
+        function padTo2Digits(num) {
+            return num.toString().padStart(2, '0');
+          }
+          
+          function convertMsToTime(milliseconds) {
+            let seconds = Math.floor(milliseconds / 1000);
+            let minutes = Math.floor(seconds / 60);
+            let hours = Math.floor(minutes / 60);
+          
+            seconds = seconds % 60;
+            minutes = minutes % 60;
+          
+            // 👇️ If you don't want to roll hours over, e.g. 24 to 00
+            // 👇️ comment (or remove) the line below
+            // commenting next line gets you `24:00:00` instead of `00:00:00`
+            // or `36:15:31` instead of `12:15:31`, etc.
+            hours = hours % 24;
+          
+            return `${padTo2Digits(hours)}:${padTo2Digits(minutes)}:${padTo2Digits(
+              seconds,
+            )}`;
+          }
+          return convertMsToTime(b-a)
+    }
+    useEffect(() => {
+        axios.post(`http://localhost:8000/home/latestJobs/`, { client_id: localStorage.getItem('uid') })
+            .then(res => {
+                setJobs(res.data);
+                console.log(res.data)
+                console.log(jobs)
+                console.log(res.data.images)
+            })
+            .catch(err => {
+                console.log(err.message);
+            });
+    }, []);
+
+
+
+    useEffect(() => {
+
+        axios.post(`http://localhost:8000/home/jobDetails/`, { id: jobs.id })
+            .then(res => {
+                setJobsDetails(res.data);
+                console.log(res.data)
+                console.log(jobsDetails)
+                console.log(res.data.images)
+            })
+            .catch(err => {
+                console.log(err.message);
+            });
+    }, []);
 
 
     useEffect(() => {
@@ -35,12 +104,12 @@ const ClientProfile = () => {
         }
         axios.get("http://127.0.0.1:8000/auth/get_skills/").then(response => {
             var optionslist = []
-                    
-                    response.data.forEach(element => {
-                        optionslist.push({ value: element.id, label: element.name })
-                       
-                    });
-                    setOptionsSkills(optionslist)
+
+            response.data.forEach(element => {
+                optionslist.push({ value: element.id, label: element.name })
+
+            });
+            setOptionsSkills(optionslist)
         })
 
     }, []);
@@ -69,6 +138,19 @@ const ClientProfile = () => {
         const DoM = setting.current;
         DoM.style.display = 'none'
     }
+
+    function JTitleOP() {
+        setIsMenu(true)
+        const DoM = JTitle.current;
+        DoM.style.display = 'block'
+    }
+    function XJTitleOP() {
+        setIsMenu(false)
+        const DoM = JTitle.current;
+        DoM.style.display = 'none'
+    }
+
+
     useEffect(() => {
         axios.post(`http://127.0.0.1:8000/profile/clientDetails/`, { id: localStorage.getItem('uid') })
             .then(res => {
@@ -90,7 +172,7 @@ const ClientProfile = () => {
                         openMenu={isMenu ? (XsettingS) : (settingS)}
                     />
                     <div className='row'>
-                        <div className=' col-sm-3 buttonSetting text-center' id="setting" ref={setting}>
+                        <div className=' col-sm-3 buttonSetting text-center animate' id="setting" ref={setting}>
                             <img className='littleSymbolImage' src={data.image ? ("data:image/*;base64," + data.image) : ("./images/default.png")} />
                             <h4 className='mt-3'>{data.name}</h4>
                             <hr />
@@ -119,40 +201,38 @@ const ClientProfile = () => {
                                 <form className="text-center " onSubmit={
                                     (e) => {
                                         e.preventDefault()
-                                        if(selectionSkills.length==0){
+                                        if (selectionSkills.length == 0) {
                                             setselect_error("select skills")
-                                        }else{
-                                        axios.post(`http://localhost:8000/home/JobClient/`, {
-                                            title: titlez,
-                                            cost: costz,
-                                            description: descriptionz,
-                                            is_pyment: data.is_payments,
-                                            images: imagesz,
-                                            client_id: localStorage.getItem('uid'),
-                                            skills:selectionSkills,
-                                        },{
-                                            headers: {
-                                                'Accept': 'application/json',
-                                              'Content-Type': 'multipart/form-data'
-                                            }
-                                        }).then(res => {
-                                            
-                                            setTitle('')
-                                            setCost('')
-                                            setDescription('')
-                                            SetSelectionSkills([])
-                                            setImages([])
-                                            setselect_error('')
-                                            XcontactS()
+                                        } else {
+                                            axios.post(`http://localhost:8000/home/JobClient/`, {
+                                                title: titlez,
+                                                cost: costz,
+                                                description: descriptionz,
+                                                is_pyment: data.is_payments,
+                                                images: imagesz,
+                                                client_id: localStorage.getItem('uid'),
+                                                skills: selectionSkills,
+                                            }, {
+                                                headers: {
+                                                    'Accept': 'application/json',
+                                                    'Content-Type': 'multipart/form-data'
+                                                }
+                                            }).then(res => {
 
-                                        })
+                                                setTitle('')
+                                                setCost('')
+                                                setDescription('')
+                                                SetSelectionSkills([])
+                                                setImages([])
+                                                setselect_error('')
+                                                XcontactS()
+
+                                            })
+                                        }
                                     }
-                                }
-
                                 }>
                                     <h3>Add Job</h3>
-
-                                    <div className="row text-start">
+                                    <div className="row text-start m-auto">
                                         <div className="col-md-6 mt-3 ">
                                             <label for="fname" className="">Job Title</label>
                                             <input type="text" className="form-control" id="fname" name="title" placeholder="Job Title"
@@ -161,7 +241,7 @@ const ClientProfile = () => {
                                                     (e) => {
                                                         setTitle(e.target.value)
                                                     }}
-                                            required/>
+                                                required />
                                         </div>
                                         <div className="col-md-6 mt-3">
                                             <label for="cost"> Job Cost</label>
@@ -171,44 +251,44 @@ const ClientProfile = () => {
                                                     (e) => {
                                                         setCost(e.target.value)
                                                     }}
-                                            required/>
+                                                required />
                                         </div>
                                     </div>
                                     <div className="row text-start">
                                         <div className="mt-3">
-                                            <label for="description"><i className="fa fa-institution"></i> Job Description </label>
+                                            <label for="description">Job Description </label>
                                             <textarea type="text" id="description" name="description" className="form-control" rows={8} placeholder="Just Enter your city"
                                                 value={descriptionz}
                                                 onChange={
                                                     (e) => {
                                                         setDescription(e.target.value)
                                                     }}
-                                            required/>
+                                                required />
                                         </div>
                                         <div className='mt-2'></div>
                                         <Select
-                                    closeMenuOnSelect={false}
-                                    components={animatedComponents}
-                                    isMulti
-                                    options={optionsSkills}
-                                    className="basic-multi-select"
-                                    classNamePrefix="select"
-                                    onChange={
-                                        (e) => {
-                                            setselect_error('')
-                                            var m=[]
-                                            e.forEach(element => {
-                                                m.push(element.value)
-                                            });
-                                            SetSelectionSkills(m)
-                                           
-                                           // this.setState({ defaultSkills: e })
-                                        }
-                                    }
-                                required/>
-                                <div className='text-danger'>
-                                    {select_error}
-                                </div>
+                                            closeMenuOnSelect={false}
+                                            components={animatedComponents}
+                                            isMulti
+                                            options={optionsSkills}
+                                            className="basic-multi-select"
+                                            classNamePrefix="select"
+                                            onChange={
+                                                (e) => {
+                                                    setselect_error('')
+                                                    var m = []
+                                                    e.forEach(element => {
+                                                        m.push(element.value)
+                                                    });
+                                                    SetSelectionSkills(m)
+
+                                                    // this.setState({ defaultSkills: e })
+                                                }
+                                            }
+                                            required />
+                                        <div className='text-danger'>
+                                            {select_error}
+                                        </div>
                                     </div>
 
                                     <div className="row text-start ">
@@ -217,14 +297,14 @@ const ClientProfile = () => {
                                             <input type="file" id="images" name="images" className="form-control" placeholder="Choose your images" multiple
                                                 onChange={
                                                     (e) => {
-            
+
                                                         setImages(e.target.files)
                                                     }}
-                                            required/>
+                                                required />
                                         </div>
                                     </div>
 
-                                    <input type="submit" value="Continue to checkout" className="btn btn-success mb-3 mt-3" />
+                                    <input type="submit" value="Add Job" className="btn btn-success mb-3 mt-3" />
                                     <button className="btn btn-light text-success ms-5"
                                         onClick={XcontactS}
                                     >Return</button>
@@ -232,6 +312,183 @@ const ClientProfile = () => {
                             </div>
                         </div>
 
+                        {/* Job Details Section   */}
+                        <div className='JobDetails m-auto text-center w-md-75 mt-5 animate ' id="JobDetails" ref={JTitle}>
+                            <div className=" p-4" >
+                            <div class="maimgcontainer">
+                                                <span class="close" onClick={
+                                                    () => {
+
+                                                        document.getElementById('JobDetails').style.display = 'none'
+                                                    }
+                                                }>&times;</span>
+
+                                            </div>
+                                {
+                                   <div class="row ">
+                                   <div class="">
+                                      
+                                       <div class=" mt-5">
+                                           <h5><a href="#" class="text-center text-success">{jobsDetails.title}</a></h5>
+           
+                                           <p class="text-muted">
+                                               post at {
+                                                 calday(jobsDetails.create_at) 
+                                                   
+                                                   
+                                               }
+           
+                                               </p>
+           
+           
+                                       </div>
+                                       <hr />
+                                       <div class="row">
+                                           <div class="row my-3 text-center">
+           
+           
+                                               <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+                                                   <div class="carousel-indicators">
+                                                       {
+                                                           jobsDetails.images?(jobsDetails.images.map((ele,ind)=>{
+                                                               if(ind==0){
+                                                                   return(
+                                                                       <button type="button" data-bs-target="#carouselExampleIndicators"
+                                                                       data-bs-slide-to={ind} class="active" aria-current="true"
+                                                                       aria-label="Slide 1"></button>
+                                                                   )
+                                                               }else{
+                                                                   return(
+                                                                       <button type="button" data-bs-target="#carouselExampleIndicators"
+                                                                       data-bs-slide-to={ind} aria-current="true"
+                                                                       aria-label="Slide 1"></button>
+                                                                   )
+                                                               }
+                                                           })):(<div></div>)
+                                                       }
+                                                   
+                                                   </div>
+                                                   <div class="carousel-inner">
+                                                       {
+                                                           jobsDetails.images?(jobsDetails.images.map((ele,ind)=>{
+                                                               if(ind==0){
+                                                                   return (
+                                                                       <div class="carousel-item active">
+                                                           <img src={"http://localhost:8000"+ele} class="d-block w-100 image_slid" alt="..." />
+                                                       </div>
+                                                                   )
+                                                               }else{
+                                                                   return (
+                                                                       <div class="carousel-item">
+                                                           <img src={"http://localhost:8000"+ele} class="d-block w-100 image_slid" alt="..." />
+                                                       </div>
+                                                                   )
+                                                               }
+                                                           })):(<div></div>)
+                                                       }
+                                                       
+                                                   </div>
+                                                   <button class="carousel-control-prev" type="button"
+                                                       data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                                                       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                       <span class="visually-hidden">Previous</span>
+                                                   </button>
+                                                   <button class="carousel-control-next" type="button"
+                                                       data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                                                       <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                       <span class="visually-hidden">Next</span>
+                                                   </button>
+                                               </div>
+           
+           
+           
+                                           </div>
+           
+                                       </div>
+           
+           
+                                       <hr />
+                                       <div>
+                                           <p>{jobsDetails.description}</p>
+           
+           
+                                       </div>
+                                       <hr />
+                                       <div class=" d-flex justify-content-around">
+                                           <div class="">
+                                               <h6>
+                                                   {jobsDetails.cost}$
+                                               </h6>
+                                               <p class="text-muted">
+                                                   Fixed-price
+           
+                                               </p>
+           
+                                           </div>
+                                           <div class="">
+                                               <h6>
+                                                   Intermediate
+           
+                                               </h6>
+                                               <p class="text-muted w10">
+                                                   I am looking for a mix of experience and value
+                                               </p>
+           
+           
+                                           </div>
+                                       </div>
+                                       <hr />
+                                       <div class="row" >
+                                           <div class="col" className='abskill'>
+                                               <h6>
+                                                   Skills and Expertise
+                                               </h6>
+                                               <div>
+                                                   {jobsDetails.skills?(jobsDetails.skills.map(ele=>{
+            return <span class="badge bg-secondary rounded-pill">{ele}</span>
+           
+                                                   })):(<div></div>)}
+                                                                                    </div>
+           
+                                           </div>
+           
+           
+                                       </div>
+                                       <hr />
+                                       <div class="row">
+                                           <div class="col"  style={
+                                            {
+                                                textAlign:'left'
+                                            }
+                                           } className='abskill'>
+                                               <h6>Activity on this job</h6>
+                                               <div className='row mt-2'>
+                                                {jobsDetails.proposals?jobsDetails.proposals.map(ele=>{
+                                                    return ( <div class="chip col-3">
+                                                    <img src={"http://localhost:8000"+ele.image} alt="Person" width="96" height="96"/>
+                                                   {ele.name}
+                                                  </div>)
+                            
+                                                }):(<div></div>)}
+                                               
+                                    
+           
+                                               </div>
+           
+                                           </div>
+           
+                                       </div>
+           
+           
+           
+                                   </div>
+                                  
+                               </div>
+
+                                }
+
+                            </div>
+                        </div>
 
                         {/* section 1 */}
                         <div className='mt-5'>
@@ -256,7 +513,7 @@ const ClientProfile = () => {
                                             <button className='btn btn-success btn-bg  rounded-pill'
                                                 onClick={contactS}
                                             >
-                                                <i class="fa-solid fa-circle-plus" ></i>
+                                                <i className="fa-duotone fa-plus h3"></i>
                                             </button>
                                         </div>
                                     </div>
@@ -368,7 +625,7 @@ const ClientProfile = () => {
                         {/* section 4 */}
                         <div className='profileCards3 container pCards4 text-dark'>
                             <div className='mt-3 p-3'>
-                                <h3>Get Started</h3>
+                                <h3>History Work</h3>
                             </div>
                             <div className='w-75 p-3 h2'>
                                 Get started and connect with talent to get work done
@@ -379,40 +636,85 @@ const ClientProfile = () => {
                         </div>
                         {/* section 5 */}
                         <div className='mt-md-5 mt-xs-3 mt-1'>
-                            <h1 className='text-dark'>Complete these steps to stand out and hire fast </h1>
+                            <h1 className='text-dark'>Latest Jobs</h1>
                         </div>
                         <div className='mt-5'>
-                            <div className='row mb-5'>
-                                <div className='col-md-4 col-12 mt-3'>
-                                    <div className='profileCards2 container pCards2 text-dark' >
-                                        <div className='mt-3 p-3'><h4 className='text-secondary'>Payments </h4></div>
-                                        <div className=' ps-3 mt-1 h4 text-dark'>
-                                            Everything you need to know about payments
-                                        </div>
-                                    </div>
-                                </div>
 
-                                <div className='col-md-4 col-12 mt-3'>
-                                    <div className='profileCards2 container pCards2 text-dark' >
-                                        <div className='mt-3 p-3'><h4 className='text-secondary'>Payments </h4></div>
-                                        <div className=' ps-3 mt-1 h4 text-dark'>
-                                            How to seat up your prefered billing method
+                            <div className='row mb-5'>
+                                {jobs.map(job => (
+                                    <div className='col-md-4 mt-3'>
+                                        <div className='profileCards2 container pCards2 text-dark' >
+                                            <div className='mt-3 p-3'><h3 className='text-center'>{job.title} </h3></div>
+                                            <div className=' ps-3 mt-1 h4 text-muted'>
+                                                {job.description}
+                                            </div>
+
+                                            <div class="row my-3 text-center">
+                                                <div id={"carouselExampleIndicators" + job.id} className="carousel  " data-bs-ride="true">
+                                                    <div class="carousel-indicators">
+                                                        <button type="button" data-bs-target={"#carouselExampleIndicators" + job.id} data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                                                        <button type="button" data-bs-target={"#carouselExampleIndicators" + job.id} data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                                        <button type="button" data-bs-target={"#carouselExampleIndicators" + job.id} data-bs-slide-to="2" aria-label="Slide 3"></button>
+                                                    </div>
+                                                    <div class="carousel-inner "
+                                                        onClick={
+                                                            () => {
+                                                                if (job.id.length == 0) {
+                                                                    console.log("no data")
+                                                                } else {
+                                                                    axios.post(`http://localhost:8000/home/jobDetails/`, { id: job.id })
+                                                                        .then(res => {
+                                                                            setJobsDetails(res.data);
+
+                                                                            console.log(job.id)
+                                                                            console.log(jobsDetails)
+
+                                                                            JTitleOP()
+                                                                        })
+                                                                        .catch(err => {
+                                                                            console.log(err.message);
+                                                                        })
+
+                                                                }
+                                                            }
+                                                        }
+                                                    >
+                                                        {job.images.map((imgs, index) => {
+                                                            if (index == 0) {
+                                                                return (<div class="carousel-item active">
+                                                                    <img src={"http://localhost:8000" + imgs.image} className="d-block w-100 haimage slide BorderRadiusClass" alt="..." />
+                                                                </div>)
+                                                            } else {
+                                                                return (<div class="carousel-item">
+                                                                    <img src={"http://localhost:8000" + imgs.image} className="d-block w-100 haimage slide BorderRadiusClass " alt="..." />
+                                                                </div>)
+                                                            }
+                                                        })}
+                                                    </div>
+
+                                                    <button class="carousel-control-prev" type="button" data-bs-target={"#carouselExampleIndicators" + job.id} data-bs-slide="prev">
+                                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                        <span class="visually-hidden">Previous</span>
+                                                    </button>
+                                                    <button class="carousel-control-next" type="button" data-bs-target={"#carouselExampleIndicators" + job.id} data-bs-slide="next">
+                                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                        <span class="visually-hidden">Next</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
-                                </div>
-                                <div className='col-md-4 col-12 mt-3'>
-                                    <div className='profileCards2 container pCards2 text-dark' >
-                                        <div className='mt-3 p-3'><h4 className='text-secondary'>Trust and Safety </h4></div>
-                                        <div className=' ps-3 mt-1 h4 text-dark'>
-                                            Keep yourself and others safe on upwork
-                                        </div>
-                                    </div>
-                                </div>
+                                ))}
+
                             </div>
+
                         </div>
 
+                        {/* Test Section */}
+
                     </div>
-                </div>
+                </div >
 
             )
         }

@@ -1,21 +1,20 @@
 import React, { Component } from 'react';
-import NavBar from './navbar';
 import Footer from './Footer';
 import '../../css/cv_free.css';
+import NavBar from './navbar';
 
 class Cv_free extends Component {
   constructor() {
     super();
 
   }
-
   render() {
-
     return( 
       <div>
-
-        <NavBar/>
-
+         <NavBar url='http://127.0.0.1:8000/profile/clientDetails/'
+        openMenu={()=>{
+            
+        }}/>
         <section class="py-5 container-border my-5">
         <div class="container">
             <div class="row">

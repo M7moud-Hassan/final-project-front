@@ -155,7 +155,7 @@ color: rgb(108, 180, 177);
   border: 1px groove rgb(187, 187, 187);
 }
 .pCards1{
-  background-color: rgb(52, 52, 204);
+  background-color: rgb(23, 102, 36);
 }
 .pCards2{
   background-color: rgb(233, 233, 233);
@@ -164,7 +164,7 @@ color: rgb(108, 180, 177);
 }
 .pCardsTwo{
   
-  font-size: 50px;
+
   margin-top: 50%;
 }
 .logos{
@@ -338,4 +338,55 @@ ol.ordered{
   background-color: white;
   border-radius: 20px;
 
+}
+
+.BorderRadiusClass{
+  border-radius: 20px;
+
+  border: 1px groove rgb(231, 231, 231);
+}
+.JobDetails{
+  margin: auto;
+  top: 0;
+  display: none;
+  z-index: 10;
+  position: fixed;
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 2px 2px 20px 5px #888888;
+  border: 1px groove rgb(155, 155, 155);
+  overflow-y: scroll;
+  height: 80%;
+  width: 80%;
+}
+.imgPropsal{
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  text-align: start;
+}
+.propsBody{
+  height: 70px;
+  /* width: 350px; */
+  /* font-size: 20px; */
+  font-weight: 600;
+  background-color: lightgray;
+}
+
+.chip {
+  display: inline-block;
+  padding: 0 25px;
+  height: 50px;
+  font-size: 16px;
+  line-height: 50px;
+  border-radius: 25px;
+  background-color: #f1f1f1;
+}
+
+.chip img {
+  float: left;
+  margin: 0 10px 0 -25px;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
 }

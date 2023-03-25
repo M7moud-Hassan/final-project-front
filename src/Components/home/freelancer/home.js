@@ -15,10 +15,28 @@ class HomeFreeLancer extends Component {
     this.state = {
         isMenu: false,
         data:[],
+        socket:null,
+        notifications:[],
+        sendNotifications:''
     }
 
   }
   componentDidMount(){
+    const newSocket = new WebSocket('ws://127.0.0.1:8000/ws/notifications/');
+        newSocket.onopen = () => {
+          console.log('WebSocket connected');
+          this.setState({socket:newSocket})
+          
+      };
+      newSocket.onmessage = (event) => {
+        const message = JSON.parse(event.data);
+        console.log(message);
+        //setReceivedMessage(message);
+    };
+    newSocket.onclose = () => {
+      console.log('WebSocket closed');
+      this.setState({socket:null})
+    };
     axios.post('http://127.0.0.1:8000/home/detalis_free_home/',{
         id:localStorage.getItem("uid")
     }).then(response=>{
@@ -157,7 +175,11 @@ XsettingS=()=> {
                             return(
                             <div>
 
-                                <div class="container" >
+                                <div class="container" onClick={
+                                    ()=>{
+                                        window.location='job_details/'+element.id
+                                    }
+                                }>
                             <div class="row my-3">
                                 <div class="col-md-6">
                                     <a href="#" class="text-center text-success">{element.title}</a>
@@ -262,8 +284,13 @@ XsettingS=()=> {
                                                         job_id:element.id,
                                                       
                                                     }).then(response=>{
-
+                                                        console.log("send notifications");
                                                       
+                                                      this.state.socket.send(JSON.stringify({
+                                                        sender:localStorage.getItem("uid"),
+                                                        recieve:element.client_id,
+                                                        payload:"add like on your job "+element.title
+                                                      }))
                                                        if(response.data.res=='ok'){
                                                         
                                                         islike=true
