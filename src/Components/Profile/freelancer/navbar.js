@@ -8,11 +8,30 @@ class NavBar extends Component {
     this.state = {
       data: false,
       loading: true,
-      error: null
+      error: null,
+      socket:null,
+      notifications:[],
+      sendNotifications:''
 
   }}
   componentDidMount() {
+    if(localStorage.getItem("type")=='user'){
+      const newSocket = new WebSocket('ws://127.0.0.1:8000/ws/notifications/');
+    newSocket.onopen = () => {
+      console.log('WebSocket connected');
+      this.setState({socket:newSocket})
       
+  };
+  newSocket.onmessage = (event) => {
+    const message = JSON.parse(event.data);
+    console.log(message);
+    //setReceivedMessage(message);
+};
+newSocket.onclose = () => {
+  console.log('WebSocket closed');
+  this.setState({socket:null})
+};
+    }
     axios.post(this.props.url,
         {
             "id": localStorage.getItem('uid')

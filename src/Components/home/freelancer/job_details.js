@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { Component } from 'react';
 import '../../css/job_details.css'
 
@@ -7,10 +8,54 @@ class Job_details extends Component {
     constructor() {
         super()
         this.state = {
-
+            data:'',
+            id:0,
+            is_applay:false
         }
 
 
+    }
+    calday(create_at){
+        var a = new Date(create_at)
+        var b = new Date()
+        function padTo2Digits(num) {
+            return num.toString().padStart(2, '0');
+          }
+          
+          function convertMsToTime(milliseconds) {
+            let seconds = Math.floor(milliseconds / 1000);
+            let minutes = Math.floor(seconds / 60);
+            let hours = Math.floor(minutes / 60);
+          
+            seconds = seconds % 60;
+            minutes = minutes % 60;
+          
+            // 👇️ If you don't want to roll hours over, e.g. 24 to 00
+            // 👇️ comment (or remove) the line below
+            // commenting next line gets you `24:00:00` instead of `00:00:00`
+            // or `36:15:31` instead of `12:15:31`, etc.
+            hours = hours % 24;
+          
+            return `${padTo2Digits(hours)}:${padTo2Digits(minutes)}:${padTo2Digits(
+              seconds,
+            )}`;
+          }
+          return convertMsToTime(b-a)
+    }
+    componentDidMount(){
+        const studentId = window.location.href.split('/')[4]
+        this.setState({id:studentId})
+        axios.post('http://localhost:8000/home/jobDetails/',{
+            id:studentId
+        }).then(res=>{
+            res.data.proposals.forEach(element => {
+                if(element.id==localStorage.getItem("uid")){
+                    this.setState({is_applay:true})
+                }
+            });
+            
+            this.setState({data:res.data})
+        })
     }
     render() {
 
@@ -26,11 +71,18 @@ class Job_details extends Component {
                     </div>
                     <div class="row ">
                         <div class="col-md-8">
-                            <h5>Odoo developer SAML CONNECTOR</h5>
+                           
                             <div class=" mt-5">
-                                <h5><a href="#" class="text-center text-success">Python Developer</a></h5>
+                                <h5><a href="#" class="text-center text-success">{this.state.data.title}</a></h5>
 
-                                <p class="text-muted">Posted 2 days ago</p>
+                                <p class="text-muted">
+                                    post at {
+                                      this.calday(this.state.data.create_at) 
+                                        
+                                        
+                                    }
+
+                                    </p>
 
 
                             </div>
@@ -41,24 +93,44 @@ class Job_details extends Component {
 
                                     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
                                         <div class="carousel-indicators">
-                                            <button type="button" data-bs-target="#carouselExampleIndicators"
-                                                data-bs-slide-to="0" class="active" aria-current="true"
-                                                aria-label="Slide 1"></button>
-                                            <button type="button" data-bs-target="#carouselExampleIndicators"
-                                                data-bs-slide-to="1" aria-label="Slide 2"></button>
-                                            <button type="button" data-bs-target="#carouselExampleIndicators"
-                                                data-bs-slide-to="2" aria-label="Slide 3"></button>
+                                            {
+                                                this.state.data?(this.state.data.images.map((ele,ind)=>{
+                                                    if(ind==0){
+                                                        return(
+                                                            <button type="button" data-bs-target="#carouselExampleIndicators"
+                                                            data-bs-slide-to={ind} class="active" aria-current="true"
+                                                            aria-label="Slide 1"></button>
+                                                        )
+                                                    }else{
+                                                        return(
+                                                            <button type="button" data-bs-target="#carouselExampleIndicators"
+                                                            data-bs-slide-to={ind} aria-current="true"
+                                                            aria-label="Slide 1"></button>
+                                                        )
+                                                    }
+                                                })):(<div></div>)
+                                            }
+                                        
                                         </div>
                                         <div class="carousel-inner">
-                                            <div class="carousel-item active">
-                                                <img src="1.jpg" class="d-block w-100 image_slid" alt="..." />
+                                            {
+                                                this.state.data?(this.state.data.images.map((ele,ind)=>{
+                                                    if(ind==0){
+                                                        return (
+                                                            <div class="carousel-item active">
+                                                <img src={"http://localhost:8000"+ele} class="d-block w-100 image_slid" alt="..." />
                                             </div>
-                                            <div class="carousel-item">
-                                                <img src="2.PNG" class="d-block w-100" alt="..." />
+                                                        )
+                                                    }else{
+                                                        return (
+                                                            <div class="carousel-item">
+                                                <img src={"http://localhost:8000"+ele} class="d-block w-100 image_slid" alt="..." />
                                             </div>
-                                            <div class="carousel-item">
-                                                <img src="3.jpg" class="d-block w-100" alt="..." />
-                                            </div>
+                                                        )
+                                                    }
+                                                })):(<div></div>)
+                                            }
+                                            
                                         </div>
                                         <button class="carousel-control-prev" type="button"
                                             data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -81,10 +153,7 @@ class Job_details extends Component {
 
                             <hr />
                             <div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus in sapien sed mauris
-                                    placerat tristique. Integer aliquam ex ac ipsum fringilla lobortis. Ut eu nunc bibendum,
-                                    interdum neque non, sodales quam. Nullam consectetur nisl nec orci tristique, ut venenatis
-                                    nulla iaculis. Sed faucibus aliquam tellus ut convallis.</p>
+                                <p>{this.state.data.description}</p>
 
 
                             </div>
@@ -92,7 +161,7 @@ class Job_details extends Component {
                             <div class=" d-flex justify-content-around">
                                 <div class="">
                                     <h6>
-                                        100$
+                                        {this.state.data.cost}$
                                     </h6>
                                     <p class="text-muted">
                                         Fixed-price
@@ -119,11 +188,11 @@ class Job_details extends Component {
                                         Skills and Expertise
                                     </h6>
                                     <div>
-                                        <span class="badge bg-secondary rounded-pill">skill 1</span>
-                                        <span class="badge bg-secondary rounded-pill">skill 1</span>
-                                        <span class="badge bg-secondary rounded-pill">skill 1</span>
-                                        <span class="badge bg-secondary rounded-pill">skill 1</span>
-                                    </div>
+                                        {this.state.data?(this.state.data.skills.map(ele=>{
+ return <span class="badge bg-secondary rounded-pill">{ele}</span>
+
+                                        })):(<div></div>)}
+                                                                         </div>
 
                                 </div>
 
@@ -134,14 +203,9 @@ class Job_details extends Component {
                                 <div class="col"  className='abskill'>
                                     <h6>Activity on this job</h6>
                                     <div>
-                                        <p class="text-muted small">Proposals: Less than 5</p>
-                                        <p class="text-muted small">Last viewed by client: 10 hours ago</p>
-
+                                        <p class="text-muted small">Proposals: {this.state.data?(this.state.data.proposals.length):(<div></div>)}</p>
+                                       
                                         <p class="text-muted small">Interviewing: 2</p>
-
-                                        <p class="text-muted small">Invites sent: 0</p>
-
-                                        <p class="text-muted small">Unanswered invites: 0</p>
 
                                     </div>
 
@@ -156,7 +220,11 @@ class Job_details extends Component {
                             <div class="card">
                                 <div class="card-body ">
                                     <div class="d-grid gap-2 mb-3">
-                                        <button type="button" class="btn btn-success rounded-pill">Apply Now</button>
+                                        <button type="button" class="btn btn-success rounded-pill" onClick={
+                                            ()=>{
+                                                window.location='proposal/'+this.state.id
+                                            }
+                                        } disabled={this.state.is_applay} >Apply Now</button>
 
 
                                     </div>

@@ -65,10 +65,9 @@ function App() {
       <Route path='/changeUserPassword' element={<ChangePassword/>}/>
       <Route path='/changeFreePassword'element={<ChangePasswordFree/>}/>
       <Route path='/home_freelancer' element={<HomeFreeLancer/>}/>
-      <Route path='/job_details' element={<Job_details/>}/>
-      <Route path='/proposal' element={<Proposal/>}/>
+      <Route path='/job_details/:id' element={<Job_details/>}/>
+      <Route path='job_details/proposal/:id' element={<Proposal/>}/>
       <Route path='/search/:param1' element={<Search/>}/>
-
       <Route path='*' element={<Error/>} />
       </Routes>
       </BrowserRouter>

@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { Component } from 'react';
 import '../../css/proposel.css'
 
@@ -7,10 +8,52 @@ class Proposal extends Component {
     constructor() {
         super()
         this.state = {
-
+            data:'',
+            costJob:0,
+            id:0,
+            images:[],
+            cover:''
         }
 
 
+    }
+    componentDidMount(){
+        const studentId = window.location.href.split('/')[5]
+        this.setState({id:studentId})
+        axios.post('http://localhost:8000/home/jobDetails/',{
+            id:studentId
+        }).then(res=>{
+            console.log(res.data);
+            this.setState({costJob:res.data.cost})
+            this.setState({data:res.data})
+        })
+    }
+    calday(create_at){
+        var a = new Date(create_at)
+        var b = new Date()
+        function padTo2Digits(num) {
+            return num.toString().padStart(2, '0');
+          }
+          
+          function convertMsToTime(milliseconds) {
+            let seconds = Math.floor(milliseconds / 1000);
+            let minutes = Math.floor(seconds / 60);
+            let hours = Math.floor(minutes / 60);
+          
+            seconds = seconds % 60;
+            minutes = minutes % 60;
+          
+            // 👇️ If you don't want to roll hours over, e.g. 24 to 00
+            // 👇️ comment (or remove) the line below
+            // commenting next line gets you `24:00:00` instead of `00:00:00`
+            // or `36:15:31` instead of `12:15:31`, etc.
+            hours = hours % 24;
+          
+            return `${padTo2Digits(hours)}:${padTo2Digits(minutes)}:${padTo2Digits(
+              seconds,
+            )}`;
+          }
+          return convertMsToTime(b-a)
     }
     render() {
 
@@ -27,31 +70,44 @@ class Proposal extends Component {
         <div class="row">
             
             <div class=" col-md-9 px-2">
-                    <form action="" method="post" novalidate>
+                    <form action="" method="post" novalidate onSubmit={
+                        (e)=>{
+                            e.preventDefault()
+                            axios.post('http://localhost:8000/home/add_applay/',{
+                                                id:localStorage.getItem("uid"),
+                                                id_job:this.state.id,
+                                                cost_re:this.state.costJob,
+                                                cost_comp:this.state.costJob-( this.state.costJob*25/100),
+                                                images:this.state.images,
+                                                cover:this.state.cover
+
+                                            },{
+                                                headers: {
+                                                  'Content-Type': 'multipart/form-data'
+                                                }}).then(res=>{
+                                               if(res.data=='ok'){
+                                                window.location='/'
+                                               }
+                                            })
+                        }
+                    }>
 
                         <div class="container-border my-2">
 
                             <h5>Job details</h5>
                             <div class=" my-5">
-                                <h5>Needed: Coder who can make screenrecords for my course (HTML / CSS / JAVASCRIPT /
-                                    PYTHON)</h5>
-                                <h6><span class="badge bg-secondary rounded-pill ">Front-End Development</span></h6>
-                                <span class="text-muted small px-2">Posted Mar 22, 2023</span>
+                                <h5>{this.state.data.title}</h5>
+                        
+                                <span class="text-muted small px-2">Posted {this.calday(this.state.data.create_at)}</span>
                             </div>
 
 
                             <div>
                                 <h6>hi there,</h6>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus in sapien sed mauris
-                                    placerat tristique. Integer aliquam ex ac ipsum fringilla lobortis. Ut eu nunc bibendum,
-                                    interdum neque non, sodales quam. Nullam consectetur nisl nec orci tristique, ut
-                                    venenatis
-                                    nulla iaculis. Sed faucibus aliquam tellus ut convallis.</p>
+                                <p>{this.state.data.description}</p>
                             </div>
 
-                            <div>
-                                <a class="text-success" href="#">View job posting</a>
-                            </div>
+                            
 
                             <hr/>
                             <div class="row">
@@ -60,11 +116,11 @@ class Proposal extends Component {
                                         Skills and Expertise
                                     </h6>
                                     <div>
-                                        <span class="badge bg-secondary rounded-pill">skill 1</span>
-                                        <span class="badge bg-secondary rounded-pill">skill 1</span>
-                                        <span class="badge bg-secondary rounded-pill">skill 1</span>
-                                        <span class="badge bg-secondary rounded-pill">skill 1</span>
-                                    </div>
+                                        {this.state.data?(this.state.data.skills.map(ele=>{
+ return <span class="badge bg-secondary rounded-pill">{ele}</span>
+
+                                        })):(<div></div>)}
+                                                                         </div>
 
                                 </div>
 
@@ -91,26 +147,27 @@ class Proposal extends Component {
                                 <div class="row">
                                     <div class="container col-md-8">
                                         <div class="row">
+                                            
                                             <div class="col-md-6">
-                                                <p class="text-muted small">Your profile rate: $20.00/hr</p>
-
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p class="text-muted small">Client’s budget: $10.00 - $10.00/hr</p>
+                                                <p class="text-muted small">Client’s budget: ${this.state.data.cost}</p>
 
                                             </div>
                                         </div>
                                         <hr />
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <p class="small">Hourly Rate</p>
+                                                <p class="small">your cost</p>
                                                 <p class="text-muted small">Total amount the client will see on your
                                                     proposal</p>
 
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="input-group">
-                                                  <input class="form-control" type="number" name="" id="" placeholder="0.00"/>
+                                                  <input class="form-control" type="number" value={this.state.costJob} name="" id="" onChange={
+                                                    (e)=>{
+                                                        this.setState({costJob:e.target.value})
+                                                    }
+                                                  } placeholder="0.00" required/>
                                                   <div class="input-group-append">
                                                     <span class="input-group-text">$</span>
                                                   </div>
@@ -127,7 +184,9 @@ class Proposal extends Component {
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="input-group">
-                                                  <input class="form-control" type="number" name="" id="" placeholder="0.00"/>
+                                                  <input class="form-control" type="number" value={
+                                                   (this.state.costJob-( this.state.costJob*25/100))
+                                                  } name="" id="" placeholder="0.00" readOnly/>
                                                   <div class="input-group-append">
                                                     <span class="input-group-text">$</span>
                                                   </div>
@@ -142,7 +201,7 @@ class Proposal extends Component {
                                     <div class="col-md-4 text-center">
                                         <div>
                                             <img src="dolar.png" class="img-fluid rounded-top" alt=""/>
-                                            <p class="text-muted small">Includes Upwork Hourly Protection.</p>
+                                           
 
                                         </div>
 
@@ -163,14 +222,22 @@ class Proposal extends Component {
                                 <div class="row">
                                     <div class="mb-3">
                                         <label for="cover_leter" class="form-label">Cover Letter</label>
-                                        <textarea class="form-control" name="cover_leter" id="cover_leter"
-                                            rows="3"></textarea>
+                                        <textarea class="form-control" onChange={
+                                            (e)=>{
+                                                this.setState({cover:e.target.value})
+                                            }
+                                        } name="cover_leter" id="cover_leter"
+                                            rows="3" required></textarea>
                                     </div>
                                     <hr />
                                     <div class="mb-3">
                                         <label for="file" class="form-label">Choose file</label>
-                                        <input type="file" class="form-control" name="file" id="file"
-                                            placeholder="upload project files" aria-describedby="fileHelpId"/>
+                                        <input type="file" onChange={
+                                            (e)=>{
+                                                this.setState({images:e.target.files})
+                                            }
+                                        } class="form-control" name="file" id="file"
+                                            placeholder="upload project files" aria-describedby="fileHelpId" multiple required/>
                                         <div id="fileHelpId" class="form-text my-3">
                                             You may attach up to files under the size of 25 MB each. Include work samples or
                                             other documents
@@ -193,12 +260,20 @@ class Proposal extends Component {
                         <div class="container p-2">
                             <div class="row">
                                 <div class="col-md-3">
-                                    <button type="submit" class="btn btn-success form-control rounded-pill m-2">Send</button>
+                                    <button type="submit" class="btn btn-success form-control rounded-pill m-2" onClick={
+                                        ()=>{
+                                            
+                                        }
+                                    }>Send</button>
     
     
                                 </div>
                                 <div class="col-md-3">
-                                    <button type="submit" class="btn btn-outline-danger form-control rounded-pill m-2">Cancel</button>
+                                    <button type="submit" class="btn btn-outline-danger form-control rounded-pill m-2" onClick={
+                                        ()=>{
+                                            window.location='/'
+                                        }
+                                    }>Cancel</button>
     
     
                                 </div>

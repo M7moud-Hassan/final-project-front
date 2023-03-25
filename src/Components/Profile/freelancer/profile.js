@@ -72,7 +72,7 @@ class Profile extends Component {
             optionCertification: [],
             selectYear: 0,
             selectMonth: 0,
-
+           
         }
 
     }
@@ -98,6 +98,7 @@ class Profile extends Component {
     }
 
     componentDidMount() {
+        
         axios.post(`http://127.0.0.1:8000/profile/get_details_free/`,
             {
                 "id": localStorage.getItem('uid')
