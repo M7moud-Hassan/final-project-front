@@ -40,7 +40,7 @@ class Cv_free extends Component {
                         <hr/>
                     <h2 class="mb-4">Skills</h2>
                     <div class="row mb-4">
-                        <div class="col d-flex">
+                        <div class=" d-flex">
                             <h5 class="m-1"><span class="badge rounded-pill text-bg-primary">New!</span> </h5>
                             <h5 class="m-1"><span class="badge rounded-pill text-bg-primary">New!</span> </h5>
                             <h5 class="m-1"><span class="badge rounded-pill text-bg-primary">New!</span> </h5>
