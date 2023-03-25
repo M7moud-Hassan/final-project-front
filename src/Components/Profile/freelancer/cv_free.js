@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import NavBar from './navbar';
 import Footer from './Footer';
-
+import '../../css/cv_free.css';
 
 class Cv_free extends Component {
   constructor() {
