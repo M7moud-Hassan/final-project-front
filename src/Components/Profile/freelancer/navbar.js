@@ -1,18 +1,26 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Error from '../../index/error';
+import { w3cwebsocket } from 'websocket';
 
 class NavBar extends Component {
+  
   constructor(props) {
+    
     super(props);
     this.state = {
       data: false,
       loading: true,
-      error: null
+      error: null,
+      notifications:[]
 
   }}
+   handleData = (data) => {
+    const message = JSON.parse(data);
+    this.setState({notifications: [...this.state.notifications, message]})
+  };
   componentDidMount() {
-      
+   var ws = new w3cwebsocket('ws://localhost:8000/ws/notifications/');
     axios.post(this.props.url,
         {
             "id": localStorage.getItem('uid')
@@ -23,6 +31,13 @@ class NavBar extends Component {
         .catch(error => {
             this.setState({ error: error.message, loading: false });
         });
+
+        ws.onopen = () => console.log('WebSocket client connected');
+        ws.onmessage = (message) => {
+          const data = JSON.parse(message.data);
+          this.setState({notifications:[...this.state.notifications, data.message]});
+        };
+        ws.onclose = () => console.log('WebSocket client disconnected');
 }
 
 
