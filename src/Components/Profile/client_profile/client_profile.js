@@ -9,9 +9,7 @@ import makeAnimated from 'react-select/animated';
 import NavBar from '../freelancer/navbar';
 
 import './windows'
-import Slider from 'react-slick';
-// import "slick-carousel/slick/slick.css";
-// import "slick-carousel/slick/slick-theme.css";
+
 const ClientProfile = () => {
 
     const [id, setId] = useState('');
