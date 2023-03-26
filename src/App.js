@@ -49,7 +49,7 @@ function App() {
   return (
       <BrowserRouter>
       <Routes>
-      <Route path="/" element={<Home/>}/>
+      <Route path="/" element={<Home/>}/> 
       <Route path="/login" element={<Login/>}/>
       <Route path='/addDetails' element={<AddDetails/>}/>
       <Route path='/registration_freelancer' element={<RegisterFreelancer/>}/>
@@ -88,5 +88,6 @@ function App() {
       </BrowserRouter>
   )
 }
+
 
 export default App;

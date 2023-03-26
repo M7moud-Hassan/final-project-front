@@ -49,8 +49,9 @@ a {
   }
   
   .image_slid {
-    height: 20em;
-  }
-  .abskill:hover{
+    height: 600px;
 
+  }
+  .imageSliderClientProfile{
+    border-radius: 20px;
   }
