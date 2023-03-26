@@ -124,7 +124,7 @@ class NavBar extends Component {
     }
     return (
       <div>
-        <nav className="navbar navbar-expand-lg bg-body-tertiary ">
+        <nav className="navbar navbar-expand-lg bg-body-tertiary shadow-sm ">
 
           <div className='container-fluid'>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
