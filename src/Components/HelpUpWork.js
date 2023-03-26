@@ -11,7 +11,7 @@ let Help = () => {
                 Upwork is an online platform that connects freelancers with clients looking for various services. As a freelancer or client on Upwork, it is important to be familiar with the platform's help page. The help page provides information on how to use the platform, how to troubleshoot issues, and how to get in touch with support when needed. In this article, we will discuss the importance of the Upwork help page and how to use it effectively.
                 </h1>
                 <h3>Importance of the Upwork Help Page</h3>
-                <
+
                 <ul className="mt-5 listInAbout text-start">
                     <li className="p-2">1.	Choose a professional profile photo: Your profile photo is the first thing clients will see when they view your profile. Choose a professional-looking photo that represents you and your work.</li>
                     <li className="p-2">2.	Write a compelling overview: Your overview should be a brief summary of your skills, experience, and what you can offer clients. Keep it concise and engaging, and highlight your unique selling points.</li>

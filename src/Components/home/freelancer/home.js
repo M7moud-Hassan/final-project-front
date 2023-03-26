@@ -368,11 +368,7 @@ XsettingS=()=> {
 
                             </div>
 
-                            <div class="row my-3 text-center" onClick={
-                                    ()=>{
-                                        window.location='job_details/'+element.id
-                                    }
-                                }>
+                            <div >
                                   <div id={"carouselExampleIndicators"+element.id} class="carousel slide" data-bs-ride="true">
   <div class="carousel-indicators">
   {element.images.map((ele,index)=>{

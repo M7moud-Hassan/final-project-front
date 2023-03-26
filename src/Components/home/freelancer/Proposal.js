@@ -77,7 +77,7 @@ class Proposal extends Component {
             <div>
                  <NavBar url='http://127.0.0.1:8000/profile/get_details_free/'
         openMenu={()=>{
-
+            window.location='/'
         }}/>
 
                 <div class="container my-4 ">

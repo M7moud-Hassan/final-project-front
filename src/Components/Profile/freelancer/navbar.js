@@ -147,24 +147,44 @@ class NavBar extends Component {
                 </ul>
                 <ul className='mt-3'>
                   <li className="nav-item dropdown dropFont">
-                    <a className="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Empty slot
+                    <a className="nav-link text-dark" href="#">
+                      Message
                     </a>
-                    <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                      <a className="dropdown-item" href="#">Action</a>
-                      <a className="dropdown-item" href="#">Another action</a>
-                      <a className="dropdown-item" href="#">Something else here</a>
-                    </div>
+                   
                   </li>
                 </ul>
                 <ul className='mt-3'>
                   <li className="nav-item dropdown dropFont">
                     <a className="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Empty slot
+                      Jobs
                     </a>
+                    {localStorage.getItem("type")!="user"?(
+                        <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a href='#' className="dropdown-item" onClick={
+                          (e)=>{
+                            e.preventDefault()
+                            window.location='/job_proposals'
+                          }
+                        }>Proposals</a>
+                        <a className="dropdown-item" href="#"  onClick={
+                          (e)=>{
+                            e.preventDefault()
+                            window.location='/JobS_Hire'
+                          }
+                        }>Hires</a>
+                      </div>
+                        ):(
+                          <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                     
+                      <a className="dropdown-item" href="#">Proposals</a>
+                      <a className="dropdown-item" href="#">Hires</a>
+                      <a className="dropdown-item" href="#">Something else here</a>
+                    </div>
+                        )}
                     <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                      <a className="dropdown-item" href="#">Action</a>
-                      <a className="dropdown-item" href="#">Another action</a>
+                     
+                      <a className="dropdown-item" href="#">Proposals</a>
+                      <a className="dropdown-item" href="#">Hires</a>
                       <a className="dropdown-item" href="#">Something else here</a>
                     </div>
                   </li>
