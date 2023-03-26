@@ -17,6 +17,7 @@ const ClientProfile = () => {
     const jobSection = useRef('');
     const JTitle = useRef('')
     const [isMenu, setIsMenu] = useState(false);
+    const [emp, setEmp] = useState('');
 
     const [titlez, setTitle] = useState('');
     const [costz, setCost] = useState('');
@@ -29,13 +30,7 @@ const ClientProfile = () => {
     const [select_error, setselect_error] = useState('')
     const [jobs, setJobs] = useState([]);
     const [jobsDetails, setJobsDetails] = useState([]);
-
-    // const [jtitle, setjtitle] = useState('');
-    // const [jcreate, setjcreate] = useState('');
-    // const [jdescription, setjdescriptionz] = useState('');
-    // const [jcost, setjcostz] = useState('');
-    // const [jlikes, setjlikes] = useState('');
-    // const [jdislike, setjdislike] = useState('');
+    const [applay, setApplay] = useState('');
 
     let calday = (create_at) => {
         var a = new Date(create_at)
@@ -147,6 +142,7 @@ const ClientProfile = () => {
         const DoM = JTitle.current;
         DoM.style.display = 'none'
     }
+
 
 
     useEffect(() => {
@@ -639,16 +635,21 @@ const ClientProfile = () => {
                                     <div className='col-md-4 mt-3'>
                                         <div className='profileCards2 container pCards2 text-dark' >
                                             <div className='mt-3 p-3'><h3 className='text-center'>{job.title} </h3></div>
-                                            <div className=' ps-3 mt-1 h4 text-muted'>
-                                                {job.description}
-                                            </div>
 
                                             <div class="row my-3 text-center">
                                                 <div id={"carouselExampleIndicators" + job.id} className="carousel  " data-bs-ride="true">
                                                     <div class="carousel-indicators">
-                                                        <button type="button" data-bs-target={"#carouselExampleIndicators" + job.id} data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                                                        <button type="button" data-bs-target={"#carouselExampleIndicators" + job.id} data-bs-slide-to="1" aria-label="Slide 2"></button>
-                                                        <button type="button" data-bs-target={"#carouselExampleIndicators" + job.id} data-bs-slide-to="2" aria-label="Slide 3"></button>
+                                                        {job.images.map((imgs, index) => {
+                                                            if (index == 0) {
+                                                                return <button type="button" data-bs-target={"#carouselExampleIndicators" + job.id} data-bs-slide-to={index} class="active" aria-current="true" aria-label="Slide 1"></button>
+                                                            } else {
+                                                                return <button type="button" data-bs-target={"#carouselExampleIndicators" + job.id} data-bs-slide-to={index} aria-label="Slide 2"></button>
+                                                            }
+                                                        })
+                                                        }
+
+
+
                                                     </div>
                                                     <div class="carousel-inner "
                                                         onClick={
@@ -659,7 +660,7 @@ const ClientProfile = () => {
                                                                     axios.post(`http://localhost:8000/home/jobDetails/`, { id: job.id })
                                                                         .then(res => {
                                                                             setJobsDetails(res.data);
-
+                                                                            setId(job.id)
                                                                             console.log(job.id)
                                                                             console.log(jobsDetails)
 
@@ -707,6 +708,125 @@ const ClientProfile = () => {
 
                         {/* Test Section */}
 
+                    </div>
+                    <div id="id0p2" class="mamodal rounded">
+
+                        <div class="mamodal-content maanimate rounded">
+                            <div class="maimgcontainer">
+                                <span class="close" onClick={
+                                    () => {
+
+                                        document.getElementById('id0p2').style.display = 'none'
+                                    }
+                                }>&times;</span>
+
+                            </div>
+
+                            <div class="container myconatiner pt-4">
+                                <h3 class="text-left ml-4">Cover</h3>
+                                <p>{applay.cover}</p>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">Cost</span>
+                                    <input type="text" class="form-control" value={applay.cost_re} readOnly />
+                                </div>
+                                <div id={"carouselExampleIndicators" + applay.id} class="carousel slide" data-bs-ride="true">
+                                    <div class="carousel-indicators">
+                                        {
+                                            applay.images ? (applay.images.map((ele, ind) => {
+                                                if (ind == 0) {
+                                                    return (
+                                                        <button type="button" data-bs-target={"#carouselExampleIndicators" + applay.id}
+                                                            data-bs-slide-to={ind} class="active" aria-current="true"
+                                                            aria-label="Slide 1"></button>
+                                                    )
+                                                } else {
+                                                    return (
+                                                        <button type="button" data-bs-target={"#carouselExampleIndicators" + applay.id}
+                                                            data-bs-slide-to={ind} aria-current="true"
+                                                            aria-label="Slide 1"></button>
+                                                    )
+                                                }
+                                            })) : (<div></div>)
+                                        }
+
+                                    </div>
+                                    <div class="carousel-inner">
+                                        {
+                                            applay.images ? (applay.images.map((ele, ind) => {
+                                                if (ind == 0) {
+                                                    return (
+                                                        <div class="carousel-item active">
+                                                            <img src={"http://localhost:8000" + ele.image} class="d-block w-100 image_slid" alt="..." />
+                                                        </div>
+                                                    )
+                                                } else {
+                                                    return (
+                                                        <div class="carousel-item">
+                                                            <img src={"http://localhost:8000" + ele.image} class="d-block w-100 image_slid" alt="..." />
+                                                        </div>
+                                                    )
+                                                }
+                                            })) : (<div></div>)
+                                        }
+
+                                    </div>
+                                    <button class="carousel-control-prev" type="button"
+                                        data-bs-target={"#carouselExampleIndicators" + applay.id} data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Previous</span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button"
+                                        data-bs-target={"#carouselExampleIndicators" + applay.id} data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Next</span>
+                                    </button>
+                                </div>
+                                <br />
+                                <div class="chip w-100" onClick={() => {
+
+                                    window.location.href = 'http://localhost:3000/cv_free/' + emp.id;
+                                }}>
+                                    <img src={"http://localhost:8000" + emp.image} alt="Person" width="96" height="96" />
+                                    {emp.name}
+                                </div>
+                                <div class="btn-group w-100 p-4">
+                                    <button className='w-50'>Chat</button>
+                                    <button className='w-50' onClick={
+                                        () => {
+
+                                        }
+                                    } >Finish Job</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div id="id0pp1" class="mamodal rounded">
+
+                        <div class="mamodal-content maanimate rounded">
+                            <div class="maimgcontainer">
+                                <span class="close" onClick={
+                                    () => {
+
+                                        document.getElementById('id0pp1').style.display = 'none'
+                                    }
+                                }>&times;</span>
+
+                            </div>
+
+                            <div class="container myconatiner pt-4">
+
+                                <div class="btn-group w-100 p-4">
+                                    <button className='w-50'>Chat</button>
+                                    <button className='w-50' onClick={
+                                        () => {
+
+                                        }
+                                    } >Hire</button>
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
                 </div >
 
