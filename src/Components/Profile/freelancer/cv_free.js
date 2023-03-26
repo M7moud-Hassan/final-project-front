@@ -18,6 +18,7 @@ class Cv_free extends Component {
     const id = 1; 
     axios.post(`http://127.0.0.1:8000/profile/get_details_free/`,
             {
+              
                 "id": id
             })
       .then(response => {
