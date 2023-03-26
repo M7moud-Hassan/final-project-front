@@ -70,7 +70,7 @@ function App() {
       <Route path='/job_details/:id' element={<Job_details/>}/>
       <Route path='/job_details/proposal/:id' element={<Proposal/>}/>
       <Route path='/search/:param1' element={<Search/>}/>
-      <Route path='/cv_free' element={<Cv_free/>}/>
+      <Route path='/cv_free/:id' element={<Cv_free/>}/>
       <Route path='/search/job_details/:id' element={<Job_details/>}/>
       <Route path='/search/job_details/proposal/:id' element={<Proposal/>}/>
       <Route path='/job_proposals' element={<JobS_Proposal/>}/>

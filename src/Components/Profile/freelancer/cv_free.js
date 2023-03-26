@@ -10,18 +10,22 @@ class Cv_free extends Component {
     this.state = {
       data: null,
       isLoading: true,
-      error: null
+      error: null,
+      id:0,
     };
   }
 
   componentDidMount() {
-    const id = 1; 
+    var arr=window.location.href.split('/')
+    const studentId = arr[arr.length-1]
+    this.setState({id:studentId})
     axios.post(`http://127.0.0.1:8000/profile/get_details_free/`,
             {
               
-                "id": id
+                "id": studentId
             })
       .then(response => {
+        console.log(response.data);
         this.setState({ data: response.data, isLoading: false });
       })
       .catch(error => {
@@ -66,6 +70,16 @@ class Cv_free extends Component {
                 <div class="col-md-8">
                     <h2 class="mb-4">About Me</h2>
                     <p class="lead mb-4">{data.overView} </p>
+                    <div class="d-flex justify-content-between align-items-center">
+            <div class="ratings">
+                <i class="fa fa-star rating-color"></i>
+                <i class="fa fa-star rating-color"></i>
+                <i class="fa fa-star rating-color"></i>
+                <i class="fa fa-star rating-color"></i>
+                <i class="fa fa-star"></i>
+            </div>
+            <h5 class="review-count">12 Reviews</h5>
+        </div>
                         <hr/>
                     <h2 class="mb-4">Skills</h2>
                     <div class="row mb-4">
