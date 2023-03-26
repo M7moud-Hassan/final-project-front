@@ -14,7 +14,8 @@ class Search extends Component {
         this.state = {
             data:[],
             dataa:[],
-            data_filter:[]
+            data_filter:[],
+            socket:null,
         }
 
 
@@ -69,6 +70,17 @@ class Search extends Component {
       }
       };
     componentDidMount(){
+        const newSocket = new WebSocket('ws://127.0.0.1:8000/ws/notifications/');
+        newSocket.onopen = () => {
+          console.log('WebSocket connected');
+          this.setState({socket:newSocket})
+          
+      };
+      
+    newSocket.onclose = () => {
+      console.log('WebSocket closed');
+      this.setState({socket:null})
+    };
         const studentId = window.location.href.split('/')[4]
         document.getElementById('search_id').value=studentId
         axios.post('http://127.0.0.1:8000/home/job_search/',{
@@ -309,15 +321,15 @@ class Search extends Component {
                             
                             return(
                             <div>
-
-                                <div class="container" onClick={
+                                {element.Proposals.includes(Number(localStorage.getItem("uid")))?(<i className='fa fa-bookmark'></i>):(<div></div>)}
+                                <div class="container">
+                            <div class="row my-3">
+                                <div class="col-md-6">
+                                    <NavLink onClick={
                                     ()=>{
                                         window.location='job_details/'+element.id
                                     }
-                                }>
-                            <div class="row my-3">
-                                <div class="col-md-6">
-                                    <a href="#" class="text-center text-success">{element.title}</a>
+                                } class="text-center text-success">{element.title}</NavLink>
                                 </div>
                                 <div class="col-md-6 text-end">
 
@@ -352,6 +364,16 @@ class Search extends Component {
                                                   
                                                 }).then(response=>{
                                                     if(response.data.res=='ok'){
+                                                        this.state.socket.send(JSON.stringify(
+                                                            {
+                                                                "type": "websocket.send",
+                                                                "data": {
+                                                                    type:"websocket.send",
+                                                                    sender:localStorage.getItem("uid"),
+                                                                    recieve:element.client_id,
+                                                                    payload:"add dislike on your job "+element.title
+                                                                  }
+                                                            }))
                                                        // isDislike=true
                                                         element.likeId=response.data.id
                                                         document.getElementById("like"+element.id).style.color="white"
@@ -369,6 +391,16 @@ class Search extends Component {
                                                 }).then(response=>{
 
                                                     if(response.data.res='ok'){
+                                                        this.state.socket.send(JSON.stringify(
+                                                            {
+                                                                "type": "websocket.send",
+                                                                "data": {
+                                                                    type:"websocket.send",
+                                                                    sender:localStorage.getItem("uid"),
+                                                                    recieve:element.client_id,
+                                                                    payload:"add dislike on your job "+element.title
+                                                                  }
+                                                            }))
                                                        // isDislike=true
                                                         element.likeId=response.data.id
                                                         document.getElementById("dislike"+element.id).style.color="red"
@@ -422,7 +454,16 @@ class Search extends Component {
 
                                                       
                                                        if(response.data.res=='ok'){
-                                                        
+                                                        this.state.socket.send(JSON.stringify(
+                                                            {
+                                                                "type": "websocket.send",
+                                                                "data": {
+                                                                    type:"websocket.send",
+                                                                    sender:localStorage.getItem("uid"),
+                                                                    recieve:element.client_id,
+                                                                    payload:"add like on your job "+element.title
+                                                                  }
+                                                            }))
                                                         islike=true
                                                         element.likeId=response.data.id
                                                         document.getElementById("like"+element.id).style.color="red"
@@ -439,6 +480,16 @@ class Search extends Component {
                                                     }).then(response=>{
 
                                                         if(response.data.res=='ok'){
+                                                            this.state.socket.send(JSON.stringify(
+                                                                {
+                                                                    "type": "websocket.send",
+                                                                    "data": {
+                                                                        type:"websocket.send",
+                                                                        sender:localStorage.getItem("uid"),
+                                                                        recieve:element.client_id,
+                                                                        payload:"add like on your job "+element.title
+                                                                      }
+                                                                }))
                                                             islike=true
                                                             element.likeId=response.data.id
                                                         document.getElementById("like"+element.id).style.color="red"
@@ -467,7 +518,11 @@ class Search extends Component {
 
                             </div>
 
-                            <div class="row my-3 text-center">
+                            <div class="row my-3 text-center" onClick={
+                                    ()=>{
+                                        window.location='job_details/'+element.id
+                                    }
+                                }>
                                   <div id={"carouselExampleIndicators"+element.id} class="carousel slide" data-bs-ride="true">
   <div class="carousel-indicators">
   {element.images.map((ele,index)=>{

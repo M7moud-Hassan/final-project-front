@@ -32,6 +32,8 @@ import Job_details from './Components/home/freelancer/job_details';
 import Proposal from './Components/home/freelancer/Proposal';
 import Search from './Components/home/freelancer/search';
 import Cv_free from './Components/Profile/freelancer/cv_free';
+import About from './Components/AboutUpwork';
+import Help from './Components/HelpUpWork';
 
 
 
@@ -71,6 +73,8 @@ function App() {
       <Route path='/cv_free' element={<Cv_free/>}/>
       <Route path='/search/job_details/:id' element={<Job_details/>}/>
       <Route path='/search/job_details/proposal/:id' element={<Proposal/>}/>
+      <Route path='/About' element={<About/>}/>
+      <Route path='/Help' element={<Help/>}/>
       <Route path='*' element={<Error/>} />
       </Routes>
       </BrowserRouter>

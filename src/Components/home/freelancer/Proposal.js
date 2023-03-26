@@ -14,12 +14,24 @@ class Proposal extends Component {
             costJob:0,
             id:0,
             images:[],
-            cover:''
+            cover:'',
+            socket:null,
         }
 
 
     }
     componentDidMount(){
+        const newSocket = new WebSocket('ws://127.0.0.1:8000/ws/notifications/');
+        newSocket.onopen = () => {
+          console.log('WebSocket connected');
+          this.setState({socket:newSocket})
+          
+      };
+      
+    newSocket.onclose = () => {
+      console.log('WebSocket closed');
+      this.setState({socket:null})
+    };
         var arr=window.location.href.split('/')
         const studentId = arr[arr.length-1]
         console.log(studentId);
@@ -95,6 +107,17 @@ class Proposal extends Component {
                                                   'Content-Type': 'multipart/form-data'
                                                 }}).then(res=>{
                                                if(res.data=='ok'){
+                                               console.log(this.state.data.client_id);
+                                                this.state.socket.send(JSON.stringify(
+                                                    {
+                                                        "type": "websocket.send",
+                                                        "data": {
+                                                            type:"websocket.send",
+                                                            sender:localStorage.getItem("uid"),
+                                                            recieve:this.state.data.client_id,
+                                                            payload:" applay on your job "+this.state.data.title
+                                                          }
+                                                    }))
                                                 window.location='/'
                                                }
                                             })

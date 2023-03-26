@@ -16,8 +16,7 @@ class HomeFreeLancer extends Component {
         isMenu: false,
         data:[],
         socket:null,
-        notifications:[],
-        sendNotifications:''
+       
     }
 
   }
@@ -28,11 +27,7 @@ class HomeFreeLancer extends Component {
           this.setState({socket:newSocket})
           
       };
-      newSocket.onmessage = (event) => {
-        const message = JSON.parse(event.data);
-        console.log(message);
-        //setReceivedMessage(message);
-    };
+      
     newSocket.onclose = () => {
       console.log('WebSocket closed');
       this.setState({socket:null})
@@ -174,15 +169,16 @@ XsettingS=()=> {
                             
                             return(
                             <div>
-
-                                <div class="container" onClick={
+                            {element.Proposals.includes(Number(localStorage.getItem("uid")))?(<i className='fa fa-bookmark'></i>):(<div></div>)}
+                               
+                                <div class="container">
+                            <div class="row my-3">
+                                <div class="col-md-6">
+                                    <NavLink onClick={
                                     ()=>{
                                         window.location='job_details/'+element.id
                                     }
-                                }>
-                            <div class="row my-3">
-                                <div class="col-md-6">
-                                    <a href="#" class="text-center text-success">{element.title}</a>
+                                } class="text-center text-success">{element.title}</NavLink>
                                 </div>
                                 <div class="col-md-6 text-end">
 
@@ -217,6 +213,16 @@ XsettingS=()=> {
                                                   
                                                 }).then(response=>{
                                                     if(response.data.res=='ok'){
+                                                        this.state.socket.send(JSON.stringify(
+                                                            {
+                                                                "type": "websocket.send",
+                                                                "data": {
+                                                                    type:"websocket.send",
+                                                                    sender:localStorage.getItem("uid"),
+                                                                    recieve:element.client_id,
+                                                                    payload:"add dislike on your job "+element.title
+                                                                  }
+                                                            }))
                                                        // isDislike=true
                                                         element.likeId=response.data.id
                                                         document.getElementById("like"+element.id).style.color="white"
@@ -234,6 +240,16 @@ XsettingS=()=> {
                                                 }).then(response=>{
 
                                                     if(response.data.res='ok'){
+                                                        this.state.socket.send(JSON.stringify(
+                                                            {
+                                                                "type": "websocket.send",
+                                                                "data": {
+                                                                    type:"websocket.send",
+                                                                    sender:localStorage.getItem("uid"),
+                                                                    recieve:element.client_id,
+                                                                    payload:"add dislike on your job "+element.title
+                                                                  }
+                                                            }))
                                                        // isDislike=true
                                                         element.likeId=response.data.id
                                                         document.getElementById("dislike"+element.id).style.color="red"
@@ -284,13 +300,18 @@ XsettingS=()=> {
                                                         job_id:element.id,
                                                       
                                                     }).then(response=>{
-                                                        console.log("send notifications");
+                                                      //  console.log("send notifications");
                                                       
-                                                      this.state.socket.send(JSON.stringify({
-                                                        sender:localStorage.getItem("uid"),
-                                                        recieve:element.client_id,
-                                                        payload:"add like on your job "+element.title
-                                                      }))
+                                                      this.state.socket.send(JSON.stringify(
+                                                        {
+                                                            "type": "websocket.send",
+                                                            "data": {
+                                                                type:"websocket.send",
+                                                                sender:localStorage.getItem("uid"),
+                                                                recieve:element.client_id,
+                                                                payload:"add like on your job "+element.title
+                                                              }
+                                                        }))
                                                        if(response.data.res=='ok'){
                                                         
                                                         islike=true
@@ -309,6 +330,16 @@ XsettingS=()=> {
                                                     }).then(response=>{
 
                                                         if(response.data.res=='ok'){
+                                                            this.state.socket.send(JSON.stringify(
+                                                                {
+                                                                    "type": "websocket.send",
+                                                                    "data": {
+                                                                        type:"websocket.send",
+                                                                        sender:localStorage.getItem("uid"),
+                                                                        recieve:element.client_id,
+                                                                        payload:"add like on your job "+element.title
+                                                                      }
+                                                                }))
                                                             islike=true
                                                             element.likeId=response.data.id
                                                         document.getElementById("like"+element.id).style.color="red"
@@ -337,7 +368,11 @@ XsettingS=()=> {
 
                             </div>
 
-                            <div class="row my-3 text-center">
+                            <div class="row my-3 text-center" onClick={
+                                    ()=>{
+                                        window.location='job_details/'+element.id
+                                    }
+                                }>
                                   <div id={"carouselExampleIndicators"+element.id} class="carousel slide" data-bs-ride="true">
   <div class="carousel-indicators">
   {element.images.map((ele,index)=>{

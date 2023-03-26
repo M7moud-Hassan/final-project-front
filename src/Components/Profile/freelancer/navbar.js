@@ -11,15 +11,54 @@ class NavBar extends Component {
       data: false,
       loading: true,
       error: null,
-    //  notifications:[]
+      notifications:[],
+      socket:null,
+      down:false,
+     
 
   }}
+  calNotification=()=>{
+    let x=0
+   this.state.notifications.forEach(element => {
+      if(element.status=="unread"){
+        x+=1
+      }
+    });
+    return x
+  }
+
+
+
+
+ toggleNotifi=()=>{
+  if(localStorage.getItem("type")=="user"){
+    axios.post('http://127.0.0.1:8000/home/makeNotificationClientRead/',{
+      id:localStorage.getItem("uid")
+    }).then(res=>{
+      this.setState({notifications:res.data})
+    })
+  }
+ 
+  var box  = document.getElementById('box');
+
+	if (this.state.down) {
+		box.style.height  = '0px';
+		box.style.opacity = 0;
+		
+    this.setState({down:false})
+	}else {
+    
+		box.style.height  = '510px';
+		box.style.opacity = 1;
+    this.setState({down:true})
+		
+	}
+}
    handleData = (data) => {
   //  const message = JSON.parse(data);
   //  this.setState({notifications: [...this.state.notifications, message]})
   };
   componentDidMount() {
-   //var ws = new w3cwebsocket('ws://localhost:8000/ws/notifications/');
     axios.post(this.props.url,
         {
             "id": localStorage.getItem('uid')
@@ -30,13 +69,36 @@ class NavBar extends Component {
         .catch(error => {
             this.setState({ error: error.message, loading: false });
         });
-
-       /* ws.onopen = () => console.log('WebSocket client connected');
-        ws.onmessage = (message) => {
-          const data = JSON.parse(message.data);
-          this.setState({notifications:[...this.state.notifications, data.message]});
-        };
-        ws.onclose = () => console.log('WebSocket client disconnected');*/
+        const newSocket = new WebSocket('ws://127.0.0.1:8000/ws/notifications/');
+        newSocket.onopen = () => {
+          console.log('WebSocket connected Navbar');
+          this.setState({socket:newSocket})
+          
+      };
+      if(localStorage.getItem("type")=="user"){
+      axios.post('http://127.0.0.1:8000/home/getnotificationsClient/',
+      {
+        id:localStorage.getItem("uid")
+      }).then(res=>{
+        this.setState({notifications:res.data})
+        newSocket.onmessage = (event) => {
+     
+          const message = JSON.parse(event.data);
+          var obj=JSON.parse(message.data.value);
+          if(obj.user_revoker==localStorage.getItem("uid")){
+            this.setState({notifications:[...this.state.notifications,obj]})
+          }
+          //setReceivedMessage(message);
+        
+      };
+      newSocket.onclose = () => {
+        console.log('WebSocket closed');
+        this.setState({socket:null})
+      };
+      })
+      
+      
+  }
 }
 
 
@@ -117,9 +179,12 @@ class NavBar extends Component {
                     </div>
                     <div className='d-flex justify-content-center align-items-center'>
                       <i class="fa-solid fa-question btn btn-lg" style={{ width: '80px' }}></i>
-                      <div class="notification-container">
+                      <div class="notification-container" onClick={this.toggleNotifi}>
                         <i class="fa-solid fa-bell btn btn-lg" style={{ width: '80px' }}></i>
-                        <span class="notification-badge">3</span>
+                        { this.calNotification()?( <span class="notification-badge">{
+                          this.calNotification()
+                       }</span>):(<div></div>)}
+                       
                       </div>
                       <img src={this.state.data.image?("data:image/*;base64," + this.state.data.image):("./images/default.png")} alt="User" className="rounded-circle btn border-0 ms-4" style={{ width: '70px' }} onClick={
                         ()=>{
@@ -133,6 +198,28 @@ class NavBar extends Component {
               </div>
             </div>
           </div>
+          <div class="notifi-box" id="box">
+			<h2>Notifications <span>{this.state.notifications.length}</span></h2>
+			{this.state.notifications.map(ele=>{
+        return (
+          <div class="alert">
+  <span class="closebtn" onClick={
+    (el)=>{
+      el.target.parentElement.style.display='none';
+      axios.post('http://127.0.0.1:8000/home/deletNotificationClient/',{
+        id:ele.id,
+        userid:localStorage.getItem("uid")
+      }).then(res=>{
+       // this.setState({notifications:res.data})
+      })
+    }
+  }>&times;</span> 
+  <strong>{ele.type_of_notification}</strong> 
+</div>
+        )
+      })}
+
+		</div>
         </nav>
 
 
