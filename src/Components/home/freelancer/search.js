@@ -310,7 +310,11 @@ class Search extends Component {
                             return(
                             <div>
 
-                                <div class="container" >
+                                <div class="container" onClick={
+                                    ()=>{
+                                        window.location='job_details/'+element.id
+                                    }
+                                }>
                             <div class="row my-3">
                                 <div class="col-md-6">
                                     <a href="#" class="text-center text-success">{element.title}</a>

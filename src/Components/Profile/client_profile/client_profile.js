@@ -7,7 +7,6 @@ import '../../../index.css'
 import Select from 'react-select'
 import makeAnimated from 'react-select/animated';
 import NavBar from '../freelancer/navbar';
-
 import './windows'
 
 const ClientProfile = () => {
@@ -38,6 +37,33 @@ const ClientProfile = () => {
     // const [jlikes, setjlikes] = useState('');
     // const [jdislike, setjdislike] = useState('');
 
+    let calday=(create_at)=>{
+        var a = new Date(create_at)
+        var b = new Date()
+        function padTo2Digits(num) {
+            return num.toString().padStart(2, '0');
+          }
+          
+          function convertMsToTime(milliseconds) {
+            let seconds = Math.floor(milliseconds / 1000);
+            let minutes = Math.floor(seconds / 60);
+            let hours = Math.floor(minutes / 60);
+          
+            seconds = seconds % 60;
+            minutes = minutes % 60;
+          
+            // 👇️ If you don't want to roll hours over, e.g. 24 to 00
+            // 👇️ comment (or remove) the line below
+            // commenting next line gets you `24:00:00` instead of `00:00:00`
+            // or `36:15:31` instead of `12:15:31`, etc.
+            hours = hours % 24;
+          
+            return `${padTo2Digits(hours)}:${padTo2Digits(minutes)}:${padTo2Digits(
+              seconds,
+            )}`;
+          }
+          return convertMsToTime(b-a)
+    }
     useEffect(() => {
         axios.post(`http://localhost:8000/home/latestJobs/`, { client_id: localStorage.getItem('uid') })
             .then(res => {
@@ -285,61 +311,177 @@ const ClientProfile = () => {
                         </div>
 
                         {/* Job Details Section   */}
-                        <div className='JobDetails m-auto text-center w-md-75 mt-5 animate ' ref={JTitle}>
+                        <div className='JobDetails m-auto text-center w-md-75 mt-5 animate ' id="JobDetails" ref={JTitle}>
                             <div className=" p-4" >
+                            <div class="maimgcontainer">
+                                                <span class="close" onClick={
+                                                    () => {
 
+                                                        document.getElementById('JobDetails').style.display = 'none'
+                                                    }
+                                                }>&times;</span>
+
+                                            </div>
                                 {
-                                    <div className=" p-4 m-auto" key={jobsDetails.id}>
-                                        <h3 className="text-dark">Job Title : <span className="text-muted">{jobsDetails.title}</span></h3>
-                                        <h3 className="text-dark">Created at : <span className="text-muted">{jobsDetails.create_at}</span></h3>
-                                        <h3 className="text-dark">Description : <span className="text-muted">{jobsDetails.description}</span></h3>
-                                        <h3 className="text-dark">Number of Likes : <span className="text-muted">{jobsDetails.numlikes}</span></h3>
-                                        <h3 className="text-dark">Number of Dislike : <span className="text-muted">{jobsDetails.numDislike}</span></h3>
-                                        <div>
-                                            <div className='row'>
-                                                {jobsDetails.images ? (jobsDetails.images.map(imgs => {
-                                                    console.log(imgs);
-                                                    return (
-                                                        <div className='col-md-4'>
-                                                            <img src={"http://localhost:8000" + imgs} className="d-block w-100 haimage slide BorderRadiusClass " alt="..." />
-                                                        </div>)
-                                                })) :
-                                                    (<div>no images for this job</div>)
-                                                }
-                                            </div>
-                                            <div className='mt-3 mb-3'>
-                                                <h3>Requried skills for this Job</h3>
-                                                {jobsDetails.skills ? (jobsDetails.skills.map(skill => {
-                                                    return (
-                                                        <span className='btn btn-success m-1 disabled'>
-                                                            {skill}
-                                                        </span>
-                                                    )
-                                                })) :
-                                                    (<div>no images for this job</div>)
-                                                }
-                                            </div>
-                                            <h3>Proposals</h3>
-                                            <div className='mt-3 mb-3 row'>
-                                                {jobsDetails.proposals ? (jobsDetails.proposals.map(props => {
-                                                    return (
-                                                        <div className=' col-md-6    text-start'>
-                                                            <div className='propsBody rounded-pill ms-3 me-3 mt-3'>
-                                                                <input type="hidden" value={props.id} />
-                                                                <img className='imgPropsal ' src={"http://localhost:8000" + props.image} c />
-                                                                <span className='mt-3 ms-3'>{props.name}</span>
-                                                            </div>
-                                                        </div>
-                                                    )
-
-                                                })) : (<div>no Props for this job</div>)
-
-                                                }
-
-                                            </div>
-                                        </div>
-                                        <button className='btn btn-success text-center ' onClick={XJTitleOP} ><h3> Return  </h3></button>
-                                    </div>
+                                   <div class="row ">
+                                   <div class="">
+                                      
+                                       <div class=" mt-5">
+                                           <h5><a href="#" class="text-center text-success">{jobsDetails.title}</a></h5>
+           
+                                           <p class="text-muted">
+                                               post at {
+                                                 calday(jobsDetails.create_at) 
+                                                   
+                                                   
+                                               }
+           
+                                               </p>
+           
+           
+                                       </div>
+                                       <hr />
+                                       <div class="row">
+                                           <div class="row my-3 text-center">
+           
+           
+                                               <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+                                                   <div class="carousel-indicators">
+                                                       {
+                                                           jobsDetails.images?(jobsDetails.images.map((ele,ind)=>{
+                                                               if(ind==0){
+                                                                   return(
+                                                                       <button type="button" data-bs-target="#carouselExampleIndicators"
+                                                                       data-bs-slide-to={ind} class="active" aria-current="true"
+                                                                       aria-label="Slide 1"></button>
+                                                                   )
+                                                               }else{
+                                                                   return(
+                                                                       <button type="button" data-bs-target="#carouselExampleIndicators"
+                                                                       data-bs-slide-to={ind} aria-current="true"
+                                                                       aria-label="Slide 1"></button>
+                                                                   )
+                                                               }
+                                                           })):(<div></div>)
+                                                       }
+                                                   
+                                                   </div>
+                                                   <div class="carousel-inner">
+                                                       {
+                                                           jobsDetails.images?(jobsDetails.images.map((ele,ind)=>{
+                                                               if(ind==0){
+                                                                   return (
+                                                                       <div class="carousel-item active">
+                                                           <img src={"http://localhost:8000"+ele} class="d-block w-100 image_slid" alt="..." />
+                                                       </div>
+                                                                   )
+                                                               }else{
+                                                                   return (
+                                                                       <div class="carousel-item">
+                                                           <img src={"http://localhost:8000"+ele} class="d-block w-100 image_slid" alt="..." />
+                                                       </div>
+                                                                   )
+                                                               }
+                                                           })):(<div></div>)
+                                                       }
+                                                       
+                                                   </div>
+                                                   <button class="carousel-control-prev" type="button"
+                                                       data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                                                       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                       <span class="visually-hidden">Previous</span>
+                                                   </button>
+                                                   <button class="carousel-control-next" type="button"
+                                                       data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                                                       <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                       <span class="visually-hidden">Next</span>
+                                                   </button>
+                                               </div>
+           
+           
+           
+                                           </div>
+           
+                                       </div>
+           
+           
+                                       <hr />
+                                       <div>
+                                           <p>{jobsDetails.description}</p>
+           
+           
+                                       </div>
+                                       <hr />
+                                       <div class=" d-flex justify-content-around">
+                                           <div class="">
+                                               <h6>
+                                                   {jobsDetails.cost}$
+                                               </h6>
+                                               <p class="text-muted">
+                                                   Fixed-price
+           
+                                               </p>
+           
+                                           </div>
+                                           <div class="">
+                                               <h6>
+                                                   Intermediate
+           
+                                               </h6>
+                                               <p class="text-muted w10">
+                                                   I am looking for a mix of experience and value
+                                               </p>
+           
+           
+                                           </div>
+                                       </div>
+                                       <hr />
+                                       <div class="row" >
+                                           <div class="col" className='abskill'>
+                                               <h6>
+                                                   Skills and Expertise
+                                               </h6>
+                                               <div>
+                                                   {jobsDetails.skills?(jobsDetails.skills.map(ele=>{
+            return <span class="badge bg-secondary rounded-pill">{ele}</span>
+           
+                                                   })):(<div></div>)}
+                                                                                    </div>
+           
+                                           </div>
+           
+           
+                                       </div>
+                                       <hr />
+                                       <div class="row">
+                                           <div class="col"  style={
+                                            {
+                                                textAlign:'left'
+                                            }
+                                           } className='abskill'>
+                                               <h6>Activity on this job</h6>
+                                               <div className='row mt-2'>
+                                                {jobsDetails.proposals?jobsDetails.proposals.map(ele=>{
+                                                    return ( <div class="chip col-3">
+                                                    <img src={"http://localhost:8000"+ele.image} alt="Person" width="96" height="96"/>
+                                                   {ele.name}
+                                                  </div>)
+                            
+                                                }):(<div></div>)}
+                                               
+                                    
+           
+                                               </div>
+           
+                                           </div>
+           
+                                       </div>
+           
+           
+           
+                                   </div>
+                                  
+                               </div>
 
                                 }
 

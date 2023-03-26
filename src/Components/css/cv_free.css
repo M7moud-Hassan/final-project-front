@@ -1,0 +1,61 @@
+
+body {
+    background-color: #f8f9fa;
+    padding: 0;
+    margin: 0;
+}
+
+.container-border {
+   
+    max-width: 1000px;
+    margin: 0 auto;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #fff;
+    
+}
+a {
+    text-decoration: none !important;
+  
+  }
+  
+  a:hover {
+    text-decoration: underline !important;
+  
+  
+  }
+  .filter-wrapper {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+  
+  .filter-heading {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .filter-options {
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+  }
+  
+  .form-check {
+    margin-bottom: 10px;
+  }
+  
+  .card:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease-in-out;
+  }
+
+  img:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease-in-out;
+  }
+  

@@ -12,7 +12,6 @@ import ActivateUser from './Components/index/activate_user';
 import ActivateFreeLancer from './Components/index/activate';
 import TestToken from './Components/index/test_token';
 import Check_email from './Components/index/please_activate';
-
 import './Components/js/jquery'
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import '@fortawesome/fontawesome-free/js/all.min.js';
@@ -32,6 +31,7 @@ import HomeFreeLancer from './Components/home/freelancer/home';
 import Job_details from './Components/home/freelancer/job_details';
 import Proposal from './Components/home/freelancer/Proposal';
 import Search from './Components/home/freelancer/search';
+import Cv_free from './Components/Profile/freelancer/cv_free';
 
 
 
@@ -65,10 +65,12 @@ function App() {
       <Route path='/changeUserPassword' element={<ChangePassword/>}/>
       <Route path='/changeFreePassword'element={<ChangePasswordFree/>}/>
       <Route path='/home_freelancer' element={<HomeFreeLancer/>}/>
-      <Route path='/job_details' element={<Job_details/>}/>
-      <Route path='/proposal' element={<Proposal/>}/>
+      <Route path='/job_details/:id' element={<Job_details/>}/>
+      <Route path='/job_details/proposal/:id' element={<Proposal/>}/>
       <Route path='/search/:param1' element={<Search/>}/>
-
+      <Route path='/cv_free' element={<Cv_free/>}/>
+      <Route path='/search/job_details/:id' element={<Job_details/>}/>
+      <Route path='/search/job_details/proposal/:id' element={<Proposal/>}/>
       <Route path='*' element={<Error/>} />
       </Routes>
       </BrowserRouter>
