@@ -2,13 +2,45 @@ import React, { Component } from 'react';
 import Footer from './Footer';
 import '../../css/cv_free.css';
 import NavBar from './navbar';
+import axios from 'axios';
 
 class Cv_free extends Component {
-  constructor() {
-    super();
-
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: null,
+      isLoading: true,
+      error: null
+    };
   }
+
+  componentDidMount() {
+    const id = 1; 
+    axios.post(`http://127.0.0.1:8000/profile/get_details_free/`,
+            {
+                "id": id
+            })
+      .then(response => {
+        this.setState({ data: response.data, isLoading: false });
+      })
+      .catch(error => {
+        this.setState({ error: error, isLoading: false });
+      });
+  }
+
+
+
   render() {
+    const { data, isLoading, error } = this.state;
+
+    if (isLoading) {
+      return <div>Loading...</div>;
+    }
+
+    if (error) {
+      return <div>Error: {error.message}</div>;
+    }
+
     return( 
       <div>
          <NavBar url='http://127.0.0.1:8000/profile/clientDetails/'
@@ -19,38 +51,29 @@ class Cv_free extends Component {
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
-                    <img src="me.png" alt="Freelancer Profile Picture"
+                    <img src={data.image ? ("data:image/*;base64," + data.image) : ("./images/default.png")} alt="Freelancer Profile Picture"
                         class="img-fluid rounded-circle mb-3"/>
-                    <h4 class="mb-3">Mahmoud Abuelhasaan</h4>
-                    <p class="lead mb-4">Web Developer</p>
+                    <h4 class="mb-3">{data.name}</h4>
+                    <p class="lead mb-4">{data.jobtitle}</p>
                     <ul class="list-unstyled">
-                        <li><strong>Location:</strong> San Francisco, CA</li>
+                        <li><strong>Location:</strong> {data.address}</li>
                         <li><strong>Availability:</strong> Full-time</li>
-                        <li><strong>Hourly Rate:</strong> $75/hr</li>
-                        <li><strong>Phone number:</strong> 01120314278</li>
+                        
+                        <li><strong>Phone number:</strong> {data.phone}</li>
                     </ul>
                 </div>
                 <div class="col-md-8">
                     <h2 class="mb-4">About Me</h2>
-                    <p class="lead mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere lacus eu
-                        quam interdum, a blandit ex molestie. Integer nec est vel augue aliquet elementum. Sed non ante
-                        non massa faucibus vestibulum sed sit amet dui. Nam porttitor, nunc eget faucibus commodo, metus
-                        nisl convallis ipsum, sit amet consequat velit velit nec nisl. </p>
+                    <p class="lead mb-4">{data.overView} </p>
                         <hr/>
                     <h2 class="mb-4">Skills</h2>
                     <div class="row mb-4">
                         <div class=" d-flex">
-                            <h5 class="m-1"><span class="badge rounded-pill text-bg-primary">New!</span> </h5>
-                            <h5 class="m-1"><span class="badge rounded-pill text-bg-primary">New!</span> </h5>
-                            <h5 class="m-1"><span class="badge rounded-pill text-bg-primary">New!</span> </h5>
+                          {data.skills.map((skill,index) => (
+                            <h5 key={index} class="m-1"><span class="badge rounded-pill text-bg-primary">{skill}</span> </h5>
 
-                            <h5 class="m-1"><span class="badge rounded-pill text-bg-primary">New!</span> </h5>
-
-                            <h5 class="m-1"><span class="badge rounded-pill text-bg-primary">New!</span> </h5>
-
-                            <h5 class="m-1"><span class="badge rounded-pill text-bg-primary">New!</span> </h5>
-
-
+                          ))}
+                            
 
 
                         </div>
@@ -61,116 +84,62 @@ class Cv_free extends Component {
                     <hr/>
                     <h2 class="mb-4">Portfolio</h2>
                     <div class="row mb-4">
-                        <div class="col-md-4">
-                          <div class="card shadow-sm m-1">
-                            <img src="https://via.placeholder.com/500x250" class="card-img-top" alt="Project Image"/>
-                            <div class="card-body">
-                                <h5 class="card-title">Project 1</h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                <button type="button" class="btn btn-success rounded-pill" data-bs-toggle="modal" data-bs-target="#portfolioModal">
-                                  View Project
-                                </button>
-                            </div>
-                        </div>
-                        </div>
-                        <div class="col-md-4">
-                          <div class="card shadow-sm m-1">
-                            <img src="https://via.placeholder.com/500x250" class="card-img-top" alt="Project Image"/>
-                            <div class="card-body">
-                                <h5 class="card-title">Project 1</h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                <button type="button" class="btn btn-success rounded-pill" data-bs-toggle="modal" data-bs-target="#portfolioModal">
-                                  View Project
-                                </button>
-                            </div>
-                        </div>
-                        </div>
-                        <div class="col-md-4">
-                          <div class="card shadow-sm m-1">
-                            <img src="https://via.placeholder.com/500x250" class="card-img-top" alt="Project Image"/>
-                            <div class="card-body">
-                                <h5 class="card-title">Project 1</h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                <button type="button" class="btn btn-success rounded-pill" data-bs-toggle="modal" data-bs-target="#portfolioModal">
-                                  View Project
-                                </button>
-                            </div>
-                        </div>
-                        </div>
-                        <div class="col-md-4">
+                       {data.portfilos.map((portfilo ,index)=>(
+                            <div key={index} class="col-md-4 cv_portfilio" >
                             <div class="card shadow-sm m-1">
-                                <img src="https://via.placeholder.com/500x250" class="card-img-top" alt="Project Image"/>
-                                <div class="card-body">
-                                    <h5 class="card-title">Project 1</h5>
-                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                    <button type="button" class="btn btn-success rounded-pill" data-bs-toggle="modal" data-bs-target="#portfolioModal">
-                                      View Project
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                          <div class="card shadow-sm m-1">
-                            <img src="https://via.placeholder.com/500x250" class="card-img-top" alt="Project Image"/>
-                            <div class="card-body">
-                                <h5 class="card-title">Project 1</h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                <button type="button" class="btn btn-success rounded-pill" data-bs-toggle="modal" data-bs-target="#portfolioModal">
-                                  View Project
-                                </button>
-                            </div>
-                        </div>
-                        </div>
+                              <img src={"data:image/*;base64," + portfilo.image} alt="Card image cap" style={{ width: '180px',height:'120px' }} class="card-img-top" />
+                              <div class="card-body">
+                                  <h5 class="card-title">{portfilo.title}</h5>
+                                  <p class="card-text">{portfilo.description}</p>
+                                  <button type="button" class="btn btn-success rounded-pill" data-bs-toggle="modal" data-bs-target="#portfolioModal">
+                                    View Project
+                                  </button>
+                              </div>
+                          </div>
+                          </div>
+
+                       ))}
+                       
                      
                     </div>
                     <hr/>
                     <div class="row">
                         <div class=" mb-4">
                           <h3 class="mb-3">Education</h3>
-                          <div class="d-flex">
+                          {data.educations.map((education ,index) =>(
+                            <div key={index} class="d-flex">
                             <div class="me-3">
                               <span class="display-4 text-primary"><i class="bi bi-award"></i></span>
                             </div>
                             <div>
-                              <h5>Bachelor's Degree in Computer Science</h5>
-                              <p class="text-muted">XYZ University</p>
-                              <p class="text-muted">Graduated in May 2014</p>
+                              <h5>{education.school}</h5>
+                              <p class="text-muted">{education.from_year}</p>
+                              
                             </div>
                           </div>
-                          <div class="d-flex">
-                            <div class="me-3">
-                              <span class="display-4 text-primary"><i class="bi bi-award"></i></span>
-                            </div>
-                            <div>
-                              <h5>Master's Degree in Software Engineering</h5>
-                              <p class="text-muted">ABC University</p>
-                              <p class="text-muted">Graduated in May 2016</p>
-                            </div>
-                          </div>
+
+                          ))}
+                         
+                          
                         </div>
                         <hr/>
                         <div class="">
                           <h3 class="mb-3">Certifications</h3>
-                          <div class="d-flex mb-4">
+                          {data.certifications.map((certification ,index)=>(
+                            <div key={index} class="d-flex mb-4">
                             <div class="me-3">
                               <span class="display-4 text-primary"><i class="bi bi-award"></i></span>
                             </div>
                             <div>
-                              <h5>Certification in React Native</h5>
-                              <p class="text-muted">Issued by Udemy</p>
-                              <p class="text-muted">Completed in November 2020</p>
+                              <h5>{certification.provider}</h5>
+                              <p class="text-muted">{certification.description}</p>
+                              
                             </div>
                           </div>
-                          <div class="d-flex mb-4">
-                            <div class="me-3">
-                              <span class="display-4 text-primary"><i class="bi bi-award"></i></span>
-                            </div>
-                            <div>
-                              <h5>Certification in Web Development</h5>
-                              <p class="text-muted">Issued by Coursera</p>
-                              <p class="text-muted">Completed in May 2019</p>
-                            </div>
-                          </div>
+
+                          ))}
+                         
+                          
                         </div>
                       </div>
 

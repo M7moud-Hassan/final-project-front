@@ -39,6 +39,8 @@ const ClientProfile = () => {
     // const [jlikes, setjlikes] = useState('');
     // const [jdislike, setjdislike] = useState('');
 
+   
+
     let calday=(create_at)=>{
         var a = new Date(create_at)
         var b = new Date()
@@ -149,7 +151,8 @@ const ClientProfile = () => {
         const DoM = JTitle.current;
         DoM.style.display = 'none'
     }
-
+    
+  
 
     useEffect(() => {
         axios.post(`http://127.0.0.1:8000/profile/clientDetails/`, { id: localStorage.getItem('uid') })
@@ -462,9 +465,11 @@ const ClientProfile = () => {
                                             }
                                            } className='abskill'>
                                                <h6>Activity on this job</h6>
-                                               <div className='row mt-2'>
+                                               <div className='row mt-2' >
                                                 {jobsDetails.proposals?jobsDetails.proposals.map(ele=>{
-                                                    return ( <div class="chip col-3">
+                                                    return ( <div class="chip col-3" onClick={() => {
+                                                        window.location.href = 'http://localhost:3000/cv_free';
+                                                      }}>
                                                     <img src={"http://localhost:8000"+ele.image} alt="Person" width="96" height="96"/>
                                                    {ele.name}
                                                   </div>)
