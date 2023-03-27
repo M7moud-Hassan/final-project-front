@@ -73,6 +73,7 @@ class Job_details extends Component {
             <div>
                 <NavBar />
                 <div class="container my-5">
+
                     <div class="row m-3">
                         <h3>
                             Job details
@@ -257,6 +258,7 @@ class Job_details extends Component {
                             </div>
                         </div>
                     </div>
+                    
                 </div>
                 <div id="id0p1" class="mamodal rounded">
 
@@ -342,7 +344,7 @@ class Job_details extends Component {
 
                 </div>
 
-                <Footer/>
+                <Footer />
 
             </div>
         )
