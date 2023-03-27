@@ -3,6 +3,9 @@ import { useEffect, useState, useRef } from "react";
 import { NavLink } from "react-router-dom"
 import axios from "axios";
 import Error from "../../index/error";
+import NavBar from "../freelancer/navbar";
+import Footer from "../freelancer/Footer";
+
 
 const ClientSettings1 = () => {
 
@@ -60,6 +63,9 @@ const ClientSettings1 = () => {
     if (localStorage.getItem('uid')) {
         if (localStorage.getItem('type') == 'user') {
             return (
+                <div>
+                    <NavBar />
+               
                 <div className="container">
                     <div className="contactModal container w-75" ref={contactSection}>
                         <div className=" container ">
@@ -287,6 +293,8 @@ const ClientSettings1 = () => {
                     </div>
 
 
+                </div>
+                <Footer/>
                 </div>
             )
         }
