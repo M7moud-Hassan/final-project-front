@@ -12,15 +12,47 @@ class Cv_free extends Component {
       isLoading: true,
       error: null,
       port:'',
+      free:0,
+      job:0,
+      cost:0,
+      socket:null,
+      title:'',
     };
   }
 
+  calRate(ine){
+    var arr=[]
+    for (let index = 0; index < 5; index++) {
+      if(index<ine){
+        arr.push(1)
+      }else{
+        arr.push(0)
+      }
+    }
+    return arr;
+  }
   componentDidMount() {
-    const id = 1;
+    const newSocket = new WebSocket('ws://127.0.0.1:8000/ws/notificationsfree/');
+        newSocket.onopen = () => {
+          console.log('WebSocket connected');
+          this.setState({socket:newSocket})
+          
+      };
+      
+    newSocket.onclose = () => {
+      console.log('WebSocket closed');
+      this.setState({socket:null})
+    };
+    var arr=window.location.href.split('/')
+    const studentId = arr[arr.length-1]
+    this.setState({free:studentId})
+    this.setState({job: arr[arr.length-3]})
+    this.setState({cost:arr[arr.length-2]})
+    this.setState({title:arr[arr.length-4]})
     axios.post(`http://127.0.0.1:8000/profile/get_details_free/`,
       {
 
-        "id": id
+        "id": studentId
       })
       .then(response => {
         this.setState({ data: response.data, isLoading: false });
@@ -45,10 +77,7 @@ class Cv_free extends Component {
 
     return (
       <div>
-        <NavBar url='http://127.0.0.1:8000/profile/clientDetails/'
-          openMenu={() => {
-
-          }} />
+        <NavBar/>
         <section class="py-5 container-border my-5">
           <div class="container">
             <div class="row">
@@ -74,7 +103,30 @@ class Cv_free extends Component {
                     <button type="button" class="btn btn-primary rounded-pill mx-1" >
                       Chat
                     </button>
-                    <button type="button" class="btn btn-success rounded-pill mx-1" >
+                    <button type="button" class="btn btn-success rounded-pill mx-1" onClick={
+                      ()=>{
+                        axios.post('http://localhost:8000/home/hire/',{
+                          user:localStorage.getItem("uid"),
+                          free:this.state.free,
+                          job:this.state.job,
+                          cost:this.state.cost,
+                        }).then(res=>{
+                          if(res.data=='ok'){
+                            this.state.socket.send(JSON.stringify(
+                              {
+                                  "type": "websocket.send",
+                                  "data": {
+                                      type:"websocket.send",
+                                      sender:localStorage.getItem("uid"),
+                                      recieve:this.state.free,
+                                      payload:"hir you to  job "+this.state.title
+                                    }
+                              }))
+                            window.location='/'
+                          }
+                        })
+                      }
+                    }>
                     Hire
                     </button>
 
@@ -86,13 +138,15 @@ class Cv_free extends Component {
                 <p class="lead mb-4">{data.overView} </p>
                 <div class="d-flex justify-content-between align-items-center">
             <div class="ratings">
-                <i class="fa fa-star rating-color"></i>
-                <i class="fa fa-star rating-color"></i>
-                <i class="fa fa-star rating-color"></i>
-                <i class="fa fa-star rating-color"></i>
-                <i class="fa fa-star"></i>
+              {this.calRate(this.state.data.rate)?(this.calRate(this.state.data.rate).map(ele=>{
+                if(ele==1){
+                  return <i class="fa fa-star rating-color"></i>
+                }else{
+                  return  <i class="fa fa-star"></i>
+                }
+              })):(<div></div>)}
             </div>
-            <h5 class="review-count">12 Reviews</h5>
+            <h5 class="review-count">{data.numReview} Reviews</h5>
         </div>
                 <hr />
                 <h2 class="mb-4">Skills</h2>
@@ -182,11 +236,32 @@ class Cv_free extends Component {
                   </div>
                 </div>
 
-
               </div>
             </div>
-          </div>
 
+          </div>
+          <hr/>
+          <h3>Reviews</h3>
+          {this.state.data.reviews.map(ele=>{
+            return (
+              <div>
+                 <div>
+          <div class="ratings">
+              {this.calRate(ele.rate)?(this.calRate(ele.rate).map(ele=>{
+                if(ele==1){
+                  return <i class="fa fa-star rating-color"></i>
+                }else{
+                  return  <i class="fa fa-star"></i>
+                }
+              })):(<div></div>)}
+            </div>
+            <p>{ele.review}</p>
+</div>
+<br/>
+              </div>
+            )
+          })}
+         
         </section>
 
 

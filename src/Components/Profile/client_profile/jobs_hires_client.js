@@ -4,34 +4,21 @@ import '../../css/cv_free.css';
 import axios from 'axios';
 import NavBar from '../../Profile/freelancer/navbar';
 
-class JobS_Hire extends Component {
+class JobS_Hire_Client extends Component {
   constructor() {
     super();
     this.state={
-        jobs:[],
-        hire:'',
-        job:'',
-        socket:null,
+        hirs:[],
+       
     }
 
   }
   componentDidMount(){
-    const newSocket = new WebSocket('ws://127.0.0.1:8000/ws/notifications/');
-    newSocket.onopen = () => {
-      console.log('WebSocket connected');
-      this.setState({socket:newSocket})
-      
-  };
-  
-newSocket.onclose = () => {
-  console.log('WebSocket closed');
-  this.setState({socket:null})
-};
-    axios.post('http://127.0.0.1:8000/home/jobs_hire/',{
+    axios.post('http://127.0.0.1:8000/home/get_jobs_hire_client/',{
         id:localStorage.getItem("uid")
     }).then(res=>{
        
-        this.setState({jobs:res.data})
+        this.setState({hirs:res.data})
     })
   }
   removeItemOnce(arr, value) {
@@ -45,22 +32,22 @@ newSocket.onclose = () => {
     return (<div>
         <NavBar/>
           <div className='row mb-5'>
-                                {this.state.jobs.map(job => (
+                                {this.state.hirs.map(hire => (
                                     <div className='col-md-4 mt-3'>
                                         <div className='profileCards2 container pCards2 text-dark' >
                                            
                                             <div className=' ps-3 mt-1 h4 text-muted'>
-                                                {job.title}
+                                                {hire.job.description}
                                             </div>
 
                                             <div class="row my-3 text-center">
-                                                <div id={"carouselExampleIndicators" + job.id} className="carousel  " data-bs-ride="true">
+                                                <div id={"carouselExampleIndicators" + hire.job.id} className="carousel  " data-bs-ride="true">
                                                     <div class="carousel-indicators">
-                                                    {job.images.map((imgs, index) => {
+                                                    {hire.job.images.map((imgs, index) => {
                                                             if (index == 0) {
-                                                             return   <button type="button" data-bs-target={"#carouselExampleIndicators" + job.id} data-bs-slide-to={index} class="active" aria-current="true" aria-label="Slide 1"></button>
+                                                             return   <button type="button" data-bs-target={"#carouselExampleIndicators" + hire.job.id} data-bs-slide-to={index} class="active" aria-current="true" aria-label="Slide 1"></button>
                                                             }else{
-                                                              return  <button type="button" data-bs-target={"#carouselExampleIndicators" + job.id} data-bs-slide-to={index} aria-label="Slide 2"></button>
+                                                              return  <button type="button" data-bs-target={"#carouselExampleIndicators" + hire.job.id} data-bs-slide-to={index} aria-label="Slide 2"></button>
                                                             }
                                                     })}
                                                         
@@ -68,7 +55,7 @@ newSocket.onclose = () => {
                                                     <div class="carousel-inner "
                                                         onClick={
                                                             () => {
-                                                                axios.post('http://127.0.0.1:8000/home/job_hire_de/',
+                                                               /*axios.post('http://127.0.0.1:8000/home/job_hire_de/',
                                                                 {
                                                                     id:localStorage.getItem("uid"),
                                                                     id_job:job.id
@@ -78,11 +65,11 @@ newSocket.onclose = () => {
                                                                     this.setState({job:job})
                                                                     document.getElementById('id0p1').style.display = 'block'
                                                                     //console.log(res.data);
-                                                                })
+                                                                })*/
                                                             }
                                                         }
                                                     >
-                                                        {job.images.map((imgs, index) => {
+                                                        {hire.job.images.map((imgs, index) => {
                                                             if (index == 0) {
                                                                 return (<div class="carousel-item active">
                                                                     <img src={"http://localhost:8000" + imgs.image} className="d-block w-100 haimage slide BorderRadiusClass" alt="..." />
@@ -95,75 +82,29 @@ newSocket.onclose = () => {
                                                         })}
                                                     </div>
 
-                                                    <button class="carousel-control-prev" type="button" data-bs-target={"#carouselExampleIndicators" + job.id} data-bs-slide="prev">
+                                                    <button class="carousel-control-prev" type="button" data-bs-target={"#carouselExampleIndicators" + hire.job.id} data-bs-slide="prev">
                                                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                                         <span class="visually-hidden">Previous</span>
                                                     </button>
-                                                    <button class="carousel-control-next" type="button" data-bs-target={"#carouselExampleIndicators" + job.id} data-bs-slide="next">
+                                                    <button class="carousel-control-next" type="button" data-bs-target={"#carouselExampleIndicators" + hire.job.id} data-bs-slide="next">
                                                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                                         <span class="visually-hidden">Next</span>
                                                     </button>
                                                 </div>
+                                                
                                             </div>
-
+                                            <div class="chip w-100">
+                    <img src={"http://localhost:8000"+hire.free.user_image} alt="Person" width="96" height="96"/>
+                   {hire.free.first_name}  {hire.free.last_name}
+                  </div>
                                         </div>
+                                      
                                     </div>
                                 ))}
 
                             </div>
-                            <div id="id0p1" class="mamodal rounded">
-
-<div class="mamodal-content maanimate rounded">
-    <div class="maimgcontainer">
-        <span class="close" onClick={
-            () => {
-
-                document.getElementById('id0p1').style.display = 'none'
-            }
-        }>&times;</span>
-
-    </div>
-
-    <div class="container myconatiner pt-4">
-        <h3 class="text-left ml-4">Change hires</h3>
-       <div class="input-group mb-3">
-  <span class="input-group-text">Cost</span>
-  <input type="text" class="form-control" value={this.state.hire.cost} readOnly/>
-</div>
-<h3>Client</h3>
-{this.state.hire?(<div class="chip w-100">
-  <img src={"http://localhost:8000"+this.state.hire.client.image} alt="Person" width="96" height="96"/>
-  {this.state.hire.client.fname} {this.state.hire.client.lname}
-</div> ):(<div></div>)}
-<div class="btn-group w-100 p-4">
-  <button className='w-50'>Chat</button>
-  {this.state.hire.is_finish?(<div></div>):(<button className='w-50'onClick={
-    ()=>{
-        axios.post('http://localhost:8000/home/finish_job/',{
-            id:this.state.hire.id
-        }).then(res=>{
-            if(res.data=='ok'){
-                document.getElementById('id0p1').style.display = 'none'
-                this.state.socket.send(JSON.stringify(
-                    {
-                        "type": "websocket.send",
-                        "data": {
-                            type:"websocket.send",
-                            sender:localStorage.getItem("uid"),
-                            recieve:this.state.hire.client.id,
-                            payload:"finish your job "+ this.state.job.title
-                          }
-                    }))
-            }
-        })
-    }
-  } >Finish Job</button>)}
-</div>
-                            
-    </div>
-</div>
-</div>
+                     
     </div>)
   }
 }
-export default JobS_Hire;
+export default JobS_Hire_Client;

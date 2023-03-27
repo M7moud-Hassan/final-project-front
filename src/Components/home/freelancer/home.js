@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import '../../css/hme_free.css'
 import { NavLink } from 'react-router-dom';
 import NavBar from '../../Profile/freelancer/navbar';
-import './windows'
 import axios from 'axios';
 import Error from '../../index/error';
 
@@ -13,11 +12,45 @@ class HomeFreeLancer extends Component {
   constructor() {
     super();
     this.state = {
-        isMenu: false,
+       
         data:[],
         socket:null,
        
     }
+
+  }
+  cal_Date(create_at){
+    var postDate = new Date(create_at);
+
+var currentDate = new Date();
+
+var timeDiff = postDate.getTime() - currentDate.getTime();
+
+
+var secondsDiff = Math.floor(timeDiff / 1000);
+var minutesDiff = Math.floor(secondsDiff / 60);
+var hoursDiff = Math.floor(minutesDiff / 60);
+
+
+var daysDiff = Math.floor(timeDiff / (1000 * 3600 * 24));
+hoursDiff = hoursDiff % 24;
+minutesDiff = minutesDiff % 60;
+secondsDiff = secondsDiff % 60;
+
+var res=""
+if(daysDiff){
+    res+=daysDiff+"d "
+}
+if(hoursDiff){
+    res+=hoursDiff+"h "
+}
+if(minutesDiff){
+    res+=minutesDiff+"m "
+}
+if(secondsDiff){
+    res+=secondsDiff+"s"
+}
+return res;
 
   }
   componentDidMount(){
@@ -39,16 +72,7 @@ class HomeFreeLancer extends Component {
         this.setState({data:response.data})
     })
   }
-  settingS=() =>{
-    this.setState({isMenu:true})
-    const DoM = document.getElementById("setting")
-    DoM.style.display = 'block'
-}
-XsettingS=()=> {
-    this.setState({isMenu:false})
-    const DoM = document.getElementById("setting")
-    DoM.style.display = 'none'
-}
+
   render(){
     if(localStorage.getItem('uid')){
         var type= localStorage.getItem("type");
@@ -57,26 +81,13 @@ XsettingS=()=> {
        return (<Error/>)
     }else{
     return (
-        <div> <NavBar url='http://127.0.0.1:8000/profile/get_details_free/'
-        openMenu={this.state.isMenu?(this.XsettingS):(this.settingS)}/>
-         <div className='row'>
-                        <div className=' col-sm-3 buttonSetting text-center' id='setting' >
-                            <img className='littleSymbolImage' src={"http://localhost:8000"+this.state.data.image} />
-                            <h4 className='mt-3'>{this.state.data.fname+" "+this.state.data.lname}</h4>
-                            <hr />
-                            <NavLink to={'/Freelancersettings'}><h5>Settings</h5></NavLink>
-                            <NavLink onClick={
-                                () => {
-                                    localStorage.clear()
-                                    window.location = "/"
-                                }
-                            }><h5 className='pb-4'>Logout</h5></NavLink>
-                        </div></div>
+        <div> <NavBar/>
+         
          <div class="container my-4" onClick={
                 (e)=>{
                   
                    
-                    this.XsettingS()
+                  
                    
                 }
             }>
@@ -115,31 +126,10 @@ XsettingS=()=> {
                         <hr/>
                         {this.state.data.jobs?(this.state.data.jobs.map(element=>
                         {
+                            
 
-                            var a = new Date(element.create_at)
-                            var b = new Date()
-                            function padTo2Digits(num) {
-                                return num.toString().padStart(2, '0');
-                              }
-                              
-                              function convertMsToTime(milliseconds) {
-                                let seconds = Math.floor(milliseconds / 1000);
-                                let minutes = Math.floor(seconds / 60);
-                                let hours = Math.floor(minutes / 60);
-                              
-                                seconds = seconds % 60;
-                                minutes = minutes % 60;
-                              
-                                // 👇️ If you don't want to roll hours over, e.g. 24 to 00
-                                // 👇️ comment (or remove) the line below
-                                // commenting next line gets you `24:00:00` instead of `00:00:00`
-                                // or `36:15:31` instead of `12:15:31`, etc.
-                                hours = hours % 24;
-                              
-                                return `${padTo2Digits(hours)}:${padTo2Digits(minutes)}:${padTo2Digits(
-                                  seconds,
-                                )}`;
-                              }
+
+
 
                               var islike=false
                               var isDislike=false
@@ -363,7 +353,7 @@ XsettingS=()=> {
                             </div>
 
                             <div class="row my-3">
-                                <p class="text-muted small">Fixed-price - Intermediate - Est. Budget: ${element.cost} - Posted {convertMsToTime(b-a)} ago</p>
+                                <p class="text-muted small">Fixed-price - Intermediate - Est. Budget: ${element.cost} - Posted {this.cal_Date(element.create_at)} ago</p>
 
 
                             </div>

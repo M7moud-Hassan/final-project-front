@@ -44,41 +44,45 @@ class Proposal extends Component {
             this.setState({data:res.data})
         })
     }
-    calday(create_at){
-        var a = new Date(create_at)
-        var b = new Date()
-        function padTo2Digits(num) {
-            return num.toString().padStart(2, '0');
-          }
-          
-          function convertMsToTime(milliseconds) {
-            let seconds = Math.floor(milliseconds / 1000);
-            let minutes = Math.floor(seconds / 60);
-            let hours = Math.floor(minutes / 60);
-          
-            seconds = seconds % 60;
-            minutes = minutes % 60;
-          
-            // 👇️ If you don't want to roll hours over, e.g. 24 to 00
-            // 👇️ comment (or remove) the line below
-            // commenting next line gets you `24:00:00` instead of `00:00:00`
-            // or `36:15:31` instead of `12:15:31`, etc.
-            hours = hours % 24;
-          
-            return `${padTo2Digits(hours)}:${padTo2Digits(minutes)}:${padTo2Digits(
-              seconds,
-            )}`;
-          }
-          return convertMsToTime(b-a)
+    cal_Date(create_at){
+        var postDate = new Date(create_at);
+    
+    var currentDate = new Date();
+    
+    var timeDiff = postDate.getTime() - currentDate.getTime();
+    
+    
+    var secondsDiff = Math.floor(timeDiff / 1000);
+    var minutesDiff = Math.floor(secondsDiff / 60);
+    var hoursDiff = Math.floor(minutesDiff / 60);
+    
+    
+    var daysDiff = Math.floor(timeDiff / (1000 * 3600 * 24));
+    hoursDiff = hoursDiff % 24;
+    minutesDiff = minutesDiff % 60;
+    secondsDiff = secondsDiff % 60;
+    
+    var res=""
+    if(daysDiff){
+        res+=daysDiff+"d "
     }
+    if(hoursDiff){
+        res+=hoursDiff+"h "
+    }
+    if(minutesDiff){
+        res+=minutesDiff+"m "
+    }
+    if(secondsDiff){
+        res+=secondsDiff+"s"
+    }
+    return res;
+    
+      }
     render() {
 
         return (
             <div>
-                 <NavBar url='http://127.0.0.1:8000/profile/get_details_free/'
-        openMenu={()=>{
-            window.location='/'
-        }}/>
+                 <NavBar/>
 
                 <div class="container my-4 ">
         <div class="row abskill ">
@@ -130,7 +134,7 @@ class Proposal extends Component {
                             <div class=" my-5">
                                 <h5>{this.state.data.title}</h5>
                         
-                                <span class="text-muted small px-2">Posted {this.calday(this.state.data.create_at)}</span>
+                                <span class="text-muted small px-2">Posted {this.cal_Date(this.state.data.create_at)}</span>
                             </div>
 
 

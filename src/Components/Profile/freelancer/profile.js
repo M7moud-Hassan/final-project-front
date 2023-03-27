@@ -21,7 +21,7 @@ class Profile extends Component {
         const animatedComponents = makeAnimated();
 
         this.state = {
-            isMenu: false,
+           
             data: false,
             loading: true,
             error: null,
@@ -72,22 +72,17 @@ class Profile extends Component {
             optionCertification: [],
             selectYear: 0,
             selectMonth: 0,
+            rate_num:0,
+            num_review:0,
+            reviews:[]
            
         }
 
     }
 
 
-    settingS = () => {
-        this.setState({ isMenu: true })
-        const DoM = document.getElementById("setting")
-        DoM.style.display = 'block'
-    }
-    XsettingS = () => {
-        this.setState({ isMenu: false })
-        const DoM = document.getElementById("setting")
-        DoM.style.display = 'none'
-    }
+   
+   
 
     removeItemOnce(arr, value) {
         var index = arr.indexOf(value);
@@ -97,6 +92,17 @@ class Profile extends Component {
         return arr;
     }
 
+    calRate(ine){
+        var arr=[]
+        for (let index = 0; index < 5; index++) {
+          if(index<ine){
+            arr.push(1)
+          }else{
+            arr.push(0)
+          }
+        }
+        return arr;
+      }
     componentDidMount() {
         
         axios.post(`http://127.0.0.1:8000/profile/get_details_free/`,
@@ -104,9 +110,10 @@ class Profile extends Component {
                 "id": localStorage.getItem('uid')
             })
             .then(response => {
-
+                this.setState({num_review:response.data.numReview})
+                this.setState({rate_num:response.data.rate})
                 this.setState({ data: response.data, loading: false });
-
+                this.setState({reviews:response.data.reviews})
                 this.setState({ jobtitle2: this.state.data.jobtitle })
 
                 axios.get("http://127.0.0.1:8000/auth/get_skills/").then(response => {
@@ -394,29 +401,9 @@ class Profile extends Component {
         return (
             <div>
                 <div>
-                    <NavBar url='http://127.0.0.1:8000/profile/get_details_free/'
-                        openMenu={this.state.isMenu ? (this.XsettingS) : (this.settingS)} />
-                    <div className='row'>
-                        <div className=' col-sm-3 buttonSetting text-center' id='setting' >
-                            <img className='littleSymbolImage mt-3' src={data.image ? ("data:image/*;base64," + data.image) : ("./images/default.png")} />
-                            <h4 className='mt-3'>{data.name}</h4>
-                            <hr />
-                            <NavLink to={'/Freelancersettings'}><h5>Settings</h5></NavLink>
-                            <NavLink onClick={
-                                () => {
-                                    localStorage.clear()
-                                    window.location = "/"
-                                }
-                            }><h5 className='pb-4'>Logout</h5></NavLink>
-                        </div></div>
-                    <div className="container-border my-4" onClick={
-                        (e) => {
-
-
-                            this.XsettingS()
-
-                        }
-                    } style={
+                    <NavBar/>
+                    
+                    <div className="container-border my-4"  style={
                         {
                             maxWidth:"90%"
                         }
@@ -444,6 +431,18 @@ class Profile extends Component {
                                             className="fa-solid fa-pen"></i></button>
 
                                     </p>
+                                    <div class="d-flex justify-content-between align-items-center">
+            <div class="ratings">
+              {this.calRate(this.state.rate_num)?(this.calRate(this.state.rate_num).map(ele=>{
+                if(ele==1){
+                  return <i class="fa fa-star rating-color"></i>
+                }else{
+                  return  <i class="fa fa-star"></i>
+                }
+              })):(<div></div>)}
+            </div>
+            <h5 class="review-count">{this.state.num_review} Reviews</h5>
+        </div>
                                     <div id="id01" class="mamodal rounded">
 
                                         <form class="mamodal-content maanimate rounded">
@@ -585,6 +584,7 @@ class Profile extends Component {
 
 
                                         </div>
+
                                     </div>
 
                                     <hr />
@@ -956,8 +956,29 @@ class Profile extends Component {
 
 
 
+<hr/>
+          <h3>Reviews</h3>
+          {this.state.reviews.map(ele=>{
+            return (
+              <div>
+                 <div>
+          <div class="ratings">
+              {this.calRate(ele.rate)?(this.calRate(ele.rate).map(ele=>{
+                if(ele==1){
+                  return <i class="fa fa-star rating-color"></i>
+                }else{
+                  return  <i class="fa fa-star"></i>
+                }
+              })):(<div></div>)}
+            </div>
+            <p>{ele.review}</p>
+</div>
+<br/>
+              </div>
+            )
+          })}
 
-
+                    
                     </div>
 
 
