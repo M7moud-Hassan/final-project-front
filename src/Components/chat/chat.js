@@ -7,6 +7,25 @@ import NavBar from '../Profile/freelancer/navbar';
 class Chat extends Component {
     constructor() {
         super()
+        this.state={
+            socket: null,
+           
+        }
+    }
+    componentDidMount(){
+        
+        const newSocket = new WebSocket('ws://127.0.0.1:8000/ws/' + localStorage.getItem("type") +localStorage.getItem("uid")+ '/');
+        newSocket.onopen = () => {
+          console.log('WebSocket connected');
+          this.setState({socket:newSocket})
+
+          
+      };
+      
+    newSocket.onclose = () => {
+      console.log('WebSocket closed');
+      this.setState({socket:null})
+    };
     }
     render(){
         return (

@@ -392,8 +392,9 @@ ol.ordered{
 }
 .notifi-box {
 	width: 300px;
-  background-color: rgb(218, 218, 218);
-  border-radius: 20px;
+  background-color: rgb(233, 233, 233);
+  border-radius: 5px;
+  margin-top: 2%;
 	height: 0px;
   z-index: 100;
 	opacity: 1;
@@ -406,6 +407,7 @@ ol.ordered{
 }
 .notifi-Text{
   font-size:small;
+  font-weight: 400;
 }
 .notifi-box h2 {
 	font-size: 14px;
@@ -414,7 +416,7 @@ ol.ordered{
 	color: #999;
 }
 .notifi-box h2 span {
-	color: #f00;
+	color: rgb(0, 255, 21);
 }
 .notifi-item {
 	display: flex;
@@ -659,3 +661,8 @@ top: 36px;
 .centerize{
   justify-content: center;
 }
+.floats{
+ /* flex-direction: row-reverse; */
+position: absolute;
+right: 0;
+} 
