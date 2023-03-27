@@ -1,20 +1,32 @@
 
 import React, { Component } from 'react';
 import '../css/chat.css'
+import Footer from '../Profile/freelancer/Footer';
+import NavBar from '../Profile/freelancer/navbar';
 
 class Chat extends Component {
     constructor() {
         super()
     }
     render(){
-        return (<div class="container">
+        return (
+        <div>
+            <NavBar/>
+        <div class="container mt-4">
         <div class="row clearfix">
             <div class="col-lg-12">
                 <div class="card chat-app">
                     <div id="plist" class="people-list">
                         <div class="input-group">
                             <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fa fa-search"></i></span>
+                                <span class="input-group-text"
+                                style={
+                                    {
+                                        width:"100%",
+                                        height:"100%"
+                                    }
+                                }
+                                ><i class="fa fa-search"></i></span>
                             </div>
                             <input type="text" class="form-control" placeholder="Search..."/>
                         </div>
@@ -75,18 +87,17 @@ class Chat extends Component {
                                         <small>Last seen: 2 hours ago</small>
                                     </div>
                                 </div>
-                                <div class="col-lg-6 hidden-sm text-right">
-                                    <a href="javascript:void(0);" class="btn btn-outline-secondary"><i class="fa fa-camera"></i></a>
-                                    <a href="javascript:void(0);" class="btn btn-outline-primary"><i class="fa fa-image"></i></a>
-                                    <a href="javascript:void(0);" class="btn btn-outline-info"><i class="fa fa-cogs"></i></a>
-                                    <a href="javascript:void(0);" class="btn btn-outline-warning"><i class="fa fa-question"></i></a>
-                                </div>
+                               
                             </div>
                         </div>
                         <div class="chat-history">
                             <ul class="m-b-0">
                                 <li class="clearfix">
-                                    <div class="message-data text-right">
+                                    <div class="message-data text-right" style={
+                                        {
+                                            textAlign:"right"
+                                        }
+                                    }>
                                         <span class="message-data-time">10:10 AM, Today</span>
                                         <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="avatar"/>
                                     </div>
@@ -109,7 +120,12 @@ class Chat extends Component {
                         <div class="chat-message clearfix">
                             <div class="input-group mb-0">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fa fa-send"></i></span>
+                                    <span class="input-group-text" style={
+                                        {
+                                            height:"100%",
+                                            width:"100%"
+                                        }
+                                    }><i class="fa fa-send"></i></span>
                                 </div>
                                 <input type="text" class="form-control" placeholder="Enter text here..."/>                                    
                             </div>
@@ -118,7 +134,10 @@ class Chat extends Component {
                 </div>
             </div>
         </div>
-        </div>)
+        </div>
+        <Footer/>
+        </div>
+        )
     }
 }
 

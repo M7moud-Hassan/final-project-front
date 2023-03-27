@@ -35,7 +35,9 @@
 }
 
 .people-list .chat-list li .name {
-    font-size: 15px
+    font-size: 15px;
+    margin-top: 0 !important;
+
 }
 
 .people-list .chat-list img {
