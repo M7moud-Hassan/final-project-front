@@ -198,17 +198,9 @@ class JobS_Finish_Client extends Component {
                             <div class="buttons px-4 mt-0">
 
                                 <button class="btn btn-warning btn-block rating-submit">Submit</button>
-
                             </div>
-
-
                         </div>
                     </form>
-
-
-
-
-
                 </div>
             </div>
 
