@@ -28,11 +28,18 @@ class NavBar extends Component {
   }
 
 
-
+  
+   
 
  toggleNotifi=()=>{
   if(localStorage.getItem("type")=="user"){
     axios.post('http://127.0.0.1:8000/home/makeNotificationClientRead/',{
+      id:localStorage.getItem("uid")
+    }).then(res=>{
+      this.setState({notifications:res.data})
+    })
+  }else{
+    axios.post('http://127.0.0.1:8000/home/makeNotificationFreetRead/',{
       id:localStorage.getItem("uid")
     }).then(res=>{
       this.setState({notifications:res.data})
@@ -69,7 +76,7 @@ class NavBar extends Component {
         .catch(error => {
             this.setState({ error: error.message, loading: false });
         });
-        const newSocket = new WebSocket('ws://127.0.0.1:8000/ws/notifications/');
+        const newSocket = new WebSocket(localStorage.getItem("type")=="user"?'ws://127.0.0.1:8000/ws/notifications/':'ws://127.0.0.1:8000/ws/notificationsfree/');
         newSocket.onopen = () => {
           console.log('WebSocket connected Navbar');
           this.setState({socket:newSocket})
@@ -98,6 +105,27 @@ class NavBar extends Component {
       })
       
       
+  }else if(localStorage.getItem("type")=="free"){
+    axios.post('http://127.0.0.1:8000/home/getnotificationsFree/',
+      {
+        id:localStorage.getItem("uid")
+      }).then(res=>{
+        this.setState({notifications:res.data})
+        newSocket.onmessage = (event) => {
+     
+          const message = JSON.parse(event.data);
+          var obj=JSON.parse(message.data.value);
+          if(obj.user_revoker==localStorage.getItem("uid")){
+            this.setState({notifications:[...this.state.notifications,obj]})
+          }
+          //setReceivedMessage(message);
+        
+      };
+      newSocket.onclose = () => {
+        console.log('WebSocket closed');
+        this.setState({socket:null})
+      };
+      })
   }
 }
 
@@ -176,9 +204,20 @@ class NavBar extends Component {
                         ):(
                           <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                      
-                      <a className="dropdown-item" href="#">Proposals</a>
-                      <a className="dropdown-item" href="#">Hires</a>
-                      <a className="dropdown-item" href="#">Something else here</a>
+                      <a className="dropdown-item" href="#" onClick={
+                        (e)=>{
+                          e.preventDefault()
+                          window.location='/jobs_hire_client'
+                        }
+                      }>Hire</a>
+                      <a className="dropdown-item" href="#" onClick={
+                        (e)=>{
+                          e.preventDefault()
+                          window.location='/jobs_finish_client'
+                          
+                        }
+                      }>Finished jobs</a>
+                      
                     </div>
                         )}
                     <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -220,18 +259,28 @@ class NavBar extends Component {
           </div>
           <div class="notifi-box" id="box">
 			<h2>Notifications <span>{this.state.notifications.length}</span></h2>
-			{this.state.notifications.map(ele=>{
+			{this.state.notifications.reverse().map(ele=>{
         return (
           <div class="alert">
   <span class="closebtn" onClick={
     (el)=>{
-      el.target.parentElement.style.display='none';
-      axios.post('http://127.0.0.1:8000/home/deletNotificationClient/',{
-        id:ele.id,
-        userid:localStorage.getItem("uid")
-      }).then(res=>{
-       // this.setState({notifications:res.data})
-      })
+      if(localStorage.getItem("type")=="user"){
+        el.target.parentElement.style.display='none';
+        axios.post('http://127.0.0.1:8000/home/deletNotificationClient/',{
+          id:ele.id,
+          userid:localStorage.getItem("uid")
+        }).then(res=>{
+         // this.setState({notifications:res.data})
+        })
+      }else{
+        el.target.parentElement.style.display='none';
+        axios.post('http://127.0.0.1:8000/home/deletNotificationFree/',{
+          id:ele.id,
+          userid:localStorage.getItem("uid")
+        }).then(res=>{
+         // this.setState({notifications:res.data})
+        })
+      }
     }
   }>&times;</span> 
   <strong>{ele.type_of_notification}</strong> 

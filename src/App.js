@@ -34,6 +34,8 @@ import Search from './Components/home/freelancer/search';
 import Cv_free from './Components/Profile/freelancer/cv_free';
 import JobS_Proposal from './Components/Profile/freelancer/job_proposals';
 import JobS_Hire from './Components/home/freelancer/jobs_hire';
+import JobS_Hire_Client from './Components/Profile/client_profile/jobs_hires_client';
+import JobS_Finish_Client from './Components/Profile/client_profile/jobs_finish_client';
 
 
 
@@ -70,11 +72,13 @@ function App() {
       <Route path='/job_details/:id' element={<Job_details/>}/>
       <Route path='/job_details/proposal/:id' element={<Proposal/>}/>
       <Route path='/search/:param1' element={<Search/>}/>
-      <Route path='/cv_free/:id' element={<Cv_free/>}/>
+      <Route path='/cv_free/:title/:job/:cost/:id' element={<Cv_free/>}/>
       <Route path='/search/job_details/:id' element={<Job_details/>}/>
       <Route path='/search/job_details/proposal/:id' element={<Proposal/>}/>
       <Route path='/job_proposals' element={<JobS_Proposal/>}/>
       <Route path='/JobS_Hire' element={<JobS_Hire/>}/>
+      <Route path='/jobs_hire_client/' element={<JobS_Hire_Client/>}/>
+      <Route path='/jobs_finish_client/' element={<JobS_Finish_Client/>}/>
       <Route path='*' element={<Error/>} />
       </Routes>
       </BrowserRouter>

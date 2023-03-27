@@ -72,6 +72,9 @@ class Profile extends Component {
             optionCertification: [],
             selectYear: 0,
             selectMonth: 0,
+            rate_num:0,
+            num_review:0,
+            reviews:[]
            
         }
 
@@ -97,6 +100,17 @@ class Profile extends Component {
         return arr;
     }
 
+    calRate(ine){
+        var arr=[]
+        for (let index = 0; index < 5; index++) {
+          if(index<ine){
+            arr.push(1)
+          }else{
+            arr.push(0)
+          }
+        }
+        return arr;
+      }
     componentDidMount() {
         
         axios.post(`http://127.0.0.1:8000/profile/get_details_free/`,
@@ -104,9 +118,10 @@ class Profile extends Component {
                 "id": localStorage.getItem('uid')
             })
             .then(response => {
-
+                this.setState({num_review:response.data.numReview})
+                this.setState({rate_num:response.data.rate})
                 this.setState({ data: response.data, loading: false });
-
+                this.setState({reviews:response.data.reviews})
                 this.setState({ jobtitle2: this.state.data.jobtitle })
 
                 axios.get("http://127.0.0.1:8000/auth/get_skills/").then(response => {
@@ -444,6 +459,18 @@ class Profile extends Component {
                                             className="fa-solid fa-pen"></i></button>
 
                                     </p>
+                                    <div class="d-flex justify-content-between align-items-center">
+            <div class="ratings">
+              {this.calRate(this.state.rate_num)?(this.calRate(this.state.rate_num).map(ele=>{
+                if(ele==1){
+                  return <i class="fa fa-star rating-color"></i>
+                }else{
+                  return  <i class="fa fa-star"></i>
+                }
+              })):(<div></div>)}
+            </div>
+            <h5 class="review-count">{this.state.num_review} Reviews</h5>
+        </div>
                                     <div id="id01" class="mamodal rounded">
 
                                         <form class="mamodal-content maanimate rounded">
@@ -585,6 +612,7 @@ class Profile extends Component {
 
 
                                         </div>
+
                                     </div>
 
                                     <hr />
@@ -956,8 +984,29 @@ class Profile extends Component {
 
 
 
+<hr/>
+          <h3>Reviews</h3>
+          {this.state.reviews.map(ele=>{
+            return (
+              <div>
+                 <div>
+          <div class="ratings">
+              {this.calRate(ele.rate)?(this.calRate(ele.rate).map(ele=>{
+                if(ele==1){
+                  return <i class="fa fa-star rating-color"></i>
+                }else{
+                  return  <i class="fa fa-star"></i>
+                }
+              })):(<div></div>)}
+            </div>
+            <p>{ele.review}</p>
+</div>
+<br/>
+              </div>
+            )
+          })}
 
-
+                    
                     </div>
 
 

@@ -33,35 +33,21 @@ const ClientProfile = () => {
     const [jobs, setJobs] = useState([]);
     const [jobsDetails, setJobsDetails] = useState([]);
     const [applay, setApplay] = useState('');
+    const [socket,setSocket]=useState(null);
 
-    let calday=(create_at)=>{
-        var a = new Date(create_at)
-        var b = new Date()
-        function padTo2Digits(num) {
-            return num.toString().padStart(2, '0');
-          }
-          
-          function convertMsToTime(milliseconds) {
-            let seconds = Math.floor(milliseconds / 1000);
-            let minutes = Math.floor(seconds / 60);
-            let hours = Math.floor(minutes / 60);
-          
-            seconds = seconds % 60;
-            minutes = minutes % 60;
-          
-            // 👇️ If you don't want to roll hours over, e.g. 24 to 00
-            // 👇️ comment (or remove) the line below
-            // commenting next line gets you `24:00:00` instead of `00:00:00`
-            // or `36:15:31` instead of `12:15:31`, etc.
-            hours = hours % 24;
-          
-            return `${padTo2Digits(hours)}:${padTo2Digits(minutes)}:${padTo2Digits(
-              seconds,
-            )}`;
-          }
-          return convertMsToTime(b-a)
-    }
+  
     useEffect(() => {
+        const newSocket = new WebSocket('ws://127.0.0.1:8000/ws/notificationsfree/');
+        newSocket.onopen = () => {
+          console.log('WebSocket connected');
+          setSocket(newSocket)
+          
+      };
+      
+    newSocket.onclose = () => {
+      console.log('WebSocket closed');
+      setSocket(socket)
+    };
         axios.post(`http://localhost:8000/home/latestJobs/`, { client_id: localStorage.getItem('uid') })
             .then(res => {
                 setJobs(res.data);
@@ -78,7 +64,7 @@ const ClientProfile = () => {
 
     useEffect(() => {
 
-        axios.post(`http://localhost:8000/home/jobDetails/`, { id: jobs.id })
+        /*axios.post(`http://localhost:8000/home/jobDetails/`, { id: jobs.id })
             .then(res => {
                 setJobsDetails(res.data);
                 console.log(res.data)
@@ -87,10 +73,43 @@ const ClientProfile = () => {
             })
             .catch(err => {
                 console.log(err.message);
-            });
+            });*/
     }, []);
 
-
+   let cal_Date=(create_at)=>{
+        var postDate = new Date(create_at);
+    
+    var currentDate = new Date();
+    
+    var timeDiff = postDate.getTime() - currentDate.getTime();
+    
+    
+    var secondsDiff = Math.floor(timeDiff / 1000);
+    var minutesDiff = Math.floor(secondsDiff / 60);
+    var hoursDiff = Math.floor(minutesDiff / 60);
+    
+    
+    var daysDiff = Math.floor(timeDiff / (1000 * 3600 * 24));
+    hoursDiff = hoursDiff % 24;
+    minutesDiff = minutesDiff % 60;
+    secondsDiff = secondsDiff % 60;
+    
+    var res=""
+    if(daysDiff){
+        res+=daysDiff+"d "
+    }
+    if(hoursDiff){
+        res+=hoursDiff+"h "
+    }
+    if(minutesDiff){
+        res+=minutesDiff+"m "
+    }
+    if(secondsDiff){
+        res+=secondsDiff+"s"
+    }
+    return res;
+    
+      }
     useEffect(() => {
         if (localStorage.getItem('uid')) {
             if (localStorage.getItem('type') == 'user') {
@@ -222,6 +241,7 @@ const ClientProfile = () => {
                                                 setImages([])
                                                 setselect_error('')
                                                 XcontactS()
+                                                window.location='/'
 
                                             })
                                         }
@@ -329,7 +349,7 @@ const ClientProfile = () => {
            
                                            <p class="text-muted">
                                                post at {
-                                                 calday(jobsDetails.create_at) 
+                                                 cal_Date(jobsDetails.create_at) 
                                                    
                                                    
                                                }
@@ -550,35 +570,8 @@ const ClientProfile = () => {
                             </div>
                         </div>
                         {/* section 2 */}
-                        <div className='mt-md-5 mt-xs-3 mt-1'>
-                            <h1 className='text-dark'>Complete these steps to stand out and hire fast </h1>
-                        </div>
-                        <div className='mt-5'>
-                            <div className='row mb-5'>
-                                <div className='col-md-4 col-sm-6 col-12 mt-3'>
-
-                                    <div className='profileCards2 container pCards1 text-dark '>
-                                        <div className='mt-3 p-3'>
-                                            <h4>require to hire </h4>
-                                        </div>
-                                        <div className='w-75 p-3'>
-                                            <a className='text-success' href='#'>Add a billing method.</a>
-                                            There's no cost until you hire
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div className='col-md-4 col-12 mt-3'>
-                                    <div className='profileCards2 container pCards2 text-dark' >
-                                        <div className='mt-3 p-3'><h4>require to hire </h4></div>
-                                        <div className=' ps-3 mt-3 h4 text-secondary'>
-                                            You verified your Email address
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
+                     
+                    
                         {/* Section 3 */}
                         <div className='mt-md-5 mt-xs-3 mt-1'>
                             <h1 className='text-dark'>Complete these steps to stand out and hire fast </h1>
@@ -634,12 +627,35 @@ const ClientProfile = () => {
                             <div className='mt-3 p-3'>
                                 <h3>History Work</h3>
                             </div>
-                            <div className='w-75 p-3 h2'>
-                                Get started and connect with talent to get work done
-                            </div>
-                            <button className='rounded-pill btn btn-success text-center mt-5 ms-5'>
-                                go to article
-                            </button>
+                            <div id='History_work'>
+                                        <div className="d-flex justify-content-between align-items-center mb-3">
+                                            
+
+                                        </div>
+                                        <div>
+                                            <div className=" ">
+                                                <div className="row d-flex ">
+                                                    {data.history_work?(data.history_work.map((history_work1, index) => (
+                                                        <div key={index} className="col-md-6">
+                                                            <div className="card ms-1 me-1 mt-3">
+                                                                <div className="text-center mt-3">
+                                                                    <h5 className="">{history_work1.location}</h5>
+                                                                </div>
+                                                                <div className="ms-3">
+                                                                    <p className="">{history_work1.date}</p>
+                                                                </div>
+                                                                <div className="ms-3">
+                                                                    <p className="">{history_work1.cost}</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    ))):(<div></div>)}
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                         </div>
                         {/* section 5 */}
                         <div className='mt-md-5 mt-xs-3 mt-1'>
@@ -801,18 +817,37 @@ const ClientProfile = () => {
                                                <br/>
                                                <div class="chip w-100" onClick={() => {
                         
-                                                        window.location.href = 'http://localhost:3000/cv_free/'+emp.id;
+                                                        window.location.href = 'http://localhost:3000/cv_free/'+jobsDetails.title+"/"+applay.id+"/"+applay.cost_re+"/"+emp.id;
                                                       }}>
                                                     <img src={"http://localhost:8000"+emp.image} alt="Person" width="96" height="96"/>
                                                    {emp.name}
                                                   </div>
 <div class="btn-group w-100 p-4">
   <button className='w-50'>Chat</button>
-  <button className='w-50'onClick={
-    ()=>{
-       
-    }
-  } >Finish Job</button>
+  <button className='w-50' onClick={
+                      ()=>{
+                        axios.post('http://localhost:8000/home/hire/',{
+                          user:localStorage.getItem("uid"),
+                          free:emp.id,
+                          job:applay.id,
+                          cost:applay.cost_re,
+                        }).then(res=>{
+                          if(res.data=='ok'){
+                            socket.send(JSON.stringify(
+                                {
+                                    "type": "websocket.send",
+                                    "data": {
+                                        type:"websocket.send",
+                                        sender:localStorage.getItem("uid"),
+                                        recieve:emp.id,
+                                        payload:"hire you to job "+jobsDetails.title
+                                      }
+                                }))
+                            window.location='/'
+                          }
+                        })
+                      }
+                    } >Hire</button>
 </div>
                             
     </div>
