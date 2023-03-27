@@ -55,13 +55,8 @@ class JobS_Proposal extends Component {
                                                 if (job.id.length == 0) {
                                                     console.log("no data")
                                                 } else {
-
-
                                                     window.location = "job_details/" + job.id
                                                     console.log(job.id)
-
-
-
                                                 }
                                             }
                                         }
@@ -78,7 +73,6 @@ class JobS_Proposal extends Component {
                                             }
                                         })}
                                     </div>
-
                                     <button class="carousel-control-prev" type="button" data-bs-target={"#carouselExampleIndicators" + job.id} data-bs-slide="prev">
                                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                         <span class="visually-hidden">Previous</span>
@@ -93,7 +87,6 @@ class JobS_Proposal extends Component {
                         </div>
                     </div>
                 ))}
-
             </div>
 
         </div>

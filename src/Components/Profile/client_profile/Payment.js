@@ -221,7 +221,7 @@ const PaymentUser = () => {
                         </button>
 
                         <p className=" text-start ms-3 me-3">Your billing method will charged only when your available balance from Upwork earnings is not sufficient to pay for your monthly membership and/or Connects.</p>
-                        <div className=" container text-start ">
+                        <div className=" container text-start mt-3">
                             {cards?(cards.map(card => (
                                 <div className="PaymentContainer p-4" key={card.id}>
                                     <h6 className="text-dark">Card Number : <span className="text-muted"> {card.id}</span></h6>
