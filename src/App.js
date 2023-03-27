@@ -40,6 +40,7 @@ import JobS_Proposal from './Components/Profile/freelancer/job_proposals';
 import JobS_Hire from './Components/home/freelancer/jobs_hire';
 import JobS_Hire_Client from './Components/Profile/client_profile/jobs_hires_client';
 import JobS_Finish_Client from './Components/Profile/client_profile/jobs_finish_client';
+import Chat from './Components/chat/chat';
 
 
 
@@ -87,6 +88,7 @@ function App() {
       <Route path='/JobS_Hire' element={<JobS_Hire/>}/>
       <Route path='/jobs_hire_client/' element={<JobS_Hire_Client/>}/>
       <Route path='/jobs_finish_client/' element={<JobS_Finish_Client/>}/>
+      <Route path='/chat' element={<Chat/>}/>
       <Route path='*' element={<Error/>} />
       </Routes>
       </BrowserRouter>
