@@ -193,7 +193,12 @@ class NavBar extends Component {
                 </ul>
                 <ul className='mt-3'>
                   <li className="nav-item dropdown dropFont">
-                    <a className="nav-link text-dark" href="#">
+                    <a className="nav-link text-dark" href="#" onClick={
+                      (e)=>{
+                        e.preventDefault()
+                        window.location='/chat'
+                      }
+                    }>
                       Message
                     </a>
 
