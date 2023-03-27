@@ -274,16 +274,16 @@ class NavBar extends Component {
                     }
 
                     <div className='d-flex justify-content-center align-items-center'>
-                      <i class="fa-solid fa-question btn btn-lg" style={{ width: '80px' }}></i>
+                      <i class="fa-solid fa-question btn btn-lg"></i>
                       <div class="notification-container" onClick={this.toggleNotifi}>
-                        <i class="fa-solid fa-bell btn btn-lg" style={{ width: '80px' }}></i>
+                        <i class="fa-solid fa-bell btn btn-lg" ></i>
                         {this.calNotification() ? (<span class="notification-badge">{
                           this.calNotification()
                         }</span>) : (<div></div>)}
 
                       </div>
                       <div>
-                      <img id="m7moud" src={this.state.data.image ? ("data:image/*;base64," + this.state.data.image) : ("./images/default.png")} alt="User" className=" btn  navImg" style={{ width: '70px' }} onClick={
+                      <img id="m7moud" src={this.state.data.image ? ("data:image/*;base64," + this.state.data.image) : ("./images/default.png")} alt="User" className=" navImg"onClick={
                         () => {
                           if (this.state.isMenu) {
                             this.XsettingS()
