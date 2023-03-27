@@ -1,16 +1,10 @@
-import React, { Component, useEffect, useRef } from 'react';
-import { NavLink } from 'react-router-dom';
+import React, {  useEffect, useRef } from 'react';
 import axios from 'axios';
 import { useState } from 'react';
-// import { useEffect } from 'react';
 import '../../../index.css'
 import Select from 'react-select'
 import makeAnimated from 'react-select/animated';
-import NavBar from '../freelancer/navbar';
 
-import './windows'
-// import "slick-carousel/slick/slick.css";
-// import "slick-carousel/slick/slick-theme.css";
 const ClientProfile = () => {
 
     const [id, setId] = useState('');
@@ -61,21 +55,6 @@ const ClientProfile = () => {
     }, []);
 
 
-
-    useEffect(() => {
-
-        /*axios.post(`http://localhost:8000/home/jobDetails/`, { id: jobs.id })
-            .then(res => {
-                setJobsDetails(res.data);
-                console.log(res.data)
-                console.log(jobsDetails)
-                console.log(res.data.images)
-            })
-            .catch(err => {
-                console.log(err.message);
-            });*/
-    }, []);
-
    let cal_Date=(create_at)=>{
         var postDate = new Date(create_at);
     
@@ -113,7 +92,7 @@ const ClientProfile = () => {
     useEffect(() => {
         if (localStorage.getItem('uid')) {
             if (localStorage.getItem('type') == 'user') {
-                setting.current.focus();
+               // setting.current.focus();
             }
         }
         axios.get("http://127.0.0.1:8000/auth/get_skills/").then(response => {
@@ -142,27 +121,14 @@ const ClientProfile = () => {
     }
 
 
-    function settingS() {
-        setIsMenu(true)
-        const DoM = setting.current;
-        DoM.style.display = 'block'
-    }
-    function XsettingS() {
-        setIsMenu(false)
-        const DoM = setting.current;
-        DoM.style.display = 'none'
-    }
+   
 
     function JTitleOP() {
         setIsMenu(true)
         const DoM = JTitle.current;
         DoM.style.display = 'block'
     }
-    function XJTitleOP() {
-        setIsMenu(false)
-        const DoM = JTitle.current;
-        DoM.style.display = 'none'
-    }
+
     
   
 
@@ -181,28 +147,9 @@ const ClientProfile = () => {
 
             return (
                 <div>
-                    <NavBar
-                        url='http://127.0.0.1:8000/profile/clientDetails/'
-
-                        openMenu={isMenu ? (XsettingS) : (settingS)}
-                    />
-                    <div className='row'>
-                        <div className=' col-sm-3 buttonSetting text-center animate' id="setting" ref={setting}>
-                            <img className='littleSymbolImage' src={data.image ? ("data:image/*;base64," + data.image) : ("./images/default.png")} />
-                            <h4 className='mt-3'>{data.name}</h4>
-                            <hr />
-                            <NavLink to={'/clientsettings'}><h5>Settings</h5></NavLink>
-                            <NavLink onClick={
-                                () => {
-                                    localStorage.clear()
-                                    window.location = "/"
-                                }
-                            }>
-                                <h5 className='pb-4'>Logout</h5></NavLink>
-                        </div></div>
                     <div className='container' onClick={
                         () => {
-                            document.getElementById("setting").style.display = 'none'
+                           // document.getElementById("setting").style.display = 'none'
                         }
                     }>
                         <div className='mt-md-5 mt-xs-3 mt-1'>

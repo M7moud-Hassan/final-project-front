@@ -20,9 +20,7 @@ let ProfileFreeLancer = () => {
      }else{
      window.location='/error'
      }
-    //return <FreeSettings/>
-    // return <PaymentFreeLancer/>
-      //  return<ChangePasswordFree/>
+  
 }
 
 export default ProfileFreeLancer;

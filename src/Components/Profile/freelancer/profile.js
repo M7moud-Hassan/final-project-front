@@ -21,7 +21,7 @@ class Profile extends Component {
         const animatedComponents = makeAnimated();
 
         this.state = {
-            isMenu: false,
+           
             data: false,
             loading: true,
             error: null,
@@ -81,16 +81,8 @@ class Profile extends Component {
     }
 
 
-    settingS = () => {
-        this.setState({ isMenu: true })
-        const DoM = document.getElementById("setting")
-        DoM.style.display = 'block'
-    }
-    XsettingS = () => {
-        this.setState({ isMenu: false })
-        const DoM = document.getElementById("setting")
-        DoM.style.display = 'none'
-    }
+   
+   
 
     removeItemOnce(arr, value) {
         var index = arr.indexOf(value);
@@ -409,29 +401,9 @@ class Profile extends Component {
         return (
             <div>
                 <div>
-                    <NavBar url='http://127.0.0.1:8000/profile/get_details_free/'
-                        openMenu={this.state.isMenu ? (this.XsettingS) : (this.settingS)} />
-                    <div className='row'>
-                        <div className=' col-sm-3 buttonSetting text-center' id='setting' >
-                            <img className='littleSymbolImage mt-3' src={data.image ? ("data:image/*;base64," + data.image) : ("./images/default.png")} />
-                            <h4 className='mt-3'>{data.name}</h4>
-                            <hr />
-                            <NavLink to={'/Freelancersettings'}><h5>Settings</h5></NavLink>
-                            <NavLink onClick={
-                                () => {
-                                    localStorage.clear()
-                                    window.location = "/"
-                                }
-                            }><h5 className='pb-4'>Logout</h5></NavLink>
-                        </div></div>
-                    <div className="container-border my-4" onClick={
-                        (e) => {
-
-
-                            this.XsettingS()
-
-                        }
-                    } style={
+                    <NavBar/>
+                    
+                    <div className="container-border my-4"  style={
                         {
                             maxWidth:"90%"
                         }

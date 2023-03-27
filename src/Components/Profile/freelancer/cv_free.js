@@ -77,10 +77,7 @@ class Cv_free extends Component {
 
     return (
       <div>
-        <NavBar url='http://127.0.0.1:8000/profile/clientDetails/'
-          openMenu={() => {
-
-          }} />
+        <NavBar/>
         <section class="py-5 container-border my-5">
           <div class="container">
             <div class="row">

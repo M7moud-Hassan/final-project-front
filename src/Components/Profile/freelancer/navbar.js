@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Error from '../../index/error';
+import { NavLink } from 'react-router-dom';
+import './windows'
 
 class NavBar extends Component {
   
@@ -14,9 +16,20 @@ class NavBar extends Component {
       notifications:[],
       socket:null,
       down:false,
+      isMenu:false
      
 
   }}
+   settingS() {
+    this.setState({isMenu:true})
+    const DoM = document.getElementById("setting");
+    DoM.style.display = 'block'
+}
+ XsettingS() {
+  this.setState({isMenu:false})
+    const DoM = document.getElementById("setting");
+    DoM.style.display = 'none'
+}
   calNotification=()=>{
     let x=0
    this.state.notifications.forEach(element => {
@@ -66,7 +79,7 @@ class NavBar extends Component {
   //  this.setState({notifications: [...this.state.notifications, message]})
   };
   componentDidMount() {
-    axios.post(this.props.url,
+    axios.post(localStorage.getItem("type")=="user"?"http://127.0.0.1:8000/profile/clientDetails/":"http://127.0.0.1:8000/profile/get_details_free/",
         {
             "id": localStorage.getItem('uid')
         })
@@ -158,7 +171,11 @@ class NavBar extends Component {
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon"></span>
             </button>
-            <img id='logo' className='ms-5' src='\images\upwork.png' />
+            <img id='logo' className='ms-5' src='\images\upwork.png' onClick={
+              ()=>{
+                window.location='/'
+              }
+            } />
             <div class="collapse navbar-collapse" id="navbarScroll">
               <div className='d-flex'>
                 <ul className='mt-3'>
@@ -245,9 +262,14 @@ class NavBar extends Component {
                        }</span>):(<div></div>)}
                        
                       </div>
-                      <img src={this.state.data.image?("data:image/*;base64," + this.state.data.image):("./images/default.png")} alt="User" className="rounded-circle btn border-0 ms-4" style={{ width: '70px' }} onClick={
+                      <img  id="m7moud" src={this.state.data.image?("data:image/*;base64," + this.state.data.image):("./images/default.png")} alt="User" className="rounded-circle btn border-0 ms-4" style={{ width: '70px' }} onClick={
                         ()=>{
-                          this.props.openMenu()
+                          if(this.state.isMenu){
+                            this.XsettingS()
+                          }else{
+                            this.settingS()
+                          }
+
                         }
                       }/>
                     </div>
@@ -291,7 +313,20 @@ class NavBar extends Component {
 		</div>
         </nav>
 
-
+        <div className='row'>
+                        <div className=' col-sm-3 buttonSetting text-center animate' id="setting">
+                            <img className='littleSymbolImage' src={this.state.data.image ? ("data:image/*;base64," + this.state.data.image) : ("./images/default.png")} />
+                            <h4 className='mt-3'>{localStorage.getItem("type")=="user"?(this.state.data.fname+" "+this.state.data.lname):(this.state.data.name)}</h4>
+                            <hr />
+                            <NavLink to={localStorage.getItem("type")=="user"?('/clientsettings'):('/Freelancersettings')}><h5>Settings</h5></NavLink>
+                            <NavLink onClick={
+                                () => {
+                                    localStorage.clear()
+                                    window.location = "/"
+                                }
+                            }>
+                                <h5 className='pb-4'>Logout</h5></NavLink>
+                        </div></div>
       </div>
 
     )

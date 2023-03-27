@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import '../../css/hme_free.css'
 import { NavLink } from 'react-router-dom';
 import NavBar from '../../Profile/freelancer/navbar';
-import './windows'
 import axios from 'axios';
 import Error from '../../index/error';
 
@@ -13,7 +12,7 @@ class HomeFreeLancer extends Component {
   constructor() {
     super();
     this.state = {
-        isMenu: false,
+       
         data:[],
         socket:null,
        
@@ -73,16 +72,7 @@ return res;
         this.setState({data:response.data})
     })
   }
-  settingS=() =>{
-    this.setState({isMenu:true})
-    const DoM = document.getElementById("setting")
-    DoM.style.display = 'block'
-}
-XsettingS=()=> {
-    this.setState({isMenu:false})
-    const DoM = document.getElementById("setting")
-    DoM.style.display = 'none'
-}
+
   render(){
     if(localStorage.getItem('uid')){
         var type= localStorage.getItem("type");
@@ -91,26 +81,13 @@ XsettingS=()=> {
        return (<Error/>)
     }else{
     return (
-        <div> <NavBar url='http://127.0.0.1:8000/profile/get_details_free/'
-        openMenu={this.state.isMenu?(this.XsettingS):(this.settingS)}/>
-         <div className='row'>
-                        <div className=' col-sm-3 buttonSetting text-center' id='setting' >
-                            <img className='littleSymbolImage' src={"http://localhost:8000"+this.state.data.image} />
-                            <h4 className='mt-3'>{this.state.data.fname+" "+this.state.data.lname}</h4>
-                            <hr />
-                            <NavLink to={'/Freelancersettings'}><h5>Settings</h5></NavLink>
-                            <NavLink onClick={
-                                () => {
-                                    localStorage.clear()
-                                    window.location = "/"
-                                }
-                            }><h5 className='pb-4'>Logout</h5></NavLink>
-                        </div></div>
+        <div> <NavBar/>
+         
          <div class="container my-4" onClick={
                 (e)=>{
                   
                    
-                    this.XsettingS()
+                  
                    
                 }
             }>

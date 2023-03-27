@@ -43,10 +43,7 @@ newSocket.onclose = () => {
 }
   render() {
     return (<div>
-        <NavBar url='http://127.0.0.1:8000/profile/get_details_free/'
-        openMenu={()=>{
-            window.location='/'
-        }}/>
+        <NavBar/>
           <div className='row mb-5'>
                                 {this.state.jobs.map(job => (
                                     <div className='col-md-4 mt-3'>

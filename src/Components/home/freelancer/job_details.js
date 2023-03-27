@@ -70,10 +70,7 @@ class Job_details extends Component {
 
         return (
             <div>
- <NavBar url='http://127.0.0.1:8000/profile/get_details_free/'
-        openMenu={()=>{
-            window.location='/'
-        }}/>
+ <NavBar/>
                 <div class="container my-5">
                     <div class="row m-3">
                         <h3>
