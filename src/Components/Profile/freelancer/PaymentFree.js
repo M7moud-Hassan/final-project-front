@@ -28,8 +28,10 @@ const PaymentFreeLancer = () => {
     useEffect(() => {
         axios.post(`http://127.0.0.1:8000/profile/freePaymentCards/`, { free_id: localStorage.getItem('uid') })
             .then(res => {
+                if(res.data=='not found'){
                 setCards(res.data);
                 console.log(cards)
+                }
             })
             .catch(err => {
                 console.log(err.message);
