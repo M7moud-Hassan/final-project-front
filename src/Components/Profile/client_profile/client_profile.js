@@ -366,7 +366,8 @@ const ClientProfile = () => {
            
            
                                            </div>
-           
+                                           
+                                           <h4><i class="fa fa-thumbs-up" aria-hidden="true"></i>{jobsDetails.numlikes}  <i class="fa-solid fa-thumbs-down"></i>{jobsDetails.numDislike}</h4>
                                        </div>
            
            
