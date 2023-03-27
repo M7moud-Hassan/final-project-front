@@ -75,7 +75,7 @@ class Job_details extends Component {
                 <div class="container my-5">
 
                     <div class="row m-3">
-                        <h3>
+                        <h3 className='fw-bold'>
                             Job details
                         </h3>
 
@@ -84,7 +84,7 @@ class Job_details extends Component {
                         <div class="col-md-8">
 
                             <div class=" mt-5">
-                                <h5><a href="#" class="text-center text-success">{this.state.data.title}</a></h5>
+                                <h5><a href="#" class="btn btn-success rounded-pill px-4">{this.state.data.title}</a></h5>
 
                                 <p class="text-muted">
                                     post at {
@@ -169,8 +169,8 @@ class Job_details extends Component {
 
                             </div>
                             <hr />
-                            <div class=" d-flex justify-content-around">
-                                <div class="">
+                            <div class=" d-flex ">
+                                <div class="w-50">
                                     <h6>
                                         {this.state.data.cost}$
                                     </h6>
@@ -200,7 +200,7 @@ class Job_details extends Component {
                                     </h6>
                                     <div>
                                         {this.state.data ? (this.state.data.skills.map(ele => {
-                                            return <span class="badge bg-secondary rounded-pill">{ele}</span>
+                                            return <span class="badge bg-secondary rounded-pill mx-1">{ele}</span>
 
                                         })) : (<div></div>)}
                                     </div>
