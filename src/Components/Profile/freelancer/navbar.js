@@ -247,12 +247,32 @@ class NavBar extends Component {
                 </ul>
               </div>
               <div className='w-100' >
-                <form className="d-flex">
+                <form className="d-flex" onSubmit={
+                        (e)=>{
+                            e.preventDefault()
+                            var value=document.getElementById('search_id2').value
+                            if (value)
+                            {
+                                window.location='/search/'+value
+                            }
+                        }
+                    }>
                   <div className="input-group ms-5 w-100 d-flex justify-content-between">
-                    <div className="search_box d-flex w-50 mt-2" style={{ height: '40px' }}>
-                      <input className="form-control me-2 w-100  " type="search" placeholder="Search" aria-label="Search" />
+                 
+                      {
+                        localStorage.getItem("type")=="user"?( <div className="search_box d-flex w-50 mt-2" style={{ height: '40px' }}>
+                          <h3 style={
+                            {
+                              textAlign:"center"
+                            }
+                          }>Hire freelancer</h3>
+                        </div>):(<div className="search_box d-flex w-50 mt-2" style={{ height: '40px' }}>
+                          <input id='search_id2' className="form-control me-2 w-100  " type="search" placeholder="Search" aria-label="Search" />
                       <button className="btn btn-outline-success " type="submit">Search</button>
-                    </div>
+                  
+                          </div>)
+                      }
+                       
                     <div className='d-flex justify-content-center align-items-center'>
                       <i class="fa-solid fa-question btn btn-lg" style={{ width: '80px' }}></i>
                       <div class="notification-container" onClick={this.toggleNotifi}>
