@@ -18,7 +18,6 @@ class NavBar extends Component {
       down: false,
       isMenu: false
 
-
     }
   }
   settingS() {
