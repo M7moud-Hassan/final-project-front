@@ -397,12 +397,11 @@ return res;
                             <div class="row my-3">
                                 <p>{element.description}</p>
 
-
                             </div>
-                            <div class=" mb-1">
+                            <div className="m-1">
 
                                 {element.skills.map(ele=>(
-                                     <span class="badge bg-secondary rounded-pill">{ele.name}</span>
+                                     <span class="badge bg-secondary rounded-pill m-1">{ele.name}</span>
                                 ))}
                              
 

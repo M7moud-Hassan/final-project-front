@@ -456,6 +456,23 @@ ol.ordered{
   color: black;
 }
 
+
+.AboutContainer{
+  background-color: white;
+  color: black;
+  border-radius: 20px;
+  box-shadow: 3px 3px 0px 1px rgb(151, 151, 151);
+}
+.h1About{
+  color: black;
+}
+.listInAbout{
+font-size: larger;
+}
+.btnSizeAbout{
+  font-size: 30px;
+}
+
 .btn-group button {
   background-color: #04AA6D; /* Green background */
   border: 1px solid green; /* Green border */
@@ -479,6 +496,14 @@ ol.ordered{
 /* Add a background color on hover */
 .btn-group button:hover {
   background-color: #3e8e41;
+
+}
+
+.helpText{
+  font-size: larger;
+}
+.paraDetails{
+  font-size:x-large;
 }
 
 .ratings{
