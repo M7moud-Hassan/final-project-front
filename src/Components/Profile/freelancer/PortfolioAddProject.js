@@ -63,7 +63,8 @@ const PortfolioProject = () => {
                         }/>
                         <div className="mt-3">
                             <button className="me-3 rounded-pill btn text-success border-success" onClick={
-                                ()=>{
+                                (e)=>{
+                                    e.preventDefault()
                                     localStorage.removeItem("portfilo")
                                     window.location='/profile_free'
                                 }

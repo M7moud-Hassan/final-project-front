@@ -23,8 +23,11 @@ const PaymentUser = () => {
     useEffect(() => {
         axios.post(`http://127.0.0.1:8000/profile/clientPaymentCards/`, { client_id: localStorage.getItem('uid') })
             .then(res => {
-                setCards(res.data);
-                console.log(cards)
+                if(res.data!='not found'){
+                    setCards(res.data);
+                    console.log(res.data);
+                }
+               
             })
             .catch(err => {
                 console.log(err.message);
@@ -219,7 +222,7 @@ const PaymentUser = () => {
 
                         <p className=" text-start ms-3 me-3">Your billing method will charged only when your available balance from Upwork earnings is not sufficient to pay for your monthly membership and/or Connects.</p>
                         <div className=" container text-start ">
-                            {cards.map(card => (
+                            {cards?(cards.map(card => (
                                 <div className="PaymentContainer p-4" key={card.id}>
                                     <h6 className="text-dark">Card Number : <span className="text-muted"> {card.id}</span></h6>
                                     <h6 className="text-dark">Name on the card : <span className="text-muted">{card.nameOnTheCard}</span></h6>
@@ -231,7 +234,7 @@ const PaymentUser = () => {
                                     <h6 className="text-dark">State : <span className="text-muted">{card.state}</span></h6>
                                     <h6 className="text-dark">Zip code : <span className="text-muted">{card.Zip_code}</span></h6>
                                 </div>
-                            ))}
+                            ))):(<div></div>)}
                         </div>
                     </div>
                 </div>
