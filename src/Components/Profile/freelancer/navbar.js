@@ -182,12 +182,12 @@ class NavBar extends Component {
                 <ul className='mt-3'>
                   <li className="nav-item dropdown dropFont">
                     <a className="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Empty slot
+                      Help & About Center
                     </a>
-                    <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                      <a className="dropdown-item" href="#">Action</a>
-                      <a className="dropdown-item" href="#">Another action</a>
-                      <a className="dropdown-item" href="#">Something else here</a>
+                    <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink ">
+                    <NavLink className="dropdown-item" style={({ isActive }) => ({ color: isActive ? 'green' : 'Black' })} to={'/Help'}><a>Help</a></NavLink>
+                    
+                    <NavLink className="dropdown-item" style={({ isActive }) => ({ color: isActive ? 'green' : 'Black' })} to={'/About'}><a>About</a></NavLink>
                     </div>
                   </li>
                 </ul>
@@ -252,8 +252,8 @@ class NavBar extends Component {
                   </li>
                 </ul>
               </div>
-              <div className='w-100' >
-                <form className="d-flex" onSubmit={
+              <div className='w-100 ' >
+                <form className="" onSubmit={
                   (e) => {
                     e.preventDefault()
                     var value = document.getElementById('search_id2').value
@@ -262,23 +262,23 @@ class NavBar extends Component {
                     }
                   }
                 }>
-                  <div className="input-group ms-5 w-100 d-flex justify-content-between">
+                  <div className="input-group  d-flex text-center">
 
                     {
-                      localStorage.getItem("type") == "user" ? (<div className="search_box d-flex w-50 mt-2" style={{ height: '40px' }}>
+                      localStorage.getItem("type") == "user" ? (<div className="search_box d-flex w-50 mt-2 text-center centerize" style={{ height: '40px' }}>
                         <h3 style={
                           {
                             textAlign: "center"
                           }
                         }>Hire freelancer</h3>
-                      </div>) : (<div className="search_box d-flex w-50 mt-2" style={{ height: '40px' }}>
+                      </div>) : (<div className="search_box d-flex  mt-2" style={{ height: '40px' }}>
                         <input id='search_id2' className="form-control me-2 w-100  " type="search" placeholder="Search" aria-label="Search" />
                         <button className="btn btn-outline-success " type="submit">Search</button>
 
                       </div>)
                     }
 
-                    <div className='d-flex justify-content-center align-items-center ms-3'>
+                    <div className='d-flex justify-content-center align-items-center ms-3 '>
                       <i class="fa-solid fa-question btn btn-lg"></i>
                       <div class="notification-container ms-3" onClick={this.toggleNotifi}>
                         <i class="fa-solid fa-bell btn btn-lg" ></i>
@@ -287,7 +287,7 @@ class NavBar extends Component {
                         }</span>) : (<div></div>)}
 
                       </div>
-                      <div>
+                      <div className='ms-3 me-3'>
                       <img id="m7moud" src={this.state.data.image ? ("data:image/*;base64," + this.state.data.image) : ("./images/default.png")} alt="User" className=" navImg"onClick={
                         () => {
                           if (this.state.isMenu) {
@@ -332,7 +332,7 @@ class NavBar extends Component {
                       }
                     }
                   }>&times;</span>
-                  <strong>{ele.type_of_notification}</strong>
+                  <strong className='notifi-Text'>{ele.type_of_notification}</strong>
                 </div>
               )
             })}
