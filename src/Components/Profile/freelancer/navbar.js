@@ -273,9 +273,9 @@ class NavBar extends Component {
                       </div>)
                     }
 
-                    <div className='d-flex justify-content-center align-items-center'>
+                    <div className='d-flex justify-content-center align-items-center ms-3'>
                       <i class="fa-solid fa-question btn btn-lg"></i>
-                      <div class="notification-container" onClick={this.toggleNotifi}>
+                      <div class="notification-container ms-3" onClick={this.toggleNotifi}>
                         <i class="fa-solid fa-bell btn btn-lg" ></i>
                         {this.calNotification() ? (<span class="notification-badge">{
                           this.calNotification()
