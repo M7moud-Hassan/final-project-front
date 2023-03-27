@@ -82,7 +82,7 @@ const PaymentFreeLancer = () => {
                         <div className="row text-start">
                             <div className="col-md-6 mt-3 ">
                                 <label for="fname" className=""><i className="fa fa-user"></i>Full Name</label>
-                                <input type="text" className="form-control" id="fname" name="nameOnTheCard" placeholder="Name Exactly on the Card"
+                                <input type="text" className="form-control" required id="fname" name="nameOnTheCard" placeholder="Name Exactly on the Card"
                                     value={nameOnTheCardz}
                                     onChange={
                                         (e) => {
@@ -92,7 +92,7 @@ const PaymentFreeLancer = () => {
                             </div>
                             <div className="col-md-6 mt-3">
                                 <label for="email"><i className="fa fa-envelope"></i> Email</label>
-                                <input type="text" id="email" name="email" className="form-control" placeholder="john@example.com"
+                                <input type="text" id="email" required name="email" className="form-control" placeholder="john@example.com"
                                     value={emailz}
                                     onChange={
                                         (e) => {
@@ -104,7 +104,7 @@ const PaymentFreeLancer = () => {
                         <div className="row text-start">
                             <div className="col-md-4 mt-3">
                                 <label for="city"><i className="fa fa-institution"></i> City</label>
-                                <input type="text" id="city" name="city" className="form-control" placeholder="Just Enter your city"
+                                <input type="text" id="city" name="city"  required className="form-control" placeholder="Just Enter your city"
                                     value={cityz}
                                     onChange={
                                         (e) => {
@@ -114,7 +114,7 @@ const PaymentFreeLancer = () => {
                             </div>
                             <div className="col-md-4 mt-3">
                                 <label for="state">State</label>
-                                <input type="text" id="state" name="state" className="form-control" placeholder=" Your state on card "
+                                <input type="text" id="state" name="state" required className="form-control" placeholder=" Your state on card "
                                     value={statez}
                                     onChange={
                                         (e) => {
@@ -124,7 +124,7 @@ const PaymentFreeLancer = () => {
                             </div>
                             <div className="col-md-4 mt-3">
                                 <label for="zip">Zip</label>
-                                <input type="text" id="Zip_code" name="Zip_code" className="form-control" placeholder="10001"
+                                <input type="text" id="Zip_code" name="Zip_code" required  pattern="[0-9]{5}" className="form-control" placeholder="10001"
                                     value={Zip_codez}
                                     onChange={
                                         (e) => {
@@ -137,7 +137,7 @@ const PaymentFreeLancer = () => {
                         <div className="row text-start ">
                             <div className="col-md-6 mt-3">
                                 <label for="cname">Street</label>
-                                <input type="text" id="cname" name="street" className="form-control" placeholder="22st iTi Street"
+                                <input type="text" id="cname" name="street" className="form-control" required placeholder="22st iTi Street"
                                     value={streetz}
                                     onChange={
                                         (e) => {
@@ -147,7 +147,7 @@ const PaymentFreeLancer = () => {
                             </div>
                             <div className="col-md-6 mt-3">
                                 <label for="ccnum">Credit card number</label>
-                                <input type="text" id="ccnum" name="Credit_number" className="form-control" placeholder="1111-2222-3333-4444"
+                                <input type="text" id="ccnum" name="Credit_number" required pattern="[0-9]{16}" className="form-control" placeholder="1111-2222-3333-4444"
                                     value={Credit_numberz}
                                     onChange={
                                         (e) => {
@@ -159,7 +159,7 @@ const PaymentFreeLancer = () => {
                         <div className="row mb-3 text-start">
                             <div className="col-md-4 mt-3">
                                 <label for="expmonth">Exp Month</label>
-                                <input type="text" id="expmonth" name="Expire_month" className="form-control" placeholder="use month number"
+                                <input type="number" id="expmonth" name="Expire_month" required min="1" max="12" className="form-control" placeholder="use month number"
                                     value={Expire_monthz}
                                     onChange={
                                         (e) => {
@@ -169,7 +169,7 @@ const PaymentFreeLancer = () => {
                             </div>
                             <div className="col-md-4 mt-3">
                                 <label for="expyear">Exp Year</label>
-                                <input type="text" id="expyear" name="Expire_year" className="form-control" placeholder="2024"
+                                <input type="number" id="expyear" name="Expire_year" required min="2000" max="2030" className="form-control" placeholder="For exapmle 2024"
                                     value={Expire_yearz}
                                     onChange={
                                         (e) => {
@@ -181,7 +181,7 @@ const PaymentFreeLancer = () => {
 
                             <div className="col-md-4 mt-3 ">
                                 <label for="cvv">CVV</label>
-                                <input type="text" id="cvv" name="CVV" className="form-control" placeholder="xxx"
+                                <input type="text" id="cvv" name="CVV" required className="form-control" pattern="[0-9]{3}" placeholder="xxx"
                                     value={CVVz}
                                     onChange={
                                         (e) => {
