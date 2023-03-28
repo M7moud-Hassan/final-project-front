@@ -43,7 +43,11 @@ let Part2Home = () => {
                                 </li>
 
                             </ul>
-                            <button type="button" className="btn btn-outline-light btn-rounded">
+                            <button onClick={
+                                ()=>{
+                                    window.location='/help'
+                                }
+                            } type="button" className="btn btn-outline-light btn-rounded">
                                 Learn More
                             </button>
                         </div>
@@ -156,7 +160,11 @@ let Part2Home = () => {
                                     <p className="text-light">Explore different ways to earn</p>
                                 </div>
                             </div>
-                            <button type="button" className="btn btn-outline-light btn-rounded">
+                            <button onClick={
+                                ()=>{
+                                    window.location='/help'
+                                }
+                            } type="button" className="btn btn-outline-light btn-rounded">
                                 Learn More
                             </button>
                         </div>

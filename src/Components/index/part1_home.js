@@ -55,8 +55,16 @@ class Part1Home extends Component {
                         Work with the best—without breaking the bank.</div>
                       <p className="card-text mb-4 fixedSmallFont ms-4">Upwork makes it affordable to up your work and take advantage of low transaction rates.</p>
                       <div className="d-flex mt-5 ms-5">
-                        <button className="btn btn-success btn-pill w-md-25 w-sm-50 rounded-pill">Sign Up for free</button>
-                        <button className="btn btn-light border-success ms-md-3 w-md-25 w-sm-50 ms-3 rounded-pill btnFont">Learn how to hire</button>
+                        <button onClick={
+                          ()=>{
+                            window.location='/registration_freelancer'
+                          }
+                        } className="btn btn-success btn-pill w-md-25 w-sm-50 rounded-pill">Sign Up for free</button>
+                        <button onClick={
+                          ()=>{
+                            window.location='/Help'
+                          }
+                        } className="btn btn-light border-success ms-md-3 w-md-25 w-sm-50 ms-3 rounded-pill btnFont">Learn how to hire</button>
                       </div>
                     </div>
                   </div>

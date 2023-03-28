@@ -1,13 +1,22 @@
 import { NavLink } from "react-router-dom";
 import Footer from "./index/Footer";
-import NavBar from "./Profile/freelancer/navbar";
+import NavBarIndex from "./index/navbar_index";
+import NavBar from "./index/navbar_index";
+
 
 let About = () => {
 
-
+    let haed=()=>{
+        if(localStorage.getItem("uid")){
+            return <NavBar/>
+           
+        }else{
+            return <NavBarIndex/>
+        }
+    }
     return (
         <div>
-            <NavBar />
+            {haed()}
             <div className="container mt-5 mb-5 text-center">
                 <div className="AboutContainer p-4">
                     <h1 className="h1About mt-5 " >

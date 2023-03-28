@@ -346,7 +346,11 @@ class NavBar extends Component {
                     }
 
                     <div className='d-flex  ms-3  text-center floats'>
-                      <div className='mt-2'><i class="fa-solid fa-question btn btn-lg"></i>
+                      <div className='mt-2' onClick={
+                        ()=>{
+                          window.location='/Help'
+                        }
+                      }><i class="fa-solid fa-question btn btn-lg"></i>
                       </div>
 
                       <div class="notification-container ms-3 mt-2" onClick={this.toggleNotifi}>
