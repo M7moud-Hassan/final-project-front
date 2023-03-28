@@ -230,7 +230,7 @@ class Job_details extends Component {
                                     <div>
                                         <p class="text-muted small">Proposals: {this.state.data ? (this.state.data.proposals.length) : (<div></div>)}</p>
 
-                                        <p class="text-muted small">Interviewing: 2</p>
+                                       
 
                                     </div>
 
@@ -258,6 +258,7 @@ class Job_details extends Component {
                                                     id_job: this.state.id
                                                 }).then(res => {
                                                     console.log(res.data);
+                                                   
                                                     this.setState({ cover: res.data })
                                                     document.getElementById('id0p1').style.display = 'block'
                                                 })
@@ -299,13 +300,13 @@ class Job_details extends Component {
                                         this.state.cover ? (this.state.cover.images.map((ele, ind) => {
                                             if (ind == 0) {
                                                 return (
-                                                    <button type="button" id={"carouselExampleIndicators" + this.state.cover.id}
+                                                    <button type="button" data-bs-target={"#carouselExampleIndicators" + this.state.cover.id}
                                                         data-bs-slide-to={ind} class="active" aria-current="true"
                                                         aria-label="Slide 1"></button>
                                                 )
                                             } else {
                                                 return (
-                                                    <button type="button" id={"carouselExampleIndicators" + this.state.cover.id}
+                                                    <button type="button" data-bs-target={"#carouselExampleIndicators" + this.state.cover.id}
                                                         data-bs-slide-to={ind} aria-current="true"
                                                         aria-label="Slide 1"></button>
                                                 )
@@ -335,12 +336,12 @@ class Job_details extends Component {
 
                                 </div>
                                 <button class="carousel-control-prev" type="button"
-                                    id={"carouselExampleIndicators" + this.state.cover.id} data-bs-slide="prev">
+                                    data-bs-target={"#carouselExampleIndicators" + this.state.cover.id} data-bs-slide="prev">
                                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                     <span class="visually-hidden">Previous</span>
                                 </button>
                                 <button class="carousel-control-next" type="button"
-                                    id={"carouselExampleIndicators" + this.state.cover.id} data-bs-slide="next">
+                                    data-bs-target={"#carouselExampleIndicators" + this.state.cover.id} data-bs-slide="next">
                                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                     <span class="visually-hidden">Next</span>
                                 </button>

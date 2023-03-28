@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 import '../../css/proposel.css';
+import Footer from '../../Profile/freelancer/Footer';
 import NavBar from '../../Profile/freelancer/navbar';
 
 
@@ -342,6 +343,7 @@ class Proposal extends Component {
 
 
     </div>
+    <Footer/>
             </div>
            
         )

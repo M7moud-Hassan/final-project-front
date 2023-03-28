@@ -102,7 +102,7 @@ class JobS_Proposal extends Component {
                     </div>
                 ))}
             </div>
-
+            <Footer/>
         </div>
         )
     }

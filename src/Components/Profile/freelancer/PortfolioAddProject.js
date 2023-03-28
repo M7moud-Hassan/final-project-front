@@ -1,6 +1,8 @@
 import { useEffect, useState, useRef } from "react";
 import { NavLink } from "react-router-dom"
 import axios from "axios";
+import NavBar from "./navbar";
+import Footer from "./Footer";
 
 const PortfolioProject = () => {
     const [title,SetTitle]=useState('')
@@ -34,7 +36,9 @@ const PortfolioProject = () => {
        
       }, []);
     return (
-        <div className="container row mt-5">
+      <div>
+        <NavBar/>
+          <div className="container row mt-5">
             <div className="col-sm-4 ">
             <div>
                     <ol className="ordered" >
@@ -94,6 +98,8 @@ const PortfolioProject = () => {
 
 
         </div>
+        <Footer/>
+      </div>
 
     )
 }

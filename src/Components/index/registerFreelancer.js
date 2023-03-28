@@ -263,10 +263,17 @@ class RegisterFreelancer extends Component {
                     </div>
                   </div>
                 </div>
+
               </div>
             </section>
           </div>
-          <Footer/>
+          <div style={
+            {
+              height: "250px"
+            }
+          }></div>
+          <Footer />
+
         </div>
 
 
