@@ -1,13 +1,14 @@
 import { NavLink } from "react-router-dom";
 import React from "react";
 import Footer from "./index/Footer";
-import NavBar from './index/navbar';
+import NavBar from "./Profile/freelancer/navbar";
+
 
 let Help = () => {
 
     return (
         <div>
-            <NavBar />
+            <NavBar/>
             <div className="container mt-5 mb-5 text-center">
                 <div className="AboutContainer p-4">
                     <h1 className="h1About">Help Center</h1>

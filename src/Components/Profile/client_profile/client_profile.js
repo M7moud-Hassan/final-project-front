@@ -363,13 +363,23 @@ const ClientProfile = () => {
                                                         </button>
                                                     </div>
 
-fott
+
 
                                                 </div>
+                                                <div className='row text-center'>
+                                                    <div className='col-md-6 '>
+                                                        <div className='ms-3 me-3 pt-3 pb-3 lessBorderRadiusClass'>
+                                                            <h6> Number of likes in this Job<i className="fa fa-thumbs-up text-success ms-3 me-3" aria-hidden="true"></i>{jobsDetails.numlikes}</h6>
+                                                        </div>
+                                                    </div>
+                                                    <div className='col-md-6 '>
+                                                        <div className='ms-3 me-3 pt-3 pb-3 lessBorderRadiusClass'>
+                                                            <h6> Number of Dislikes in this Job<i className="fa-solid fa-thumbs-down text-success ms-3 me-3"></i>{jobsDetails.numDislike}</h6>
+                                                        </div>
+                                                    </div>
 
-                                                <h4><i class="fa fa-thumbs-up" aria-hidden="true"></i>{jobsDetails.numlikes}  <i class="fa-solid fa-thumbs-down"></i>{jobsDetails.numDislike}</h4>
+                                                </div>
                                             </div>
-
 
                                             <hr />
                                             <div>
@@ -409,7 +419,7 @@ fott
                                                     </h6>
                                                     <div>
                                                         {jobsDetails.skills ? (jobsDetails.skills.map(ele => {
-                                                            return <span class="badge bg-secondary rounded-pill">{ele}</span>
+                                                            return <span class="badge bg-secondary rounded-pill m-1">{ele}</span>
 
                                                         })) : (<div></div>)}
                                                     </div>
@@ -428,7 +438,7 @@ fott
                                                     <h6>Activity on this job</h6>
                                                     <div className='row mt-2' >
                                                         {jobsDetails.proposals ? jobsDetails.proposals.map(ele => {
-                                                            return (<div class="chip col-3" onClick={() => {
+                                                            return (<div class="chip col-4 m-3" onClick={() => {
                                                                 console.log("id", id);
                                                                 axios.post('http://localhost:8000/home/job_cover/', {
                                                                     id: ele.id,
@@ -704,7 +714,7 @@ fott
                             </div>
 
                             <div class="container myconatiner pt-4">
-                                <h3 class="text-left ml-4">Cover</h3>
+                                <h3 class="text-left ml-4 p-1">Cover</h3>
                                 <p>{applay.cover}</p>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text">Cost</span>
@@ -771,8 +781,8 @@ fott
                                     {emp.name}
                                 </div>
                                 <div class="btn-group w-100 p-4">
-                                    <button className='w-50'>Chat</button>
-                                    <button className='w-50' onClick={
+                                    <button className='w-50 btn btn-success'>Chat</button>
+                                    <button className='w-50 btn btn-success' onClick={
                                         () => {
                                             axios.post('http://localhost:8000/home/hire/', {
                                                 user: localStorage.getItem("uid"),
@@ -816,7 +826,7 @@ fott
 
                             <div class="container myconatiner pt-4">
 
-                                <div class="btn-group w-100 p-4">
+                                <div class="btn-group  w-100 p-4">
                                     <button className='w-50'>Chat</button>
                                     <button className='w-50' onClick={
                                         () => {

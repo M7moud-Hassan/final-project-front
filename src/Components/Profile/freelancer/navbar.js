@@ -165,13 +165,13 @@ class NavBar extends Component {
     }
     return (
       <div>
-        <nav className="navbar navbar-expand-lg bg-body-tertiary shadow-sm ">
+        <nav className="navbar navbar-expand-lg bg-body-tertiary shadow-sm paddingReduceNavbar">
 
           <div className='container-fluid'>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon"></span>
             </button>
-            <img id='logo' className='ms-5' src='\images\upwork.png' onClick={
+            <img id='logo' className='ms-3' src='\images\inLogo.png' onClick={
               () => {
                 window.location = '/'
               }
@@ -273,7 +273,7 @@ class NavBar extends Component {
                           }>Hire freelancer</h3>
                         </div>
                       ) : (
-                        <div className="search_box d-flex w-50  mt-2" style={{ height: '40px' }}>
+                        <div className="search_box d-flex w-50  mt-2 ms-4" style={{ height: '40px' }}>
                           <input id='search_id2' className="form-control me-2 w-100  " type="search" placeholder="Search" aria-label="Search" />
                           <button className="btn btn-outline-success " type="submit">Search</button>
 
@@ -282,17 +282,17 @@ class NavBar extends Component {
                     }
 
                     <div className='d-flex  ms-3  text-center floats'>
-                      <div><i class="fa-solid fa-question btn btn-lg"></i>
+                      <div className='mt-2'><i class="fa-solid fa-question btn btn-lg"></i>
                       </div>
 
-                      <div class="notification-container ms-3" onClick={this.toggleNotifi}>
+                      <div class="notification-container ms-3 mt-2" onClick={this.toggleNotifi}>
                         <i class="fa-solid fa-bell btn btn-lg" ></i>
                         {this.calNotification() ? (<span class="notification-badge">{
                           this.calNotification()
                         }</span>) : (<div></div>)}
 
                       </div>
-                      <div className='ms-3 me-3'>
+                      <div className='ms-3 me-3 '>
                         <img id="m7moud" src={this.state.data.image ? ("data:image/*;base64," + this.state.data.image) : ("./images/default.png")} alt="User" className=" navImg" onClick={
                           () => {
                             if (this.state.isMenu) {

@@ -33,9 +33,9 @@ class JobS_Hire_Client extends Component {
     render() {
         return (<div>
             <NavBar />
-            <div className='row mb-5'>
+            <div className='row mb-5 container'>
                 {this.state.hirs.map(hire => (
-                    <div className='col-md-4 mt-3'>
+                    <div className='col-md-4 p-4'>
                         <div className='profileCards2 container pCards2 text-dark' >
 
                             <div className=' ps-3 mt-1 h4 text-muted'>
@@ -84,13 +84,13 @@ class JobS_Hire_Client extends Component {
                                         })}
                                     </div>
 
-                                    <button class="carousel-control-prev" type="button" data-bs-target={"#carouselExampleIndicators" + hire.job.id} data-bs-slide="prev">
-                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <button className="carousel-control-prev" type="button" data-bs-target={"#carouselExampleIndicators" + hire.job.id} data-bs-slide="prev">
+                                        <span className="carousel-control-prev-icon" aria-hidden="true"></span>
                                         <span class="visually-hidden">Previous</span>
                                     </button>
-                                    <button class="carousel-control-next" type="button" data-bs-target={"#carouselExampleIndicators" + hire.job.id} data-bs-slide="next">
-                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                        <span class="visually-hidden">Next</span>
+                                    <button className="carousel-control-next" type="button" data-bs-target={"#carouselExampleIndicators" + hire.job.id} data-bs-slide="next">
+                                        <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span className="visually-hidden">Next</span>
                                     </button>
                                 </div>
 
