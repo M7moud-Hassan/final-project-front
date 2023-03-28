@@ -348,7 +348,7 @@ class NavBar extends Component {
 
         <div className='row'>
           <div className=' col-sm-3 buttonSetting text-center animate' id="setting">
-            <img className='littleSymbolImage' src={this.state.data.image ? ("data:image/*;base64," + this.state.data.image) : ("./images/default.png")} />
+            <img className='littleSymbolImage mt-3' src={this.state.data.image ? ("data:image/*;base64," + this.state.data.image) : ("./images/default.png")} />
             <h4 className='mt-3'>{localStorage.getItem("type") == "user" ? (this.state.data.fname + " " + this.state.data.lname) : (this.state.data.name)}</h4>
             <hr />
             <NavLink to={localStorage.getItem("type") == "user" ? ('/clientsettings') : ('/Freelancersettings')}><h5>Settings</h5></NavLink>

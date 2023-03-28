@@ -57,7 +57,7 @@ const PaymentUser = () => {
                 <div className=" container mt-3">
                     <form className="text-center " onSubmit={
                         (e) => {
-                            e.preventDefault()
+                            // e.preventDefault()
                             axios.post(`http://127.0.0.1:8000/profile/payment/`, {
                                 street: streetz,
                                 city: cityz,
@@ -69,9 +69,10 @@ const PaymentUser = () => {
                                 email: emailz,
                                 Expire_year: Expire_yearz,
                                 Credit_number: Credit_numberz,
-                                client_id: localStorage.getItem('uid')
-                            }).then(res => {
+                                client_id: localStorage.getItem('uid'),
 
+                                
+                            }).then(res => {
                                 console.log(res.data);
                                 XcontactS()
 
@@ -227,7 +228,7 @@ const PaymentUser = () => {
                         <p className=" text-start ms-3 me-3">Your billing method will charged only when your available balance from Upwork earnings is not sufficient to pay for your monthly membership and/or Connects.</p>
                         <div className=" container text-start mt-3 ">
                             {cards?(cards.map(card => (
-                                <div className="PaymentContainer p-4" key={card.id}>
+                                <div className="PaymentContainer p-4 mt-3" key={card.id}>
                                     <h6 className="text-dark">Card Number : <span className="text-muted"> {card.id}</span></h6>
                                     <h6 className="text-dark">Name on the card : <span className="text-muted">{card.nameOnTheCard}</span></h6>
                                     <h6 className="text-dark">Credit card number : <span className="text-muted">{card.Credit_number}</span></h6>
