@@ -33,12 +33,13 @@ body {
   
   .notification-badge {
     position: absolute;
-    top: -6px;
     right: 35px;
-    background-color: red;
+    background-color: rgb(89, 255, 117);
     color: white;
     border-radius: 50%;
-    padding: 5px;
+    padding: 3px;
+    /* padding-bottom: 10px; */
+    margin-bottom: 10px;
     font-size: 10px;
   }
 
@@ -52,4 +53,17 @@ body {
   padding: 0;
   width: 200px;
   height: 200px;
+}
+
+.other-border {
+  width: 90%;
+  margin: auto;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  /* padding: 20px; */
+  background-color: #fff;
+}
+.paddingReduceNavbar{
+padding-top:0 ;
+padding-bottom: 0;
 }

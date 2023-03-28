@@ -3,6 +3,7 @@ import '../../css/cv_free.css';
 
 import axios from 'axios';
 import NavBar from '../../Profile/freelancer/navbar';
+import Footer from '../../Profile/freelancer/Footer';
 
 class JobS_Hire extends Component {
   constructor() {
@@ -16,6 +17,20 @@ class JobS_Hire extends Component {
 
   }
   componentDidMount(){
+    window.addEventListener('beforeunload',function(){
+        if(localStorage.getItem("type")=="user"){
+          axios.post('http://localhost:8000/chat/de_active_client/',{
+            id:localStorage.getItem("uid")
+          }).then(res=>{
+           
+          })
+        }else{
+          axios.post('http://localhost:8000/chat/de_active_Free/',{
+            id:localStorage.getItem("uid")
+          })
+        }
+        return false;
+      })
     const newSocket = new WebSocket('ws://127.0.0.1:8000/ws/notifications/');
     newSocket.onopen = () => {
       console.log('WebSocket connected');
@@ -136,7 +151,23 @@ newSocket.onclose = () => {
   {this.state.hire.client.fname} {this.state.hire.client.lname}
 </div> ):(<div></div>)}
 <div class="btn-group w-100 p-4">
-  <button className='w-50'>Chat</button>
+  <button className='w-50' onClick={
+    
+    ()=>{
+        console.log(localStorage.getItem("uid"));
+        const newSocket2 = new WebSocket("ws://127.0.0.1:8000/ws_free/free"+localStorage.getItem("uid")+"/");
+        newSocket2.onopen = () => {
+         newSocket2.send(JSON.stringify({
+            "free": localStorage.getItem("uid"),
+            "client":this.state.hire.client.id,
+            "message":'hi',
+            "room":"user"+this.state.hire.client.id
+          }))
+      };
+      
+    window.location="/chat"
+    }
+  }>Chat</button>
   {this.state.hire.is_finish?(<div></div>):(<button className='w-50'onClick={
     ()=>{
         axios.post('http://localhost:8000/home/finish_job/',{
@@ -163,6 +194,7 @@ newSocket.onclose = () => {
     </div>
 </div>
 </div>
+<Footer/>
     </div>)
   }
 }

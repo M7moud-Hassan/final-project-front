@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
+import Footer from '../Profile/freelancer/Footer';
 
 
 class RegisterUser extends Component {
@@ -224,11 +225,11 @@ class RegisterUser extends Component {
                             <div className="form-outline position-relative">
                               <input className="form-check-input" type="checkbox" id="agree_terms" name="agree_terms" required></input>
                               <label className="form-check-label fixedFonts" htmlFor="agree_terms">
-                                Yes, I understand and agree to the Upwork Terms of Service, including the <a href="#" className="text-success">User
+                                Yes, I understand and agree to the Terms of Service, including the <a href="#" className="text-success">User
                                   Agreement</a> and <a href="#" className="text-success">Privacy Policy</a>
                               </label>
                               <div className="invalid-feedback text-danger" id="email-feedback">
-                                Please accept the Upwork Terms of Service before continuing
+                                Please accept the  Terms of Service before continuing
                               </div>
                             </div>
                           </div>
@@ -246,11 +247,7 @@ class RegisterUser extends Component {
                       </form>
                       <div className="my-3">
 
-                        <div>
-                          <button className="btn btn-primary btn-block rounded-pill m-3 w-100">Countinue with Google</button>
-
-
-                        </div>
+            
                       </div>
                       <hr />
                     </div>
@@ -261,7 +258,12 @@ class RegisterUser extends Component {
           </section>
         </div>
 
-
+        <div style={
+    {
+      height:"250px"
+    }
+  }></div>
+    <Footer/>
 
       </div>
 

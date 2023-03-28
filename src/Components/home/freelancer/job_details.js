@@ -18,40 +18,54 @@ class Job_details extends Component {
 
     }
     cal_Date(create_at) {
-        var postDate = new Date(create_at);
-
-        var currentDate = new Date();
-
-        var timeDiff = postDate.getTime() - currentDate.getTime();
-
-
-        var secondsDiff = Math.floor(timeDiff / 1000);
-        var minutesDiff = Math.floor(secondsDiff / 60);
-        var hoursDiff = Math.floor(minutesDiff / 60);
-
-
-        var daysDiff = Math.floor(timeDiff / (1000 * 3600 * 24));
-        hoursDiff = hoursDiff % 24;
-        minutesDiff = minutesDiff % 60;
-        secondsDiff = secondsDiff % 60;
-
-        var res = ""
-        if (daysDiff) {
-            res += daysDiff + "d "
+        const timestamp = create_at;
+        const date = new Date(timestamp);
+        const now = new Date();
+        now.setHours(now.getHours() + 2);
+        const diffMs = now.getTime() - date.getTime();
+        const diffSeconds = Math.floor(diffMs / 1000);
+        const diffMinutes = Math.floor(diffMs / 60000);
+        const diffHours = Math.floor(diffMs / 3600000);
+        const diffDays = Math.floor(diffMs / 86400000);
+        
+        let diffString = '';
+        
+        if (diffDays > 0) {
+          diffString += `${diffDays} day${diffDays > 1 ? 's' : ''} `;
         }
-        if (hoursDiff) {
-            res += hoursDiff + "h "
+        if (diffHours > 0) {
+          diffString += `${diffHours % 24} hour${diffHours % 24 > 1 ? 's' : ''} `;
         }
-        if (minutesDiff) {
-            res += minutesDiff + "m "
+        if (diffMinutes > 0) {
+          diffString += `${diffMinutes % 60} minute${diffMinutes % 60 > 1 ? 's' : ''} `;
         }
-        if (secondsDiff) {
-            res += secondsDiff + "s"
+        if (diffSeconds > 0) {
+          diffString += `${diffSeconds % 60} second${diffSeconds % 60 > 1 ? 's' : ''} `;
         }
-        return res;
+        
+        if (diffString === '') {
+          diffString = 'just now';
+        }
+        
+      return diffString; 
+        
 
     }
     componentDidMount() {
+        window.addEventListener('beforeunload',function(){
+            if(localStorage.getItem("type")=="user"){
+              axios.post('http://localhost:8000/chat/de_active_client/',{
+                id:localStorage.getItem("uid")
+              }).then(res=>{
+               
+              })
+            }else{
+              axios.post('http://localhost:8000/chat/de_active_Free/',{
+                id:localStorage.getItem("uid")
+              })
+            }
+            return false;
+          })
         var arr = window.location.href.split('/')
         const studentId = arr[arr.length - 1]
         this.setState({ id: studentId })
@@ -129,13 +143,13 @@ class Job_details extends Component {
                                                     if (ind == 0) {
                                                         return (
                                                             <div class="carousel-item active">
-                                                                <img src={"http://localhost:8000" + ele} class="d-block w-100 image_slid" alt="..." />
+                                                                <img src={"http://localhost:8000" + ele} class="d-block w-100 image_slid imgCoverAddDetails" alt="..." />
                                                             </div>
                                                         )
                                                     } else {
                                                         return (
                                                             <div class="carousel-item">
-                                                                <img src={"http://localhost:8000" + ele} class="d-block w-100 image_slid" alt="..." />
+                                                                <img src={"http://localhost:8000" + ele} class="d-block w-100 image_slid imgCoverAddDetails" alt="..." />
                                                             </div>
                                                         )
                                                     }
@@ -216,7 +230,7 @@ class Job_details extends Component {
                                     <div>
                                         <p class="text-muted small">Proposals: {this.state.data ? (this.state.data.proposals.length) : (<div></div>)}</p>
 
-                                        <p class="text-muted small">Interviewing: 2</p>
+                                       
 
                                     </div>
 
@@ -244,6 +258,7 @@ class Job_details extends Component {
                                                     id_job: this.state.id
                                                 }).then(res => {
                                                     console.log(res.data);
+                                                   
                                                     this.setState({ cover: res.data })
                                                     document.getElementById('id0p1').style.display = 'block'
                                                 })
@@ -274,7 +289,7 @@ class Job_details extends Component {
                         </div>
 
                         <div class="container myconatiner pt-4">
-                            <h3 class="text-left ml-4">your cover to {this.state.data.title}</h3>
+                            <h3 class="text-left p-4">Your cover to {this.state.data.title}</h3>
                             <div class="container mycontainer">
 
                                 <p>{this.state.cover.cover}</p>
@@ -285,13 +300,13 @@ class Job_details extends Component {
                                         this.state.cover ? (this.state.cover.images.map((ele, ind) => {
                                             if (ind == 0) {
                                                 return (
-                                                    <button type="button" id={"carouselExampleIndicators" + this.state.cover.id}
+                                                    <button type="button" data-bs-target={"#carouselExampleIndicators" + this.state.cover.id}
                                                         data-bs-slide-to={ind} class="active" aria-current="true"
                                                         aria-label="Slide 1"></button>
                                                 )
                                             } else {
                                                 return (
-                                                    <button type="button" id={"carouselExampleIndicators" + this.state.cover.id}
+                                                    <button type="button" data-bs-target={"#carouselExampleIndicators" + this.state.cover.id}
                                                         data-bs-slide-to={ind} aria-current="true"
                                                         aria-label="Slide 1"></button>
                                                 )
@@ -300,19 +315,19 @@ class Job_details extends Component {
                                     }
 
                                 </div>
-                                <div class="carousel-inner">
+                                <div className="carousel-inner mb-5">
                                     {
                                         this.state.cover ? (this.state.cover.images.map((ele, ind) => {
                                             if (ind == 0) {
                                                 return (
                                                     <div class="carousel-item active">
-                                                        <img src={"http://localhost:8000" + ele.image} class="d-block w-100 image_slid" alt="..." />
+                                                        <img src={"http://localhost:8000" + ele.image} className="d-block w-100 image_slid imgCoverAddDetails" alt="..." />
                                                     </div>
                                                 )
                                             } else {
                                                 return (
                                                     <div class="carousel-item">
-                                                        <img src={"http://localhost:8000" + ele.image} class="d-block w-100 image_slid" alt="..." />
+                                                        <img src={"http://localhost:8000" + ele.image} class="d-block w-100 image_slid imgCoverAddDetails" alt="..." />
                                                     </div>
                                                 )
                                             }
@@ -321,17 +336,17 @@ class Job_details extends Component {
 
                                 </div>
                                 <button class="carousel-control-prev" type="button"
-                                    id={"carouselExampleIndicators" + this.state.cover.id} data-bs-slide="prev">
+                                    data-bs-target={"#carouselExampleIndicators" + this.state.cover.id} data-bs-slide="prev">
                                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                     <span class="visually-hidden">Previous</span>
                                 </button>
                                 <button class="carousel-control-next" type="button"
-                                    id={"carouselExampleIndicators" + this.state.cover.id} data-bs-slide="next">
+                                    data-bs-target={"#carouselExampleIndicators" + this.state.cover.id} data-bs-slide="next">
                                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                     <span class="visually-hidden">Next</span>
                                 </button>
                             </div>
-                            <div class="input-group mb-3">
+                            <div class="input-group mb-3 ">
                                 <div className='mt-4'></div>
                                 <br />
                                 <span class="input-group-text">Cost</span>

@@ -1,3 +1,4 @@
+
 let Footer = () => {
     return (
        
@@ -6,74 +7,69 @@ let Footer = () => {
                 <section className="">
                     <div className="row">
                         <div className="col-lg-3 col-md-6 mb-5 mb-md-0">
-                            <h5 className="text-uppercase">For Clients</h5>
+                            <h5 className="text-uppercase">For Visitors </h5>
 
-                            <ul className="list-unstyled mb-0">
+                            <ul className="list-unstyled mb-0 mt-3">
                                 <li>
-                                    <a href="#!" className="text-white">Link 1</a>
+                                    <p className="text-white">Help Center</p>
                                 </li>
                                 <li>
-                                    <a href="#!" className="text-white">Link 2</a>
+                                    <p className="text-white">About Page</p>
                                 </li>
                                 <li>
-                                    <a href="#!" className="text-white">Link 3</a>
-                                </li>
-                                <li>
-                                    <a href="#!" className="text-white">Link 4</a>
+                                    <p className="text-white">Technical Support </p>
                                 </li>
                             </ul>
                         </div>
                         <div className="col-lg-3 col-md-6 mb-4 mb-md-0">
                             <h5 className="text-uppercase">For Talent</h5>
 
-                            <ul className="list-unstyled mb-0">
+                            <ul className="list-unstyled mb-0 mt-3">
                                 <li>
-                                    <a href="#!" className="text-white">Link 1</a>
+                                    <p className="text-white">Long Term projects</p>
                                 </li>
                                 <li>
-                                    <a href="#!" className="text-white">Link 2</a>
+                                    <p className="text-white">Hire Employees for Part-time jobs</p>
                                 </li>
                                 <li>
-                                    <a href="#!" className="text-white">Link 3</a>
+                                    <p className="text-white">Hire Employees for Full-time jobs</p>
                                 </li>
-                                <li>
-                                    <a href="#!" className="text-white">Link 4</a>
-                                </li>
+
                             </ul>
                         </div>
                         <div className="col-lg-3 col-md-6 mb-4 mb-md-0">
-                            <h5 className="text-uppercase">Resources</h5>
+                            <h5 className="text-uppercase">Client</h5>
 
-                            <ul className="list-unstyled mb-0">
+                            <ul className="list-unstyled mb-0 mt-3">
                                 <li>
-                                    <a href="#!" className="text-white">Link 1</a>
+                                    <p className="text-white">Search for talented freelancers</p>
                                 </li>
                                 <li>
-                                    <a href="#!" className="text-white">Link 2</a>
+                                    <p className="text-white">put your offer</p>
                                 </li>
                                 <li>
-                                    <a href="#!" className="text-white">Link 3</a>
+                                    <p className="text-white">Hire Freelancers</p>
                                 </li>
                                 <li>
-                                    <a href="#!" className="text-white">Link 4</a>
+                                    <p className="text-white">Support many payment methods </p>
                                 </li>
                             </ul>
                         </div>
                         <div className="col-lg-3 col-md-6 mb-4 mb-md-0">
                             <h5 className="text-uppercase">Company</h5>
 
-                            <ul className="list-unstyled mb-0">
+                            <ul className="list-unstyled mb-0 mt-3">
                                 <li>
-                                    <a href="#!" className="text-white">Link 1</a>
+                                    <p className="text-white">Hire Employees for a long term Projects</p>
                                 </li>
                                 <li>
-                                    <a href="#!" className="text-white">Link 2</a>
+                                    <p className="text-white">Hire Employees for a part-time Jobs</p>
                                 </li>
                                 <li>
-                                    <a href="#!" className="text-white">Link 3</a>
+                                    <p className="text-white">Hire Employees for a full-time Jobs</p>
                                 </li>
                                 <li>
-                                    <a href="#!" className="text-white">Link 4</a>
+                                    <p className="text-white">Raise your Company</p>
                                 </li>
                             </ul>
                         </div>

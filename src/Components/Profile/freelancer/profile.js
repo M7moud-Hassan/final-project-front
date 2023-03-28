@@ -104,7 +104,20 @@ class Profile extends Component {
         return arr;
       }
     componentDidMount() {
-        
+        window.addEventListener('beforeunload',function(){
+            if(localStorage.getItem("type")=="user"){
+              axios.post('http://localhost:8000/chat/de_active_client/',{
+                id:localStorage.getItem("uid")
+              }).then(res=>{
+               
+              })
+            }else{
+              axios.post('http://localhost:8000/chat/de_active_Free/',{
+                id:localStorage.getItem("uid")
+              })
+            }
+            return false;
+          })
         axios.post(`http://127.0.0.1:8000/profile/get_details_free/`,
             {
                 "id": localStorage.getItem('uid')
@@ -842,7 +855,7 @@ class Profile extends Component {
                         </div>
                     </div>
 
-                    <div className="container-border my-4 p-4 row">
+                    <div className="other-border my-4 p-4 row">
                         <div className="d-flex justify-content-between align-items-center">
                             <h4 className="mb-0">Certifications</h4>
                             <div>
@@ -888,14 +901,9 @@ class Profile extends Component {
 
                         ))}
 
-
-
-
-
-
                     </div>
 
-                    <div className="container-border my-4 p-4">
+                    <div className="other-border my-4 p-4">
                         <div className="d-flex justify-content-between align-items-center">
                             <h4 className="mb-0">My Employment History</h4>
                             <div>
@@ -961,6 +969,10 @@ class Profile extends Component {
           {this.state.reviews.map(ele=>{
             return (
               <div>
+                 <div class="chip">
+  <img src={"http://localhost:8000"+ele.client.image} alt="Person" width="96" height="96"/>
+  {ele.client.fname} {ele.client.lname}
+</div> 
                  <div>
           <div class="ratings">
               {this.calRate(ele.rate)?(this.calRate(ele.rate).map(ele=>{
@@ -1472,7 +1484,7 @@ class Profile extends Component {
                     }
 
                 } novalidate>
-                    <div className=" formx form-content animate p-5">
+                    <div className=" formx form-content animate mt-0 p-4 BorderRadiusClass">
                         <div class="maimgcontainer">
                             <span class="close" onClick={
                                 () => {
@@ -1601,7 +1613,7 @@ class Profile extends Component {
 
                 } novalidate>
 
-                    <div className=" formx form-content animate p-5">
+                    <div className=" formx form-content animate p-4 BorderRadiusClass">
                         <div class="maimgcontainer">
                             <span class="close" onClick={
                                 () => {

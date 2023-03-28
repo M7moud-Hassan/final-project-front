@@ -89,6 +89,7 @@ function App() {
       <Route path='/jobs_hire_client/' element={<JobS_Hire_Client/>}/>
       <Route path='/jobs_finish_client/' element={<JobS_Finish_Client/>}/>
       <Route path='/chat' element={<Chat/>}/>
+      <Route path='/chat/:id' element={<Chat/>}/>
       <Route path='*' element={<Error/>} />
       </Routes>
       </BrowserRouter>

@@ -1,6 +1,8 @@
 import { useEffect, useState, useRef } from "react";
 import { NavLink ,useParams} from "react-router-dom"
 import axios from "axios";
+import Footer from "./Footer";
+import NavBar from "./navbar";
 
 const PortfolioAddDetails = () => {
     const {title,date_time}=useParams();
@@ -10,6 +12,20 @@ const PortfolioAddDetails = () => {
     const [id,setId]=useState()
 
     useEffect(() => {
+        window.addEventListener('beforeunload',function(){
+            if(localStorage.getItem("type")=="user"){
+              axios.post('http://localhost:8000/chat/de_active_client/',{
+                id:localStorage.getItem("uid")
+              }).then(res=>{
+               
+              })
+            }else{
+              axios.post('http://localhost:8000/chat/de_active_Free/',{
+                id:localStorage.getItem("uid")
+              })
+            }
+            return false;
+          })
         if(localStorage.getItem("portfilo"))
         {
             var p=JSON.parse(localStorage.getItem("portfilo"));
@@ -22,7 +38,9 @@ const PortfolioAddDetails = () => {
        
       }, []);
     return (
-        <div className="container row mt-5">
+      <div>
+        <NavBar/>
+          <div className="container row mt-5">
             <div className="col-sm-4 ">
                 <div>
                     <ol className="ordered" >
@@ -132,6 +150,8 @@ const PortfolioAddDetails = () => {
             </div>
 
         </div>
+        <Footer/>
+      </div>
 
     )
 }

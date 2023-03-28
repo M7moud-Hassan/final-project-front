@@ -1,6 +1,8 @@
 import { NavLink } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
+import NavBar from './navbar';
+import Footer from './Footer';
 
 const PaymentFreeLancer = () => {
 
@@ -26,11 +28,25 @@ const PaymentFreeLancer = () => {
     }, []);
 
     useEffect(() => {
+        window.addEventListener('beforeunload',function(){
+            if(localStorage.getItem("type")=="user"){
+              axios.post('http://localhost:8000/chat/de_active_client/',{
+                id:localStorage.getItem("uid")
+              }).then(res=>{
+               
+              })
+            }else{
+              axios.post('http://localhost:8000/chat/de_active_Free/',{
+                id:localStorage.getItem("uid")
+              })
+            }
+            return false;
+          })
         axios.post(`http://127.0.0.1:8000/profile/freePaymentCards/`, { free_id: localStorage.getItem('uid') })
             .then(res => {
-                if(res.data!='not found'){
-                setCards(res.data);
-                console.log(cards)
+                if (res.data != 'not found') {
+                    setCards(res.data);
+                    console.log(cards)
                 }
             })
             .catch(err => {
@@ -49,13 +65,15 @@ const PaymentFreeLancer = () => {
 
 
 
-    return (
+    return (<div>
+
+        <NavBar />
         <div className="container">
             <div className="container w-75 paymentModal  ms-5 border border-success " ref={paymentSection}>
                 <div className=" container mt-3">
                     <form className="text-center " onSubmit={
                         (e) => {
-                            e.preventDefault()
+                            // e.preventDefault()
                             axios.post(`http://127.0.0.1:8000/profile/freelancepayment/`, {
                                 street: streetz,
                                 city: cityz,
@@ -104,7 +122,7 @@ const PaymentFreeLancer = () => {
                         <div className="row text-start">
                             <div className="col-md-4 mt-3">
                                 <label for="city"><i className="fa fa-institution"></i> City</label>
-                                <input type="text" id="city" name="city"  required className="form-control" placeholder="Just Enter your city"
+                                <input type="text" id="city" name="city" required className="form-control" placeholder="Just Enter your city"
                                     value={cityz}
                                     onChange={
                                         (e) => {
@@ -124,7 +142,7 @@ const PaymentFreeLancer = () => {
                             </div>
                             <div className="col-md-4 mt-3">
                                 <label for="zip">Zip</label>
-                                <input type="text" id="Zip_code" name="Zip_code" required  pattern="[0-9]{5}" className="form-control" placeholder="10001"
+                                <input type="text" id="Zip_code" name="Zip_code" required pattern="[0-9]{5}" className="form-control" placeholder="10001"
                                     value={Zip_codez}
                                     onChange={
                                         (e) => {
@@ -211,7 +229,7 @@ const PaymentFreeLancer = () => {
                         </ol>
                     </div>
                 </div>
-                <div className="col-md-8 ">
+                <div className="col-md-8 mb-5">
                     <h2>Billing & Method</h2>
                     <div className="container mt-3 settingBody">
                         <h3 className="mt-3 ">Billing Method </h3>
@@ -224,7 +242,7 @@ const PaymentFreeLancer = () => {
                         <p className=" text-start ms-3 me-3">Your billing method will charged only when your available balance from Upwork earnings is not sufficient to pay for your monthly membership and/or Connects.</p>
                         <div className=" container text-start ">
                             {cards.map(card => (
-                                <div className="PaymentContainer p-4" key={card.id}>
+                                <div className="PaymentContainer p-4 mt-3" key={card.id}>
                                     <h6 className="text-dark">Card Number : <span className="text-muted"> {card.id}</span></h6>
                                     <h6 className="text-dark">Name on the card : <span className="text-muted">{card.nameOnTheCard}</span></h6>
                                     <h6 className="text-dark">Credit card number : <span className="text-muted">{card.Credit_number}</span></h6>
@@ -242,6 +260,8 @@ const PaymentFreeLancer = () => {
                 </div>
             </div>
         </div>
+        <Footer/>
+    </div>
 
     )
 

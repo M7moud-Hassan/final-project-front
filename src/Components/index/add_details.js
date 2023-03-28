@@ -3,6 +3,7 @@ import axios from 'axios';
 import '../css/add_details.css'
 import '../js/add_details.js'
 import { NavLink } from 'react-router-dom';
+import Footer from '../Profile/freelancer/Footer';
 
 
 class AddDetails extends Component {
@@ -230,7 +231,7 @@ class AddDetails extends Component {
       }
   });
                 localStorage.clear()
-                window.location='/login/'
+                window.location='/login'
              /* .then((response) => {
                 localStorage.clear()
                 
@@ -694,7 +695,7 @@ class AddDetails extends Component {
             <button class="btn btn-success w-100" id='addEducation' type='submit'>Submit</button>
           </div>
           </form>
-        
+       
       </div>
     )
             }

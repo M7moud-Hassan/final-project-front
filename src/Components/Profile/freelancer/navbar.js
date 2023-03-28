@@ -16,8 +16,8 @@ class NavBar extends Component {
       notifications: [],
       socket: null,
       down: false,
-      isMenu: false
-
+      isMenu: false,
+      numMessage:0
 
     }
   }
@@ -80,6 +80,38 @@ class NavBar extends Component {
     //  this.setState({notifications: [...this.state.notifications, message]})
   };
   componentDidMount() {
+
+    const newSocket2 = new WebSocket(localStorage.getItem("type")=="free"?("ws://127.0.0.1:8000/ws_free/free"+localStorage.getItem("uid")+"/"):("ws://127.0.0.1:8000/ws_client/user"+localStorage.getItem("uid")+"/"));
+        newSocket2.onopen = () => {
+        
+      };
+      
+      newSocket2.onmessage = (event) => {
+        this.setState({numMessage:this.state.numMessage+1})
+
+      };
+    newSocket2.onclose = () => {
+      
+    };
+    axios.post(localStorage.getItem("type")=="user"?('http://localhost:8000/chat/getUnreadMessagesClient/'):('http://localhost:8000/chat/getUnreadMessagesFree/'),{
+      id:localStorage.getItem("uid")
+  }).then(res=>{
+    this.setState({numMessage:res.data})
+  })
+    window.addEventListener('beforeunload',function(){
+      if(localStorage.getItem("type")=="user"){
+        axios.post('http://localhost:8000/chat/de_active_client/',{
+          id:localStorage.getItem("uid")
+        }).then(res=>{
+         
+        })
+      }else{
+        axios.post('http://localhost:8000/chat/de_active_Free/',{
+          id:localStorage.getItem("uid")
+        })
+      }
+      return false;
+    })
     axios.post(localStorage.getItem("type") == "user" ? "http://127.0.0.1:8000/profile/clientDetails/" : "http://127.0.0.1:8000/profile/get_details_free/",
       {
         "id": localStorage.getItem('uid')
@@ -92,7 +124,19 @@ class NavBar extends Component {
       });
     const newSocket = new WebSocket(localStorage.getItem("type") == "user" ? 'ws://127.0.0.1:8000/ws/notifications/' : 'ws://127.0.0.1:8000/ws/notificationsfree/');
     newSocket.onopen = () => {
-      console.log('WebSocket connected Navbar');
+      if(localStorage.getItem("type")=="user"){
+        axios.post('http://localhost:8000/chat/active_client/',{
+          id:localStorage.getItem("uid")
+        }).then(res=>{
+          if(res.data=='ok'){
+            console.log("active");
+          }
+        })
+      }else{
+        axios.post('http://localhost:8000/chat/active_Free/',{
+          id:localStorage.getItem("uid")
+        })
+      }
       this.setState({ socket: newSocket })
 
     };
@@ -114,6 +158,19 @@ class NavBar extends Component {
           };
           newSocket.onclose = () => {
             console.log('WebSocket closed');
+            if(localStorage.getItem("type")=="user"){
+              axios.post('http://localhost:8000/chat/de_active_client/',{
+                id:localStorage.getItem("uid")
+              }).then(res=>{
+                if(res.data=='ok'){
+                  console.log("active");
+                }
+              })
+            }else{
+              axios.post('http://localhost:8000/chat/de_active_Free/',{
+                id:localStorage.getItem("uid")
+              })
+            }
             this.setState({ socket: null })
           };
         })
@@ -166,13 +223,13 @@ class NavBar extends Component {
     }
     return (
       <div>
-        <nav className="navbar navbar-expand-lg bg-body-tertiary shadow-sm ">
+        <nav className="navbar navbar-expand-lg bg-body-tertiary shadow-sm paddingReduceNavbar">
 
           <div className='container-fluid'>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon"></span>
             </button>
-            <img id='logo' className='ms-5' src='\images\upwork.png' onClick={
+            <img id='logo' className='ms-3' src='\images\inLogo.png' onClick={
               () => {
                 window.location = '/'
               }
@@ -182,26 +239,32 @@ class NavBar extends Component {
                 <ul className='mt-3'>
                   <li className="nav-item dropdown dropFont">
                     <a className="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Empty slot
+                      Help & About Center
                     </a>
-                    <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                      <a className="dropdown-item" href="#">Action</a>
-                      <a className="dropdown-item" href="#">Another action</a>
-                      <a className="dropdown-item" href="#">Something else here</a>
+                    <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink ">
+                      <NavLink className="dropdown-item" style={({ isActive }) => ({ color: isActive ? 'green' : 'Black' })} to={'/Help'}><a>Help</a></NavLink>
+
+                      <NavLink className="dropdown-item" style={({ isActive }) => ({ color: isActive ? 'green' : 'Black' })} to={'/About'}><a>About</a></NavLink>
                     </div>
                   </li>
                 </ul>
                 <ul className='mt-3'>
+                  
                   <li className="nav-item dropdown dropFont">
+                 {this.state.numMessage?(<span class="notification-badge">{
+                         this.state.numMessage
+                        }</span>):(<div></div>)} 
                     <a className="nav-link text-dark" href="#" onClick={
-                      (e)=>{
+                      (e) => {
                         e.preventDefault()
-                        window.location='/chat'
+                        this.setState({numMessage:0})
+                        window.location = '/chat'
                       }
                     }>
                       Message
+                     
                     </a>
-
+                    
                   </li>
                 </ul>
                 <ul className='mt-3'>
@@ -252,8 +315,8 @@ class NavBar extends Component {
                   </li>
                 </ul>
               </div>
-              <div className='w-100' >
-                <form className="d-flex" onSubmit={
+              <div className='w-100 ' >
+                <form className="" onSubmit={
                   (e) => {
                     e.preventDefault()
                     var value = document.getElementById('search_id2').value
@@ -262,42 +325,52 @@ class NavBar extends Component {
                     }
                   }
                 }>
-                  <div className="input-group ms-5 w-100 d-flex justify-content-between">
+                  <div className="input-group  d-flex text-center">
 
                     {
-                      localStorage.getItem("type") == "user" ? (<div className="search_box d-flex w-50 mt-2" style={{ height: '40px' }}>
-                        <h3 style={
-                          {
-                            textAlign: "center"
-                          }
-                        }>Hire freelancer</h3>
-                      </div>) : (<div className="search_box d-flex w-50 mt-2" style={{ height: '40px' }}>
-                        <input id='search_id2' className="form-control me-2 w-100  " type="search" placeholder="Search" aria-label="Search" />
-                        <button className="btn btn-outline-success " type="submit">Search</button>
+                      localStorage.getItem("type") == "user" ? (
+                        <div className="search_box d-flex mt-2 text-center w-50 centerize" style={{ height: '40px' }}>
+                          <h3 style={
+                            {
+                              textAlign: "center"
+                            }
+                          }>Hire freelancer</h3>
+                        </div>
+                      ) : (
+                        <div className="search_box d-flex w-50  mt-2 ms-4" style={{ height: '40px' }}>
+                          <input id='search_id2' className="form-control me-2 w-100  " type="search" placeholder="Search" aria-label="Search" />
+                          <button className="btn btn-outline-success " type="submit">Search</button>
 
-                      </div>)
+                        </div>
+                      )
                     }
 
-                    <div className='d-flex justify-content-center align-items-center ms-3'>
-                      <i class="fa-solid fa-question btn btn-lg"></i>
-                      <div class="notification-container ms-3" onClick={this.toggleNotifi}>
+                    <div className='d-flex  ms-3  text-center floats'>
+                      <div className='mt-2' onClick={
+                        ()=>{
+                          window.location='/Help'
+                        }
+                      }><i class="fa-solid fa-question btn btn-lg"></i>
+                      </div>
+
+                      <div class="notification-container ms-3 mt-2" onClick={this.toggleNotifi}>
                         <i class="fa-solid fa-bell btn btn-lg" ></i>
                         {this.calNotification() ? (<span class="notification-badge">{
                           this.calNotification()
                         }</span>) : (<div></div>)}
 
                       </div>
-                      <div>
-                      <img id="m7moud" src={this.state.data.image ? ("data:image/*;base64," + this.state.data.image) : ("./images/default.png")} alt="User" className=" navImg"onClick={
-                        () => {
-                          if (this.state.isMenu) {
-                            this.XsettingS()
-                          } else {
-                            this.settingS()
-                          }
+                      <div className='ms-3 me-3 '>
+                        <img id="m7moud" src={this.state.data.image ? ("data:image/*;base64," + this.state.data.image) : ("./images/default.png")} alt="User" className=" navImg" onClick={
+                          () => {
+                            if (this.state.isMenu) {
+                              this.XsettingS()
+                            } else {
+                              this.settingS()
+                            }
 
-                        }
-                      } />
+                          }
+                        } />
                       </div>
                     </div>
                   </div>
@@ -307,10 +380,10 @@ class NavBar extends Component {
             </div>
           </div>
           <div class="notifi-box" id="box">
-            <h2>Notifications <span>{this.state.notifications.length}</span></h2>
+            <h2 className='text-center'><i class="fa-solid fa-earth-africa me-2"></i>Notifications <span>{this.state.notifications.length}</span></h2>
             {this.state.notifications.reverse().map(ele => {
               return (
-                <div class="alert">
+                <div class="p-3 border border-bottom border-light text-center">
                   <span class="closebtn" onClick={
                     (el) => {
                       if (localStorage.getItem("type") == "user") {
@@ -332,7 +405,8 @@ class NavBar extends Component {
                       }
                     }
                   }>&times;</span>
-                  <strong>{ele.type_of_notification}</strong>
+                  <strong className='notifi-Text'><i class="fa-solid fa-bell me-3 text-success"></i>{ele.type_of_notification}</strong>
+                  
                 </div>
               )
             })}
@@ -342,13 +416,25 @@ class NavBar extends Component {
 
         <div className='row'>
           <div className=' col-sm-3 buttonSetting text-center animate' id="setting">
-            <img className='littleSymbolImage' src={this.state.data.image ? ("data:image/*;base64," + this.state.data.image) : ("./images/default.png")} />
+            <img className='littleSymbolImage mt-3' src={this.state.data.image ? ("data:image/*;base64," + this.state.data.image) : ("./images/default.png")} />
             <h4 className='mt-3'>{localStorage.getItem("type") == "user" ? (this.state.data.fname + " " + this.state.data.lname) : (this.state.data.name)}</h4>
             <hr />
             <NavLink to={localStorage.getItem("type") == "user" ? ('/clientsettings') : ('/Freelancersettings')}><h5>Settings</h5></NavLink>
             <NavLink onClick={
               () => {
+                if(localStorage.getItem("type")=="user"){
+                  axios.post('http://localhost:8000/chat/de_active_client/',{
+                    id:localStorage.getItem("uid")
+                  }).then(res=>{
+                   
+                  })
+                }else{
+                  axios.post('http://localhost:8000/chat/de_active_Free/',{
+                    id:localStorage.getItem("uid")
+                  })
+                }
                 localStorage.clear()
+
                 window.location = "/"
               }
             }>

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 import '../../css/proposel.css';
+import Footer from '../../Profile/freelancer/Footer';
 import NavBar from '../../Profile/freelancer/navbar';
 
 
@@ -21,6 +22,20 @@ class Proposal extends Component {
 
     }
     componentDidMount(){
+        window.addEventListener('beforeunload',function(){
+            if(localStorage.getItem("type")=="user"){
+              axios.post('http://localhost:8000/chat/de_active_client/',{
+                id:localStorage.getItem("uid")
+              }).then(res=>{
+               
+              })
+            }else{
+              axios.post('http://localhost:8000/chat/de_active_Free/',{
+                id:localStorage.getItem("uid")
+              })
+            }
+            return false;
+          })
         const newSocket = new WebSocket('ws://127.0.0.1:8000/ws/notifications/');
         newSocket.onopen = () => {
           console.log('WebSocket connected');
@@ -44,40 +59,40 @@ class Proposal extends Component {
             this.setState({data:res.data})
         })
     }
-    cal_Date(create_at){
-        var postDate = new Date(create_at);
-    
-    var currentDate = new Date();
-    
-    var timeDiff = postDate.getTime() - currentDate.getTime();
-    
-    
-    var secondsDiff = Math.floor(timeDiff / 1000);
-    var minutesDiff = Math.floor(secondsDiff / 60);
-    var hoursDiff = Math.floor(minutesDiff / 60);
-    
-    
-    var daysDiff = Math.floor(timeDiff / (1000 * 3600 * 24));
-    hoursDiff = hoursDiff % 24;
-    minutesDiff = minutesDiff % 60;
-    secondsDiff = secondsDiff % 60;
-    
-    var res=""
-    if(daysDiff){
-        res+=daysDiff+"d "
+    cal_Date(create_at) {
+        const timestamp = create_at;
+        const date = new Date(timestamp);
+        const now = new Date();
+        now.setHours(now.getHours() + 2);
+        const diffMs = now.getTime() - date.getTime();
+        const diffSeconds = Math.floor(diffMs / 1000);
+        const diffMinutes = Math.floor(diffMs / 60000);
+        const diffHours = Math.floor(diffMs / 3600000);
+        const diffDays = Math.floor(diffMs / 86400000);
+        
+        let diffString = '';
+        
+        if (diffDays > 0) {
+          diffString += `${diffDays} day${diffDays > 1 ? 's' : ''} `;
+        }
+        if (diffHours > 0) {
+          diffString += `${diffHours % 24} hour${diffHours % 24 > 1 ? 's' : ''} `;
+        }
+        if (diffMinutes > 0) {
+          diffString += `${diffMinutes % 60} minute${diffMinutes % 60 > 1 ? 's' : ''} `;
+        }
+        if (diffSeconds > 0) {
+          diffString += `${diffSeconds % 60} second${diffSeconds % 60 > 1 ? 's' : ''} `;
+        }
+        
+        if (diffString === '') {
+          diffString = 'just now';
+        } 
+        
+      return diffString; 
+        
+
     }
-    if(hoursDiff){
-        res+=hoursDiff+"h "
-    }
-    if(minutesDiff){
-        res+=minutesDiff+"m "
-    }
-    if(secondsDiff){
-        res+=secondsDiff+"s"
-    }
-    return res;
-    
-      }
     render() {
 
         return (
@@ -328,6 +343,7 @@ class Proposal extends Component {
 
 
     </div>
+    <Footer/>
             </div>
            
         )

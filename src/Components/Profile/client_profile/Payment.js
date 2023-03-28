@@ -2,6 +2,8 @@ import { NavLink } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import axios
     from "axios";
+import NavBar from "../freelancer/navbar";
+import Footer from "../freelancer/Footer";
 const PaymentUser = () => {
 
     const [client_id, setId] = useState('');
@@ -35,6 +37,20 @@ const PaymentUser = () => {
     }, []);
 
     useEffect(() => {
+        window.addEventListener('beforeunload',function(){
+            if(localStorage.getItem("type")=="user"){
+              axios.post('http://localhost:8000/chat/de_active_client/',{
+                id:localStorage.getItem("uid")
+              }).then(res=>{
+               
+              })
+            }else{
+              axios.post('http://localhost:8000/chat/de_active_Free/',{
+                id:localStorage.getItem("uid")
+              })
+            }
+            return false;
+          })
         paymentSection.current.focus();
     }, []);
 
@@ -48,12 +64,14 @@ const PaymentUser = () => {
     }
 
     return (
+        <div>
+            <NavBar/>
         <div className="container">
             <div className="container w-75 paymentModal  ms-5 border border-success " ref={paymentSection}>
                 <div className=" container mt-3">
                     <form className="text-center " onSubmit={
                         (e) => {
-                            e.preventDefault()
+                            // e.preventDefault()
                             axios.post(`http://127.0.0.1:8000/profile/payment/`, {
                                 street: streetz,
                                 city: cityz,
@@ -65,9 +83,10 @@ const PaymentUser = () => {
                                 email: emailz,
                                 Expire_year: Expire_yearz,
                                 Credit_number: Credit_numberz,
-                                client_id: localStorage.getItem('uid')
-                            }).then(res => {
+                                client_id: localStorage.getItem('uid'),
 
+                                
+                            }).then(res => {
                                 console.log(res.data);
                                 XcontactS()
 
@@ -209,7 +228,7 @@ const PaymentUser = () => {
                         </ol>
                     </div>
                 </div>
-                <div className="col-md-8 ">
+                <div className="col-md-8 mb-5">
                     <h2>Billing & Method</h2>
                     <div className="container mt-3 settingBody">
                         <h3 className="mt-3 ">Billing Method </h3>
@@ -221,9 +240,9 @@ const PaymentUser = () => {
                         </button>
 
                         <p className=" text-start ms-3 me-3">Your billing method will charged only when your available balance from Upwork earnings is not sufficient to pay for your monthly membership and/or Connects.</p>
-                        <div className=" container text-start mt-3">
+                        <div className=" container text-start mt-3 ">
                             {cards?(cards.map(card => (
-                                <div className="PaymentContainer p-4" key={card.id}>
+                                <div className="PaymentContainer p-4 mt-3" key={card.id}>
                                     <h6 className="text-dark">Card Number : <span className="text-muted"> {card.id}</span></h6>
                                     <h6 className="text-dark">Name on the card : <span className="text-muted">{card.nameOnTheCard}</span></h6>
                                     <h6 className="text-dark">Credit card number : <span className="text-muted">{card.Credit_number}</span></h6>
@@ -239,6 +258,8 @@ const PaymentUser = () => {
                     </div>
                 </div>
             </div>
+        </div>
+        <Footer/>
         </div>
 
     )

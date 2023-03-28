@@ -1,12 +1,28 @@
 import { NavLink } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
+import NavBar from './navbar';
+import Footer from './Footer';
 const ChangePasswordFree = () => {
 
     const paymentSection = useRef('');
     const [passwordz, setPassword] = useState('');
     const [newPasswordz, setNewPassword] = useState('');
     useEffect(() => {
+        window.addEventListener('beforeunload',function(){
+            if(localStorage.getItem("type")=="user"){
+              axios.post('http://localhost:8000/chat/de_active_client/',{
+                id:localStorage.getItem("uid")
+              }).then(res=>{
+               
+              })
+            }else{
+              axios.post('http://localhost:8000/chat/de_active_Free/',{
+                id:localStorage.getItem("uid")
+              })
+            }
+            return false;
+          })
         paymentSection.current.focus();
     }, []);
     function contactS() {
@@ -21,6 +37,8 @@ const ChangePasswordFree = () => {
 
 
     return (
+        <div>
+            <NavBar/>
         <div className="container text-center">
             <div className="container m-auto ChangePasswordModal border border-success animate" ref={paymentSection}>
                 <div className=" container mt-3">
@@ -92,7 +110,7 @@ const ChangePasswordFree = () => {
                         </ol>
                     </div>
                 </div>
-                <div className="col-md-8 ">
+                <div className="col-md-8 mb-5">
                     <h2 className="text-start">Change password</h2>
                     <div className="container mt-3 settingBody">
                         <h3 className="mt-3 ">Authentication options</h3>
@@ -110,7 +128,8 @@ const ChangePasswordFree = () => {
                 </div>
             </div>
         </div>
-
+        <Footer/>
+        </div>
     )
 
 }
