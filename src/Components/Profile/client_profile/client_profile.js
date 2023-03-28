@@ -28,6 +28,7 @@ const ClientProfile = () => {
     const [jobsDetails, setJobsDetails] = useState([]);
     const [applay, setApplay] = useState('');
     const [socket, setSocket] = useState(null);
+    const [is_chat,setIsCaht]=useState(false)
 
 
     useEffect(() => {
@@ -55,38 +56,38 @@ const ClientProfile = () => {
     }, []);
 
 
-    let cal_Date = (create_at) => {
-        var postDate = new Date(create_at);
-
-        var currentDate = new Date();
-
-        var timeDiff = postDate.getTime() - currentDate.getTime();
-
-
-        var secondsDiff = Math.floor(timeDiff / 1000);
-        var minutesDiff = Math.floor(secondsDiff / 60);
-        var hoursDiff = Math.floor(minutesDiff / 60);
-
-
-        var daysDiff = Math.floor(timeDiff / (1000 * 3600 * 24));
-        hoursDiff = hoursDiff % 24;
-        minutesDiff = minutesDiff % 60;
-        secondsDiff = secondsDiff % 60;
-
-        var res = ""
-        if (daysDiff) {
-            res += daysDiff + "d "
+   let cal_Date=(create_at)=>{
+        const timestamp = create_at;
+        const date = new Date(timestamp);
+        const now = new Date();
+        
+        const diffMs = now.getTime() - date.getTime();
+        const diffSeconds = Math.floor(diffMs / 1000);
+        const diffMinutes = Math.floor(diffMs / 60000);
+        const diffHours = Math.floor(diffMs / 3600000);
+        const diffDays = Math.floor(diffMs / 86400000);
+        
+        let diffString = '';
+        
+        if (diffDays > 0) {
+          diffString += `${diffDays} day${diffDays > 1 ? 's' : ''} `;
         }
-        if (hoursDiff) {
-            res += hoursDiff + "h "
+        if (diffHours > 0) {
+          diffString += `${diffHours % 24} hour${diffHours % 24 > 1 ? 's' : ''} `;
         }
-        if (minutesDiff) {
-            res += minutesDiff + "m "
+        if (diffMinutes > 0) {
+          diffString += `${diffMinutes % 60} minute${diffMinutes % 60 > 1 ? 's' : ''} `;
         }
-        if (secondsDiff) {
-            res += secondsDiff + "s"
+        if (diffSeconds > 0) {
+          diffString += `${diffSeconds % 60} second${diffSeconds % 60 > 1 ? 's' : ''} `;
         }
-        return res;
+        
+        if (diffString === '') {
+          diffString = 'just now';
+        }
+        
+      return diffString; 
+        
 
     }
     useEffect(() => {
@@ -133,6 +134,20 @@ const ClientProfile = () => {
 
 
     useEffect(() => {
+        window.addEventListener('beforeunload',function(){
+            if(localStorage.getItem("type")=="user"){
+              axios.post('http://localhost:8000/chat/de_active_client/',{
+                id:localStorage.getItem("uid")
+              }).then(res=>{
+               
+              })
+            }else{
+              axios.post('http://localhost:8000/chat/de_active_Free/',{
+                id:localStorage.getItem("uid")
+              })
+            }
+            return false;
+          })
         axios.post(`http://127.0.0.1:8000/profile/clientDetails/`, { id: localStorage.getItem('uid') })
             .then(res => {
                 setData(res.data);
@@ -429,14 +444,22 @@ fott
                                                     <div className='row mt-2' >
                                                         {jobsDetails.proposals ? jobsDetails.proposals.map(ele => {
                                                             return (<div class="chip col-3" onClick={() => {
-                                                                console.log("id", id);
+                                                               
                                                                 axios.post('http://localhost:8000/home/job_cover/', {
                                                                     id: ele.id,
                                                                     id_job: id
                                                                 }).then(res => {
                                                                     setEmp(ele);
                                                                     setApplay(res.data)
-                                                                    document.getElementById('id0p2').style.display = 'block'
+                                                                    axios.post('http://localhost:8000/chat/checkChatBegin/',{
+                                                                        client:localStorage.getItem("uid"),
+                                                                        free:ele.id
+                                                                    }).then(res=>{
+                                                                        
+                                                                        setIsCaht(res.data)
+                                                                        document.getElementById('id0p2').style.display = 'block'
+                                                                    })
+                                                                   
                                                                 })
                                                                 //window.location.href = 'http://localhost:3000/cv_free';
                                                             }}>
@@ -771,8 +794,28 @@ fott
                                     {emp.name}
                                 </div>
                                 <div class="btn-group w-100 p-4">
-                                    <button className='w-50'>Chat</button>
                                     <button className='w-50' onClick={
+                                        ()=>{
+                                            const newSocket = new WebSocket("ws://127.0.0.1:8000/ws_client/user"+localStorage.getItem("uid")+"/");
+        newSocket.onopen = () => {
+         if(!is_chat){
+            newSocket.send(JSON.stringify({
+                "free": emp.id,
+                "client":localStorage.getItem("uid"),
+                "message":'client open with you interview',
+                "room":"free"+emp.id
+              }))
+                window.location="/chat/"+emp.id
+            
+         }
+            window.location="/chat/"+emp.id
+         
+      };
+      
+    
+                                        }
+                                    }>Chat</button>
+                                    {is_chat?<button className='w-50' onClick={
                                         () => {
                                             axios.post('http://localhost:8000/home/hire/', {
                                                 user: localStorage.getItem("uid"),
@@ -795,7 +838,7 @@ fott
                                                 }
                                             })
                                         }
-                                    } >Hire</button>
+                                    } >Hire</button>:(<div></div>)}
                                 </div>
 
                             </div>

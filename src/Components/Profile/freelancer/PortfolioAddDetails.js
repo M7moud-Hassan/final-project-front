@@ -10,6 +10,20 @@ const PortfolioAddDetails = () => {
     const [id,setId]=useState()
 
     useEffect(() => {
+        window.addEventListener('beforeunload',function(){
+            if(localStorage.getItem("type")=="user"){
+              axios.post('http://localhost:8000/chat/de_active_client/',{
+                id:localStorage.getItem("uid")
+              }).then(res=>{
+               
+              })
+            }else{
+              axios.post('http://localhost:8000/chat/de_active_Free/',{
+                id:localStorage.getItem("uid")
+              })
+            }
+            return false;
+          })
         if(localStorage.getItem("portfilo"))
         {
             var p=JSON.parse(localStorage.getItem("portfilo"));

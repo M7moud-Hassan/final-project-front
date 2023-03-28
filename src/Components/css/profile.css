@@ -33,7 +33,6 @@ body {
   
   .notification-badge {
     position: absolute;
-    top: -6px;
     right: 35px;
     background-color: red;
     color: white;

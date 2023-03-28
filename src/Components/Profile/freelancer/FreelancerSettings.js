@@ -24,6 +24,20 @@ const FreeSettings = () => {
     const [current_imae_url, SetCurrentFile] = useState('');
 
     useEffect(() => {
+        window.addEventListener('beforeunload',function(){
+            if(localStorage.getItem("type")=="user"){
+              axios.post('http://localhost:8000/chat/de_active_client/',{
+                id:localStorage.getItem("uid")
+              }).then(res=>{
+               
+              })
+            }else{
+              axios.post('http://localhost:8000/chat/de_active_Free/',{
+                id:localStorage.getItem("uid")
+              })
+            }
+            return false;
+          })
         axios.post(`http://127.0.0.1:8000/profile/FreeDetails/`, { id: localStorage.getItem('uid') })
             .then(res => {
                 setData(res.data);
