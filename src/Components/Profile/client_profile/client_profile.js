@@ -220,7 +220,7 @@ const ClientProfile = () => {
                                     <div className="row text-start">
                                         <div className="mt-3">
                                             <label for="description">Job Description </label>
-                                            <textarea type="text" id="description" name="description" className="form-control" rows={8} placeholder="Just Enter your city"
+                                            <textarea type="text" id="description" name="description" className="form-control" rows={8} placeholder="Job Description"
                                                 value={descriptionz}
                                                 onChange={
                                                     (e) => {
