@@ -67,3 +67,7 @@ body {
 padding-top:0 ;
 padding-bottom: 0;
 }
+.BBold{
+  font-size: larger;
+  font-weight: 400;
+}

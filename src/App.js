@@ -41,6 +41,7 @@ import JobS_Hire from './Components/home/freelancer/jobs_hire';
 import JobS_Hire_Client from './Components/Profile/client_profile/jobs_hires_client';
 import JobS_Finish_Client from './Components/Profile/client_profile/jobs_finish_client';
 import Chat from './Components/chat/chat';
+import NavBarIndex from './Components/index/navbar_index';
 
 
 
@@ -90,6 +91,7 @@ function App() {
       <Route path='/jobs_finish_client/' element={<JobS_Finish_Client/>}/>
       <Route path='/chat' element={<Chat/>}/>
       <Route path='/chat/:id' element={<Chat/>}/>
+      <Route path='/nav' element={<NavBarIndex/>}/>
       <Route path='*' element={<Error/>} />
       </Routes>
       </BrowserRouter>
