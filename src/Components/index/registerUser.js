@@ -267,7 +267,11 @@ class RegisterUser extends Component {
               </div>
             </section>
           </div>
-
+          <div style={
+            {
+              height: "250px"
+            }
+          }></div>
 
           <Footer/>
         </div>
