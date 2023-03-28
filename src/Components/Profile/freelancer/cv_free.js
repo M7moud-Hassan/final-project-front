@@ -17,6 +17,7 @@ class Cv_free extends Component {
       cost:0,
       socket:null,
       title:'',
+      is_chat:false,
     };
   }
 
@@ -32,6 +33,20 @@ class Cv_free extends Component {
     return arr;
   }
   componentDidMount() {
+    window.addEventListener('beforeunload',function(){
+      if(localStorage.getItem("type")=="user"){
+        axios.post('http://localhost:8000/chat/de_active_client/',{
+          id:localStorage.getItem("uid")
+        }).then(res=>{
+         
+        })
+      }else{
+        axios.post('http://localhost:8000/chat/de_active_Free/',{
+          id:localStorage.getItem("uid")
+        })
+      }
+      return false;
+    })
     const newSocket = new WebSocket('ws://127.0.0.1:8000/ws/notificationsfree/');
         newSocket.onopen = () => {
           console.log('WebSocket connected');
@@ -60,6 +75,13 @@ class Cv_free extends Component {
       .catch(error => {
         this.setState({ error: error, isLoading: false });
       });
+
+      axios.post('http://localhost:8000/chat/checkChatBegin/',{
+        client:localStorage.getItem("uid"),
+        free:this.state.free
+      }).then(res=>{
+        this.setState({is_chat:res.data})
+      })
   }
 
 
@@ -96,15 +118,32 @@ class Cv_free extends Component {
               <div class="col-md-8">
                 <div className='row'>
                   <div className='col-md-6'>
-                    <h2 class="mb-4">About Me</h2>
+                    <h2 class="mb-4">About Freelancer</h2>
 
                   </div>
                   <div className='col-md-6'>
-                    <button type="button" class="btn btn-primary rounded-pill mx-1" >
+                    <button type="button" class="btn btn-primary rounded-pill mx-1" onClick={
+                      ()=>{
+                        const newSocket = new WebSocket("ws://127.0.0.1:8000/ws_client/user"+localStorage.getItem("uid")+"/");
+                        newSocket.onopen = () => {
+                        if(!this.state.is_chat){
+                          newSocket.send(JSON.stringify({
+                            "free": this.state.free,
+                            "client":localStorage.getItem("uid"),
+                            "message":'client open with you interview',
+                            "room":"free"+this.state.free
+                          }))
+                        }
+                      };
+                      
+                    window.location="/chat/"+this.state.free
+                      }
+                    }>
                       Chat
                     </button>
-                    <button type="button" class="btn btn-success rounded-pill mx-1" onClick={
+                    {!this.state.is_chat?(<div></div>): <button type="button"  class="btn btn-success rounded-pill mx-1" onClick={
                       ()=>{
+                        
                         axios.post('http://localhost:8000/home/hire/',{
                           user:localStorage.getItem("uid"),
                           free:this.state.free,
@@ -128,7 +167,7 @@ class Cv_free extends Component {
                       }
                     }>
                     Hire
-                    </button>
+                    </button>}
 
 
                   </div>
@@ -245,6 +284,10 @@ class Cv_free extends Component {
           {this.state.data.reviews.map(ele=>{
             return (
               <div>
+                                 <div class="chip">
+  <img src={"http://localhost:8000"+ele.client.image} alt="Person" width="96" height="96"/>
+  {ele.client.fname} {ele.client.lname}
+</div> 
                  <div>
           <div class="ratings">
               {this.calRate(ele.rate)?(this.calRate(ele.rate).map(ele=>{

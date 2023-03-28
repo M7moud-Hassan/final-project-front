@@ -28,6 +28,20 @@ const PaymentFreeLancer = () => {
     }, []);
 
     useEffect(() => {
+        window.addEventListener('beforeunload',function(){
+            if(localStorage.getItem("type")=="user"){
+              axios.post('http://localhost:8000/chat/de_active_client/',{
+                id:localStorage.getItem("uid")
+              }).then(res=>{
+               
+              })
+            }else{
+              axios.post('http://localhost:8000/chat/de_active_Free/',{
+                id:localStorage.getItem("uid")
+              })
+            }
+            return false;
+          })
         axios.post(`http://127.0.0.1:8000/profile/freePaymentCards/`, { free_id: localStorage.getItem('uid') })
             .then(res => {
                 if (res.data != 'not found') {

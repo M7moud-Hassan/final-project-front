@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import Footer from './index/Footer';
-import NavBar from './index/navbar';
+import NavBar from './index/navbar_index';
 import Part1Home from './index/part1_home';
 import Part2Home from './index/part2Home';
+import Footer from './Profile/freelancer/Footer';
 
 class Home extends Component{
     constructor(){

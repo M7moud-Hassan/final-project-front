@@ -16,7 +16,8 @@ class NavBar extends Component {
       notifications: [],
       socket: null,
       down: false,
-      isMenu: false
+      isMenu: false,
+      numMessage:0
 
     }
   }
@@ -79,6 +80,38 @@ class NavBar extends Component {
     //  this.setState({notifications: [...this.state.notifications, message]})
   };
   componentDidMount() {
+
+    const newSocket2 = new WebSocket(localStorage.getItem("type")=="free"?("ws://127.0.0.1:8000/ws_free/free"+localStorage.getItem("uid")+"/"):("ws://127.0.0.1:8000/ws_client/user"+localStorage.getItem("uid")+"/"));
+        newSocket2.onopen = () => {
+        
+      };
+      
+      newSocket2.onmessage = (event) => {
+        this.setState({numMessage:this.state.numMessage+1})
+
+      };
+    newSocket2.onclose = () => {
+      
+    };
+    axios.post(localStorage.getItem("type")=="user"?('http://localhost:8000/chat/getUnreadMessagesClient/'):('http://localhost:8000/chat/getUnreadMessagesFree/'),{
+      id:localStorage.getItem("uid")
+  }).then(res=>{
+    this.setState({numMessage:res.data})
+  })
+    window.addEventListener('beforeunload',function(){
+      if(localStorage.getItem("type")=="user"){
+        axios.post('http://localhost:8000/chat/de_active_client/',{
+          id:localStorage.getItem("uid")
+        }).then(res=>{
+         
+        })
+      }else{
+        axios.post('http://localhost:8000/chat/de_active_Free/',{
+          id:localStorage.getItem("uid")
+        })
+      }
+      return false;
+    })
     axios.post(localStorage.getItem("type") == "user" ? "http://127.0.0.1:8000/profile/clientDetails/" : "http://127.0.0.1:8000/profile/get_details_free/",
       {
         "id": localStorage.getItem('uid')
@@ -91,7 +124,19 @@ class NavBar extends Component {
       });
     const newSocket = new WebSocket(localStorage.getItem("type") == "user" ? 'ws://127.0.0.1:8000/ws/notifications/' : 'ws://127.0.0.1:8000/ws/notificationsfree/');
     newSocket.onopen = () => {
-      console.log('WebSocket connected Navbar');
+      if(localStorage.getItem("type")=="user"){
+        axios.post('http://localhost:8000/chat/active_client/',{
+          id:localStorage.getItem("uid")
+        }).then(res=>{
+          if(res.data=='ok'){
+            console.log("active");
+          }
+        })
+      }else{
+        axios.post('http://localhost:8000/chat/active_Free/',{
+          id:localStorage.getItem("uid")
+        })
+      }
       this.setState({ socket: newSocket })
 
     };
@@ -113,6 +158,19 @@ class NavBar extends Component {
           };
           newSocket.onclose = () => {
             console.log('WebSocket closed');
+            if(localStorage.getItem("type")=="user"){
+              axios.post('http://localhost:8000/chat/de_active_client/',{
+                id:localStorage.getItem("uid")
+              }).then(res=>{
+                if(res.data=='ok'){
+                  console.log("active");
+                }
+              })
+            }else{
+              axios.post('http://localhost:8000/chat/de_active_Free/',{
+                id:localStorage.getItem("uid")
+              })
+            }
             this.setState({ socket: null })
           };
         })
@@ -191,16 +249,22 @@ class NavBar extends Component {
                   </li>
                 </ul>
                 <ul className='mt-3'>
+                  
                   <li className="nav-item dropdown dropFont">
+                 {this.state.numMessage?(<span class="notification-badge">{
+                         this.state.numMessage
+                        }</span>):(<div></div>)} 
                     <a className="nav-link text-dark" href="#" onClick={
                       (e) => {
                         e.preventDefault()
+                        this.setState({numMessage:0})
                         window.location = '/chat'
                       }
                     }>
                       Message
+                     
                     </a>
-
+                    
                   </li>
                 </ul>
                 <ul className='mt-3'>
@@ -282,7 +346,11 @@ class NavBar extends Component {
                     }
 
                     <div className='d-flex  ms-3  text-center floats'>
-                      <div className='mt-2'><i class="fa-solid fa-question btn btn-lg"></i>
+                      <div className='mt-2' onClick={
+                        ()=>{
+                          window.location='/Help'
+                        }
+                      }><i class="fa-solid fa-question btn btn-lg"></i>
                       </div>
 
                       <div class="notification-container ms-3 mt-2" onClick={this.toggleNotifi}>
@@ -354,7 +422,19 @@ class NavBar extends Component {
             <NavLink to={localStorage.getItem("type") == "user" ? ('/clientsettings') : ('/Freelancersettings')}><h5>Settings</h5></NavLink>
             <NavLink onClick={
               () => {
+                if(localStorage.getItem("type")=="user"){
+                  axios.post('http://localhost:8000/chat/de_active_client/',{
+                    id:localStorage.getItem("uid")
+                  }).then(res=>{
+                   
+                  })
+                }else{
+                  axios.post('http://localhost:8000/chat/de_active_Free/',{
+                    id:localStorage.getItem("uid")
+                  })
+                }
                 localStorage.clear()
+
                 window.location = "/"
               }
             }>

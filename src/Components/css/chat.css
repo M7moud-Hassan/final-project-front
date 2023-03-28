@@ -4,11 +4,15 @@
     left: 0;
     top: 0;
     padding: 20px;
-    z-index: 7
+    z-index: 7;
+    max-height:500px;
+    overflow-y: auto;
 }
 
 .chat-app .chat {
     margin-left: 280px;
+    max-height:500px;
+    overflow-y: auto;
     border-left: 1px solid #eaeaea
 }
 
@@ -173,11 +177,11 @@
 }
 
 .online {
-    color: #86c541
+    color: #86c541 
 }
 
 .offline {
-    color: #e47297
+    color: #e47297  
 }
 
 .me {
