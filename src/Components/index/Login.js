@@ -1,6 +1,8 @@
 import { useState } from "react";
 import axios from "axios";
 import { NavLink } from "react-router-dom";
+import Footer from "../Profile/freelancer/Footer";
+import NavBarIndex from "./navbar_index";
 
 function Login() {
    
@@ -65,28 +67,10 @@ function Login() {
     }else{
     return (
         <div>
-            <nav className="navbar navbar-expand-lg bg-body-tertiary ">
+          <NavBarIndex/>
+          <div>
 
-                <div className='container d-flex text-center'>
-                    <div className="col-3">
-                    <NavLink onClick={
-                        ()=>{
-                            window.location='/'
-                        }
-                    }><img id='logo' className='ms-5' src='\images\upwork.png' /></NavLink>
-                    </div>
-                    <div className="col-6" ></div>
-                    <div className="input-group ms-5  col-3 ">
-                        <a className="btn btn-success border-0 rounded text-light" onClick={
-                            ()=>{
-                                window.location='/choose_account'
-                            }
-                        }>Sign Up</a>
-                    </div>
-
-                </div>
-            </nav>
-            <div className="text-center">
+          <div className="text-center">
                 <div className={typeErro}>
                     {msg}
                 </div></div>
@@ -166,6 +150,14 @@ function Login() {
                 </section>
 
             </div>
+          </div>
+         <div style={
+            {
+                height:"50px"
+            }
+         }></div>
+          <Footer/>
+        
         </div>
     )
                     }
