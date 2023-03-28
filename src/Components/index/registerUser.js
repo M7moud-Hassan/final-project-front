@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
+import Footer from '../Profile/freelancer/Footer';
 
 
 class RegisterUser extends Component {
@@ -130,7 +131,7 @@ class RegisterUser extends Component {
           <div className="container">
 
             <section className="vh-100 gradient-custom">
-              <div className="container py-5 h-100">
+              <div className="container  h-100">
                 <div className="row justify-content-center align-items-center h-100">
                   <div className="col-12 col-lg-9 col-xl-7">
                     <div className="card shadow-2-strong card-registration my-5" id='register_form_card'>
@@ -268,7 +269,7 @@ class RegisterUser extends Component {
           </div>
 
 
-
+          <Footer/>
         </div>
 
 
