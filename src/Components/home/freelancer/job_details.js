@@ -143,13 +143,13 @@ class Job_details extends Component {
                                                     if (ind == 0) {
                                                         return (
                                                             <div class="carousel-item active">
-                                                                <img src={"http://localhost:8000" + ele} class="d-block w-100 image_slid" alt="..." />
+                                                                <img src={"http://localhost:8000" + ele} class="d-block w-100 image_slid imgCoverAddDetails" alt="..." />
                                                             </div>
                                                         )
                                                     } else {
                                                         return (
                                                             <div class="carousel-item">
-                                                                <img src={"http://localhost:8000" + ele} class="d-block w-100 image_slid" alt="..." />
+                                                                <img src={"http://localhost:8000" + ele} class="d-block w-100 image_slid imgCoverAddDetails" alt="..." />
                                                             </div>
                                                         )
                                                     }
@@ -288,7 +288,7 @@ class Job_details extends Component {
                         </div>
 
                         <div class="container myconatiner pt-4">
-                            <h3 class="text-left ml-4">your cover to {this.state.data.title}</h3>
+                            <h3 class="text-left p-4">Your cover to {this.state.data.title}</h3>
                             <div class="container mycontainer">
 
                                 <p>{this.state.cover.cover}</p>
@@ -314,19 +314,19 @@ class Job_details extends Component {
                                     }
 
                                 </div>
-                                <div class="carousel-inner">
+                                <div className="carousel-inner mb-5">
                                     {
                                         this.state.cover ? (this.state.cover.images.map((ele, ind) => {
                                             if (ind == 0) {
                                                 return (
                                                     <div class="carousel-item active">
-                                                        <img src={"http://localhost:8000" + ele.image} class="d-block w-100 image_slid" alt="..." />
+                                                        <img src={"http://localhost:8000" + ele.image} className="d-block w-100 image_slid imgCoverAddDetails" alt="..." />
                                                     </div>
                                                 )
                                             } else {
                                                 return (
                                                     <div class="carousel-item">
-                                                        <img src={"http://localhost:8000" + ele.image} class="d-block w-100 image_slid" alt="..." />
+                                                        <img src={"http://localhost:8000" + ele.image} class="d-block w-100 image_slid imgCoverAddDetails" alt="..." />
                                                     </div>
                                                 )
                                             }
@@ -345,7 +345,7 @@ class Job_details extends Component {
                                     <span class="visually-hidden">Next</span>
                                 </button>
                             </div>
-                            <div class="input-group mb-3">
+                            <div class="input-group mb-3 ">
                                 <div className='mt-4'></div>
                                 <br />
                                 <span class="input-group-text">Cost</span>

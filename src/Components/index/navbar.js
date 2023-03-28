@@ -17,7 +17,7 @@ class NavBar extends Component {
               <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
               </button>
-              <NavLink to={'/'}><img id='logo' className='ms-5' src='\images\upwork.png' /></NavLink>
+              <NavLink to={'/'}><img id='logo' className='ms-5' src='\images\inLogo.png' /></NavLink>
           <div class="collapse navbar-collapse" id="navbarScroll">
           <div className='d-flex'>
           <ul className='mt-3'>

@@ -60,16 +60,16 @@ let Footer = () => {
 
                             <ul className="list-unstyled mb-0 mt-3">
                                 <li>
-                                    <p className="text-white">Link 1</p>
+                                    <p className="text-white">Hire Employees for a long term Projects</p>
                                 </li>
                                 <li>
-                                    <p className="text-white">Link 2</p>
+                                    <p className="text-white">Hire Employees for a part-time Jobs</p>
                                 </li>
                                 <li>
-                                    <p className="text-white">Link 3</p>
+                                    <p className="text-white">Hire Employees for a full-time Jobs</p>
                                 </li>
                                 <li>
-                                    <p className="text-white">Link 4</p>
+                                    <p className="text-white">Raise your Company</p>
                                 </li>
                             </ul>
                         </div>

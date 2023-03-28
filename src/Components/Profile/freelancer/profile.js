@@ -855,7 +855,7 @@ class Profile extends Component {
                         </div>
                     </div>
 
-                    <div className="container-border my-4 p-4 row">
+                    <div className="other-border my-4 p-4 row">
                         <div className="d-flex justify-content-between align-items-center">
                             <h4 className="mb-0">Certifications</h4>
                             <div>
@@ -901,14 +901,9 @@ class Profile extends Component {
 
                         ))}
 
-
-
-
-
-
                     </div>
 
-                    <div className="container-border my-4 p-4">
+                    <div className="other-border my-4 p-4">
                         <div className="d-flex justify-content-between align-items-center">
                             <h4 className="mb-0">My Employment History</h4>
                             <div>
@@ -1489,7 +1484,7 @@ class Profile extends Component {
                     }
 
                 } novalidate>
-                    <div className=" formx form-content animate p-5">
+                    <div className=" formx form-content animate mt-0 p-4 BorderRadiusClass">
                         <div class="maimgcontainer">
                             <span class="close" onClick={
                                 () => {
@@ -1618,7 +1613,7 @@ class Profile extends Component {
 
                 } novalidate>
 
-                    <div className=" formx form-content animate p-5">
+                    <div className=" formx form-content animate p-4 BorderRadiusClass">
                         <div class="maimgcontainer">
                             <span class="close" onClick={
                                 () => {

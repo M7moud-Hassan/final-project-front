@@ -2,6 +2,8 @@ import { NavLink } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import axios
     from "axios";
+import NavBar from "../freelancer/navbar";
+import Footer from "../freelancer/Footer";
 const PaymentUser = () => {
 
     const [client_id, setId] = useState('');
@@ -62,6 +64,8 @@ const PaymentUser = () => {
     }
 
     return (
+        <div>
+            <NavBar/>
         <div className="container">
             <div className="container w-75 paymentModal  ms-5 border border-success " ref={paymentSection}>
                 <div className=" container mt-3">
@@ -223,7 +227,7 @@ const PaymentUser = () => {
                         </ol>
                     </div>
                 </div>
-                <div className="col-md-8 ">
+                <div className="col-md-8 mb-5">
                     <h2>Billing & Method</h2>
                     <div className="container mt-3 settingBody">
                         <h3 className="mt-3 ">Billing Method </h3>
@@ -235,7 +239,7 @@ const PaymentUser = () => {
                         </button>
 
                         <p className=" text-start ms-3 me-3">Your billing method will charged only when your available balance from Upwork earnings is not sufficient to pay for your monthly membership and/or Connects.</p>
-                        <div className=" container text-start mt-3">
+                        <div className=" container text-start mt-3 ">
                             {cards?(cards.map(card => (
                                 <div className="PaymentContainer p-4" key={card.id}>
                                     <h6 className="text-dark">Card Number : <span className="text-muted"> {card.id}</span></h6>
@@ -253,6 +257,8 @@ const PaymentUser = () => {
                     </div>
                 </div>
             </div>
+        </div>
+        <Footer/>
         </div>
 
     )

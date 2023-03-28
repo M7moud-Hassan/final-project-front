@@ -1,6 +1,8 @@
 import { NavLink } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
+import NavBar from './navbar';
+import Footer from './Footer';
 
 const PaymentFreeLancer = () => {
 
@@ -42,9 +44,9 @@ const PaymentFreeLancer = () => {
           })
         axios.post(`http://127.0.0.1:8000/profile/freePaymentCards/`, { free_id: localStorage.getItem('uid') })
             .then(res => {
-                if(res.data!='not found'){
-                setCards(res.data);
-                console.log(cards)
+                if (res.data != 'not found') {
+                    setCards(res.data);
+                    console.log(cards)
                 }
             })
             .catch(err => {
@@ -63,7 +65,9 @@ const PaymentFreeLancer = () => {
 
 
 
-    return (
+    return (<div>
+
+        <NavBar />
         <div className="container">
             <div className="container w-75 paymentModal  ms-5 border border-success " ref={paymentSection}>
                 <div className=" container mt-3">
@@ -118,7 +122,7 @@ const PaymentFreeLancer = () => {
                         <div className="row text-start">
                             <div className="col-md-4 mt-3">
                                 <label for="city"><i className="fa fa-institution"></i> City</label>
-                                <input type="text" id="city" name="city"  required className="form-control" placeholder="Just Enter your city"
+                                <input type="text" id="city" name="city" required className="form-control" placeholder="Just Enter your city"
                                     value={cityz}
                                     onChange={
                                         (e) => {
@@ -138,7 +142,7 @@ const PaymentFreeLancer = () => {
                             </div>
                             <div className="col-md-4 mt-3">
                                 <label for="zip">Zip</label>
-                                <input type="text" id="Zip_code" name="Zip_code" required  pattern="[0-9]{5}" className="form-control" placeholder="10001"
+                                <input type="text" id="Zip_code" name="Zip_code" required pattern="[0-9]{5}" className="form-control" placeholder="10001"
                                     value={Zip_codez}
                                     onChange={
                                         (e) => {
@@ -225,7 +229,7 @@ const PaymentFreeLancer = () => {
                         </ol>
                     </div>
                 </div>
-                <div className="col-md-8 ">
+                <div className="col-md-8 mb-5">
                     <h2>Billing & Method</h2>
                     <div className="container mt-3 settingBody">
                         <h3 className="mt-3 ">Billing Method </h3>
@@ -256,6 +260,8 @@ const PaymentFreeLancer = () => {
                 </div>
             </div>
         </div>
+        <Footer/>
+    </div>
 
     )
 

@@ -60,12 +60,12 @@ class JobS_Finish_Client extends Component {
     render() {
         return (<div>
             <NavBar />
-            <div className='row mb-5'>
+            <div className='row mb-5 container'>
                 {this.state.hirs.map(hire => (
-                    <div className='col-md-4 mt-3'>
+                    <div className='col-md-5 m-4'>
                         <div className='profileCards2 container pCards2 text-dark' >
 
-                            <div className=' ps-3 mt-1 h4 text-muted'>
+                            <div className=' mt-1 h4 text-muted text-center'>
                                 {hire.job.title}
                             </div>
 
@@ -115,7 +115,7 @@ class JobS_Finish_Client extends Component {
                                 </div>
 
                             </div>
-                            <div class="chip w-100">
+                            <div class="chip ">
                                 <img src={"http://localhost:8000" + hire.free.user_image} alt="Person" width="96" height="96" />
                                 {hire.free.first_name}  {hire.free.last_name}
                             </div>
@@ -189,18 +189,18 @@ class JobS_Finish_Client extends Component {
                         }
                     }>
 
-                        <div class="location mt-4">
+                        <div class="location mt-4 container">
 
-                            <textarea className='w-100' rows={5} placeholder='type review' id='review' required>
+                            <textarea className='form-control ' rows={5} placeholder='type review' id='review' required>
                             </textarea>
                         </div>
 
 
                         <div class="rate bg-success py-3 text-white mt-3">
 
-                            <h6 class="mb-0">Rate your Freelancer</h6>
+                            <h6 class="">Rate your Freelancer</h6>
 
-                            <div class="rating"> <input type="radio" name="rating" value="5" id="5" />
+                            <div class="rating "> <input type="radio" name="rating" value="5" id="5" />
                                 <label for="5">☆</label> <input type="radio" name="rating" value="4" id="4" />
                                 <label for="4">☆</label> <input type="radio" name="rating" value="3" id="3" />
                                 <label for="3">☆</label> <input type="radio" name="rating" value="2" id="2" />
@@ -209,9 +209,9 @@ class JobS_Finish_Client extends Component {
                             </div>
 
 
-                            <div class="buttons px-4 mt-0">
+                            <div class="buttons mb-5">
 
-                                <button class="btn btn-warning btn-block rating-submit">Submit</button>
+                                <button class="btn btn-warning btn-block text-light rating-submit">Submit</button>
                             </div>
                         </div>
                     </form>
