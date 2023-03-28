@@ -60,7 +60,7 @@ const ClientProfile = () => {
         const timestamp = create_at;
         const date = new Date(timestamp);
         const now = new Date();
-        
+        now.setHours(now.getHours() + 2);
         const diffMs = now.getTime() - date.getTime();
         const diffSeconds = Math.floor(diffMs / 1000);
         const diffMinutes = Math.floor(diffMs / 60000);
