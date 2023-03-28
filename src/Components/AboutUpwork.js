@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import Footer from "./index/Footer";
 import NavBarIndex from "./index/navbar_index";
-import NavBar from "./index/navbar_index";
+import NavBar from "./Profile/freelancer/navbar";
 
 
 let About = () => {

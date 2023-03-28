@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { Component, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
+import Footer from '../Profile/freelancer/Footer';
 
 let Type_new_password = () => {
  
@@ -15,7 +16,7 @@ let Type_new_password = () => {
         .then ((res)=> {
           if(res.data=='ok'){
             localStorage.clear()
-            window.location='/login/'
+            window.location='/login'
           }
         }).catch((error)=>console.log(error))
       
@@ -116,8 +117,8 @@ let Type_new_password = () => {
             </div>
           </div>
         </section>
-
       </div>
+      <Footer/>
     </div>
   )
                         }}

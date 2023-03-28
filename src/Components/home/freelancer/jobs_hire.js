@@ -3,6 +3,7 @@ import '../../css/cv_free.css';
 
 import axios from 'axios';
 import NavBar from '../../Profile/freelancer/navbar';
+import Footer from '../../Profile/freelancer/Footer';
 
 class JobS_Hire extends Component {
   constructor() {
@@ -193,6 +194,7 @@ newSocket.onclose = () => {
     </div>
 </div>
 </div>
+<Footer/>
     </div>)
   }
 }

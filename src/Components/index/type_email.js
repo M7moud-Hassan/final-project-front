@@ -1,5 +1,6 @@
 import React, { Component, useState } from 'react';
 import axios from "axios";
+import Footer from '../Profile/freelancer/Footer';
 
 let TypeEmail = () => {
  
@@ -84,6 +85,7 @@ window.location = '/home_freelancer'
           </section>
 
         </div>
+        <Footer/>
       </div>
 
     )

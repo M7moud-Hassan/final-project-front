@@ -497,25 +497,7 @@ class HomeFreeLancer extends Component {
 
                                     </div>
 
-                                    <div class="container-border my-2">
-                                        <div class="card text-center">
-                                            <div class="card-body ">
-                                                <div class="my-3">
-                                                    <h5>Project Catalog</h5>
-                                                    <a href="#" class="text-center text-success">My Project Dashboard</a>
-                                                </div>
-                                                <div class="my-3 ">
-                                                    <a href="#" class="text-center text-success small">Create a Catalog project for</a>
-                                                    <p class="small">clients to purchase instantly</p>
-
-                                                </div>
-
-                                            </div>
-                                        </div>
-
-
-
-                                    </div>
+                                   
 
 
 
