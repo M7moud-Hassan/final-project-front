@@ -1,5 +1,6 @@
 import { useEffect } from "react"
 import { NavLink } from "react-router-dom"
+import Footer from "../Profile/freelancer/Footer";
 let Nxsignup = () => {
    
     var useraccount = 0
@@ -90,6 +91,7 @@ let Nxsignup = () => {
                     </div>
                 </div>
             </div>
+            <Footer/>
         </div>
 
     )
