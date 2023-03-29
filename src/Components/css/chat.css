@@ -5,13 +5,13 @@
     top: 0;
     padding: 20px;
     z-index: 7;
-    max-height:500px;
+    height:500px;
     overflow-y: auto;
 }
 
 .chat-app .chat {
     margin-left: 280px;
-    max-height:500px;
+    height:500px;
     overflow-y: auto;
     border-left: 1px solid #eaeaea
 }

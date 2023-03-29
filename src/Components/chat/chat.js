@@ -157,8 +157,7 @@ connectSocket(p){
       }).catch(error=>{
         this.setState({messages:[]})
       })
-      var objDiv = document.getElementById("chat_id");
-      objDiv.scrollTop = objDiv.scrollHeight;
+    
 }
 getNumReads(id){
     var num=0
@@ -173,6 +172,13 @@ getNumReads(id){
 }
     render(){
 
+       
+        window.onload = function() {
+          var myDiv = document.getElementById("chat_id");
+         
+          myDiv.scrollTop = myDiv.scrollHeight - myDiv.clientHeight;
+        }
+    
       
         return (
         <div>
