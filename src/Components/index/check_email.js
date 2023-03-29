@@ -1,8 +1,10 @@
 import axios from 'axios';
+import NavBar from '../Profile/freelancer/navbar';
 
 let Check_email = () => {
     return (
         <div>
+            <NavBar/>
             <div className="container ">
                 <section className="vh-100 gradient-custom">
                     <div className="container py-5 h-100">
