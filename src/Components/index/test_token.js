@@ -24,6 +24,12 @@ let TestToken =()=>
                 .post("http://127.0.0.1:8000/auth/rest_password_view_user/", {
             "uid":uid,
             "token":token
+        }).then(result=>{
+            if(result.data.id){
+                localStorage.setItem("uid_ser",result.data.id)
+                localStorage.setItem("type_ser",type)
+               window.location='/rest_password_verfy'
+            }
         });
        
            }
