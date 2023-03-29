@@ -1,8 +1,8 @@
 let Footer = () => {
     return (
-       
-        <footer className="text-center text-lg-start text-white rounded " id="footer">
-            <div className="container p-4 pb-0 mt-5">
+       <div className="heightFooter">
+        <footer className="text-center   rounded mt-5" id="footer">
+            <div className="container p-4  mt-5">
                 <section className="">
                     <div className="row">
                         <div className="col-lg-3 col-md-6 mb-5 mb-md-0">
@@ -130,7 +130,7 @@ let Footer = () => {
                 <a className="text-white" href="https://mdbootstrap.com/">ITI-sohag-Full Stack python</a>
             </div>
         </footer>
-        
+        </div>
     )
 }
 export default Footer;
