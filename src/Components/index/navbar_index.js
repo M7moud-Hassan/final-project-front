@@ -11,7 +11,7 @@ class NavBarIndex extends Component {
   render() {
     return (
       <div>
-        <nav className="navbar navbar-expand-lg bg-body-tertiary navbarReducePadding ">
+        <nav className="navbar navbar-expand-lg bg-body-tertiary navbarReducePadding shadow-sm">
 
           <div className='container-fluid'>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
