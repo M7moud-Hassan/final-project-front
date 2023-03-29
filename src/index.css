@@ -790,3 +790,6 @@ ol.ordered {
   padding-bottom: 3%;
   border-radius: 10px;
 }
+.cardImageHome{
+  border-radius: 50%;
+}

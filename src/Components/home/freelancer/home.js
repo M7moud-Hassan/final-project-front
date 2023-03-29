@@ -25,51 +25,51 @@ class HomeFreeLancer extends Component {
         const date = new Date(timestamp);
         const now = new Date();
         now.setHours(now.getHours() + 2);
-        
+
         const diffMs = now.getTime() - date.getTime();
         const diffSeconds = Math.floor(diffMs / 1000);
         const diffMinutes = Math.floor(diffMs / 60000);
         const diffHours = Math.floor(diffMs / 3600000);
         const diffDays = Math.floor(diffMs / 86400000);
-        
+
         let diffString = '';
-        
+
         if (diffDays > 0) {
-          diffString += `${diffDays} day${diffDays > 1 ? 's' : ''} `;
+            diffString += `${diffDays} day${diffDays > 1 ? 's' : ''} `;
         }
         if (diffHours > 0) {
-          diffString += `${diffHours % 24} hour${diffHours % 24 > 1 ? 's' : ''} `;
+            diffString += `${diffHours % 24} hour${diffHours % 24 > 1 ? 's' : ''} `;
         }
         if (diffMinutes > 0) {
-          diffString += `${diffMinutes % 60} minute${diffMinutes % 60 > 1 ? 's' : ''} `;
+            diffString += `${diffMinutes % 60} minute${diffMinutes % 60 > 1 ? 's' : ''} `;
         }
         if (diffSeconds > 0) {
-          diffString += `${diffSeconds % 60} second${diffSeconds % 60 > 1 ? 's' : ''} `;
+            diffString += `${diffSeconds % 60} second${diffSeconds % 60 > 1 ? 's' : ''} `;
         }
-        
+
         if (diffString === '') {
-          diffString = 'just now';
+            diffString = 'just now';
         }
-        
-      return diffString; 
-        
+
+        return diffString;
+
 
     }
     componentDidMount() {
-        window.addEventListener('beforeunload',function(){
-            if(localStorage.getItem("type")=="user"){
-              axios.post('http://localhost:8000/chat/de_active_client/',{
-                id:localStorage.getItem("uid")
-              }).then(res=>{
-               
-              })
-            }else{
-              axios.post('http://localhost:8000/chat/de_active_Free/',{
-                id:localStorage.getItem("uid")
-              })
+        window.addEventListener('beforeunload', function () {
+            if (localStorage.getItem("type") == "user") {
+                axios.post('http://localhost:8000/chat/de_active_client/', {
+                    id: localStorage.getItem("uid")
+                }).then(res => {
+
+                })
+            } else {
+                axios.post('http://localhost:8000/chat/de_active_Free/', {
+                    id: localStorage.getItem("uid")
+                })
             }
             return false;
-          })
+        })
         const newSocket = new WebSocket('ws://127.0.0.1:8000/ws/notifications/');
         newSocket.onopen = () => {
             console.log('WebSocket connected');
@@ -126,7 +126,7 @@ class HomeFreeLancer extends Component {
                                                 }
                                             }
                                         }>
-                                            <div class="input-group">
+                                            <div class="input-group w-100">
                                                 <input type="text" class="form-control" id='search_id' placeholder="Search for jobs..." />
                                                 <div class="input-group-append">
                                                     <button type="submit" class="btn btn-success"><i
@@ -187,7 +187,7 @@ class HomeFreeLancer extends Component {
 
 
 
-                                                                    <a name="" class="btn btn-primary rounded-pill btn-sm mx-1" onClick={
+                                                                    <a name="" class="btn btn-success rounded-pill btn-sm mx-1" onClick={
                                                                         () => {
 
                                                                             if (document.getElementById("dislike" + element.id).style.color == 'red') {
@@ -354,7 +354,7 @@ class HomeFreeLancer extends Component {
                                                                             }
                                                                         }
                                                                     }
-                                                                        role="button"><i class="fa-solid fa-heart" id={"like" + element.id} style={
+                                                                        role="button"><i class="fa fa-thumbs-up" id={"like" + element.id} style={
                                                                             {
 
                                                                                 color: islike ? "red" : "white"
@@ -475,7 +475,7 @@ class HomeFreeLancer extends Component {
                                 <div class=" col-md-3 px-2">
                                     <div class="container-border my-2">
                                         <div class="card text-center">
-                                            <img src={"http://localhost:8000" + this.state.data.image} class="card-img-top rounded-pill mx-auto w-100" alt="..." />
+                                            <img src={"http://localhost:8000" + this.state.data.image} class="card-img-top p-1 mx-auto w-100" alt="..." />
                                             <div class="card-body ">
                                                 <NavLink to={'/profile_free'} class="text-center text-success">{this.state.data.fname} {this.state.data.lname}</NavLink>
                                                 <p class="card-text">{this.state.data.jobtitle}</p>
@@ -497,7 +497,7 @@ class HomeFreeLancer extends Component {
 
                                     </div>
 
-                                   
+
 
 
 
