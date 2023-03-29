@@ -534,7 +534,7 @@ const ClientProfile = () => {
 
                                     <div className='profileCards container pCards2'>
                                         <div className='mt-3'>
-                                            <h4 className='p-3'>Stay safe on Upwork</h4>
+                                            <h4 className='p-3'>Stay safe on Allwork</h4>
                                         </div>
                                         <div className='w-75 p-3'>
                                             we are doing our best to keep you safe , and it's important you learn how to indenity  and report suspicious activity
@@ -571,27 +571,27 @@ const ClientProfile = () => {
 
                                     <div className='profileCards3 container pCards2 text-center'>
                                         <div className='mt-3 p-3'>
-                                            <h4 className='text-dark'>Development & IT</h4>
+                                            <h4 className='text-dark'>Productivity</h4>
                                         </div>
-                                        <img className='w-75' src='..\..\images\Develope.avif' />
+                                        <img className='w-75' src='..\..\images\productivity.png' />
                                     </div>
                                 </div>
                                 <div className='col-md-3 col-sm-6 col-12 mt-3'>
 
                                     <div className='profileCards3 container pCards2 text-center'>
                                         <div className='mt-3'>
-                                            <h4 className='p-3 text-dark'>Marketing</h4>
+                                            <h4 className='p-3 text-dark'>Efficiency</h4>
                                         </div>
-                                        <img className='w-75' src='./images/marketing.png' />
+                                        <img className='w-75' src='./images/Efficiency.png' />
                                     </div>
                                 </div>
                                 <div className='col-md-3 col-sm-6 col-12 mt-3 text-center'>
 
                                     <div className='profileCards3 container pCards2'>
                                         <div className='mt-3 text-dark'>
-                                            <h4 className='p-3'>Design</h4>
+                                            <h4 className='p-3'>Honesty</h4>
                                         </div>
-                                        <img className='w-75' src='./images/Design.avif' />
+                                        <img className='w-75' src='./images/honesty.png' />
                                     </div>
                                 </div>
                             </div>
