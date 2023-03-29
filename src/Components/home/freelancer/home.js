@@ -187,7 +187,7 @@ class HomeFreeLancer extends Component {
 
 
 
-                                                                    <a name="" class="btn btn-success rounded-pill btn-sm mx-1" onClick={
+                                                                    <a name="" class="btn btn-success rounded-pill btn-sm mx-2" onClick={
                                                                         () => {
 
                                                                             if (document.getElementById("dislike" + element.id).style.color == 'red') {

@@ -6,7 +6,7 @@ let Error = () => {
     return (
         <div>
             <nav className='container '>
-            <NavLink to={'/'}><img className='logos' src='../images/upwork.png' /> </NavLink>
+            <NavLink to={'/'}><img className='logos' src='../images/inLogo.png' /> </NavLink>
             </nav>
             <div className='container-fluid border-bottom border-success'></div>
             

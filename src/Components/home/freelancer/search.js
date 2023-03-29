@@ -331,7 +331,7 @@ class Search extends Component {
 
 
 
-                                                                    <a name="" class="btn btn-primary rounded-pill btn-sm" onClick={
+                                                                    <a name="" class="btn btn-success rounded-pill btn-sm me-2" onClick={
                                                                         () => {
 
                                                                             if (document.getElementById("dislike" + element.id).style.color == 'red') {
@@ -497,7 +497,7 @@ class Search extends Component {
                                                                             }
                                                                         }
                                                                     }
-                                                                        role="button"><i class="fa-solid fa-heart" id={"like" + element.id} style={
+                                                                        role="button"><i class="fa fa-thumbs-up" id={"like" + element.id} style={
                                                                             {
 
                                                                                 color: islike ? "red" : "white"
@@ -558,7 +558,7 @@ class Search extends Component {
                                                             <div class=" mb-1">
 
                                                                 {element.skills.map(ele => (
-                                                                    <span class="badge bg-secondary rounded-pill">{ele.name}</span>
+                                                                    <span class="badge bg-secondary rounded-pill ms-1">{ele.name}</span>
                                                                 ))}
 
 
@@ -661,7 +661,7 @@ class Search extends Component {
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onClick={
+                                        <button type="button" class="btn btn-success" data-bs-dismiss="modal" onClick={
                                             () => {
                                                 var all = document.getElementById('all').value
                                                 var any = document.getElementById('any').value
