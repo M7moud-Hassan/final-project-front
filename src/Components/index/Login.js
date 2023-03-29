@@ -37,7 +37,7 @@ function Login() {
                     //mesg error
                 } else if (res.data.ress == 'password worng') {
                     SetTypeError('alert alert-danger')
-                    setMess('password wrong')
+                    setMess('password or email is  wrong')
                 } else if (res.data.ress == 'not complete') {
                     localStorage.setItem("id", res.data.id);
                      axios.get("http://127.0.0.1:8000/auth/get_skills/").then(sskills=>{

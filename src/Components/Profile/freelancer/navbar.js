@@ -441,15 +441,22 @@ class NavBar extends Component {
                     id: localStorage.getItem("uid")
                   }).then(res => {
 
+                  }).then(res=>{
+                    localStorage.clear()
+                    window.location = "/login"
+                  
+                   
                   })
                 } else {
                   axios.post('http://localhost:8000/chat/de_active_Free/', {
                     id: localStorage.getItem("uid")
+                  }).then(res=>{
+                    localStorage.clear()
+                    window.location = "/login"
                   })
                 }
-                localStorage.clear()
-
-                window.location = "/"
+              
+                
               }
             }>
               <h5 className='pb-4'>Logout</h5></NavLink>
