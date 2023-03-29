@@ -219,7 +219,7 @@ class Cv_free extends Component {
                              axios.post('http://localhost:8000/home/get_portfolio/',{
                               id:portfilo.id
                              }).then(res=>{
-                             
+                             console.log(res.data);
                               this.setState({port:res.data});
                              })
                             }

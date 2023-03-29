@@ -42,7 +42,11 @@ class JobS_Proposal extends Component {
                     window.location = '/'
                 }} />
 
-            <div className='row mb-5 container p-4'>
+            <div className='row mb-5 container p-4' style={
+                {
+                    cursor:"pointer"
+                }
+            }>
                 {this.state.jobs.map(job => (
                     <div className='col-md-4 mt-3'>
                         <div className='profileCards2 container pCards2 text-dark' >
