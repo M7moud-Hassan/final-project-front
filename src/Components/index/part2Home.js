@@ -1,3 +1,5 @@
+import { NavLink } from "react-router-dom";
+
 let Part2Home = () => {
     return (
         <div className="container">
@@ -92,7 +94,7 @@ let Part2Home = () => {
             <div className="col-md-6 section1Card3 ms  ">
                 <div className="section1Card3Sec">
                 <img src="images/nasdaq-light.svg" alt=""/>
-                <p className="slider-p mt-3 text-light" >“Upwork enables us to differentiate
+                <p className=" mt-3 text-light" >“Upwork enables us to differentiate
                     ourselves from our
                     competitors and produce content at a higher caliber.”</p>
                 <p><small className="text-light">Josh Machiz, Chief Digital Officer</small></p>
@@ -113,7 +115,7 @@ let Part2Home = () => {
             <div className="col-md-6 section2Card3 m-md-0  m-sm-auto ">
                 <div className="section1Card3Sec">
                 <img src="images/microsoft-lg-light.svg" alt=""/>
-                <p className="slider-p mt-3 text-light">“One of the advantages of utilizing
+                <p className=" mt-3 text-light">“One of the advantages of utilizing
                     freelancers is
                     finding talent with different skills quickly as our needs change.”</p>
                 <p><small className="text-light">Carol Taylor, Director of Content Experience</small></p>
@@ -151,22 +153,22 @@ let Part2Home = () => {
                             <hr className="mb-4 section4HR"  />
                             <div className="row m-3">
                                 <div className="col-sm-4 ">
-                                    <p className="text-light">Find opportunities for every stage of your freelance career</p>
+                                    <p className=" card-text littlefix text-light">Find opportunities for every stage of your freelance career</p>
                                 </div>
                                 <div className="col-sm-4">
-                                    <p className="text-light">Control when, where, and how you work</p>
+                                    <p className="card-text  text-light">Control when, where, and how you work</p>
                                 </div>
                                 <div className="col-sm-4">
-                                    <p className="text-light">Explore different ways to earn</p>
+                                    <p className=" card-text  text-light">Explore different ways to earn</p>
                                 </div>
                             </div>
-                            <button onClick={
+                            <NavLink to={'/help'}><button onClick={
                                 ()=>{
                                     window.location='/help'
                                 }
                             } type="button" className="btn btn-outline-light btn-rounded">
                                 Learn More
-                            </button>
+                            </button></NavLink>
                         </div>
                     </div>
                 </div>

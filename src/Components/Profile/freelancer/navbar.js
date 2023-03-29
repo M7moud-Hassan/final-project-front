@@ -257,14 +257,14 @@ class NavBar extends Component {
                   <li className="nav-item dropdown dropFont">
                     {this.state.numMessage ? (<span class="notification-badge " style={{
                       position: "absolute",
-                      top: -3,
-                      right: -3,
+
+                      right: 20,
                       transform: "translate(50%, -50%)",
-                      borderRadius: "50%",
-                      backgroundColor: "red",
-                      color: "white",
-                      fontSize: "8px",
-                      padding: "2px 5px"
+                      // borderRadius: "50%",
+                      // backgroundColor: "red",
+                      // color: "white",
+                      fontSize: "10px",
+                      padding: "1px 6px"
                     }}>{
                         this.state.numMessage
                       }</span>) : (<div></div>)}

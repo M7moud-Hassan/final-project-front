@@ -3,6 +3,7 @@ import React, { Component, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 import Footer from '../Profile/freelancer/Footer';
+import NavBarIndex from './navbar_index';
 
 let Type_new_password = () => {
  
@@ -35,7 +36,7 @@ let Type_new_password = () => {
   }else{
   return (
     <div>
-      
+              <NavBarIndex/>
       <nav class="navbar navbar-expand-lg navbar-light bg-white">
         <div class="container">
           <a class="navbar-brand" href="http://127.0.0.1:3000"><img src="images/upwork.svg" alt="Logo" /></a>
