@@ -522,10 +522,10 @@ class Profile extends Component {
                             <hr />
 
                             <div className="row">
-                                <div className="col-md-5 px-2">
+                                <div className="col-md-5 px-2 border-end">
 
 
-                                    <div className="row">
+                                    <div className="row ">
                                         <div className="col-md-12">
                                             <div className="d-flex justify-content-between align-items-center">
                                                 <h4 className="mb-3">Educations</h4>
@@ -855,8 +855,8 @@ class Profile extends Component {
                         </div>
                     </div>
 
-                    <div className="other-border my-4 p-4 row">
-                        <div className="d-flex justify-content-between align-items-center">
+                    <div className="other-border my-4 p-4 row shadow-sm">
+                        <div className="d-flex justify-content-between align-items-center mb-3">
                             <h4 className="mb-0">Certifications</h4>
                             <div>
 
@@ -869,6 +869,7 @@ class Profile extends Component {
                                     className="fa-solid fa-plus"></i></button>
                             </div>
                         </div>
+                        <hr/>
                         {this.state.data.certifications.map((certification, index) => (
                             <div key={index} className="col-md-6 mt-2  ">
                                 <div className="m-2 CertificateSectionFree ">
@@ -903,7 +904,7 @@ class Profile extends Component {
 
                     </div>
 
-                    <div className="other-border my-4 p-4">
+                    <div className="other-border my-4 p-4 shadow-sm">
                         <div className="d-flex justify-content-between align-items-center">
                             <h4 className="mb-0">My Employment History</h4>
                             <div>

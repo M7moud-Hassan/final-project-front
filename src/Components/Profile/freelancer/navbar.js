@@ -17,7 +17,7 @@ class NavBar extends Component {
       socket: null,
       down: false,
       isMenu: false,
-      numMessage:0
+      numMessage: 0
 
     }
   }
@@ -81,33 +81,33 @@ class NavBar extends Component {
   };
   componentDidMount() {
 
-    const newSocket2 = new WebSocket(localStorage.getItem("type")=="free"?("ws://127.0.0.1:8000/ws_free/free"+localStorage.getItem("uid")+"/"):("ws://127.0.0.1:8000/ws_client/user"+localStorage.getItem("uid")+"/"));
-        newSocket2.onopen = () => {
-        
-      };
-      
-      newSocket2.onmessage = (event) => {
-        this.setState({numMessage:this.state.numMessage+1})
+    const newSocket2 = new WebSocket(localStorage.getItem("type") == "free" ? ("ws://127.0.0.1:8000/ws_free/free" + localStorage.getItem("uid") + "/") : ("ws://127.0.0.1:8000/ws_client/user" + localStorage.getItem("uid") + "/"));
+    newSocket2.onopen = () => {
 
-      };
-    newSocket2.onclose = () => {
-      
     };
-    axios.post(localStorage.getItem("type")=="user"?('http://localhost:8000/chat/getUnreadMessagesClient/'):('http://localhost:8000/chat/getUnreadMessagesFree/'),{
-      id:localStorage.getItem("uid")
-  }).then(res=>{
-    this.setState({numMessage:res.data})
-  })
-    window.addEventListener('beforeunload',function(){
-      if(localStorage.getItem("type")=="user"){
-        axios.post('http://localhost:8000/chat/de_active_client/',{
-          id:localStorage.getItem("uid")
-        }).then(res=>{
-         
+
+    newSocket2.onmessage = (event) => {
+      this.setState({ numMessage: this.state.numMessage + 1 })
+
+    };
+    newSocket2.onclose = () => {
+
+    };
+    axios.post(localStorage.getItem("type") == "user" ? ('http://localhost:8000/chat/getUnreadMessagesClient/') : ('http://localhost:8000/chat/getUnreadMessagesFree/'), {
+      id: localStorage.getItem("uid")
+    }).then(res => {
+      this.setState({ numMessage: res.data })
+    })
+    window.addEventListener('beforeunload', function () {
+      if (localStorage.getItem("type") == "user") {
+        axios.post('http://localhost:8000/chat/de_active_client/', {
+          id: localStorage.getItem("uid")
+        }).then(res => {
+
         })
-      }else{
-        axios.post('http://localhost:8000/chat/de_active_Free/',{
-          id:localStorage.getItem("uid")
+      } else {
+        axios.post('http://localhost:8000/chat/de_active_Free/', {
+          id: localStorage.getItem("uid")
         })
       }
       return false;
@@ -124,17 +124,17 @@ class NavBar extends Component {
       });
     const newSocket = new WebSocket(localStorage.getItem("type") == "user" ? 'ws://127.0.0.1:8000/ws/notifications/' : 'ws://127.0.0.1:8000/ws/notificationsfree/');
     newSocket.onopen = () => {
-      if(localStorage.getItem("type")=="user"){
-        axios.post('http://localhost:8000/chat/active_client/',{
-          id:localStorage.getItem("uid")
-        }).then(res=>{
-          if(res.data=='ok'){
+      if (localStorage.getItem("type") == "user") {
+        axios.post('http://localhost:8000/chat/active_client/', {
+          id: localStorage.getItem("uid")
+        }).then(res => {
+          if (res.data == 'ok') {
             console.log("active");
           }
         })
-      }else{
-        axios.post('http://localhost:8000/chat/active_Free/',{
-          id:localStorage.getItem("uid")
+      } else {
+        axios.post('http://localhost:8000/chat/active_Free/', {
+          id: localStorage.getItem("uid")
         })
       }
       this.setState({ socket: newSocket })
@@ -158,17 +158,17 @@ class NavBar extends Component {
           };
           newSocket.onclose = () => {
             console.log('WebSocket closed');
-            if(localStorage.getItem("type")=="user"){
-              axios.post('http://localhost:8000/chat/de_active_client/',{
-                id:localStorage.getItem("uid")
-              }).then(res=>{
-                if(res.data=='ok'){
+            if (localStorage.getItem("type") == "user") {
+              axios.post('http://localhost:8000/chat/de_active_client/', {
+                id: localStorage.getItem("uid")
+              }).then(res => {
+                if (res.data == 'ok') {
                   console.log("active");
                 }
               })
-            }else{
-              axios.post('http://localhost:8000/chat/de_active_Free/',{
-                id:localStorage.getItem("uid")
+            } else {
+              axios.post('http://localhost:8000/chat/de_active_Free/', {
+                id: localStorage.getItem("uid")
               })
             }
             this.setState({ socket: null })
@@ -231,7 +231,7 @@ class NavBar extends Component {
             </button>
             <img id='logo' style={
               {
-                cursor:"pointer"
+                cursor: "pointer"
               }
             } className='ms-3' src='\images\inLogo.png' onClick={
               () => {
@@ -253,22 +253,32 @@ class NavBar extends Component {
                   </li>
                 </ul>
                 <ul className='mt-3'>
-                  
+
                   <li className="nav-item dropdown dropFont">
-                 {this.state.numMessage?(<span class="notification-badge">{
-                         this.state.numMessage
-                        }</span>):(<div></div>)} 
+                    {this.state.numMessage ? (<span class="notification-badge " style={{
+                      position: "absolute",
+                      top: -3,
+                      right: -3,
+                      transform: "translate(50%, -50%)",
+                      borderRadius: "50%",
+                      backgroundColor: "red",
+                      color: "white",
+                      fontSize: "8px",
+                      padding: "2px 5px"
+                    }}>{
+                        this.state.numMessage
+                      }</span>) : (<div></div>)}
                     <a className="nav-link text-dark" href="#" onClick={
                       (e) => {
                         e.preventDefault()
-                        this.setState({numMessage:0})
+                        this.setState({ numMessage: 0 })
                         window.location = '/chat'
                       }
                     }>
-                      Message
-                     
+                   <i class="fa-solid fa-message"></i>
+
                     </a>
-                    
+
                   </li>
                 </ul>
                 <ul className='mt-3'>
@@ -351,8 +361,8 @@ class NavBar extends Component {
 
                     <div className='d-flex  ms-3  text-center floats'>
                       <div className='mt-2' onClick={
-                        ()=>{
-                          window.location='/Help'
+                        () => {
+                          window.location = '/Help'
                         }
                       }><i class="fa-solid fa-question btn btn-lg"></i>
                       </div>
@@ -410,7 +420,7 @@ class NavBar extends Component {
                     }
                   }>&times;</span>
                   <strong className='notifi-Text'><i class="fa-solid fa-bell me-3 text-success"></i>{ele.type_of_notification}</strong>
-                  
+
                 </div>
               )
             })}
@@ -426,15 +436,15 @@ class NavBar extends Component {
             <NavLink to={localStorage.getItem("type") == "user" ? ('/clientsettings') : ('/Freelancersettings')}><h5>Settings</h5></NavLink>
             <NavLink onClick={
               () => {
-                if(localStorage.getItem("type")=="user"){
-                  axios.post('http://localhost:8000/chat/de_active_client/',{
-                    id:localStorage.getItem("uid")
-                  }).then(res=>{
-                   
+                if (localStorage.getItem("type") == "user") {
+                  axios.post('http://localhost:8000/chat/de_active_client/', {
+                    id: localStorage.getItem("uid")
+                  }).then(res => {
+
                   })
-                }else{
-                  axios.post('http://localhost:8000/chat/de_active_Free/',{
-                    id:localStorage.getItem("uid")
+                } else {
+                  axios.post('http://localhost:8000/chat/de_active_Free/', {
+                    id: localStorage.getItem("uid")
                   })
                 }
                 localStorage.clear()

@@ -177,17 +177,17 @@ class HomeFreeLancer extends Component {
                                                         <div class="container">
                                                             <div class="row my-3">
                                                                 <div class="col-md-6">
-                                                                    <NavLink onClick={
+                                                                    <NavLink className='btn btn-outline-success rounded-pill px-5' onClick={
                                                                         () => {
                                                                             window.location = 'job_details/' + element.id
                                                                         }
-                                                                    } class="text-center text-success">{element.title}</NavLink>
+                                                                    }>{element.title}</NavLink>
                                                                 </div>
                                                                 <div class="col-md-6 text-end">
 
 
 
-                                                                    <a name="" class="btn btn-primary rounded-pill btn-sm" onClick={
+                                                                    <a name="" class="btn btn-primary rounded-pill btn-sm mx-1" onClick={
                                                                         () => {
 
                                                                             if (document.getElementById("dislike" + element.id).style.color == 'red') {
