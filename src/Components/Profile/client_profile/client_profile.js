@@ -378,7 +378,6 @@ const ClientProfile = () => {
                                                         </button>
                                                     </div>
 
-fott
 
                                                 </div>
 
@@ -443,7 +442,11 @@ fott
                                                     <h6>Activity on this job</h6>
                                                     <div className='row mt-2' >
                                                         {jobsDetails.proposals ? jobsDetails.proposals.map(ele => {
-                                                            return (<div class="chip col-3" onClick={() => {
+                                                            return (<div class="chip col-3" style={
+                                                                {
+                                                                    cursor:"pointer"
+                                                                }
+                                                            } onClick={() => {
                                                                
                                                                 axios.post('http://localhost:8000/home/job_cover/', {
                                                                     id: ele.id,
@@ -655,7 +658,11 @@ fott
 
 
                                                     </div>
-                                                    <div class="carousel-inner "
+                                                    <div class="carousel-inner " style={
+                                                        {
+                                                            cursor:"pointer"
+                                                        }
+                                                    }
                                                         onClick={
                                                             () => {
                                                                 if (job.id.length == 0) {
@@ -786,7 +793,11 @@ fott
                                     </button>
                                 </div>
                                 <br />
-                                <div class="chip w-100" onClick={() => {
+                                <div  style={
+                                    {
+                                        cursor:"pointer"
+                                    }
+                                } class="chip w-100" onClick={() => {
 
                                     window.location.href = 'http://localhost:3000/cv_free/' + jobsDetails.title + "/" + applay.id + "/" + applay.cost_re + "/" + emp.id;
                                 }}>

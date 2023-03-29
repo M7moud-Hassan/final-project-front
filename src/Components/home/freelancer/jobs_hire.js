@@ -81,6 +81,9 @@ newSocket.onclose = () => {
                                                         
                                                     </div>
                                                     <div class="carousel-inner "
+                                                    style={{
+                                                      cursor:"pointer"
+                                                    }}
                                                         onClick={
                                                             () => {
                                                                 axios.post('http://127.0.0.1:8000/home/job_hire_de/',
