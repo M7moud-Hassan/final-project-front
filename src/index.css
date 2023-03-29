@@ -97,9 +97,6 @@ li {
   margin-top: 30%;
 }
 
-.section4-2>div>div>div>p {
-  font-size: 1vw;
-}
 
 .slots {
   border-radius: 20px;
@@ -409,6 +406,7 @@ ol.ordered {
 }
 
 .JobDetails {
+  justify-content: center;
   margin: auto;
   top: 0;
   display: none;
@@ -416,7 +414,7 @@ ol.ordered {
   position: fixed;
   background-color: white;
   border-radius: 20px;
-  box-shadow: 2px 2px 20px 5px #888888;
+  box-shadow: 2px 2px 1px 1px #f1f1f1;
   border: 1px groove rgb(155, 155, 155);
   overflow-y: scroll;
   height: 80%;
@@ -783,3 +781,15 @@ ol.ordered {
   height: 250px;
 }
 
+.likesBorder{
+  border: 1px groove rgb(155, 154, 154);
+
+  background-color: rgb(247, 246, 246);
+
+  padding-top: 3%;
+  padding-bottom: 3%;
+  border-radius: 10px;
+}
+.cardImageHome{
+  border-radius: 50%;
+}

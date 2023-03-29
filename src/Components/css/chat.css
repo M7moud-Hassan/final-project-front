@@ -46,6 +46,7 @@
 
 .people-list .chat-list img {
     width: 45px;
+    height: 45px;
     border-radius: 50%
 }
 
@@ -71,8 +72,10 @@
 
 .chat .chat-header img {
     float: left;
-    border-radius: 40px;
-    width: 40px
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    
 }
 
 .chat .chat-header .chat-about {
@@ -103,8 +106,10 @@
 }
 
 .chat .chat-history .message-data img {
-    border-radius: 40px;
-    width: 40px
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin-left: 2%;
 }
 
 .chat .chat-history .message-data-time {

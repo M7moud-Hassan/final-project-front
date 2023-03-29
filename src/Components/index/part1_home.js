@@ -82,30 +82,30 @@ class Part1Home extends Component {
 
         <div className="container px-4 py-4">
           <div className="row text-center ">
-            <div className="col mx-1 m-3 ms-3 slots col-lg-2 col-md-6 col-sm-12"> <div className="mt-4 ">Development&It</div>
+            <div className="col mx-1 m-3  ms-md-3 ms-1 slots  col-lg-2 col-md-5 col-12"> <div className="mt-4 ">Development&It</div>
               <span className="fa fa-star checked"></span><span className="text-muted fixedSmallFont ms-3 fixedSmallFont">4.85/5 </span><span className="ms-3 text-muted fixedSmallFont">1853skills</span>
             </div>
-            <div className="col mx-1 m-3 ms-3  slots col-lg-3 col-md-5 col-sm-12"><div className="mt-4">Design & Creative</div>
+            <div className="col mx-1 m-3  ms-md-3 ms-1 slots  col-lg-3 col-md-6 col-12"><div className="mt-4">Design & Creative</div>
               <span className="fa fa-star checked "></span><span className="text-muted fixedSmallFont">4.91/5 </span> <span className="ms-3 text-muted fixedSmallFont ">968skills</span>
             </div>
-            <div className="col mx-1 m-3 ms-3  slots col-lg-3 col-md-6 col-sm-12"><div className="mt-4">Sales & Marketing</div>
+            <div className="col mx-1 m-3  ms-md-3 ms-1 slots  col-lg-3 col-md-5 col-12"><div className="mt-4">Sales & Marketing</div>
               <span className="fa fa-star checked "></span><span className="text-muted fixedSmallFont">4.77/5 </span> <span className="ms-3 text-muted fixedSmallFont ">392skills</span>
             </div>
-            <div className="col mx-1 m-3 ms-3  slots col-lg-3 col-md-5 col-sm-12"><div className="mt-4">Writing & Translation</div>
+            <div className="col mx-1 m-3  ms-md-3 ms-1 slots  col-lg-3 col-md-6 col-12"><div className="mt-4">Writing & Translation</div>
               <span className="fa fa-star checked "></span><span className="text-muted fixedSmallFont">4.92/5</span> <span className="ms-3 text-muted fixedSmallFont ">505skills</span>
             </div>
           </div>
           <div className="row text-center x">
-            <div className="col mx-1 m-3 ms-3  slots col-lg-3 col-md-6 col-sm-12"><div className="content mt-4"> Admin &Customer Support</div>
+            <div className="col mx-1 m-3  ms-md-3 ms-1 slots  col-lg-3 col-md-6 col-12"><div className="content mt-4"> Admin &Customer Support</div>
               <span className="fa fa-star checked "></span><span className="text-muted fixedSmallFont">4.77/5 </span> <span className="ms-3 text-muted fixedSmallFont ">508skills</span>
             </div>
-            <div className="col mx-1 m-3 ms-3  slots col-lg-3 col-md-5 col-sm-12"> <div className="content mt-4">Finance & Accounting</div>
+            <div className="col mx-1 m-3  ms-md-3 ms-1 slots  col-lg-3 col-md-5 col-12"> <div className="content mt-4">Finance & Accounting</div>
               <span className="fa fa-star checked "></span><span className="text-muted fixedSmallFont">4.79/5</span> <span className="ms-3 text-muted fixedSmallFont ">214skills</span>
             </div>
-            <div className="col mx-1 m-3 ms-3  slots col-lg-3 col-md-6 col-sm-12"><div className="content mt-4">  Engineering & Architecture</div>
+            <div className="col mx-1 m-3  ms-md-3 ms-1 slots  col-lg-3 col-md-6 col-12"><div className="content mt-4">  Engineering & Architecture</div>
               <span className="fa fa-star checked "></span><span className="text-muted fixedSmallFont">4.85/5</span> <span className="ms-3 text-muted fixedSmallFont ">650skills</span>
             </div>
-            <div className="col mx-1 m-3 ms-3  slots col-lg-2 col-md-5 col-sm-12"><div className="content mt-4">Legal</div>
+            <div className="col mx-1 m-3  ms-md-3 ms-1 slots  col-lg-2 col-md-5 col-12"><div className="content mt-4">Legal</div>
               <span className="fa fa-star checked "></span><span className="text-muted fixedSmallFont">4.85/5</span> <span className="ms-3 text-muted fixedSmallFont ">133skills</span>
           </div>
         </div>

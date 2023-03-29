@@ -2,39 +2,40 @@ import React, { Component, useState } from 'react';
 import axios from "axios";
 import Footer from '../Profile/freelancer/Footer';
 
+import NavBarIndex from './navbar_index';
+
 let TypeEmail = () => {
- 
-  let [email,setEmail]=useState('')
-  const [msg,setMess]=useState('');
-  const [typeErro,SetTypeError]=useState('');
-let check_email=()=>{
- if(email!=''){
-  axios.post('http://localhost:8000/auth/email_reset_password/',
-  {email:email}) 
-  .then ((res)=> {
-    if(res.data=='ok'){
-      window.location='/please_activate/'+email
-    }else{
-      SetTypeError('alert alert-danger')
-      setMess('Email not coorect')
+
+  let [email, setEmail] = useState('')
+  const [msg, setMess] = useState('');
+  const [typeErro, SetTypeError] = useState('');
+  let check_email = () => {
+    if (email != '') {
+      axios.post('http://localhost:8000/auth/email_reset_password/',
+        { email: email })
+        .then((res) => {
+          if (res.data == 'ok') {
+            window.location = '/please_activate/' + email
+          } else {
+            SetTypeError('alert alert-danger')
+            setMess('Email not coorect')
+          }
+        }).catch((error) => console.log(error))
     }
-  }).catch((error)=>console.log(error))
- }
-}
-var type= localStorage.getItem("type");
-if(type=='free'){
-window.location = '/home_freelancer'
-}else if(type=='client')
-{
+  }
+  var type = localStorage.getItem("type");
+  if (type == 'free') {
+    window.location = '/home_freelancer'
+  } else if (type == 'client') {
     window.location = '/clientprofile'
-}else{
+  } else {
     return (
       <div>
-         
+        <NavBarIndex/>
         <div className="container ">
-        <div class={typeErro}>
-              {msg}
-              </div>
+          <div class={typeErro}>
+            {msg}
+          </div>
           <section className="vh-100 gradient-custom">
             <div className="container py-5 h-100">
               <div className="row justify-content-center align-items-center h-100">
@@ -45,7 +46,7 @@ window.location = '/home_freelancer'
                       <div className="my-3 ">
 
                         <form className="needs-validation" onSubmit={
-                          (event)=>{
+                          (event) => {
                             event.preventDefault()
                             check_email()
                           }
@@ -58,13 +59,13 @@ window.location = '/home_freelancer'
                                   pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}"
                                   className="form-control  rounded-pill"
                                   // value={email}
-                                  onChange={(e) => setEmail(e.target.value)} 
-                                   required/>
+                                  onChange={(e) => setEmail(e.target.value)}
+                                  required />
                                 <div className="invalid-feedback text-center"
-                             id="email-feedback text-center">
-                             Email is required
-                          
-                        </div>
+                                  id="email-feedback text-center">
+                                  Email is required
+
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -72,7 +73,7 @@ window.location = '/home_freelancer'
 
 
                           <div>
-                            <input className="btn btn-success btn-block rounded-pill  w-100"  type="submit" value="Reset"/>
+                            <input className="btn btn-success btn-block rounded-pill  w-100" type="submit" value="Reset" />
                           </div>
 
                         </form>
@@ -85,11 +86,11 @@ window.location = '/home_freelancer'
           </section>
 
         </div>
-        <Footer/>
+        <Footer />
       </div>
 
     )
-                      }
   }
+}
 
 export default TypeEmail;
