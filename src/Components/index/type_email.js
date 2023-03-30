@@ -18,7 +18,7 @@ let TypeEmail = () => {
             window.location = '/please_activate/' + email
           } else {
             SetTypeError('alert alert-danger')
-            setMess('Email not coorect')
+            setMess('Email is not register')
           }
         }).catch((error) => console.log(error))
     }
