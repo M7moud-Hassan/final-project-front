@@ -99,7 +99,17 @@ class NavBar extends Component {
     }).then(res => {
       this.setState({ numMessage: res.data })
     })
-    window.addEventListener('beforeunload', function () {
+    window.addEventListener('beforeunload', ()=>{
+     this.state.socket4.send(JSON.stringify(
+        {
+            "type": "websocket.send",
+            "data": {
+                type: "websocket.send",
+                is_online:false,
+                uid:localStorage.getItem("uid"),
+                payload: "off"
+            }
+        }))
       if (localStorage.getItem("type") == "user") {
         axios.post('http://localhost:8000/chat/de_active_client/', {
           id: localStorage.getItem("uid")

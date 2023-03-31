@@ -124,19 +124,25 @@ class Cv_free extends Component {
                   <div className='col-md-6'>
                     <button type="button" class="btn btn-primary rounded-pill mx-1" onClick={
                       ()=>{
-                        const newSocket = new WebSocket("ws://127.0.0.1:8000/ws_client/user"+localStorage.getItem("uid")+"/");
-                        newSocket.onopen = () => {
-                        if(!this.state.is_chat){
-                          newSocket.send(JSON.stringify({
-                            "free": this.state.free,
-                            "client":localStorage.getItem("uid"),
-                            "message":'client open with you interview',
-                            "room":"free"+this.state.free
-                          }))
-                        }
+                        const newSocket = new WebSocket("ws://127.0.0.1:8000/ws_client/user" + localStorage.getItem("uid") + "/");
+                                            newSocket.onopen = () => {
+                                                if (!this.state.is_chat) {
+                                                    newSocket.send(JSON.stringify({
+                                                        "free": this.state.free,
+                                                        "client": localStorage.getItem("uid"),
+                                                        "message": 'client open with you interview',
+                                                        "room": "free" + this.state.free
+                                                    }))
+                                                   // window.location = "/chat/" + this.state.free
+
+                                                }
+                                                console.log(this.state.is_chat)
+                                                console.log(this.state.free);
+                                                window.location = "/chat/" + this.state.free
+                                              
                       };
                       
-                    window.location="/chat/"+this.state.free
+                    //window.location="/chat/"+this.state.free
                       }
                     }>
                       Chat
