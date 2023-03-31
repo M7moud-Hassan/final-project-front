@@ -23,6 +23,35 @@ class Chat extends Component {
     }
 
     componentDidMount() {
+        const newSocket3 = new WebSocket(localStorage.getItem("type") == "user" ? 'ws://127.0.0.1:8000/ws/notifications/' : 'ws://127.0.0.1:8000/ws/notificationsfree/');
+        newSocket3.onopen=()=>{
+            console.log("connect 3");
+        }
+        newSocket3.onmessage=(event)=>{
+            const message = JSON.parse(event.data);
+            var obj = JSON.parse(message.data.value);
+           
+            if(obj.uid){
+              
+                this.setState(prevState => {
+                    const { person } = prevState;
+                    
+                    person.forEach((element,ind)=> {
+                        if (element.id == obj.uid) {
+                          element.is_online=obj.is_online
+                        }
+                    });
+                  
+
+                    return { person };
+                },
+                    () => {
+
+                    })
+            }
+            
+        }
+
         var arr = window.location.href.split('/')
         const studentId = arr[arr.length - 1]
         if (!isNaN(studentId)) {
@@ -207,8 +236,16 @@ class Chat extends Component {
                                                                 this.getNumReads(ele.id)
                                                             }</span>) : (<div></div>)}
                                                         <div class="name">{localStorage.getItem("type") == "free" ? ele.fname + " " + ele.lname : ele.first_name + " " + ele.last_name} </div>
-                                                        {ele.is_online ? (<div class="status"> <i class="fa fa-circle online"></i> online </div>) : (<div class="status">
-                                                            <i class="fa fa-circle offline"></i>   offline</div>)}
+                                                        {ele.is_online ? (<div class="status"> <img  style={{
+                                                            margin:"5px",
+                                                            width:"10px",
+                                                            height:"10px"
+                                                        }} src="\images\online.jpg" alt="not found" /> online </div>) : (<div class="status">
+                                                        <img  style={{
+                                                             margin:"5px",
+                                                            width:"10px",
+                                                            height:"10px"
+                                                        }} src="\images\offline.png" alt="not found"/>   offline</div>)}
                                                     </div>
                                                 </li>
                                             );
@@ -225,7 +262,11 @@ class Chat extends Component {
                                                     </a>
                                                     <div class="chat-about">
                                                         <h6 class="m-b-0">{this.state.p_select ? (localStorage.getItem("type") == "free" ? this.state.p_select.fname + " " + this.state.p_select.lname : this.state.p_select.first_name + " " + this.state.p_select.last_name) : ""}</h6>
-                                                        {<div class="status"> <i class={"fa fa-circle online"}></i> online </div>}
+                                                        {<div class="status"> <img  style={{
+                                                            margin:"7px",
+                                                            width:"10px",
+                                                            height:"10px"
+                                                        }} src="\images\online.jpg" alt="not found" /> online </div>}
                                                     </div>
                                                 </div>
                                             ) : (
@@ -235,7 +276,11 @@ class Chat extends Component {
                                                     </a>
                                                     <div class="chat-about">
                                                         <h6 class="m-b-0">{this.state.p_select ? (localStorage.getItem("type") == "free" ? this.state.p_select.fname + " " + this.state.p_select.lname : this.state.p_select.first_name + " " + this.state.p_select.last_name) : ""}</h6>
-                                                        {<div class="status"> <i class="fa fa-circle offline"></i> offline</div>}
+                                                        {<div class="status"> <img  style={{
+                                                            margin:"7px",
+                                                            width:"10px",
+                                                            height:"10px"
+                                                        }} src="\images\offline.png" alt="not found" /> offline</div>}
                                                     </div>
                                                 </div>
                                             ) : (<div></div>)}

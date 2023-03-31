@@ -230,8 +230,12 @@ class AddDetails extends Component {
         'Content-Type': 'multipart/form-data'
       }
   });
+               if(localStorage.getItem("type")){
+                window.location='/'
+               }else{
                 localStorage.clear()
                 window.location='/login'
+               }
              /* .then((response) => {
                 localStorage.clear()
                 
@@ -607,9 +611,9 @@ class AddDetails extends Component {
          (event) => {
           event.preventDefault()
           if(!this.state.error_tag_to){
-           
+
             this.add_educations()
-          }
+         }
          }
        
      }novalidate>
@@ -638,7 +642,8 @@ class AddDetails extends Component {
                 <label htmlFor="from year">from year</label>
                 <input type="number" min="1990" max="2023" pattern='[0-9]{4}' onBlur={
                   (e)=>{
-                    if(e.target.value<1990&&e.target.value>2023){
+                   
+                    if(Number(e.target.value)<1990||Number(e.target.value)>2023){
                       this.setState({error_number:"not valid year",
                     error_tag:"is-invalid"})
                     

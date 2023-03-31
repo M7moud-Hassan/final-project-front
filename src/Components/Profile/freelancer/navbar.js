@@ -17,7 +17,8 @@ class NavBar extends Component {
       socket: null,
       down: false,
       isMenu: false,
-      numMessage: 0
+      numMessage: 0,
+      socket4:null,
 
     }
   }
@@ -123,7 +124,25 @@ class NavBar extends Component {
         this.setState({ error: error.message, loading: false });
       });
     const newSocket = new WebSocket(localStorage.getItem("type") == "user" ? 'ws://127.0.0.1:8000/ws/notifications/' : 'ws://127.0.0.1:8000/ws/notificationsfree/');
+    const newSocket4 = new WebSocket(localStorage.getItem("type") != "user" ? 'ws://127.0.0.1:8000/ws/notifications/' : 'ws://127.0.0.1:8000/ws/notificationsfree/');
+    newSocket4.onopen=()=>{
+      this.setState({socket4:newSocket4})
+      newSocket4.send(JSON.stringify(
+        {
+            "type": "websocket.send",
+            "data": {
+                type: "websocket.send",
+                is_online:true,
+                uid:localStorage.getItem("uid"),
+                payload: "off"
+            }
+        }))
+    }
+    newSocket4.onclose=()=>{
+      this.setState({socket4:null})
+    }
     newSocket.onopen = () => {
+      
       if (localStorage.getItem("type") == "user") {
         axios.post('http://localhost:8000/chat/active_client/', {
           id: localStorage.getItem("uid")
@@ -150,11 +169,12 @@ class NavBar extends Component {
 
             const message = JSON.parse(event.data);
             var obj = JSON.parse(message.data.value);
+            if(!obj.uid){
             if (obj.user_revoker == localStorage.getItem("uid")) {
               this.setState({ notifications: [...this.state.notifications, obj] })
             }
+          }
             //setReceivedMessage(message);
-
           };
           newSocket.onclose = () => {
             console.log('WebSocket closed');
@@ -436,15 +456,23 @@ class NavBar extends Component {
             <NavLink to={localStorage.getItem("type") == "user" ? ('/clientsettings') : ('/Freelancersettings')}><h5>Settings</h5></NavLink>
             <NavLink onClick={
               () => {
+                this.state.socket4.send(JSON.stringify(
+                  {
+                      "type": "websocket.send",
+                      "data": {
+                          type: "websocket.send",
+                          is_online:false,
+                          uid:localStorage.getItem("uid"),
+                          payload: "off"
+                      }
+                  }))
                 if (localStorage.getItem("type") == "user") {
                   axios.post('http://localhost:8000/chat/de_active_client/', {
                     id: localStorage.getItem("uid")
-                  }).then(res => {
-
                   }).then(res=>{
+                   
                     localStorage.clear()
                     window.location = "/login"
-                  
                    
                   })
                 } else {
