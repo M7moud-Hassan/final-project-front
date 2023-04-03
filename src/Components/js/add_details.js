@@ -66,7 +66,7 @@ document.getElementById("openEducat").addEventListener("click", function(event){
         var description=document.getElementById('description').value;
         if(title!=''&&company!=''&&location!=''&&start_date!=''&&end_date!=''&&description){
         logIn.style.display = "none";
-        cxcontent.innerHTML+='<div id="pExperinces" class=" col-3 card text-white bg-success mb-3 contentMa" style="max-width: 18rem;"><div class="card-header">'+title+'</div><div class="card-body"><h5 class="card-title">'+company+'</h5><p class="card-text">'+location+'</p><p class="card-text">description</p></div></div>';
+        cxcontent.innerHTML+='<div id="pExperinces" class=" col-3 card text-white bg-info mb-3 contentMa" style="max-width: 18rem;"><div class="card-header">'+title+'</div><div class="card-body"><h5 class="card-title">'+company+'</h5><p class="card-text">'+location+'</p><p class="card-text">description</p></div></div>';
         }
       });
     document.getElementById('addEducation').addEventListener('click',function(){
